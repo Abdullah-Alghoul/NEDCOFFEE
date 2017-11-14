@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- 
+		<record id="printout_invoice_report" model="ir.actions.report.xml">
+	        <field name="name">printout_invoice_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">account.invoice</field>
+	        <field name="report_name">printout_invoice_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_accounting/report/printout_invoice_report.py</field>
+	        <field name="report_rml">ned_accounting/report/printout_invoice_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="printout_invoice_report" 
+			model="account.invoice" 
+			name="printout_invoice_report"
+	        string="COMMERCIAL INVOICE"
+	        rml="ned_accounting/report/printout_invoice_report.ods"/>
+		 -->
+		 
+		<record id="printout_packing_list" model="ir.actions.report.xml">
+	        <field name="name">printout_packing_list</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">account.invoice</field>
+	        <field name="report_name">printout_packing_list</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_accounting/report/printout_invoice_report.py</field>
+	        <field name="report_rml">ned_accounting/report/printout_packing_list.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="printout_packing_list" 
+			model="account.invoice" 
+			name="printout_packing_list"
+	        string="Packing List"
+	        rml="ned_accounting/report/printout_packing_list.ods"/>
+	        
+	       
+	     <record id="report_partner_balance_confirmation" model="ir.actions.report.xml">
+	        <field name="name">report_partner_balance_confirmation</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="report_name">report_partner_balance_confirmation</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_accounting/report/partner_balance_confirmation.py</field>
+	        <field name="report_rml">ned_accounting/report/partner_balance_confirmation.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="report_partner_balance_confirmation" 
+			model="account.invoice" 
+			name="report_partner_balance_confirmation"
+	        string="Partner Confirmation"
+	        rml="ned_accounting/report/partner_balance_confirmation.odt"/>
+	    
+	    
+	    <record id="report_export_invoice" model="ir.actions.report.xml">
+	        <field name="name">report_export_invoice</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">account.invoice</field>
+	        <field name="report_name">report_export_invoice</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_accounting/report/export_invoice.py</field>
+	        <field name="report_rml">ned_accounting/report/export_invoice.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_export_invoice" 
+			model="account.invoice" 
+			name="report_export_invoice"
+	        string="Export Invoice"
+	        rml="ned_accounting/report/export_invoice.ods"/>
+	    
+	    
+	    
+	</data>
+</openerp>

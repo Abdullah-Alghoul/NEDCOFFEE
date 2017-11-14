@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	<!-- Modify Working Table -->
+		<record id="resource_calendar_form_general_modify" model="ir.ui.view">
+            <field name="name">resource_calendar_form_general_modify</field>
+            <field name="model">resource.calendar</field>
+            <field name="inherit_id" ref="resource.resource_calendar_form"></field>
+            <field name="arch" type="xml">
+            	<group position="replace">
+            		<group col="4">
+            			<field name="name"/>
+            			<field name="code"/>
+            			<field name="manager"/>
+            			<field name="break_hours" widget="float_time"/>
+            			<field name="unskilled_worker"/>
+            			<field name="company_id" groups="base.group_multi_company"/>
+            		</group>
+            	</group>
+            </field>
+        </record>
+        
+	<!-- Work Location -->
+       <record id="view_hr_work_location_form" model="ir.ui.view">
+            <field name="name">hr.work.location.form</field>
+            <field name="model">hr.work.location</field>
+            <field name="arch" type="xml">
+                <form string="Work Location">
+                    <group>
+                        <field name="name" required='1'/>
+                        <field name="state_id"/>
+                        <field name="manager_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_hr_work_location_tree" model="ir.ui.view">
+            <field name="name">hr.work.location.tree</field>
+            <field name="model">hr.work.location</field>
+            <field name="arch" type="xml">
+                <tree string="Work Location" editable='top'>
+                	<field name="state_id"/>
+                	<field name="name" required='1'/>
+                	<field name="manager_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_hr_work_location" model="ir.actions.act_window">
+            <field name="name">Work Location</field>
+            <field name="res_model">hr.work.location</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+        
+        <menuitem action="action_hr_work_location" 
+        	id="menu_action_hr_work_location"
+            parent="hr.menu_human_resources_configuration" 
+            sequence="0"/>
+
+
+        <!-- Area -->
+		<record id="view_tree_res_area" model="ir.ui.view">   
+	      <field name="name">Area</field>
+	      <field name="model">res.area</field>
+	      <field name="arch" type="xml">        
+	      	<tree>
+	      		<field name="state_id"/>
+	      		<field name="name"/>
+	      		<field name="district_ids"/>
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="view_form_res_area" model="ir.ui.view">
+	      	<field name="name">Area</field>
+	      	<field name="model">res.area</field>
+	      	<field name="arch" type="xml">
+	        	<form>
+	          		<sheet>
+	          			<group>
+	          				<field name="state_id"/>
+<!--	           				<field name="region_id"/> -->
+	          			</group>
+	          			<group>
+	          				<field name="name"/>
+	          			</group>
+	          			<group string="Districts">
+	          				<field name="district_ids" nolabel="1" context="{'state_id':state_id}"/>
+	          			</group>
+	    			</sheet>
+	    		</form>
+	    	</field>
+	    </record>
+
+	    <record id="action_res_area" model="ir.actions.act_window">
+            <field name="name">Area</field>
+            <field name="res_model">res.area</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+        </record>
+
+	    <menuitem id="menu_res_area"
+	      name="Area"
+	      parent="base.menu_localisation" 
+	      sequence="30" />
+	      	
+	    <menuitem id="menu_action_res_area"
+	      name="Area"
+	      parent="menu_res_area"
+	      sequence="20"
+	      action="action_res_area" />
+	   		
+	   	<!-- Area Define-->
+		<record id="view_tree_res_area_define" model="ir.ui.view">   
+	      <field name="name">Defeine Area</field>
+	      <field name="model">res.area.define</field>
+	      <field name="arch" type="xml">        
+	      	<tree editable="True">
+	      		<field name="name"/>
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="view_form_res_area_define" model="ir.ui.view">
+	      	<field name="name">Define Area</field>
+	      	<field name="model">res.area.define</field>
+	      	<field name="arch" type="xml">
+	        	<form>
+	          		<sheet>
+	          			<group>
+	          				<field name="name"/>
+	          			</group>
+	    			</sheet>
+	    		</form>
+	    	</field>
+	    </record>
+
+	    <record id="action_res_area_define" model="ir.actions.act_window">
+            <field name="name">Define Area</field>
+            <field name="res_model">res.area.define</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+        </record>
+        
+	    <menuitem id="menu_action_res_area_define"
+	      name="Define"
+	      parent="menu_res_area"
+	      sequence="20"
+	      action="action_res_area_define"/> 
+
+		<!-- Ward -->
+		<record id="view_tree_res_ward" model="ir.ui.view">   
+	      <field name="name">Ward</field>
+	      <field name="model">res.ward</field>
+	      <field name="arch" type="xml">        
+	      	<tree editable="1">
+	        	<field name="name"/>
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="view_form_res_ward" model="ir.ui.view">
+	    	<field name="name">Ward</field>
+	      	<field name="model">res.ward</field>
+	      	<field name="arch" type="xml">  
+	        	<form>
+          			<group>
+          				<field name="name"/>
+          			</group>
+	    		</form>
+	    	</field>
+	    </record>
+            	
+        <!-- Hr Employee Dependent -->
+        <record model="ir.ui.view" id="hr_employee_dependent_form">
+            <field name="name">hr.employee.dependent.form</field>
+            <field name="model">hr.employee.dependent</field>
+            <field name="arch" type="xml">
+                <form string="Hr Employee Dependent">
+                    <group col="4">
+                    	<field name="employee_id" invisible="1"/>
+                    	<field name="name"/>
+						<field name="gender"/>
+						<field name="identification_no"/>
+						<field name="identification_date_issue"/>
+						<field name="identification_place_issue"/>
+						<field name="relationship"/>
+						<field name="birthday"/>
+						<field name="age"/>
+						<field name="education"/>
+						<field name="employed"/>
+                    </group>
+                </form>
+    		</field>
+        </record>
+        
+        <record model="ir.ui.view" id="hr_employee_dependent_tree">
+            <field name="name">hr.employee.dependent.tree</field>
+            <field name="model">hr.employee.dependent</field>
+            <field name="arch" type="xml">
+                <tree string="Hr Employee Dependent" editable="bottom">
+                    <field name="employee_id" invisible="1"/>
+                   	<field name="name"/>
+					<field name="gender"/>
+					<field name="identification_no"/>
+					<field name="identification_date_issue"/>
+					<field name="identification_place_issue"/>
+					<field name="relationship"/>
+					<field name="birthday"/>
+					<field name="age"/>
+					<field name="mobile"/>
+					<field name="address"/>
+					<field name="education"/>
+					<field name="employed"/>
+					<field name="is_dependent" string="Is Dependant"/>
+                </tree>
+            </field>
+        </record> 	
+        
+        
+        <!-- Employee History -->
+        <record model="ir.ui.view" id="hr_employee_history_form">
+            <field name="name">hr.employee.history.form</field>
+            <field name="model">hr.employee.history</field>
+            <field name="arch" type="xml">
+                <form string="Employee History">
+                    <group col="4">
+                    	<field name="create_date"/>
+                       	<field name="user_id"/>
+                       	<field name="parent_id"/>
+                        <field name="department_id"/>
+                       	<field name="job_id"/>
+                       	<!-- <field name="effective_date"/> -->
+                       	<field name="worked_years"/>
+                    </group>
+                </form>
+    		</field>
+        </record>
+        
+        <record model="ir.ui.view" id="hr_employee_history_tree">
+            <field name="name">hr.employee.history.tree</field>
+            <field name="model">hr.employee.history</field>
+            <field name="arch" type="xml">
+                <tree string="Employee History" editable="bottom">
+                    <field name="create_date"/>
+                 	<field name="user_id"/>
+                  	<field name="company"/>
+                  	<field name="parent_id"/>
+                  	<field name="department_id"/>
+                  	<field name="job_id"/>
+                  	<!-- <field name="effective_date"/> -->
+                  	<field name="worked_years"/>
+                </tree>
+            </field>
+        </record> 	
+           
+        <!-- Employee -->
+		<record id="view_employee_filter_general_modify" model="ir.ui.view">
+            <field name="name">view.employee.filter.general.modify</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='name']" position="after">
+                	<field name="code"/>
+                	<field name="scanner_code"/>
+                	<field name="identification_id"/>
+                	<field name="passport_id"/>
+                	<field name="work_location_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+		<record id="view_employee_kanban_general_modify" model="ir.ui.view">
+            <field name="name">view.employee.kanban.general.modify</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='name']" position="before">
+                	 <field name="code"/> - 
+                </xpath>
+            </field>
+        </record>
+        
+		<record id="view_employee_tree_general_modify" model="ir.ui.view">
+            <field name="name">view.employee.tree.general.modify</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='name']" position="before">
+                	<field name="code"/>
+                	<field name="scanner_code"/>
+                </xpath>
+                <xpath expr="//field[@name='parent_id']" position="after">
+                	<field name="identification_id"/>
+                	<field name="passport_id" invisible='1'/>
+                </xpath>
+                <xpath expr="//field[@name='work_phone']" position="before">
+                	<field name="work_location_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+		<record id="view_employee_form_general_modify" model="ir.ui.view">
+            <field name="name">view.employee.form.general.modify</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//page[2]" position="replace">
+            		<page string="Personal Information" name="personal_information">
+                          <group>
+                              <group string="Citizenship &amp; Other Information">
+                                  <field name="country_id" options='{"no_open": True, "no_create": True}'/>
+                                  <field name="identification_id" groups="base.group_hr_user" required="1"/>
+                                  <field name="passport_id" groups="base.group_hr_user"/>
+                                  <field name="bank_account_id"/>
+                              </group>
+                              <group string="Contact Information">
+                                  <field name="address_home_id"
+                                      context="{'show_address': 1}"
+                                      options='{"always_reload": True, "highlight_first_line": True}'/>
+                              </group>
+                              <group string="Status">
+                                  <field name="gender"/>
+                                  <field name="marital"/>
+                              </group>
+                              <group string="Birth">
+                                  <field name="birthday"/>
+                              </group>
+                          </group>
+                      </page>
+            	</xpath>
+            	<xpath expr="//page[3]" position="replace">
+            		<page string="HR Settings" name="hr_setting">
+                        <group>
+                            <group string='Status' name="active_group">
+                                <field name="company_id" groups="base.group_multi_company" on_change="onchange_company(company_id)"/>
+                                <field name="user_id" on_change="onchange_user(name, image, user_id)" string="Related User"
+                                    context="{'default_groups_ref': ['base.group_user']}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="replace">
+                	<field name="department_id" options='{"no_open": True}' on_change="onchange_department_id(department_id)"/>
+                </xpath>
+                <xpath expr="//field[@name='address_id']" position="replace">
+                	<field name="address_id" on_change="onchange_address_id(address_id)"
+                          context="{'show_address': 1}"
+                          options='{"always_reload": True, "highlight_first_line": True}'
+                          domain="[('company_type','=','company')]"
+                          />
+                </xpath>
+            	<xpath expr="//field[@name='address_id']" position="before">
+                	<field name="code"/>
+                	<field name="scanner_code"/>
+                </xpath>
+                <xpath expr="//field[@name='address_id']" position="after">
+                	<field name="work_location_id" on_change="onchange_work_location_id(work_location_id)"/>
+                </xpath>
+                <xpath expr="//field[@name='job_id']" position="before">
+		    		<field name="area_id" context="{'area_hr': True, 'work_location_id':work_location_id}" invisible="1"/>
+		    	</xpath>
+                <xpath expr="//field[@name='work_location']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='identification_id']" position="after">
+                	<field name="identification_date_issue"/>
+                	<field name="identification_place_issue"/>
+                </xpath>
+                <xpath expr="//field[@name='gender']" position="before">
+                	<field name="degree_id"/>
+                </xpath>
+                <xpath expr="//field[@name='birthday']" position="after">
+                	<field name="age"/>
+                </xpath>
+                <xpath expr="//field[@name='bank_account_id']" position="after">
+                	<field name="tin" placeholder="e.g. BE0477472701"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="replace">
+                	<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                </xpath>
+                
+               	<xpath expr="//page[3]" position="before">
+               		<page string="Family" name="family" groups = "base.group_hr_user">
+               			<group>
+               				<field name="dependant_of_taxpayer"/>
+               			</group>
+	                	<field name="employee_dependents" context="{'default_employee_id': active_id}">
+	                		<tree string='Family' editable='top'>
+	                			<field name="employee_id" invisible="1"/>
+			                   	<field name="name"/>
+								<field name="gender"/>
+								<field name="relationship"/>
+								<field name="birthday"/>
+								<field name="age"/>
+								<field name="education"/>
+								<field name="employed"/>
+								<field name="is_dependent"/>
+	                		</tree>
+	                	</field>
+                	</page>
+                	<page string="History" name="page_history">
+                    	<field name="employee_history" context="{'default_employee_id': active_id}"> 
+                        	<tree string='Histories' editable="bottom">
+                        		<field name="create_date"/>
+                            	<field name="user_id"/>
+                             	<field name="parent_id"/>
+	                            <field name="department_id"/>
+                             	<field name="job_id"/>
+                             	<!-- <field name="effective_date"/> -->
+                             	<field name="worked_years"/>
+                        	</tree>
+                        </field>
+                    </page>
+               	</xpath>
+               	
+               	<xpath expr="//notebook/page[@name='public']/group" position="inside">
+                    <group string="Join Date">
+                    	<field name="joining_date"/>
+                    	<field name="official_joining_date"/>
+                        <field name="worked_years"/>
+                    </group>
+                </xpath>
+               	<xpath expr="//field[@name='identification_id']" position="before">
+               		<field name="religion"/>
+               		<field name="nation"/>
+               	</xpath>
+                <xpath expr="//field[@name='address_home_id']" position="before">
+                	<!--<field name="home_address_id" context="{'default_name': name, 'default_ref': code, 'default_mobile': mobile_phone, 'default_email': work_email, 'default_phone': work_phone}"/>-->
+                	<field name="mobile" />
+                    <field name="email" widget="email" />
+                    <field name="phone" />
+            		<label for="temporary_street" string="Temporary Residence"/>
+            		<div class="o_address_format">
+                        <field name="temporary_street" placeholder="Street..." class="o_address_street"/>
+                        <field name="temporary_ward_id" placeholder="Ward..." class="o_address_city"/>
+                        <field name="temporary_district_id" placeholder="District..." class="o_address_city"
+                        	on_change="onchange_temporary_district_id(temporary_district_id)"/>
+                        <field name="temporary_city" placeholder="City" class="o_address_city"/>
+                        <field name="temporary_state_id" class="o_address_state" placeholder="State" 
+                        	options='{"no_open": True}' on_change="onchange_temporary_state_id(temporary_state_id)"/>
+                        <field name="temporary_country_id" on_change="onchange_temporary_country_id(temporary_country_id)" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+                    </div>
+                    <label for="permanent_street" string="Permanent Residence"/>
+                    <div class="o_address_format">
+                        <field name="permanent_street" placeholder="Street..." class="o_address_street"/>
+                        <field name="permanent_ward_id" placeholder="Ward..." class="o_address_city"/>
+                        <field name="permanent_district_id" placeholder="District..." class="o_address_city"
+                        	on_change="onchange_permanent_district_id(permanent_district_id)"/>
+                        <field name="permanent_city" placeholder="City" class="o_address_city"/>
+                        <field name="permanent_state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" 
+                        	on_change="onchange_permanent_state_id(permanent_state_id)" context="{'permanent_country_id': country_id}"/>
+                        <field name="permanent_country_id" on_change="onchange_permanent_country_id(permanent_country_id)" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" />
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='age']" position="after">
+                	<label for="name" string="Place of Birth"/>
+                	<div class="o_address_format" >
+                		<field name="place_birth_ward_id" placeholder="Ward" class="o_address_city" context="{'district_id': place_birth_district_id}" />
+                        <field name="place_birth_district_id" class="o_address_state" placeholder="District" context="{'state_id': place_birth_state_id}" 
+                        	on_change="onchange_place_birth_district_id(place_birth_district_id)"/>
+                        <field name="place_birth_state_id" placeholder="State" class="o_address_zip" on_change="onchange_place_birth_state_id(place_birth_state_id)"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        
+		<record id="view_form_hr_home_address" model="ir.ui.view">
+	      	<field name="name">view.form.hr.home.address</field>
+	      	<field name="model">hr.home.address</field>
+	      	<field name="arch" type="xml">
+	        	<form string="Home Address">
+        			<sheet>
+        				<h1>
+							<field name="name" required="1"/>
+						</h1>
+						<group>
+							<group>
+								<field name="ref"/>
+								<label for="street" string="Address"/>
+	                            <div class="o_address_format">
+	                                <field name="street" placeholder="Street..." class="o_address_street" />
+	                                <field name="street2" placeholder="Street 2..." class="o_address_street" />
+	                                <field name="city" placeholder="City" class="o_address_city" />
+	                                <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" on_change="onchange_state(state_id)" context="{'country_id': country_id, 'zip': zip}"/>
+	                                <field name="zip" placeholder="ZIP" class="o_address_zip" />
+	                                <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" />
+	                            </div>
+							</group>
+							<group>
+								<field name="email"/>
+								<field name="phone"/>
+								<field name="fax"/>
+								<field name="mobile"/>
+							</group>
+						</group>
+        			</sheet>
+        		</form>
+	    	</field>
+	    </record>
+	    
+	    <!-- Region -->
+		<record id="view_tree_res_region" model="ir.ui.view">   
+	      <field name="name">Region</field>
+	      <field name="model">res.region</field>
+	      <field name="arch" type="xml">        
+	      	<tree>
+	        	<field name="name"/>
+	        	<field name="state_ids" widget="many2many_tags"/>   
+	        </tree>
+	      </field>
+	    </record>
+
+	    <record id="view_form_res_region" model="ir.ui.view">
+	      	<field name="name">Region</field>
+	      	<field name="model">res.region</field>
+	      	<field name="arch" type="xml">
+	        	<form>
+	          		<sheet>
+	          			<group>
+	          				<field name="name"/>
+	          			</group>
+	          			<newline/>
+	          			<group>
+	          				<field name="state_ids" nolabel="1" context="{'state_country': True}">
+	          					<tree>
+	          						<field name="name"/>
+	          					</tree>
+	          				</field>
+	          			</group>
+	    			</sheet>
+	    		</form>
+	    	</field>
+	    </record>
+
+	    <record id="action_res_region" model="ir.actions.act_window">
+            <field name="name">Region</field>
+            <field name="res_model">res.region</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+        </record>
+        
+        <menuitem id="menu_res_region"
+	      name="Region"
+	      parent="base.menu_localisation"
+	      sequence="20"
+	      action="action_res_region"/>
+	      
+    <!-- Tree Res District -->
+		<record id="view_tree_res_district" model="ir.ui.view">   
+	      <field name="name">District</field>
+	      <field name="model">res.district</field>
+	      <field name="arch" type="xml">        
+	      	<tree>
+	        	<field name="name"/>
+	        </tree>
+	      </field>
+	    </record>
+	    <!-- END Tree Res District -->
+	    <!-- Form Res District -->
+	    <record id="view_form_res_district" model="ir.ui.view">
+	    	<field name="name">District</field>
+	      	<field name="model">res.district</field>
+	      	<field name="arch" type="xml">  
+	        	<form>
+	        		<group>
+	        			<field name="name"/>
+	        		</group>
+      				<group string="Wards">
+      					<field name="ward_ids" nolabel="1" context="{'default_district_id':active_id}"/>
+      				</group>
+	    		</form>
+	    	</field>
+	    </record>
+	 <!-- END Form Res District -->
+	 
+	     <!-- Employee Insurances -->
+       <record id="view_employee_insurances_form" model="ir.ui.view">
+            <field name="name">hr.employee.insurances.form</field>
+            <field name="model">hr.employee.insurances</field>
+            <field name="arch" type="xml">
+                <form string="Insurances Tags">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="view_employee_insurances_list" model="ir.ui.view">
+            <field name="name">hr.employee.insurances.list</field>
+            <field name="model">hr.employee.insurances</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Insurance Tags" editable="1">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="open_view_insurances_form" model="ir.actions.act_window">
+            <field name="name">Insurances Books</field>
+            <field name="res_model">hr.employee.insurances</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="open_view_insurances_form" id="menu_view_employee_insurances_form"
+            parent="hr.menu_human_resources_configuration" sequence="8" groups="base.group_no_one"/>
+            
+    </data>
+</openerp>
+
+

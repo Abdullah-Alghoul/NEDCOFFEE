@@ -1,0 +1,39 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_reversal
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: account-financial-tools (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-07-01 13:25+0000\n"
+"PO-Revision-Date: 2015-06-03 15:55+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Vietnamese (http://www.transifex.com/oca/OCA-account-financial-tools-8-0/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: account_reversal
+#: model:ir.ui.view,arch_db:account_reversal.view_account_move_reversal_filter
+#: model:ir.model.fields,field_description:account_reversal.field_account_move_to_be_reversed
+msgid "To Be Reversed"
+msgstr "Bút toán cần đảo"
+
+#. module: account_reversal
+#: model:ir.model.fields,field_description:account_reversal.field_account_move_date_reversed
+msgid "Date Reversed"
+msgstr "Ngày đảo bút toán"
+
+#. module: account_reversal
+#: model:ir.model.fields,field_description:account_reversal.field_account_move_reversal_id
+msgid "Reversal Entry"
+msgstr "Bút toán đảo"
+
+#. module: account_reversal
+#: model:ir.ui.view,arch_db:account_reversal.view_move_reversal_form
+msgid "Reverse Entry"
+msgstr "Đảo bút toán"

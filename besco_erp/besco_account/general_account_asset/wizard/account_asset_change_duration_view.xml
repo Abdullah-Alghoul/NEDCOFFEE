@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+		<record model="ir.ui.view" id="asset_modify_form_general_modify">
+	        <field name="name">asset_modify_form_general_modify</field>
+	        <field name="model">asset.modify</field>
+	        <field name="inherit_id" ref="account_asset.asset_modify_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='method_number']" position="before">
+                	<field name="value"/>
+             	</xpath>
+           		<xpath expr="//field[@name='method_number']" position="after">
+                	<field name="account_analytic_id"/>
+             	</xpath>
+	        </field>
+	    </record>
+	            
+    </data>
+</openerp>

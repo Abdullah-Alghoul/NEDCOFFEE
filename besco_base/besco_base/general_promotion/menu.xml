@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<menuitem name="Master Promotion" 
+            id="menu_master_promotion" 
+            parent="general_base.menu_master_data"
+            sequence="9"
+            groups="group_promotion_manager"/>
+            
+			<menuitem id="menu_action_sale_promotion"  
+				parent="menu_master_promotion" 
+				action="action_sale_promotion" 
+				sequence="5"/>
+			
+    </data>
+</openerp>

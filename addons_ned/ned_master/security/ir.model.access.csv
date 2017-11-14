@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ned_crop_user,ned_crop_user,model_ned_crop,base.group_user,1,0,0,0
+ned_crop_purchase_user,ned_crop_user,model_ned_crop,bes_purchase_contract.group_purchase_contract_user,1,1,1,0
+
+ned_certificate_sale_user,ned_certificate_sale_user,model_ned_certificate,bes_sale_contract.group_sales_contract_user,1,1,1,0
+ned_certificate_purchase_user,ned_certificate_purchase_user,model_ned_certificate,bes_purchase_contract.group_purchase_contract_user,1,1,1,0
+
+ned_packing_sale_user,ned_packing_sale_user,model_ned_packing,bes_sale_contract.group_sales_contract_user,1,1,1,0
+ned_packing_purchase_user,ned_packing_purchase_user,model_ned_packing,bes_purchase_contract.group_purchase_contract_user,1,1,1,0
+
+ned_fumigation_sale_user,ned_fumigation_sale_user,model_ned_fumigation,bes_sale_contract.group_sales_contract_user,1,1,1,0
+ned_fumigation_purchase_user,ned_fumigation_purchase_user,model_ned_fumigation,bes_purchase_contract.group_purchase_contract_user,1,1,1,0
+ned_shipping_line_sale_user,ned_shipping_line_sale_user,model_shipping_line,bes_sale_contract.group_sales_contract_user,1,1,1,1
+
+
+

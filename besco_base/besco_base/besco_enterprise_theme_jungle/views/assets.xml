@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2016 LasLabs Inc.
+    @author Dave Lasley <dave@laslabs.com>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+
+
+<odoo>
+	<data>
+    <template id="assets_backend" name="Open Mobile Assets" inherit_id="web.assets_backend">
+        <xpath expr=".">
+        		<script type="text/javascript" src="/besco_enterprise_theme_jungle/static/src/js/web_action_close_wizard_view_reload.js"></script>
+        		<!-- <script type="text/javascript" src="/besco_enterprise_theme_jungle/static/src/js/dynamic_kanbanview.js"> </script> -->
+				<link rel="stylesheet" href="/besco_enterprise_theme_jungle/static/src/less/bootswatch/variables.less"/>
+				<link rel="stylesheet" href="/besco_enterprise_theme_jungle/static/src/less/bootswatch/bootswatch.less"/>
+				<link rel="stylesheet" href="/besco_enterprise_theme_jungle/static/src/less/bootswatch/style.less"/>
+				<script type="text/javascript" src="/besco_enterprise_theme_jungle/static/src/js/web_improve_one2many_field.js"></script>
+            	<link rel="stylesheet" href="/besco_enterprise_theme_jungle/static/src/css/web_improve_one2many_field.css"/>
+            <link rel="stylesheet"
+                  type="text/css"
+                  href="/besco_enterprise_theme_jungle/static/lib/css/drawer.3.2.0.css"
+                  />
+				    <link rel="stylesheet"
+                  type="text/css"
+                  href="/besco_enterprise_theme_jungle/static/src/css/artaradThem.css"
+                  />
+            <link rel="stylesheet"
+                  href="/besco_enterprise_theme_jungle/static/src/less/main.less"
+                  />
+            <link rel="stylesheet"
+                  href="/besco_enterprise_theme_jungle/static/src/less/navbar.less"
+                  />
+            <link rel="stylesheet"
+                  href="/besco_enterprise_theme_jungle/static/src/less/app_drawer.less"
+                  />
+            <link rel="stylesheet"
+                  href="/besco_enterprise_theme_jungle/static/src/less/variables.less"
+                  />
+            <script type="application/javascript"
+                    src="/besco_enterprise_theme_jungle/static/lib/js/iscroll-probe.5.2.0.js"
+                    />
+            <script type="application/javascript"
+                    src="/besco_enterprise_theme_jungle/static/lib/js/drawer.3.2.0.js"
+                    />
+            <script type="application/javascript"
+                    src="/besco_enterprise_theme_jungle/static/src/js/web_responsive.js"
+                    />
+        </xpath>
+    </template>
+    <template id="display_backend_button" inherit_id="website.assets_frontend">
+        <xpath expr="link[last()]" position="after">
+        	<link rel="stylesheet" type="text/css" href="/besco_enterprise_theme_jungle/static/src/css/theme_responsive.css" />
+        </xpath>
+    </template>
+	</data>
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!--  VAT IN -->
+			<record id="report_vat_in" model="ir.actions.report.xml">
+		        <field name="name">report_vat_in</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">print.tax.statement</field>
+		        <field name="report_name">report_vat_in</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">besco_vas_tax_report/report/bangkemuavao.py</field>
+		        <field name="report_rml">besco_vas_tax_report/report/bangkemuavao.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="False" 
+				menu="False"
+				id="report_vat_in" 
+				model="print.tax.statement" 
+				name="report_vat_in"
+		        string="VAT IN"
+		        rml="besco_vas_tax_report/report/bangkemuavao.ods"/>
+	    
+	    <!--  VAT OUT -->
+			<record id="report_vat_out" model="ir.actions.report.xml">
+		        <field name="name">report_vat_out</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">print.tax.statement</field>
+		        <field name="report_name">report_vat_out</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">besco_vas_tax_report/report/bangkebanra.py</field>
+		        <field name="report_rml">besco_vas_tax_report/report/bangkebanra.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="False" 
+				menu="False"
+				id="report_vat_out"
+				model="print.tax.statement" 
+				name="report_vat_out"
+		        string="VAT OUT"
+		        rml="besco_vas_tax_report/report/bangkebanra.ods"/> 
+       
+       <!--  Taxes Summary -->
+			<record id="report_tax_summary" model="ir.actions.report.xml">
+		        <field name="name">report_tax_summary</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">print.tax.statement</field>
+		        <field name="report_name">report_tax_summary</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">besco_vas_tax_report/report/tax_summary.py</field>
+		        <field name="report_rml">besco_vas_tax_report/report/01_GTGT_2016.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="False" 
+				menu="False"
+				id="report_tax_summary" 
+				model="print.tax.statement" 
+				name="report_tax_summary"
+		        string="Taxes Summary"
+		        rml="besco_vas_tax_report/report/01_GTGT_2016.ods"/> 
+	</data>
+</openerp>

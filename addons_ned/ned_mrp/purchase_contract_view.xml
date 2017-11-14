@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	
+    	<record id="view_nvp_consignment_contract_tree" model="ir.ui.view">
+            <field name="name">view.nvp.consignment.contract.tree</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Contract List"  decoration-info="state == 'draft'" decoration-muted="state in ('cancel','done')" decoration-danger="state in ('approved','validate')">
+                    <field name="name" string="NVP"/>
+                    <field name="origin" invisible="1"/>
+                    <field name="date_order"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="total_qty" sum="total_qty" string="Quantity"/>
+                    <field name="relation_price_unit"/>
+                    <field name="amount_sub_total" sum="amount_sub_total" string="Total Value"/>
+                    <field name="state" string="State"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_nvp_consignment_contract_form" model="ir.ui.view">
+            <field name="name">view.nvp.consignment.contract.form</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <form string="Contract">
+	                <header>
+	                	<button name="btt_consignment_allocation" string="Alllocation" type="object" groups="account.group_account_user"/>
+	                	<button name="entries_adjus" string="Entries" type="object" groups="account.group_account_user"/>
+	                	<field name="state" invisible="1"/>
+	                </header>
+	                <sheet>
+	                    <div class="oe_title">
+	                        <h1>
+	                            <field name="name"/>
+	                        </h1>
+	                    </div>
+                    	<group col="4">
+                    		<field name="partner_id" readonly="1"/>
+                    		<field name="date_order"/>
+                    		<field name="total_qty" sum="total_qty" string="Quantity"/>
+                   			<field name="remain_consignment_qty" sum="remain_consignment_qty" string="Remain Qty"/>
+                   			<field name="origin"/>
+                   			<field name="price_unit"/>
+                   			<field name="currency_id" invisible="1"/>
+           					<field name="exchange_rate" invisible="1"/> 
+           					<field name="warehouse_id" invisible="1"/>
+           					<field name="deadline_date" invisible="1"/>
+                    	</group>
+                    	<field name="nvl_consignment_ids" readonly="1">
+                    		<tree editable="top">
+                    			<field name="consignment_id"/>
+                    			<field name="product_id"/>
+                    			<field name="product_uom"/>
+                    			<field name="qty_consignment" sum="qty_consignment"/>
+                    			<field name="price_unit" string="Price Unit"/>
+                    			<field name="qty_allocation"/>
+                    			<field name="remain_qty" sum="remain_qty"/>
+                    			<field name="second_currency_id" invisible="1"/>
+                    		</tree>
+                    		<form>
+                    			<sheet>
+                    				<group col="4">
+                    					<field name="consignment_id"/>
+                    					<field name="contract_id"/>
+                    					<field name="product_id"/>
+                    					<field name="product_uom"/>
+                    					<field name="price_unit"/>
+                    					<field name="qty_allocation"/>
+                    				</group>
+                    				<field name="move_ids"/>
+                    			</sheet>
+                    		</form>
+                    	</field>
+                    	
+                    	
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_view_nvp_consignment_contract" model="ir.actions.act_window">
+            <field name="name">NVP Consignment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','purchase'),('state','not in',('done','draft')),('qty_received','!=',0)]</field>
+            <field name="context">{'default_type':'purchase'}</field>
+            <field name="search_view_id" ref="bes_purchase_contract.purchase_contract_search"/>
+            <field name="priority">100</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a purchase contract, the first step of a new contract.
+              </p>
+            </field>
+        </record>
+        
+        
+        <record id="action_view_nvp_consignment_contract_tree" model="ir.actions.act_window.view">
+            <field eval="100" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_nvp_consignment_contract_tree"/>
+            <field name="act_window_id" ref="action_view_nvp_consignment_contract"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_view_nvp_consignment_contract_form">
+            <field name="sequence" eval="200"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_nvp_consignment_contract_form"/>
+            <field name="act_window_id" ref="action_view_nvp_consignment_contract"/>
+        </record>
+   		
+   		<!-- 
+    	<menuitem id="menu_action_view_nvp_consignment_contract" 
+    		action="action_view_nvp_consignment_contract" sequence="600" 
+        	parent="bes_purchase_contract.menu_purchase_contract"
+        	groups="bes_purchase_contract.group_purchase_contract_user"/>
+        	
+        -->
+        	
+        	
+        	
+    	<record id="view_consignment_goods_to_processing_filter" model="ir.ui.view">
+            <field name="name">consignment.goods.to.processing.filter</field>
+            <field name="model">consignment.goods.to.processing</field>
+            <field name="arch" type="xml">
+                <search string="Search Consignment">
+                    <field name="request_user_id" />
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="approve" string="Approved" domain="[('state','=','approved')]"/>
+                    <filter name="done" string="Done" domain="[('state','=','done')]"/>
+                    <group expand="0" string="Group By...">
+                    	<filter string="State" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+    	<record id="view_consignment_goods_to_processing_tree" model="ir.ui.view">
+            <field name="name">consignment.goods.to.processing.tree</field>
+            <field name="model">consignment.goods.to.processing</field>
+            <field name="arch" type="xml">
+                <tree string="Consignment Goods To Processing" >
+    				<field name="name"/>
+    				<field name="date"/>
+    				<field name="product_id"/>
+    				<field name="total_qty" sum="total_qty"/>
+    				<field name="request_user_id"/>
+    				<field name="approved_user_id"/>
+    			</tree>
+            </field>
+        </record>
+        
+        <record id="view_consignment_goods_to_processing_form" model="ir.ui.view">
+            <field name="name">consignment.goods.to.processing.form</field>
+            <field name="model">consignment.goods.to.processing</field>
+            <field name="arch" type="xml">
+                <form string="Consignment Goods To Processing">
+                	<header>
+                		<button name="btt_approved" string="Approved" type="object" states="draft"/>
+                		<button name="btt_cancel" string="Cancel" type ="object" states="approved"/>
+                		<field name="state"  widget="statusbar" statusbar_visible="draft,approved,done,cancel"/>
+                		
+                	</header>
+	                <sheet>
+	                	 <div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="1"/>
+	                        </h1>
+	                    </div>
+	                	<group col="4">
+	                		<field name="date"/>
+	                		<field name="request_user_id"/>
+                            <field name="approved_user_id"/>
+                            <field name="approved_date"/>
+                            <field name="request_material_id"/>
+	                	</group>
+	               			<field name="processing_line">
+		                		<tree editable="top">
+		                			<field name="product_id"/>
+		                			<field name="product_uom"/>
+		                			<field name="product_qty" sum="product_qty"/>
+		                			<field name="price_unit"/>
+		                			<field name="second_currency_id" invisible="1"/>
+		                		</tree>
+		                	</field>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_consignment_goods_to_processings" model="ir.actions.act_window">
+            <field name="name">Goods to Processing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">consignment.goods.to.processing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_consignment_goods_to_processing_filter"/>
+        </record>
+        <!-- 
+        <menuitem id="menu_action_consignment_goods_to_processings" 
+         	action="action_consignment_goods_to_processings" 
+         	sequence="500" 
+        	parent="bes_purchase_contract.menu_purchase_contract"/>
+        -->
+        
+    </data>
+</openerp>

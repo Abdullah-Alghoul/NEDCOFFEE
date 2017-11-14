@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<menuitem name="Master Sale" 
+            id="menu_master_sale" 
+            parent="general_base.menu_master_data"
+            sequence="40"/>
+        
+    </data>
+</openerp>

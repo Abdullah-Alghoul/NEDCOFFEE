@@ -1,0 +1,36 @@
+<openerp>
+	<data>
+		<record id="view_action_wizard_children_holiday" model="ir.ui.view">
+	      <field name="name">Summary Children Holiday</field>
+	      <field name="model">wizard.children.holiday</field>
+	      <field name="arch" type="xml">
+	        <form>
+        		<group>
+		        	<field name="date"/>
+		        	<field name="company_price"/>
+		        	<field name="union_price"/>
+				</group>	                
+                <newline />
+                <separator colspan="4"/>
+                <footer>
+	                <button special="cancel"  string="Cancel" icon='gtk-cancel'/>
+	                <button name="print_report" string="Print" type="object" icon="gtk-print"/>
+                </footer>
+    		</form>
+	      </field>
+	    </record>
+	    
+		<record id="action_wizard_children_holiday" model="ir.actions.act_window">
+	        <field name="name">Children Holiday</field>
+	        <field name="res_model">wizard.children.holiday</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field eval="False" name="view_id"/>
+			<field name="target">new</field>	        
+	    </record>
+	   
+	    <menuitem action="action_wizard_children_holiday" id="menu_action_wizard_children_holiday" 
+		    parent="menu_report_hr" sequence="205" groups="base.group_hr_user"/>
+	    
+	</data>
+</openerp>

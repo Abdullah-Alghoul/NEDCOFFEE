@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		
+		<!-- THANH: add currency_type into tree view -->
+			<record id="view_currency_tree_general_inherit" model="ir.ui.view">
+	            <field name="name">view_currency_tree_general_inherit</field>
+	            <field name="model">res.currency</field>
+	            <field name="inherit_id" ref="base.view_currency_tree"/>
+	            <field name="arch" type="xml">
+	                <xpath expr="//field[@name='rate']" position="after">
+	            		<field name="currency_type"/>
+	            	</xpath>
+	            </field>
+	    	</record>
+    	
+		<record id="view_currency_add_rate_form" model="ir.ui.view">
+            <field name="name">res.currency.add.rate.form</field>
+            <field name="model">res.currency</field>
+            <field name="arch" type="xml">
+                <form string="Currency">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="rate"/>
+                            <field name="currency_type"/>
+                            <field name="active"/>
+                        </group>
+
+                        <group groups="base.group_no_one">
+                            <group string="Price Accuracy">
+                                <field name="rounding"/>
+                                <field name="decimal_places"/>
+                            </group>
+
+                            <group string="Display">
+                                <field name="symbol"/>
+                                <field name="position"/>
+                            </group>
+                        </group>
+                        <group string="Rates">
+                        	<field name="rate_ids" nolabel="1">
+                        		<tree editable="top">
+                        			<field name="currency_id" invisible="1"/>
+                        			<field name="name"/>
+                        			<field name="rate"/>
+                        			<field name="company_id" invisible="0"/>
+                        		</tree>
+                        	</field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+       
+      </data>
+</openerp>
+    

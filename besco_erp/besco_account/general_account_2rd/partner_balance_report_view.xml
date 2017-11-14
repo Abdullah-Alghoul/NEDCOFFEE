@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<!-- THANH: Add Dr va Cr 2nd -->
+			<record id="view_report_partner_balance_form_2nd_inherit" model="ir.ui.view">
+            <field name="name">view_report_partner_balance_form_2nd_inherit</field>
+            <field name="model">report.partner.balance</field>
+            <field name="inherit_id" ref="general_aged_partner_balance.view_report_partner_balance_form"/>
+            <field name="arch" type="xml">
+            
+            	<xpath expr="//page[@name='general_balances']" position="after">
+	            	<page string="General Balances (2nd Currency)" name="general_balances_2nd">
+		            	<group>
+		            		<field name="second_balance_lines" nolabel="1">
+		            			<tree limit="300">
+			            			<field name="partner_id"/>
+			            			<field name="account_code"/>
+			            			<field name="begin_dr_2nd" sum="begin_dr"/>
+			            			<field name="begin_cr_2nd" sum="begin_cr"/>
+			            			<field name="period_dr_2nd" sum="period_dr"/>
+			            			<field name="period_cr_2nd" sum="period_cr"/>
+			            			<field name="end_dr_2nd" sum="end_dr"/>
+		            				<field name="end_cr_2nd" sum="end_cr"/>
+		            				<field name="second_currency_id" invisible='1'/>
+		            			</tree>
+		            		</field>
+		            	</group>
+		        	</page>
+	        	</xpath>
+				            
+            	<xpath expr="//field[@name='ledger_detail_lines']/tree/field[@name='credit']" position="after">
+		            <field name="debit_second" string="2nd Dr"/>
+           			<field name="credit_second" string="2nd Cr"/>
+           			<field name="second_ex_rate" string="2nd Rate"/>
+           			<field name="second_currency_id" invisible="1"/>
+		        </xpath>
+			</field>
+			</record>
+			        
+    </data>
+</openerp>

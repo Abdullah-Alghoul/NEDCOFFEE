@@ -1,0 +1,64 @@
+.o_calendar_color_26 {
+    color: #0D0D0D !important;
+    background-color: rgb(244, 67, 54) !important;
+    border-color: rgb(244, 67, 54) !important;
+    opacity: 0.7 !important;
+}
+
+.o_calendar_color_27 {
+    color: #0D0D0D !important;
+    background-color: rgb(255, 235, 59) !important;
+    border-color: rgb(255, 235, 59) !important;
+    opacity: 0.7 !important;
+}
+
+.o_calendar_color_28 {
+    color: #0D0D0D !important;
+    background-color: #c0caff !important;
+    border-color: #c0caff !important;
+    opacity: 0.7 !important;
+}
+
+.o_calendar_color_29 {
+    color: #0D0D0D !important;
+    background-color: rgb(255, 255, 255) !important;
+    border-color: rgb(255, 255, 255) !important;
+    opacity: 0.7 !important;
+}
+
+.o_calendar_color_30 {
+    color: #0D0D0D !important;
+    background-color: rgb(255, 152, 0) !important;
+    border-color: rgb(255, 152, 0) !important;
+    opacity: 0.7 !important;
+}
+
+.fc-sun {
+    color: rgb(244, 67, 54);
+    background-color: rgb(240, 238, 238);
+}
+
+.fc-sat {
+    color: rgb(244, 67, 54);
+    background-color: rgb(240, 238, 238);
+}
+
+.o_calendar_container .o_underline_color_26 {
+	border-bottom: 4px solid rgb(244, 67, 54) !important;
+}
+
+.o_calendar_container .o_underline_color_27 {
+	border-bottom: 4px solid rgb(255, 235, 59) !important;
+}
+
+.o_calendar_container .o_underline_color_28 {
+	border-bottom: 4px solid #c0caff !important;
+}
+
+.o_calendar_container .o_underline_color_29 {
+	border-bottom: 4px solid rgb(255, 255, 255) !important;
+}
+
+.o_calendar_container .o_underline_color_30 {
+    border-bottom: 4px solid rgb(255, 152, 0) !important;
+}

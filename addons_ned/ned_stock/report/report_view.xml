@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+<!--  ========================= Advance Payment Report ================= -->
+
+		<record id="report_stack" model="ir.actions.report.xml">
+	        <field name="name">report.stack</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.stack</field>
+	        <field name="report_name">Stack</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_stock/report/report_stack.py</field>
+	        <field name="report_rml">ned_stock/report/report_stack.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="report_stack" 
+			model="stock.stack" 
+			name="report_stack"
+	        string="Stack"
+	        rml="ned_stock/report/report_stack.ods"/>
+	
+	
+		<record id="report_materials_request_warehouse" model="ir.actions.report.xml">
+	        <field name="name">report_materials_request_warehouse.ods</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">request.materials</field>
+	        <field name="report_name">Request</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_stock/report/report_warehouse.py</field>
+	        <field name="report_rml">ned_stock/report/Materials Request.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_materials_request_warehouse" 
+			model="request.materials" 
+			name="report_materials_request_warehouse"
+	        string="Request"
+	        rml="ned_stock/report/Materials Request.ods"/>
+	
+		
+		
+		<record id="report_grn" model="ir.actions.report.xml">
+	        <field name="name">report_grn</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">grn</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_stock/report/report_warehouse.py</field>
+	        <field name="report_rml">ned_stock/report/report_grn.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_grn" 
+			model="stock.picking" 
+			name="GRN"
+	        string="GRN"
+	        rml="ned_stock/report/report_grn.odt"/>
+	    
+	    
+	    <record id="report_grp" model="ir.actions.report.xml">
+	        <field name="name">report_grp</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">grp</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_stock/report/report_warehouse.py</field>
+	        <field name="report_rml">ned_stock/report/report_grp.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_grp" 
+			model="stock.picking" 
+			name="GRP"
+	        string="GRP"
+	        rml="ned_stock/report/report_grp.odt"/>
+	    
+	    
+	    
+	    <record id="report_qa_grn" model="ir.actions.report.xml">
+	        <field name="name">report_qa_grn</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">QA GRN</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_stock/report/report_warehouse.py</field>
+	        <field name="report_rml">ned_stock/report/report_qa_grn.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_qa_grn" 
+			model="stock.picking" 
+			name="QA-GRN"
+	        string="QA-GRN"
+	        rml="ned_stock/report/report_qa_grn.odt"/>
+	    
+	    <record id="report_gdn" model="ir.actions.report.xml">
+	        <field name="name">report_gdn</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">GDN</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_stock/report/report_warehouse.py</field>
+	        <field name="report_rml">ned_stock/report/report_gdn.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_gdn" 
+			model="stock.picking" 
+			name="GDN"
+	        string="GDN"
+	        rml="ned_stock/report/report_gdn.odt"/>
+	    
+	    
+	    <record id="report_pending_grp" model="ir.actions.report.xml">
+	        <field name="name">report_pending_grp</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">report_pending_grp</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_stock/report/pending_grp.py</field>
+	        <field name="report_rml">ned_stock/report/pending_grp.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="report_pending_grp" 
+			model="stock.picking" 
+			name="report_pending_grp"
+	        string="Pending Grp"
+	        rml="ned_stock/report/pending_grp.ods"/>
+	    
+	    <record id="report_stock_card_ned" model="ir.actions.report.xml">
+	        <field name="name">report_stock_card_ned</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">report_stock_card_ned</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_stock/report/report_warehouse.py</field>
+	        <field name="report_rml">ned_stock/report/stock_card.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_stock_card_ned" 
+			model="stock.picking" 
+			name="report_stock_card_ned"
+	        string="Stock Card Grp"
+	        rml="ned_stock/report/stock_card.ods"/>
+	    
+	    
+	    <record id="report_print_request_materials" model="ir.actions.report.xml">
+	        <field name="name">report_print_request_materials</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.print.request.materials</field>
+	        <field name="report_name">report_print_request_materials</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_stock/report/report_request_materials.py</field>
+	        <field name="report_rml">ned_stock/report/report_request_materials.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="report_print_request_materials" 
+			model="wizard.print.request.materials" 
+			name="report_print_request_materials"
+	        string="Request Materials"
+	        rml="ned_stock/report/report_request_materials.ods"/>
+		
+		
+	   
+	   
+	   	    <record id="report_material_request_Reports" model="ir.actions.report.xml">
+	        <field name="name">report_smaterial_request_Reports</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">request.materials</field>
+	        <field name="report_name">report_material_request_Reports</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_stock/report/material_request_Reports.py</field>
+	        <field name="report_rml">ned_stock/report/material_request_Reports.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False"
+			menu="False"
+			id="report_material_request_Reports"
+			model="request.materials" 
+			name="report_material_request_Reports"
+	        string="Material Request"
+	        rml="ned_stock/report/material_request_Reports.ods"/>
+	        
+	</data>
+</openerp>

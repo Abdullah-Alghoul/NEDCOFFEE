@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!-- THANH: Add field 2nd amount into account_move_line tree view menu Journal Items -->
+    		<record model="ir.ui.view" id="view_move_line_tree_2nd_inherit">
+		        <field name="name">view_move_line_tree_2nd_inherit</field>
+		        <field name="model">account.move.line</field>
+		        <field name="inherit_id" ref="account.view_move_line_tree"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//field[@name='credit']" position="after">
+						<field name="second_amount"/>
+						<field name="second_currency_id" invisible="1"/>
+						<field name="second_ex_rate"/>
+			        </xpath>
+		        </field>
+	        </record>
+	        
+	        <record model="ir.ui.view" id="view_move_form_2nd_inherit">
+		        <field name="name">view_move_form_2nd_inherit</field>
+		        <field name="model">account.move</field>
+		        <field name="inherit_id" ref="account.view_move_form"/>
+		        <field name="arch" type="xml">
+					<xpath expr="//field[@name='line_ids']/tree/field[@name='credit']" position="after">
+						<field name="second_amount"/>
+						<field name="second_currency_id" invisible="1"/>
+						<field name="second_ex_rate"/>
+					</xpath>
+		        </field>
+	        </record>
+        
+		<!-- THANH: Add Dr va Cr 2nd -->
+		<!-- THANH: Inherit Ledger Report -->
+	        <record model="ir.ui.view" id="view_report_account_ledger_form_2nd_inherit">
+		        <field name="name">view_report_account_ledger_form_2nd_inherit</field>
+		        <field name="model">report.account.ledger</field>
+		        <field name="inherit_id" ref="general_report_account.view_besco_report_account_ledger_report_form"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//field[@name='general_ledger_ids']/tree/field[@name='credit']" position="after">
+			            <field name="debit_second" string="2nd Dr"/>
+	           			<field name="credit_second" string="2nd Cr"/>
+	           			<field name="second_currency_id" invisible="1"/>
+			        </xpath>
+			        <xpath expr="//field[@name='detail_ledger_ids']/tree/field[@name='ac_balance']" position="after">
+			            <field name="debit_second" string="2nd Dr"/>
+	           			<field name="credit_second" string="2nd Cr"/>
+	           			<field name="second_ex_rate" string="2nd Rate"/>
+	           			<field name="ac_balance_second"/>
+	           			<field name="second_currency_id" invisible="1"/>
+			        </xpath>
+		        </field>
+	        </record>
+        
+        <!-- THANH: Inherit TB -->
+	        <record model="ir.ui.view" id="view_trial_balance_report_form_2nd_inherit">
+		        <field name="name">view_trial_balance_report_form_2nd_inherit</field>
+		        <field name="model">fin.trial.balance.report</field>
+		        <field name="inherit_id" ref="general_report_account.view_fin_trial_balance_report_form"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//notebook/page[@name='detail']" position="after">
+			            <page string="Details (2nd Currency)" attrs="{'invisible': [('second_currency_id', '=', False)]}">
+			            	<field name="tria_idsvn" readonly="1">
+			            		<tree decoration-danger="description in ('Tồng cộng')" colors="blue:acc_type == 'view'"
+			            			decoration-info="description in ('Tổng','Tài Khoản Ngoại bảng')" class="trial_balance">
+			            			<field name="coa_code"/>
+			            			<field name="coa_name"/>
+			            			<field name="description" invisible='1'/>
+			            			<field name="acc_type" invisible='1'/>
+			            			<field name="begin_dr_2rd"/>
+			            			<field name="begin_cr_2rd"/>
+			            			<field name="period_dr_2rd"/>
+			            			<field name="period_cr_2rd"/>
+			            			<field name="ac_dr_2rd"/>
+			            			<field name="ac_cr_2rd"/>
+			            			<field name="end_dr_2rd"/>
+			            			<field name="end_cr_2rd"/>
+			            			<field name="second_currency_id" invisible="1"/>
+			            		</tree>
+			            	</field>
+			            </page>
+			        </xpath>
+		        </field>
+	        </record>
+        
+        <!-- THANH: Inherit BS 
+	        <record model="ir.ui.view" id="view_report_account_financial_bs_form_2nd_inherit">
+		        <field name="name">view_report_account_financial_bs_form_2nd_inherit</field>
+		        <field name="model">report.account.financial</field>
+		        <field name="inherit_id" ref="general_report_account.view_report_account_financial_bs_form"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//notebook/page[@name='detail']" position="after">
+			            <page string="Second Currency" attrs="{'invisible': [('second_currency_id', '=', False)]}">	           		
+		           			<field name="financial_report_2rd_ids" nolabel="1">
+		           				<tree limit="200" class="financial_report">
+		           					<field name="seq" invisible="0"/>
+		           					<field name="name"/>
+		           					<field name="ma_so"/>
+		           					<field name="thuyet_minh"/>
+		           					<field name="curr_value_2rd"/>
+		           					<field name="prior_value_2rd"/>
+		           					<field name="second_currency_id" invisible="1"/>
+		           				</tree>
+		           			</field>
+	           			</page>
+			        </xpath>
+		        </field>
+	        </record>
+        
+	        <record model="ir.ui.view" id="view_report_account_financial_pl_form_2nd_inherit">
+		        <field name="name">view_report_account_financial_pl_form_2nd_inherit</field>
+		        <field name="model">report.account.financial</field>
+		        <field name="inherit_id" ref="general_report_account.view_report_account_financial_pl_form"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//notebook/page[@name='detail']" position="after">
+			            <page string="Second Currency" attrs="{'invisible': [('second_currency_id', '=', False)]}">	           		
+		           			<field name="financial_report_2rd_ids" nolabel="1">
+		           				<tree limit="200" class="financial_report">
+		           					<field name="seq" invisible="0"/>
+		           					<field name="name"/>
+		           					<field name="ma_so"/>
+		           					<field name="thuyet_minh"/>
+		           					<field name="curr_value_2rd"/>
+		           					<field name="prior_value_2rd"/>
+		           					<field name="second_currency_id" invisible="1"/>
+		           				</tree>
+		           			</field>
+	           			</page>
+			        </xpath>
+		        </field>
+	        </record>
+        
+	        <record model="ir.ui.view" id="view_report_account_financial_cf_direct_form_2nd_inherit">
+		        <field name="name">view_report_account_financial_cf_direct_form_2nd_inherit</field>
+		        <field name="model">report.account.financial</field>
+		        <field name="inherit_id" ref="general_report_account.view_report_account_financial_cf_direct_form"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//notebook/page[@name='detail']" position="after">
+			            <page string="Second Currency" attrs="{'invisible': [('second_currency_id', '=', False)]}">	           		
+		           			<field name="financial_report_2rd_ids" nolabel="1">
+		           				<tree limit="200" class="financial_report">
+		           					<field name="seq" invisible="0"/>
+		           					<field name="name"/>
+		           					<field name="ma_so"/>
+		           					<field name="thuyet_minh"/>
+		           					<field name="curr_value_2rd"/>
+		           					<field name="prior_value_2rd"/>
+		           					<field name="second_currency_id" invisible="1"/>
+		           				</tree>
+		           			</field>
+	           			</page>
+			        </xpath>
+		        </field>
+	        </record>-->
+        
+        <record model="ir.ui.view" id="view_report_account_financial_form_2nd_inherit">
+	        <field name="name">view_report_account_financial_form_2nd_inherit</field>
+	        <field name="model">report.account.financial</field>
+	        <field name="inherit_id" ref="general_report_account.view_report_account_financial_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//notebook/page[@name='detail']" position="after">
+		            <page string="Second Currency" attrs="{'invisible': [('second_currency_id', '=', False)]}">	           		
+	           			<field name="financial_report_2rd_ids" nolabel="1">
+	           				<tree limit="200" class="financial_report" colors="blue:type == 'sum'">
+	           					<field name="seq" invisible="1"/>
+	           					<field name="type" invisible="1"/>
+	           					<field name="name"/>
+	           					<field name="ma_so"/>
+	           					<field name="thuyet_minh"/>
+	           					<field name="curr_value_2rd"/>
+	           					<field name="prior_value_2rd"/>
+	           					<field name="second_currency_id" invisible="1"/>
+	           				</tree>
+	           			</field>
+           			</page>
+		        </xpath>
+	        </field>
+        </record>
+    </data>
+</openerp>

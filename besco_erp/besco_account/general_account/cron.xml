@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+    
+    	<record id="ir_cron_cron_update_rate_currency_action" model="ir.cron">
+            <field name="name">Update Rate Currency</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'res.currency'" name="model"/>
+            <field eval="'cron_update_rate_acccount_currency'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_create_rate_currency_action" model="ir.cron">
+            <field name="name">Create Rate Currency</field>
+            <field name="interval_number">12</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'res.currency'" name="model"/>
+            <field eval="'cron_create_rate_currency'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        
+    </data>
+</openerp>

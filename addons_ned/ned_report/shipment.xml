@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+    	<record id="view_sales_shipment" model="ir.ui.view">
+            <field name="name">view.sales.shipment</field>
+            <field name="model">v.shipment</field>
+            <field name="arch" type="xml">
+    			<tree editable = 'False' readonly = '1' decoration-info="status == 'Waiting GDN'" decoration-muted="status in ('approved','done')" decoration-danger="status == ('Unallocated')">
+                    <field name = 'week_num_year' readonly = '1'/>
+                    <field name = 'priority' readonly = '1'/>
+                    <field name = 's_contract' readonly = '1'/>
+                    <field name = "customer" readonly = '1'/>
+                    <field name = 'ship_by' readonly = '1'/>
+                    
+                    <field name = 'si_number' readonly = '1'/>
+                    
+                    <field name = 'product' readonly = '1'/>
+                    <field name = 'si_quantity' sum="SI Total" readonly = '1'/>
+                    <field name = 'packing' sum="Will purchase" readonly = '1'/>
+                    <field name = 'shipment_date' readonly = '1'/>
+
+                    
+                    <field name = 'fumigation_type' readonly = '1'/>
+                    <field name = 'fumigation_date' readonly = '1'/>
+
+                    <field name = 'pss_condition' readonly = '1'/>
+                    <field name = 'pss_send_schedule' readonly = '1'/>
+                    <field name = 'closing_time' readonly = '1'/>
+                    <field name = 'factory_etd' readonly = '1'/>
+                    <field name = 'materialstatus' readonly = '1'/>
+
+                    <field name = 'production_status' readonly = '1'/>
+                    <field name = 'production_progress' readonly = '1' sum = 'Prod. progress'/>
+                    <field name = 'prod_complete_date' readonly = '1'/>
+                    <field name = 'pss_count' readonly = '1'/>
+                    <field name = 'nvs_allocated' sum="NVS Total" readonly = '1'/>
+
+                    <field name = 'do_quantity' sum="DO Total" readonly = '1'/>
+                    <field name = 'gdn_quantity' sum="GDN Total" readonly = '1'/>
+                    <field name = 'status' readonly = '1'/>
+                </tree>
+	         </field>
+         </record>
+
+        <!-- The block of code bellow determines a list of search parameters appear once user type in the searchbar -->
+        <record id="sales_shipment_search" model="ir.ui.view">
+            <field name="name">view.sales.shipment.search</field>
+            <field name="model">v.shipment</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "customer"/>
+                    <field name = 'si_number'/>
+                    <field name = 's_contract'/>
+                    <field name = 'product'/>
+                    <field name = 'packing'/>
+                    <field name = 'production_status'/>
+                    <field name = 'fumigation_type'/>
+                    
+                    <group expand="1" string="Group By">
+                        <filter string="Week" domain="[]" context="{'group_by':'week_num_year'}"/>
+                        <filter string="S contract" domain="[]" context="{'group_by':'s_contract'}"/>
+                        <filter string="SI" domain="[]" context="{'group_by':'si_number'}"/>
+                        <filter string="Status" domain="[]" context="{'group_by':'status'}"/>
+                        
+                            <filter domain="[('ship_by','=','Factory')]" string="Factory shipment" name='ship_by'/>
+                            <!-- <filter domain="[('total_booked','!=',0)]" string="Purchased" name='total_booked'/> -->
+                        <separator string = 'Shipper'/>
+                        
+                            <filter domain="[('status','=','Done')]" string="Done" name='status'/>
+                            <filter domain="[('status','!=','Done')]" string="Undone" name='status'/>
+                            <filter domain="[('status','=','Unallocated')]" string="Unallocated" name='status'/>
+                            <filter domain="[('status','=','Waiting GDN')]" string="Waiting GDN" name='status'/>
+                        <separator string = 'Stauts'/>
+                    </group>
+                </search>
+             </field>
+         </record>
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_sales_shipment" model="ir.actions.act_window">
+            <field name="name">Operational report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">v.shipment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="context">{
+                'search_by_field_date': ['shipment_date', 'factory_etd'], 'search_default_ship_by':'Factory'  }</field>
+            <field name="priority">230</field>
+            <field name="search_view_id"/>
+            <!-- <field name="context">{"search_default_status":True}</field> -->
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_sales_shipment" 
+            action="action_sales_shipment" parent="menu_report_ned_mrp_master" name="Operational report"
+            sequence="71" />
+    </data>
+</openerp>

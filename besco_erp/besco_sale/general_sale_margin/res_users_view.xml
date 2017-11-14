@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+	<!-- Modify Sale Team -->
+	<record model="ir.ui.view" id="crm_case_section_tree_add_margin">
+        <field name="name">crm.case.section.tree.add.margin</field>
+        <field name="model">crm.case.section</field>
+        <field name="inherit_id" ref="crm.crm_case_section_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="minimum_margin"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="crm_case_section_form_add_margin">
+        <field name="name">crm.case.section.form.add.margin</field>
+        <field name="model">crm.case.section</field>
+        <field name="inherit_id" ref="crm.crm_case_section_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="minimum_margin"/>
+            </xpath>
+            <xpath expr="//field[@name='member_ids']" position="replace">
+                <field name="member_ids"/>
+            </xpath>
+        </field>
+    </record>
+    
+	<!-- Modify Res Users -->
+	<record model="ir.ui.view" id="res_users_tree_add_margin">
+        <field name="name">res.users.tree.add.margin</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="minimum_margin"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="res_users_form_add_margin">
+        <field name="name">res.users.form.add.margin</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="minimum_margin"/>
+            </xpath>
+        </field>
+    </record>
+	
+	<!-- <record model="ir.ui.view" id="view_users_simple_form_add_margin">
+        <field name="name">view.users.simple.form.add.margin</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_simple_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@string='Address']" position="before">
+                <field name="minimum_margin"/>
+            </xpath>
+        </field>
+    </record>-->
+    
+</data>
+</openerp>

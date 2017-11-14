@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+		
+	    <!-- Template  Offical Contract -->
+        <record id="report_offical_contract" model="ir.actions.report.xml">
+	        <field name="name">report_offical_contract</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.contract</field>
+	        <field name="report_name">report_offical_contract</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_general_hr_contract/report/offical_contract.py</field>
+	        <field name="report_rml">ned_general_hr_contract/report/offical_contract.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="True" 
+			menu="True"
+			id="report_offical_contract"
+			model="hr.contract"
+			name="report_offical_contract"
+	        string="Offical Contract"
+        	rml="ned_general_hr_contract/report/offical_contract.odt" />
+    	
+		<!-- Template UnOffical Contract -->
+	    <record id="report_unoffical_contract" model="ir.actions.report.xml">
+	        <field name="name">report_unoffical_contract</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.contract</field>
+	        <field name="report_name">report_unoffical_contract</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_general_hr_contract/report/unoffical_contract.py</field>
+	        <field name="report_rml">ned_general_hr_contract/report/unoffical_contract.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="True" 
+			menu="True"
+			id="report_unoffical_contract"
+			model="hr.contract"
+			name="report_unoffical_contract"
+	        string="Trial Contract"
+        	rml="ned_general_hr_contract/report/unoffical_contract.odt" />
+    		
+       <!-- Template Quit Contract -->
+	    <record id="report_quit_contract" model="ir.actions.report.xml">
+	        <field name="name">report_quit_contract</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.contract</field>
+	        <field name="report_name">report_quit_contract</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_general_hr_contract/report/quit_contract.py</field>
+	        <field name="report_rml">ned_general_hr_contract/report/quit_contract.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="True" 
+			menu="True"
+			id="report_quit_contract"
+			model="hr.contract"
+			name="report_quit_contract"
+	        string="Quit Contract"
+        	rml="ned_general_hr_contract/report/quit_contract.odt"/>
+        	
+  	</data>
+</openerp>
+

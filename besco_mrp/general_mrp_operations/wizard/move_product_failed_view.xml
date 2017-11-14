@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <record id="view_move_product_failed_wizard" model="ir.ui.view">
+            <field name="name">move.product.failed.wizard</field>
+            <field name="model">move.product.failed</field>
+            <field name="arch" type="xml">
+                <form string="Moving Product Failed">
+                    <group>
+                        <field name="product_id"  readonly="1"/>
+                        <label for="product_qty"/>
+                        <div>
+                            <field name="product_qty" class="oe_inline" readonly="1" />
+                            <field name="product_uom" class="oe_inline" readonly="1" groups="product.group_uom"/>
+                        </div>
+                        <field name="location_id" string="Location Dest" widget="selection"
+                            domain="[('usage','=','inventory')]"/>
+                    </group>
+                    <footer>
+                        <button name="move" string="Move" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="move_product_failed" model="ir.actions.act_window">
+            <field name="name">Moving Product Failed</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">move.product.failed</field>
+            <field name="view_id" ref="view_move_product_failed_wizard"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'form_view_ref': False}</field>
+        </record>
+
+    </data>
+</openerp>

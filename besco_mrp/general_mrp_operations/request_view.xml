@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record id="view_request_materials_tree" model="ir.ui.view">
+            <field name="name">request.materials.tree</field>
+            <field name="model">request.materials</field>
+            <field name="arch" type="xml">
+                <tree string="Request Materials List" decoration-info="state == 'draft'" decoration-muted="state in ('done')" decoration-danger="state in ('approved')">
+                	<field name="name"/>
+                	<field name="origin"/>
+                	<field name="warehouse_id" invisible="1"/>
+                    <field name="request_date"/>
+                    <field name="production_id"/>
+                    <field name="total_qty"/>
+                    <field name="state"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_request_materials_form" model="ir.ui.view">
+            <field name="name">request.materials.form</field>
+            <field name="model">request.materials</field>
+            <field name="arch" type="xml">
+                <form string="Request Materials">
+                	<header>
+	                    <button name="button_draft" type="object" states='approved' string="Set to Draft" class="oe_highlight"/>
+	                    <button name="button_done" type="object" states='draft,approved' string="Done" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,done"/>
+	                </header>
+	                <sheet>
+		                <div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="1"/>
+	                        </h1>
+	                    </div>
+	                    <group col="4">
+	                    	<field name="production_id"/>
+	                    	<field name="origin"/>
+		                    <field name="request_date"/>
+		                    <field name="warehouse_id" invisible="1"/>
+		                    <field name="type" />
+	                    </group>
+	                     <notebook>
+	                    	<page string="Products" name="product">
+	                    		<field name="request_line">
+	                    			<tree editable="top">
+	                    				<field name="product_id" required="1"/>
+	                    				<field name="product_uom" required="1"/>
+	                    				<field name="product_qty"/>
+	                    			</tree>
+	                    			<form>
+	                    				<header>
+	                    					<field name="state" widget="statusbar" statusbar_visible="draft,cancel"/>
+	                    				</header>
+	                    				<sheet>
+	                    					<group col="4">
+		                    					<field name="request_id"/>
+		                    					<field name="product_id" required="1"/>
+			                    				<field name="product_uom" required="1"/>
+			                    				<field name="product_qty"/>
+		                    				</group>
+		                    				
+	                    				</sheet>
+	                    			</form>
+	                    		</field>
+	                    		 <field name="notes" class="oe_inline" placeholder="Description"/>
+	                    	</page>
+                    	</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_request_materials" model="ir.actions.act_window">
+            <field name="name">Request Materials</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">request.materials</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','mrp')]</field>
+            <field name="context">{'default_type':'mrp'}</field>
+            <field name="search_view_id"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Request Materials, the first step of a new Request Materials.
+              </p>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_request_materials_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_request_materials_tree"/>
+            <field name="act_window_id" ref="action_request_materials"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_request_materials_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_request_materials_form"/>
+            <field name="act_window_id" ref="action_request_materials"/>
+        </record>
+        
+        
+        <menuitem name="Materials Request" parent="mrp.menu_mrp_manufacturing"
+		        id="menu_action_request_materials"
+		        action="action_request_materials"
+		        sequence="50"/>
+		
+		
+    </data>
+</openerp>

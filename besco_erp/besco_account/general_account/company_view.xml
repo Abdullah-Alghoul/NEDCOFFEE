@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    
+    	<record id="view_company_form_add_second_currency" model="ir.ui.view">
+            <field name="name">res.company.form.add.second.currency</field>
+             <field name="inherit_id" ref="base.view_company_form" />
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+	             <field name="currency_id" position="after">
+	                   <field name="second_currency_id"/>
+	                   <field name="incomce_from_advance_payment_id"/>
+	                   <field name="interest_income_shipment_id"/>
+                 </field>
+       		 </field>
+       	</record>
+    	
+    	<!-- THANH: add button update rate -->
+	    	<record id="view_currency_form_button_update_rate" model="ir.ui.view">
+	            <field name="name">view_currency_form_button_update_rate</field>
+	             <field name="inherit_id" ref="general_base.view_currency_add_rate_form" />
+	            <field name="model">res.currency</field>
+	            <field name="arch" type="xml">
+	            	<xpath expr="//sheet" position="before">
+	            		<header>
+                        	<button name="update_account_move_line" type='object' string="Update rate" icon="gtk-execute"/>
+	                    </header>
+					</xpath>
+					
+		            <xpath expr="//field[@name='rate_ids']/tree/field[@name='rate']" position="after">
+						<button name="update_account_move_line" type='object' string="Update rate" icon="gtk-execute"/>
+					</xpath>
+					
+					<xpath expr="//field[@name='decimal_places']" position="replace">
+						<field name="decimal_places" string='Display Decimal Places'/>
+						<field name="round_decimal_places" string='Rouding Decimal Places'/>
+					</xpath>
+	       		 </field>
+	       	</record>
+    </data>
+</openerp>
+    

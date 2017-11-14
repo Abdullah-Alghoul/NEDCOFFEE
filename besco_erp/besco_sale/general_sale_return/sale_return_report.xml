@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            string="Rerturns Order" 
+            id="action_report_sale_rerturn_order" 
+            model="sale.return" 
+            report_type="qweb-pdf"
+            name="general_sale_return.report_salereturnorder" 
+            file="general_sale_return.report_salereturnorder" 
+        />
+
+        <report 
+            string="Request for Returned" 
+            id="report_request_sale_return" 
+            model="sale.return" 
+            report_type="qweb-pdf"
+            name="general_sale_return.report_requestsalereturn" 
+            file="general_sale_return.report_requestsalereturn"
+        />
+    </data>
+</openerp>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+		<record id="view_update_duedate_form" model="ir.ui.view">
+            <field name="name">view_update_duedate_form</field>
+            <field name="model">update.duedate</field>
+            <field name="arch" type="xml">
+                <form string="Register Payment" version="7">
+                    <group>
+                    	<field name="due_date"/>
+                    </group>
+                    <footer>
+                        <button string='Update' name="update" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_update_duedate" model="ir.actions.act_window">
+            <field name="name">Update Due Date</field>
+            <field name="res_model">update.duedate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_update_duedate_form"/>
+            <field name="target">new</field>
+        </record>
+        
+</data>
+</openerp>

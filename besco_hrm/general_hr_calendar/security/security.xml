@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="1">
+	
+	    <record id="employee_user_crm_meeting_rule" model="ir.rule">
+	        <field name="name">Employee User CRM Meeting</field>
+	        <field model="ir.model" name="model_id" ref="base_calendar.model_crm_meeting"/>
+	        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+	        <field name="domain_force">[('employee_id.user_id','=',user.id)]</field>
+	    </record>
+	
+		<record id="employee_coach_crm_meeting_rule" model="ir.rule">
+	        <field name="name">Employee Coach CRM Meeting</field>
+	        <field model="ir.model" name="model_id" ref="base_calendar.model_crm_meeting"/>
+	        <field name="groups" eval="[(4, ref('general_hr.group_employee_coach'))]"/>
+	        <field name="domain_force">[('employee_id.coach_id.user_id','=',user.id)]</field>
+	    </record>
+	    
+	    <record id="employee_manager_crm_meeting_rule" model="ir.rule">
+	        <field name="name">Employee Manager CRM Meeting</field>
+	        <field model="ir.model" name="model_id" ref="base_calendar.model_crm_meeting"/>
+	        <field name="groups" eval="[(4, ref('general_hr.group_employee_manager'))]"/>
+	        <field name="domain_force">[('employee_id.parent_id.user_id','=',user.id)]</field>
+	    </record>
+	
+	</data>
+</openerp>

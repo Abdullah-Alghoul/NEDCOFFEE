@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+		<record id="wizard_report_tax_summary_vas" model="admin.property">
+            <field name="name">wizard_report_tax_summary_vas</field>
+            <field name="value">13311,</field>
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+
+	    <record id="report_general_timesheet" model="ir.actions.report.xml">
+	        <field name="name">report_general_timesheet</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.export.general.timesheet</field>
+	        <field name="report_name">report_general_timesheet</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_timesheet/report/general_timesheet.py</field>
+	        <field name="report_rml">ned_general_hr_timesheet/report/general_timesheet.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+
+    	<report
+			auto="False"
+			menu="False"
+			id="report_general_timesheet"
+			model="wizard.export.general.timesheet"
+			name="report_general_timesheet"
+	        string="Report General Timesheet"
+        	rml="ned_general_hr_timesheet/report/general_timesheet.ods"/>
+  	</data>
+</openerp>

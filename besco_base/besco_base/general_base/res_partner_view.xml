@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<record id="view_partner_property_form" model="ir.ui.view">
+            <field name="name">res.partner.purchase.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority">36</field>
+            <field name="groups_id" eval="[(4, ref('base.group_multi_currency'))]"/>
+            <field name="arch" type="xml">
+                <group name="purchase" position="inside">
+                    <field name="property_purchase_currency_id"/>
+                </group>
+            </field>
+    	</record>
+    
+        
+    <!-- Modify State Views -->
+    	<record id="view_country_state_form_general_modify" model="ir.ui.view">
+            <field name="name">view_country_state_form_general_modify</field>
+            <field name="model">res.country.state</field>
+            <field name="inherit_id" ref="base.view_country_state_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='country_id']" position="after">
+           			<field name="districts" context="{'default_state_id':active_id}" 
+           				options="{'no_create': True, 'no_open': True, 'no_write': True}"/>
+            	</xpath>
+            </field>
+        </record>
+        
+    <!-- Modify Partner Views -->
+		<record id="view_res_partner_filter_general_modify" model="ir.ui.view">
+            <field name="name">view.res.partne.filter.general.modify</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//filter[@name='customer']" position="before">
+            		<field name="partner_code"/>
+            		<filter string="Internal Partners" name="internal" domain="[]" context="{'filter_internal': True}"/>
+            	</xpath>
+            	<xpath expr="//field[@name='name']" position="replace">
+            		<field name="name"
+                       filter_domain="['|','|','|','|','|','|','|','|',
+                       	('name','ilike',self),('shortname','ilike',self),
+                       	('ref','ilike',self),('partner_code','ilike',self),
+                       	('vat','ilike',self),('email','ilike',self),
+                       	('phone','ilike',self),('mobile','ilike',self),('identification_id','ilike',self)]"/>
+                       	
+            	</xpath>
+            	
+            </field>
+        </record>
+        
+	    <record id="view_res_partner_add_partner_code_tree" model="ir.ui.view">
+	        <field name="name">res.partner.add.partner.code.inherit.tree</field>
+	        <field name="model">res.partner</field>
+	        <field name="inherit_id" ref="base.view_partner_tree"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='display_name']" position="after">
+	         		<field name="ref"/>
+	         		<field name="partner_code"/>
+	           	</xpath>
+	        </field>
+	    </record>
+	    
+		<record id="view_partner_form_general_modify" model="ir.ui.view">
+	    	<field name="name">view.partner.form.general.modify</field>
+	    	<field name="model">res.partner</field>
+	    	<field name="inherit_id" ref="base.view_partner_form"/>
+	   		<field name="arch" type="xml">
+		     	<h1 position="replace">
+                	<h1>
+                		<field name="name" default_focus="1" placeholder="Long Name" required="1"/>
+                		<field name="shortname" placeholder="Short Name"/>
+                	</h1>
+                </h1>
+		     
+		     	<page name="internal_notes" position="after">
+		     		<page name="personal_info" string='Personal Information' attrs="{'invisible':[('is_company','=',True)]}">
+		     			<group>
+		     				<group name='personal'>
+				           		<field name="identification_id"/>
+				           		<field name="identification_date_issue"/>
+				           		<field name="identification_place_issue"/>
+				                <field name="gender"/>
+				                <field name="marital"/>
+			      			</group>
+		      			<group>
+		      			</group>
+		     			</group>
+		     		</page>
+		     	</page>
+		     	
+		         <!-- Thanh: Move ref (Ma noi bo) before street -->
+		         <xpath expr="//field[@name='ref']" position="replace">
+		     	</xpath>
+		     	<xpath expr="//field[@name='type']" position="before">
+		     		<field name="ref" readonly='1' string='Internal Code'/>
+		     		<field name="partner_code" string="Partner Code"/>
+		     	</xpath>	
+		     </field>
+		 </record>
+        
+        <!-- Menu Child of Master Partner -->
+        	<!-- 
+        	<menuitem action="base.action_partner_title_contact" 
+        		id="menu_master_title_contact" 
+        		name="Contact Titles" 
+        		parent="menu_master_partner" sequence="1"/>
+       		
+       		<menuitem action="base.action_partner_category_form" 
+        		id="menu_master_partner_category" 
+        		name="Partner Categories" 
+        		parent="menu_master_partner" sequence="2"/>
+        	-->
+        	
+        	<menuitem action="base.action_partner_customer_form" 
+        		id="menu_master_customer"
+        		name="Customers" 
+        		parent="menu_master_partner" sequence="10"
+        		groups="group_customer_manager"/>
+       		
+       		<menuitem action="base.action_partner_supplier_form" 
+        		id="menu_master_vendor"
+        		name="Vendors" 
+        		parent="menu_master_partner" sequence="15"
+        		groups="group_supplier_manager"/>
+       		
+       		<menuitem action="base.action_partner_other_form" 
+        		id="menu_master_other_partner"
+        		name="Other Partners" 
+        		parent="menu_master_partner" sequence="20"/>
+        	
+    </data>
+</openerp>

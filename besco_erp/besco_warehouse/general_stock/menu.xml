@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+   	<!-- THANH: Add new group Inventory Control User to this menu -->
+		<menuitem id="stock.menu_stock_inventory_control" 
+			name="Inventory Control" parent="stock.menu_stock_root" sequence="4"
+			groups="group_warehouse_adjustment"/>
+	
+	<!-- THANH: Add new group Stock Report to this menu -->
+		<menuitem id="stock.menu_warehouse_report" 
+			name="Reports" sequence="99" 
+			parent="stock.menu_stock_root" 
+			groups="group_warehouse_report"/>
+    </data>
+</openerp>

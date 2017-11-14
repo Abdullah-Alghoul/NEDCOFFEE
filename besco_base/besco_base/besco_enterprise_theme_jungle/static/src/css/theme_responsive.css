@@ -1,0 +1,11 @@
+@media screen and (max-width: 736px) { 
+	.hidden-xs{
+		display: block !important;
+	}
+	#oe_main_menu_navbar{
+		position: relative !important;
+	}
+	ul#oe_systray,ul#oe_editzone{
+	display: none !important;
+	}
+}

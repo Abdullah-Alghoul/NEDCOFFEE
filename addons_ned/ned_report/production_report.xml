@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+    	<record id="view_tree_production_report" model="ir.ui.view">
+            <field name="name">view.production.report</field>
+            <field name="model">v.production.report</field>
+            <field name="arch" type="xml">
+    			<tree editable = 'False' readonly = '1'>
+                    <field name = 'batch_no' readonly = '1'/>
+                    <field name = 'bom_type' readonly = '1'/>
+                    <field name = 'start_date' readonly = '1'/>
+                    <field name = 'stock_note' readonly = '1'/>
+                    <field name = 'operation_type' readonly = '1'/>
+                    
+                    <field name = 'picking_date' readonly = '1'/>
+                    <field name = 'stack' readonly = '1'/>
+                    <field name = 'product' readonly = '1'/>
+                    <field name = 'net_quantity' sum='Net total' readonly = '1'/>
+                    <field name = 'basis_qty' sum='Basis total' readonly = '1'/>
+
+                    
+                    <field name = 'mc' avg = 'MC Avg.' readonly = '1'/>
+                    <field name = 'fm' avg = 'FM Avg.' readonly = '1'/>
+                    <field name = 'black' avg = 'Black Avg.' readonly = '1'/>
+                    <field name = 'broken' avg = 'Broken Avg.' readonly = '1'/>
+                    <field name = 'brown' avg = 'Brown Avg.' readonly = '1'/>
+                    <field name = 'mold' avg = 'Moldy Avg.' readonly = '1'/>
+                    <field name = 'cherry' avg = 'Cherry Avg.' readonly = '1'/>
+
+                    <field name = 'excelsa' avg = 'Excelsa Avg.' readonly = '1'/>
+                    <field name = 'screen18' avg = 'Scr18 Avg.' readonly = '1'/>
+                    <field name = 'screen16' avg = 'Scr16 Avg.' readonly = '1'/>
+                    <field name = 'screen13' avg = 'Scr13 Avg.' readonly = '1'/>
+                    <field name = 'screen12' avg = 'Scr12 Avg.' readonly = '1'/>
+
+                    <field name = 'eaten' readonly = '1'/>
+                    <field name = 'burn' readonly = '1'/>
+                    <field name = 'immature' readonly = '1'/>
+                    <field name = 'state' readonly='1'/>
+                    <field name = 'remarks' readonly='1'/>
+                </tree>
+	         </field>
+         </record>
+
+        <!-- The block of code bellow determines a list of search parameters appear once user type in the searchbar -->
+        <record id="search_production_report" model="ir.ui.view">
+            <field name="name">view.production.report.search</field>
+            <field name="model">v.production.report</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "batch_no"/>
+                    
+                    <group expand="1" string="Group By">
+                        <filter string="Batch" domain="[]" context="{'group_by':'batch_no'}"/>
+                        <filter string="BOM type" domain="[]" context="{'group_by':'bom_type'}"/>
+                        <filter string="Date" domain="[]" context="{'group_by':'picking_date'}"/>
+                        <filter string="Opration type" domain="[]" context="{'group_by':'operation_type'}"/>
+                        <filter string="Product" domain="[]" context="{'group_by':'product'}"/>
+                        
+                        <separator string = 'Shipper'/>
+                            <filter domain="[('operation_type','=','IN')]" string="Input" name='operation_type'/>
+                            <filter domain="[('operation_type','=','OUT')]" string="Output" name='operation_type'/>
+                            <filter domain="[('state','!=','done')]" string="Undone" name='status'/>
+                            <filter domain="[('state','=','done')]" string="Done" name='status'/>
+                        <separator string = 'Stauts'/>
+                    </group>
+                </search>
+             </field>
+         </record>
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_production_report" model="ir.actions.act_window">
+            <field name="name">Production report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">v.production.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_by_field_date': ['start_date', 'picking_date']}</field>
+            <field name="priority">245</field>
+            <field name="search_view_id"/>
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_production_report" 
+            action="action_production_report" parent="menu_report_ned_mrp_master" name="Production report"
+            sequence="82" />
+    </data>
+</openerp>

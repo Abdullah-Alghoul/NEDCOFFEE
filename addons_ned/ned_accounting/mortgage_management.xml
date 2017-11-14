@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record id="view_mortgage_management_tree" model="ir.ui.view">
+            <field name="name">"view.mortgage.management.tree</field>
+            <field name="model">mortgage.management</field>
+            <field name="arch" type="xml">
+                <tree string="Mortgage List"  decoration-info="state == 'draft'" decoration-muted="state in ('done')" decoration-danger="state in ('approved')">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="bank_id"/>
+                    <field name="type_pk"/>
+                    <field name="amount_total" sum="amount_total"/>
+                    <field name="amount" sum="amount"/>
+                    <field name="amount_remain" sum="amount_remain"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="state" string="State" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+    	
+    	
+   		<record id="view_mortgage_management_form" model="ir.ui.view">
+            <field name="name">view.mortgage.management.form</field>
+            <field name="model">mortgage.management</field>
+            <field name="arch" type="xml">
+            	<form string="Mortgage List">
+	            	<header>
+	            		<button name="action_approve" type="object" string="Approve"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,approved,done"  on_change="1" modifiers="{'readonly': true}"/>
+					</header>
+					<sheet string="Mortgage">
+						<div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="0"/>
+	                        </h1>
+	                    </div>
+	                    <group>
+	                    	<group col="4">
+	                    		<field name="bank_id"/>
+	                    		<field name="date"/>
+	                    		<field name="type_pk"/>
+	                    		<field name="currency_id"/>
+	                    		<field name="maturity"/>
+	                    		<field name="financing_rate"/>
+	                    		<field name="debit_limit"/>
+	                    	</group>
+	                    </group>
+	                    <notebook>
+	                    	<page string="Mortgage">
+	                    		<field name="mortgage_line_ids">
+	                    			<tree editable="top">
+	                    				<field name="name" />
+	                    				<field name="product_qty" sum="qty_allocation"/>
+	                    				<field name="price_unit"/>
+					                 	<field name="price_subtotal" sum="price_subtotal"/>
+	                    			</tree>
+	                    		</field>
+	                    		
+	                    		<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+	                                <field name="amount_total" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <field name="amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+	                                    <label for="amount_remain" />
+	                                    <button name="button_dummy"
+	                                        states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+	                                </div>
+	                                <field name="amount_remain" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                            </group>
+	                    		
+	                    		<field name="notes" class="oe_inline" placeholder="Description"/>
+	                    	</page>
+	                    </notebook>
+					</sheet>
+				</form>
+            </field>
+        </record>
+        
+        
+    <record model="ir.actions.act_window" id="action_mortgage_management">
+      <field name="name">Mortgage Management</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">mortgage.management</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('type','=','mortgage')]</field>
+      <field name="context">{'default_type':'mortgage'}</field>
+      <field name="view_id" ref="view_mortgage_management_tree"/>
+      <field name="search_view_id"/>
+    </record>
+    
+    
+		
+		<record id="action_mortgage_management_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_mortgage_management_tree"/>
+            <field name="act_window_id" ref="action_mortgage_management"/>
+        </record>
+
+        <record id="action_mortgage_management_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_mortgage_management_form"/>
+            <field name="act_window_id" ref="action_mortgage_management"/>
+        </record>
+    
+    
+        
+    <menuitem
+    	parent="account_cashflow_operations.menu_account_cash_operation" 
+    	id="menu_action_mortgage_management" 
+    	action="action_mortgage_management"  sequence="100"/>
+   	
+   	
+   	
+   	<record id="view_force_selling_form" model="ir.ui.view">
+            <field name="name">view.force.selling.form</field>
+            <field name="model">mortgage.management</field>
+            <field name="arch" type="xml">
+            	<form string="Force Selling List">
+	            	<header>
+	            		<button name="action_approve" type="object" string="Approve"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,approved,done"  on_change="1" modifiers="{'readonly': true}"/>
+					</header>
+					<sheet string="Mortgage">
+						<div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="0"/>
+	                        </h1>
+	                    </div>
+	                    <group>
+	                    	<group col="4">
+	                    		<field name="bank_id"/>
+	                    		<field name="date"/>
+	                    		<field name="type_pk"/>
+	                    		<field name="currency_id"/>
+	                    		<field name="maturity" invisible="1"/>
+	                    		<field name="financing_rate" invisible="1"/>
+	                    	</group>
+	                    </group>
+	                    <notebook>
+	                    	<page string="Mortgage">
+	                    		<field name="mortgage_line_ids">
+	                    			<tree editable="top">
+	                    				<field name="name" />
+	                    				<field name="product_qty" sum="qty_allocation"/>
+	                    				<field name="price_unit"/>
+					                 	<field name="price_subtotal" sum="price_subtotal"/>
+	                    			</tree>
+	                    		</field>
+	                    		
+	                    		<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+	                                <field name="amount_total" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                            </group>
+	                    		
+	                    		<field name="notes" class="oe_inline" placeholder="Description"/>
+	                    	</page>
+	                    </notebook>
+					</sheet>
+				</form>
+            </field>
+        </record>
+   	
+   	 <record model="ir.actions.act_window" id="action_force_selling">
+      <field name="name">Force Selling</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">mortgage.management</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('type','=','force_selling')]</field>
+      <field name="context">{'default_type':'force_selling'}</field>
+      <field name="view_id" ref="view_mortgage_management_tree"/>
+    </record>
+    
+    <record id="action_force_selling_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_mortgage_management_tree"/>
+            <field name="act_window_id" ref="action_force_selling"/>
+        </record>
+    
+    
+    <record id="action_force_selling_form" model="ir.actions.act_window.view">
+            <field eval="50" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_force_selling_form"/>
+            <field name="act_window_id" ref="action_force_selling"/>
+        </record>
+    
+    <menuitem  
+    	parent="account_cashflow_operations.menu_account_cash_operation" 
+    	id="menu_action_force_selling" 
+    	action="action_force_selling"  sequence="250"/>
+    
+    </data>
+</openerp>

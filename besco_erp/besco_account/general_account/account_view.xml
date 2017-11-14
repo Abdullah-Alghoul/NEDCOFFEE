@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	
+	<!-- Modify Account Journal -->
+		<record model="ir.ui.view" id="view_account_bank_journal_tree_general_modify">
+	        <field name="name">view_account_bank_journal_tree_general_modify</field>
+	        <field name="model">account.journal</field>
+	        <field name="inherit_id" ref="account.view_account_bank_journal_tree"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//field[@name='name']" position="after">
+		            <field name="internal_type"/>
+		        </xpath>
+	        </field>
+        </record>
+        
+		<record model="ir.ui.view" id="view_account_journal_form_general_modify">
+	        <field name="name">view_account_journal_form_general_modify</field>
+	        <field name="model">account.journal</field>
+	        <field name="inherit_id" ref="account.view_account_journal_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='default_credit_account_id']" position="after">
+		            <field name="accrual_account_id"/>
+		        </xpath>
+		        <xpath expr="//field[@name='type']" position="after">
+		            <field name="internal_type" required="True"/>
+		        </xpath>
+	        </field>
+        </record>
+        
+	<!-- Modify Account Tax -->
+		<record model="ir.ui.view" id="view_tax_tree_general_modify">
+	        <field name="name">view_tax_tree_general_modify</field>
+	        <field name="model">account.tax</field>
+	        <field name="inherit_id" ref="account.view_tax_tree"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='type_tax_use']" position="after">
+		            <field name="transaction_type"/>
+		        </xpath>
+	        </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_tax_form_general_modify">
+	        <field name="name">view_tax_form_general_modify</field>
+	        <field name="model">account.tax</field>
+	        <field name="inherit_id" ref="account.view_tax_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='type_tax_use']" position="after">
+		            <field name="transaction_type"/>
+		        </xpath>
+	        </field>
+        </record>
+        
+	<!-- THANH: Account Move Line -->
+		<record id="account.view_account_move_line_filter" model="ir.ui.view">
+            <field name="name">Journal Items</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Journal Items">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]" string="Move"/>
+                    <field name="date"/>
+                    <field name="tax_line_id"/>
+                    <field name="tax_ids" />
+                    <separator/>
+                    <filter string="Unposted" domain="[('move_id.state','=','draft')]" help="Unposted Journal Items"/>
+                    <filter name="posted" string="Posted" domain="[('move_id.state','=','posted')]" help="Posted Journal Items"/>
+                    <separator/>
+                    <filter string="Unreconciled" domain="[('reconciled','=',False), ('account_id.reconcile','=',True)]" help="Unreconciled Journal Items" name="unreconciled"/>
+                    <separator/>
+                    <field name="move_id" string="Number (Move)"/>
+                    
+                    <field name="account_id" context="{'invisible_balance': False}"/><!-- THANH: Add context here -->
+                    <field name="counterpart_code" context="{'invisible_balance': False}"/><!-- THANH: Add this field here -->
+                    <field name="reconcile_counterpart_code" context="{'invisible_balance': False}"/><!-- THANH: Add this field here -->
+                    
+                    <field name="partner_id"/>
+                    <field name="journal_id"/>
+                    
+                    <!-- THANH: new filter for income and expenses type -->
+                    <separator/>
+                    <filter string="Income" domain="[('account_id.user_type_id.type','=','income')]"/>
+                    <filter string="Expenses" domain="[('account_id.user_type_id.type','=','expenses')]"/>
+                    
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Journal" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Account" name="groupby_account" context="{'group_by': 'account_id', 'invisible_balance': False}"/><!-- THANH: Modified context here -->
+                        <filter string="Account Type" name="groupby_account_type" context="{'group_by': 'user_type_id'}"/>
+                        <filter string="Date" domain="[]" context="{'group_by':'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="account.view_move_line_tree" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Journal Items" create="false">
+                    <field name="journal_id" options='{"no_open":True}'/>
+                    <field name="date"/>
+                    <field name="ref"/>
+                    <field name="partner_id"/>
+                    <field name="name"/>
+                    <field name="account_id" options='{"no_open":True}' domain="[('company_id', '=', company_id)]"/>
+                    <field name="counterpart_code"/><!-- THANH: Add this field here -->
+                    <field name="reconcile_counterpart_code"/><!-- THANH: Add this field here -->
+                    
+                    <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                    
+                    <field name="amount_currency" readonly="True"/> <!-- THANH: Always show this field -->
+                    <field name="currency_id" invisible="True"/> <!-- THANH: Always show this field -->
+                    <field name="currency_ex_rate" readonly="True"/>
+                    <field name="rate_type"/>
+                    
+                    <field name="debit" sum="Total Debit"/>
+                    <field name="credit" sum="Total Credit"/>
+                    <field name="balance" sum="Total Balance" invisible="context.get('invisible_balance', True)"/><!-- THANH: Add this field here -->
+                    <field name="date_maturity" invisible="context.get('journal_type', False) not in ['sale','sale_refund','purchase','purchase_refund']"/>
+                    <field name="reconciled" invisible="1"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="move_id" invisible="1"/>
+                    <field name="statement_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+	<!-- THANH: Account Move -->
+		<record id="view_account_move_filter_general_modify" model="ir.ui.view">
+	        <field name="name">view_account_move_filter_general_modify</field>
+	        <field name="model">account.move</field>
+	        <field name="inherit_id" ref="account.view_account_move_filter" />
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='journal_id']" position="after">
+		            <field name="narration"/>
+		        </xpath>
+	        </field>
+	    </record>
+	    
+        <record model="ir.ui.view" id="view_move_tree_general_modify">
+	        <field name="name">view_move_tree_general_modify</field>
+	        <field name="model">account.move</field>
+	        <field name="inherit_id" ref="account.view_move_tree"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='date']" position="after">
+					<field name="doc_date"/><!-- THANH: New field -->
+		        </xpath>
+		        <xpath expr="//field[@name='state']" position="before">
+					<field name="narration"/>
+		        </xpath>
+	        </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_move_form_general_modify">
+	        <field name="name">view_move_form_general_modify</field>
+	        <field name="model">account.move</field>
+	        <field name="inherit_id" ref="account.view_move_form"/>
+	        <field name="arch" type="xml">
+	        	
+	        	<xpath expr="//button[@name='button_cancel']" position="replace">
+	        		<!-- THANH: add group cancel entry for users can do it -->
+	        		<button name="button_cancel" states="posted" string="Cancel Entry" type="object" groups="general_account.group_finance_cancel_entry"/>
+	        		
+	        		<button name="%(action_view_quick_create_entry_form)d" type="action" states="draft" string="Quick Create Lines" icon="gtk-add"/>
+	        		<button name="remove_line" type="object" states="draft" string="Remove Lines" icon="gtk-remove"/>
+		        </xpath>
+	        	
+	        	<xpath expr="//field[@name='date']" position="before">
+					<field name="doc_date"/><!-- THANH: New field -->
+		        </xpath>
+		        
+		        <!-- THANH: set editable = top because user input data and want to see data from top to bottom 
+		        <xpath expr="//field[@name='line_ids']/tree" position="attributes">
+		            <attribute name="editable">top</attribute>
+		        </xpath> -->
+		        
+		        <xpath expr="//field[@name='line_ids']" position="attributes">
+		        	<!-- THANH: auto set default for field label with narration value -->
+		            <attribute name="context">{'line_ids': line_ids, 'journal_id': journal_id, 'default_name': narration, 'show_account_name':True}</attribute>
+		        </xpath>
+		        
+		        <xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="before">
+		            <field name="group_cp"/>
+		            <!-- 
+		            <field name="counterpart_code"/>
+                    <field name="reconcile_counterpart_code"/> -->
+		        </xpath>  
+		        
+		        <xpath expr="//field[@name='line_ids']/tree/field[@name='amount_currency']" position="attributes">
+		            <attribute name="attrs">{'required': [('currency_id', '!=', False)]}</attribute>
+		        </xpath>
+		        
+				<xpath expr="//field[@name='line_ids']/tree/field[@name='currency_id']" position="replace">
+					<field name="currency_id" attrs="{'required': [('amount_currency', '!=', 0.0)]}"/>
+					<field name="currency_ex_rate" attrs="{'required': [('rate_type', '=', 'transaction_rate')]}"/>
+					<field name="rate_type" required="1"/>
+					<field name="second_ex_rate" invisible="1"/>
+				</xpath>
+				
+				<xpath expr="//field[@name='line_ids']/tree/field[@name='partner_id']" position="replace">
+					<!-- THANH: remove doamin of this field, show all partner include internal partner -->
+					<field name="partner_id"/>
+				</xpath>
+				<xpath expr="//field[@name='line_ids']/tree/field[@name='account_id']" position="replace">
+					<!-- THANH: Unallow filter account view -->
+					<field name="account_id" domain="[('company_id', '=', parent.company_id), ('deprecated', '=', False), ('type', '!=', 'view')]"/>
+				</xpath>
+				
+	        </field>
+        </record>
+        
+        <!-- THANH: Add filter range date -->
+        <record id="account.action_account_moves_all_a" model="ir.actions.act_window">
+            <field name="context">{'journal_type':'general', 'search_by_field_date': ['date']}</field>
+            <field name="name">Journal Items</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_id" ref="account.view_move_line_tree"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    </data>
+</openerp>

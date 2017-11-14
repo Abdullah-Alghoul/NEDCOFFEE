@@ -1,0 +1,67 @@
+<openerp>
+    <data>
+    
+		<!-- Menu Holiday Day -->
+			<record model="ir.ui.view" id="view_hr_holiday_day_calendar">
+	            <field name="name">hr.holiday.day.calendar</field>
+	            <field name="model">hr.holiday.day</field>
+	            <field name="arch" type="xml">
+	                <calendar string="Year Holidays" color="name"
+	                          date_start="date_from" date_stop="date_to"
+	                          quick_add="True" mode="month">
+	                    <field name="name"/>
+	                </calendar>
+	            </field>
+	        </record>
+        
+	    	<record model="ir.ui.view" id="view_hr_holiday_day_tree">
+	            <field name="name">hr.holiday.day.tree</field>
+	            <field name="model">hr.holiday.day</field>
+	            <field name="arch" type="xml">
+	                <tree string="Holiday Day" editable='top'>
+	                    <field name="name"/>
+	                    <field name="date_from" on_change="onchange_date_from(date_from, date_to)"/>
+	                    <field name="date_to" on_change="onchange_date_to(date_from, date_to)"/>
+	                </tree>
+	            </field>
+	        </record>
+        	
+	    	<record model="ir.actions.act_window" id="action_hr_holiday_day">
+	            <field name="name">Holiday Days</field>
+	            <field name="res_model">hr.holiday.day</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">calendar,tree,form</field>
+	        </record>
+        	
+        	<menuitem parent="hr_holidays.menu_hr_holidays_root" 
+        		id="menu_action_hr_holiday_day" 
+        		action="action_hr_holiday_day" 
+        		groups="base.group_hr_manager"
+        		sequence='60'/>
+        		
+        	<menuitem name="Leaves to Approve" 
+        		id="hr_holidays.menu_hr_holidays_approvals" 
+        		parent="hr_holidays.menu_hr_holidays_root"  
+        		sequence="3" 
+        		groups="base.group_hr_manager,general_hr.group_employee_manager"/>
+        		
+        	<menuitem name="Leaves" 
+        		parent="hr_holidays.menu_hr_holidays_approvals" 
+        		id="hr_holidays.menu_open_department_leave_approve" 
+        		action="hr_holidays.open_department_holidays_approve" 
+        		sequence="1"/>
+        		
+        	<menuitem name="Leaves Allocation" 
+        		parent="hr_holidays.menu_hr_holidays_approvals" 
+        		id="hr_holidays.menu_open_department_leave_allocation_approve" 
+        		action="hr_holidays.open_department_holidays_allocation_approve" 
+        		sequence="2"/>
+        		
+        	<menuitem name="Reports" 
+        		id="hr_holidays.menu_hr_holidays_report" 
+        		parent="hr_holidays.menu_hr_holidays_root" 
+        		sequence="70" 
+        		groups="base.group_hr_manager"/>
+        	        
+    </data>
+</openerp>

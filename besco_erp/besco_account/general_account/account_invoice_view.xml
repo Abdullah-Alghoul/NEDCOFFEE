@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+		<!-- Thanh: Modify Invoice Form -->
+			<record model="ir.ui.view" id="view_invoice_form_general_modify">
+		        <field name="name">view.invoice.form.general.modify</field>
+		        <field name="model">account.invoice</field>
+		        <field name="inherit_id" ref="account.invoice_form"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//field[@name='journal_id']" position="replace">
+			        </xpath>
+			        <xpath expr="//field[@name='date_invoice']" position="before">
+			        	<field name="journal_id" groups="account.group_account_user" options="{'no_create': True}"/>
+			        </xpath>
+			        
+		        	<xpath expr="//sheet/group" position="before">
+						<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state', 'not in', ('open','paid'))]}">
+	                        <button type="object" string="Journal Items"
+			                    name="action_view_move_line"
+			                    class="oe_stat_button"
+			                    icon="fa-bars"/>
+	                        <button type="object" string="Payments"
+	                            name="action_view_payment"
+	                            class="oe_stat_button"
+	                            icon="fa-bars"/>
+	                    </div>
+			        </xpath>
+			        
+		        	<xpath expr="//notebook/page/group/group/field[@name='name']" position="replace">
+			        </xpath>
+			        <xpath expr="//field[@name='payment_term_id']" position="after">
+			        	<field name="name"/>
+			        </xpath>
+			        
+		        	<xpath expr="//field[@name='date_invoice']" position="attributes">
+						<!-- THANH: Always input data to this field -->
+			            <attribute name="required">True</attribute>
+			        </xpath>
+			        <xpath expr="//field[@name='partner_id']" position="after">
+			        	<field name="reference" string="Invoice Number" required="0"/>
+			        	<field name="diff_currency" invisible='1'/>
+			        </xpath>
+			        
+			        <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="replace">
+			        	<field name="account_id" groups="account.group_account_user"
+                        	domain="[('company_id', '=', parent.company_id),
+                        			('type', '!=', 'view'), 
+                        			('internal_type', 'in', ['other', 'income', 'expenses'])]"/>
+			        </xpath>
+			        
+			        <xpath expr="//notebook/page" position="after">
+			        	<page string="Company Currency" groups="base.group_multi_currency" attrs="{'invisible': [('diff_currency', '=', False)]}">
+			        		<field name="currency_invoice_line_ids" readonly="1">
+			        			<tree>
+			        				<field name="name"/>
+			        				<field name="quantity"/>
+			        				<field name="uom_id"/>
+			        				<field name="currency_price_unit"/>
+			        				<field name="currency_price_subtotal"/>
+			        			</tree>
+			        		</field>
+			        		<group class="oe_subtotal_footer oe_right">
+			                    <field name="amount_untaxed_company" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+			                    <field name="amount_tax_company" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+			                    <div class="oe_subtotal_footer_separator oe_inline">
+			                   		<label for="amount_total_company"/>
+			                   </div>
+			                   <field name="amount_total_company" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+			                </group>
+			                <div class="oe_clear"/>
+			        	</page>
+			        </xpath>
+			        <xpath expr="//field[@name='currency_id']" position="after">
+			            <field name="currency_rate" groups="base.group_multi_currency"/>
+			        </xpath>
+		        	<xpath expr="//field[@name='currency_id']" position="attributes">
+			            <attribute name="options">{'no_open': false}</attribute>
+			        </xpath>
+			        
+			        <xpath expr="//field[@name='date_due']" position="after">
+			            <field name="trans_type"/>
+			        </xpath>
+		        </field>
+	        </record>
+		
+		<!-- Thanh: Modify Vendor Invoice Form -->
+			<record model="ir.ui.view" id="view_invoice_supplier_form_general_modify">
+		        <field name="name">view.invoice.supplier.form.general.modify</field>
+		        <field name="model">account.invoice</field>
+		        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//header" position="replace">
+						<header>
+	                        <button name="invoice_open" states="draft,proforma2" string="Xác nhận" class="oe_highlight" groups="account.group_account_invoice"/>
+	                        <button name="%(account.action_account_invoice_payment)d" type="action" states="open" string="Thanh toán" groups="account.group_account_invoice" class="oe_highlight"/>
+	                        <button name="%(account.action_account_invoice_refund)d" type='action' string='Trả hàng' groups="account.group_account_invoice" attrs="{'invisible': ['|',('type', '=', 'in_refund'),('state','not in',('open','paid'))]}"/>
+	                        <button name="invoice_cancel" states="draft,proforma2,open" string="Cancel Bill" groups="account.group_account_invoice"/>
+	                        <button name="action_cancel_draft" states="cancel" string="Chuyển về trạng thái nháp" type="object" groups="account.group_account_invoice"/>
+		                    <field name="state" widget="statusbar" statusbar_visible="draft,open,paid" statusbar_colors='{"proforma":"blue","proforma2":"blue"}'/>
+		                </header>
+					</xpath>
+					<xpath expr="//sheet/div" position="before">
+						<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state', 'not in', ('open','paid'))]}">
+							<button type="object" string="Journal Items"
+			                    name="action_view_move_line"
+			                    class="oe_stat_button"
+			                    icon="fa-bars"/>
+	                        <button type="object" string="Payments"
+	                            name="action_view_payment"
+	                            class="oe_stat_button"
+	                            icon="fa-bars"/>
+	                    </div>
+			        </xpath>
+			        
+					<xpath expr="//field[@name='journal_id']" position="replace">
+			        </xpath>
+			        <xpath expr="//field[@name='date_invoice']" position="before">
+			        	<field name="journal_id" groups="account.group_account_user" options="{'no_create': True}"/>
+			        </xpath>
+					<xpath expr="//field[@name='date_invoice']" position="attributes">
+						<!-- THANH: Always input data to this field -->
+			             <attribute name="string">Entry Date</attribute>
+			        </xpath>
+					<xpath expr="//field[@name='date']" position="attributes">
+						<!-- THANH: No need to use this field, user date invoice  to generate entry -->
+			            <attribute name="invisible">True</attribute>
+			        </xpath>
+			    	<xpath expr="//field[@name='currency_id']" position="replace">
+			    		<field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency"/>
+			            <field name="currency_rate" groups="base.group_multi_currency"/>
+			            <field name="diff_currency" invisible='1'/>
+			        </xpath>
+			        <xpath expr="//field[@name='partner_id']" position="replace">
+			        	<field string="Vendor" name="partner_id"
+	                              context="{'default_customer': 0, 'search_default_supplier': 1, 'default_supplier': 1}"
+	                              domain="[('supplier', '=', True)]"/>
+			        </xpath>
+			        <xpath expr="//notebook/page/group/group/field[@name='name']" position="replace">
+			        </xpath>
+			        <xpath expr="//field[@name='reference']" position="replace">
+			        	<field name="reference" string="Invoice Number" required="1"/>
+			        	<field name="supplier_inv_date" required='0'/>
+			        	<field name="name"/>
+			        </xpath>
+			        <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="replace">
+			        	<field name="account_id" groups="account.group_account_user"
+                        	domain="[('company_id', '=', parent.company_id),
+                        			('type', '!=', 'view'), 
+                        			('internal_type', 'in', ['other', 'income', 'expenses'])]"/>
+			        </xpath>
+			        
+		        	<xpath expr="//notebook/page"  position="after">
+		        		  <page string="Company Currency" groups="base.group_multi_currency" name="company_currency" attrs="{'invisible': [('diff_currency', '=', False)]}">
+				         	<field name="currency_invoice_line_ids" readonly="1">
+			        			<tree>
+			        				<field name="name"/>
+			        				<field name="quantity"/>
+			        				<field name="uom_id"/>
+			        				<field name="currency_price_unit"/>
+			        				<field name="currency_price_subtotal"/>
+			        			</tree>
+		      	 			</field>
+				     	    <group class="oe_subtotal_footer oe_right">
+			                    <field name="amount_untaxed_company" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+			                    <field name="amount_tax_company" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+			                    <div class="oe_subtotal_footer_separator oe_inline">
+			                   		<label for="amount_total_company"/>
+			                   </div>
+			                   <field name="amount_total_company" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+		                	</group>
+		               		<div class="oe_clear"/>
+		              	</page>
+			        </xpath>
+		        </field>
+	        </record>
+        
+        <!-- Thanh: Show payment button on Invoice Tree View -->
+        	<record id="account.invoice_tree" model="ir.ui.view">
+	            <field name="name">account.invoice.tree</field>
+	            <field name="model">account.invoice</field>
+	            <field name="arch" type="xml">
+	                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" 
+	                	decoration-danger="state == 'open'" string="Invoice">
+	                	<field name="journal_id" invisible="0"/>
+	                    <field name="partner_id" groups="base.group_user" string="Customer"/>
+	                    <field name="date_invoice"/>
+	                    <field name="date_due"/>
+	                	<button name="%(action_update_duedate)d" type="action" states="open" string="Due Date" 
+	                		groups="account.group_account_invoice" 
+	                		icon="terp-project"/>
+	                    <field name="number" invisible="1"/>
+	                    <field name="reference" string="Invoice Number"/>
+	                    <field name="commercial_partner_id" invisible="1"/>
+	                    <field name="reference" invisible="1"/>
+	                    <field name="name" invisible="1"/>
+	                    <field name="user_id"/>
+	                    <field name="origin"/>
+	                    <field name="amount_total_signed" sum="total"/>
+	                    <field name="residual_signed" string="Amount Due" sum="total"/>
+	                    <field name="currency_id" invisible="1"/>
+	                    <field name="company_currency_id" invisible="1"/>
+	                    <field name="state"/>
+	                    <button name="invoice_open" states="draft,proforma2" string="Validate" icon="gtk-apply" groups="account.group_account_invoice"/>
+                		<button name="%(account.action_account_invoice_payment)d" type="action" icon="gtk-go-down" states="open" string="Receive" groups="account.group_account_invoice"/>
+                		<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+	                    <field name="type" invisible="context.get('type',True)"/>
+	                </tree>
+	            </field>
+	        </record>
+        	
+        	<record id="account.invoice_supplier_tree" model="ir.ui.view">
+	            <field name="name">account.invoice.supplier.tree</field>
+	            <field name="model">account.invoice</field>
+	            <field name="arch" type="xml">
+	                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" 
+	                	decoration-danger="state == 'open'" string="Invoice">
+	                	<field name="journal_id" invisible="0"/>
+	                    <field name="partner_id" groups="base.group_user" string="Vendor"/>
+	                    <field name="date_invoice" string="Bill Date"/>
+	                    <field name="date_due"/>
+	                	<button name="%(action_update_duedate)d" type="action" 
+	                		states="open" string="Due Date" 
+	                		groups="account.group_account_invoice" 
+	                		icon="terp-project"/>
+	                    <field name="number"/>
+	                    <field name="reference"/>
+	                    <field name="commercial_partner_id" invisible="1"/>
+	                    <field name="name" invisible="1"/>
+	                    <field name="origin"/>
+	                    <field name="amount_total_signed" sum="total"/>
+	                    <field name="residual_signed" string="To Pay" sum="total"/>
+	                    <field name="currency_id" invisible="1"/>
+	                    <field name="company_currency_id" invisible="1"/>
+	                    <field name="state"/>
+	                    <button name="invoice_open" states="draft,proforma2" string="Validate" icon="gtk-apply" groups="account.group_account_invoice"/>
+                		<button name="%(account.action_account_invoice_payment)d" type="action" icon="gtk-go-up" states="open" string="Pay" groups="account.group_account_invoice"/>
+                		<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+	                    <field name="type" invisible="context.get('type',True)"/>
+	                </tree>
+	            </field>
+	        </record>
+        
+        <!-- Thanh: Add search date range -->
+			<record id="account.action_invoice_tree2" model="ir.actions.act_window">
+	            <field name="name">Supplier Invoices</field>
+	            <field name="res_model">account.invoice</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">tree,form,calendar,pivot,graph</field>
+	            <field eval="False" name="view_id"/>
+	            <field name="domain">[('type','=','in_invoice'), ('journal_id.type','=','purchase')]</field>
+	            <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase',
+	            'search_by_field_date': ['date_invoice','date_due']}</field>
+	            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+	            <field name="help" type="html">
+	              <p class="oe_view_nocontent_create">
+	                Click to record a new supplier invoice.
+	              </p><p>
+	                You can control the invoice from your supplier according to
+	                what you purchased or received. Odoo can also generate
+	                draft invoices automatically from purchase orders or receipts.
+	              </p>
+	            </field>
+	        </record>
+	        
+	        <record id="action_invoice_good_issue_notes" model="ir.actions.act_window">
+	            <field name="name">Debit Notes</field>
+	            <field name="res_model">account.invoice</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">tree,form,calendar,pivot,graph</field>
+	            <field eval="False" name="view_id"/>
+	            <field name="domain">[('type','=','in_refund'), ('journal_id.type','=','purchase')]</field>
+	            <field name="context">{'default_type': 'in_refund', 'type': 'in_refund', 'journal_type': 'purchase',
+	            'search_by_field_date': ['date_invoice','date_due']}</field>
+	            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+	            <field name="help" type="html">
+	              <p class="oe_view_nocontent_create">
+	                Click to record a new supplier invoice.
+	              </p><p>
+	                You can control the invoice from your supplier according to
+	                what you purchased or received. Odoo can also generate
+	                draft invoices automatically from purchase orders or receipts.
+	              </p>
+	            </field>
+	        </record>
+	        	
+	        	<record id="action_invoice_good_issue_notes_tree" model="ir.actions.act_window.view">
+		            <field eval="1" name="sequence"/>
+		            <field name="view_mode">tree</field>
+		            <field name="view_id" ref="account.invoice_supplier_tree"/>
+		            <field name="act_window_id" ref="action_invoice_good_issue_notes"/>
+		        </record>
+		
+		        <record id="action_invoice_good_issue_notes_form" model="ir.actions.act_window.view">
+		            <field eval="2" name="sequence"/>
+		            <field name="view_mode">form</field>
+		            <field name="view_id" ref="account.invoice_supplier_form"/>
+		            <field name="act_window_id" ref="action_invoice_good_issue_notes"/>
+		        </record>
+	        
+	        <menuitem action="action_invoice_good_issue_notes" 
+	        	id="menu_action_invoice_good_issue_notes" 
+	        	parent="account.menu_finance_payables" sequence="1"/>
+	        
+	       <record id="account.action_invoice_tree1" model="ir.actions.act_window">
+	            <field name="name">Customer Invoices</field>
+	            <field name="res_model">account.invoice</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+	            <field eval="False" name="view_id"/>
+	            <field name="domain">[('type','=','out_invoice'), ('journal_id.type','=','sale')]</field>
+	            <field name="context">{'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale',
+	            'search_by_field_date': ['date_invoice','date_due']}</field>
+	            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+	            <field name="help" type="html">
+	              <p class="oe_view_nocontent_create">
+	                Click to create a customer invoice.
+	              </p><p>
+	                Odoo's electronic invoicing allows to ease and fasten the
+	                collection of customer payments. Your customer receives the
+	                invoice by email and he can pay online and/or import it
+	                in his own system.
+	              </p><p>
+	                The discussions with your customer are automatically displayed at
+	                the bottom of each invoice.
+	              </p>
+	            </field>
+	        </record>
+	        
+	        <record id="action_invoice_good_return_note" model="ir.actions.act_window">
+	            <field name="name">Credit Notes</field>
+	            <field name="res_model">account.invoice</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+	            <field eval="False" name="view_id"/>
+	            <field name="domain">[('type','=','out_refund'), ('journal_id.type','=','sale')]</field>
+	            <field name="context">{'default_type':'out_refund', 'type':'out_refund', 'journal_type': 'sale',
+	            'search_by_field_date': ['date_invoice','date_due']}</field>
+	            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+	            <field name="help" type="html">
+	              <p class="oe_view_nocontent_create">
+	                Click to create a customer invoice.
+	              </p><p>
+	                Odoo's electronic invoicing allows to ease and fasten the
+	                collection of customer payments. Your customer receives the
+	                invoice by email and he can pay online and/or import it
+	                in his own system.
+	              </p><p>
+	                The discussions with your customer are automatically displayed at
+	                the bottom of each invoice.
+	              </p>
+	            </field>
+	        </record>
+	        	<record id="action_invoice_good_return_note_tree" model="ir.actions.act_window.view">
+		            <field eval="1" name="sequence"/>
+		            <field name="view_mode">tree</field>
+		            <field name="view_id" ref="account.invoice_tree"/>
+		            <field name="act_window_id" ref="action_invoice_good_return_note"/>
+		        </record>
+		
+		        <record id="action_invoice_good_return_note_form" model="ir.actions.act_window.view">
+		            <field eval="2" name="sequence"/>
+		            <field name="view_mode">form</field>
+		            <field name="view_id" ref="account.invoice_form"/>
+		            <field name="act_window_id" ref="action_invoice_good_return_note"/>
+		        </record>
+	        
+	         <menuitem action="action_invoice_good_return_note" 
+	         	id="menu_action_invoice_good_return_note" 
+	         	parent="account.menu_finance_receivables" sequence="1"/>
+	         	
+	         
+			<record model="ir.ui.view" id="view_partner_property_general_account_inherit">
+		        <field name="name">view_partner_property_general_account_inherit</field>
+		        <field name="model">res.partner</field>
+		        <field name="inherit_id" ref="account.view_partner_property_form"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//group[@name='accounting_entries']" position="inside">
+			            <field name="property_vendor_advance_acc_id" required="0"/>
+			            <field name="property_customer_advance_acc_id"  required="0"/>
+			        </xpath>
+			        <xpath expr="//field[@name='credit']" position="attributes">
+	                	<attribute name="groups"></attribute>
+	                </xpath>
+	                <xpath expr="//field[@name='debit']" position="attributes">
+	                	<attribute name="groups"></attribute>
+	                </xpath>
+		        </field>
+	        </record>
+        
+        <!-- THANH: add new menu for Other Receivables and Other Payables (hoa don cong no khong phai nghiep vu mua ban hang hoa) -->
+			<record id="action_invoice_other_receivables" model="ir.actions.act_window">
+	            <field name="name">Other Receivables</field>
+	            <field name="res_model">account.invoice</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+	            <field eval="False" name="view_id"/>
+	            <field name="domain">[('type','in',('out_invoice', 'out_refund')), ('journal_id.type','=','general')]</field>
+	            <field name="context">{'default_type':'out_invoice', 'type':'out_invoice', 'other_journal_type': ['general'],
+	            'search_by_field_date': ['date_invoice','date_due']}</field>
+	            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+	        </record>
+		        <record id="action_invoice_other_receivables_tree" model="ir.actions.act_window.view">
+		            <field eval="1" name="sequence"/>
+		            <field name="view_mode">tree</field>
+		            <field name="view_id" ref="account.invoice_tree"/>
+		            <field name="act_window_id" ref="action_invoice_other_receivables"/>
+		        </record>
+		        <record id="action_invoice_other_receivables_form" model="ir.actions.act_window.view">
+		            <field eval="2" name="sequence"/>
+		            <field name="view_mode">form</field>
+		            <field name="view_id" ref="account.invoice_form"/>
+		            <field name="act_window_id" ref="action_invoice_other_receivables"/>
+		        </record>
+	
+	        <record id="action_invoice_other_payables" model="ir.actions.act_window">
+	            <field name="name">Other Payables</field>
+	            <field name="res_model">account.invoice</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+	            <field eval="False" name="view_id"/>
+	            <field name="domain">[('type','in',('in_invoice', 'in_refund')), ('journal_id.type','=','general')]</field>
+	            <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'other_journal_type': ['general'],
+	            'search_by_field_date': ['date_invoice','date_due']}</field>
+	            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+	        </record>
+		        <record id="action_invoice_other_payables_tree" model="ir.actions.act_window.view">
+		            <field eval="1" name="sequence"/>
+		            <field name="view_mode">tree</field>
+		            <field name="view_id" ref="account.invoice_supplier_tree"/>
+		            <field name="act_window_id" ref="action_invoice_other_payables"/>
+		        </record>
+		        <record id="action_invoice_other_payables_form" model="ir.actions.act_window.view">
+		            <field eval="2" name="sequence"/>
+		            <field name="view_mode">form</field>
+		            <field name="view_id" ref="account.invoice_supplier_form"/>
+		            <field name="act_window_id" ref="action_invoice_other_payables"/>
+		        </record>
+    </data>
+</openerp>

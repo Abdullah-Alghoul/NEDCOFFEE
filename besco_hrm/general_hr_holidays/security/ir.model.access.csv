@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_holiday_day_usr,access_hr_holiday_day_usr,model_hr_holiday_day,base.group_user,1,0,0,0
+access_hr_holiday_day_hr_usr,access_hr_holiday_day_hr_usr,model_hr_holiday_day,base.group_hr_user,1,1,1,1
+access_hr_holiday_reason_usr,hr_holiday_reason_usr,model_hr_holidays_reason,base.group_user,1,0,0,0
+access_hr_holiday_reason_hr_usr,hr_holiday_reason_hr_usr,model_hr_holidays_reason,base.group_hr_user,1,1,1,1
+access_hr_holidays_history,hr_holidays_history,model_hr_holidays_history,base.group_user,1,1,1,1
+access_hr_holidays,hr_holidays,model_hr_holidays,general_hr.group_hr_head_manager,1,1,1,1
+access_hr_contract_usr,hr_contract,hr_contract.model_hr_contract,base.group_user,1,0,0,0
+access_hr_holidays_employee_coach,hr.holidays.employee.coach,model_hr_holidays,general_hr.group_employee_coach,1,1,1,1
+access_hr_holiday_day_line_officier,hr_holiday_day_line_officier,model_hr_holiday_day_line,base.group_hr_user,1,1,1,1
+access_hr_payment_leaves_officier,hr_payment_leaves_officier,model_hr_payment_leaves,base.group_hr_user,1,1,1,1
+access_hr_payment_leaves_lines_officier,hr_payment_leaves_lines_officier,model_hr_payment_leaves_lines,base.group_hr_user,1,1,1,1
+access_hr_employee_coach,hr.employee coach,model_hr_employee,general_hr.group_employee_coach,1,0,0,0
+access_hr_employee_manager,hr.employee_manager,model_hr_holidays,general_hr.group_employee_manager,1,1,1,1
+access_hr_holiday_day_employee_coach,access_hr_holiday_day_employee_coach,model_hr_holiday_day_line,general_hr.group_employee_coach,1,0,0,0
+access_hr_holiday_day_employee_manager,access_hr_holiday_day_employee_manager,model_hr_holiday_day_line,general_hr.group_employee_manager,1,0,0,0

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+		
+		<record model="ir.ui.view" id="view_wizard_hr_overtime_batches_form">
+            <field name="name">wizard.hr.overtime.batches.form</field>
+            <field name="model">wizard.hr.overtime.batches</field>
+            <field name="arch" type="xml">
+                <form string="Generate Allocation Requests">
+                	<group>
+	                    <group>
+							<field name="overtime_type_id"/>
+	                    </group>
+                    </group>
+                    <footer>
+                        <button string="Generate" name="button_ot_batches" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_wizard_hr_overtime_batches">
+            <field name="name">Overtime Batches</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.hr.overtime.batches</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_wizard_hr_overtime_batches_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

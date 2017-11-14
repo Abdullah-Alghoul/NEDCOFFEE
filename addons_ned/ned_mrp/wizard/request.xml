@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		
+		<record id="view_wizard_stock_picking_consumable" model="ir.ui.view">
+	        <field name="name">view.wizard.stock.picking.consumable.form</field>
+	        <field name="model">wizard.stock.picking</field>
+	        <field name="arch" type="xml">
+		        <form string="Transfer">
+		        	<sheet>
+			            <group col="4">
+		            		<field name="date" string="Date"/>
+		            		<field name="product_qty"/>
+							<field name="bag_qty"/>
+							<field name="real_mc"/>	    
+							<field name="real_weight"/>        		
+		            		<field name="picking_type_id" required="1" invisible="1"/>
+		            		<field name="location_id" invisible="1"/>
+		            		<field name="location_dest_id" invisible="1" required="0"/>
+		                </group>
+		            	
+		                <footer>
+		                	<button string="Create MTP" name="button_create_picking_consumable" type="object" class="oe_highlight"/>
+		                    <button string="_Cancel" class="btn-default" special="cancel"/>
+		                </footer>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    	
+    	<record id="action_view_wizard_stock_picking_consumable" model="ir.actions.act_window">
+            <field name="name">Stock Picking</field>
+            <field name="res_model">wizard.stock.picking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+			
+		        
+	 </data>
+</openerp>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	#
+    	# form view
+    	#
+        <record id="view_profile_form" model="ir.ui.view">
+            <field name="name">profile.form</field>
+            <field name="model">profile</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Profile">
+                	<sheet>
+	                	<field name="name" select="1" colspan="4"/>
+	                	<notebook colspan="4">
+	                		<page string="Groups">
+	                			<field name="groups_ids" colspan="4" nolabel="1"/>
+	                			<field name="description" colspan="4" nolabel="1"/>
+	                		</page>
+	                		<page string="Users">
+	                			<field name="users_ids" colspan="4" nolabel="1"/>
+	                		</page>
+	                	</notebook>
+	                 </sheet>
+                </form>
+            </field>
+        </record>
+        
+        #
+        # tree view
+        #
+        <record id="view_profile_tree" model="ir.ui.view">
+            <field name="name">profile.tree</field>
+            <field name="model">profile</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Profile">
+                	<field name="name"/>                	
+                </tree>
+            </field>
+        </record>
+        
+        #
+        # actions and menu items
+        #
+        <record id="action_profile_view" model="ir.actions.act_window">
+        	<field name="name">Profiles</field>
+        	<field name="type">ir.actions.act_window</field>
+            <field name="res_model">profile</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="view_profile_tree"/>
+            <field name="help">A profile contains a set of groups. When creating the profile you add groups to this profile, after that every users having this profile will automatically belong to all these groups.</field>
+        </record>
+        <menuitem action="action_profile_view" id="menu_action_profile_view" parent="base.menu_users"/>
+        
+        #
+        # adjust user view
+        #
+        <record id="view_users_form_add_profile" model="ir.ui.view">
+        	<field name="name">view.users.form.add.profile</field>
+            <field name="model">res.users</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+            	<field name="partner_id" position='after'>
+                   <field name="profile_ids" widget="many2many_tags"/>
+                   <button name="update_profile" type="object" string="Update Profile" icon="gtk-ok" />
+              	</field>
+            </field>
+        </record>
+        
+        <record id="view_users_tree_add_profile" model="ir.ui.view">
+            <field name="name">view.users.tree.add.profile</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree"/>
+            <field name="arch" type="xml">
+            	<field name="name" position='after'>
+                   <field name="profile_ids" widget="many2many_tags"/>
+              	</field>
+            </field>
+        </record>
+        
+        <record id="view_users_search_add_profile" model="ir.ui.view">
+            <field name="name">view.users.search.add.profile</field>
+            <field name="model">res.users</field>
+            <field name="type">search</field>
+            <field name="inherit_id" ref="base.view_users_search"/>
+            <field name="arch" type="xml">
+            	<field name="name" position='after'>
+                   <field name="profile_ids"/>
+              	</field>
+            </field>
+        </record>
+        
+        <record id="view_groups_form_add_profile" model="ir.ui.view">
+        	<field name="name">view.groups.form.add.profile</field>
+            <field name="model">res.groups</field>
+            <field name="inherit_id" ref="base.view_groups_form"/>
+            <field name="arch" type="xml">
+              	<xpath expr="//notebook" position="inside">
+					<page string="Profiles">
+            			<field name="profiles_ids"/>
+            		</page>
+	             </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

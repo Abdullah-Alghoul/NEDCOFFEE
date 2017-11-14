@@ -1,0 +1,260 @@
+<openerp>
+    <data>
+		
+		<record id="view_hr_employee_grade_form_l10n_vn" model="ir.ui.view">
+            <field name="name">view_hr_employee_grade_form_l10n_vn</field>
+            <field name="model">hr.payroll.structure</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='rule_ids']/tree/field[@name='name']" position="before">
+                    <field name="sequence"/>
+                </xpath>
+            </field>
+        </record>
+        
+    	<menuitem id="hr_payroll.menu_hr_root_payroll" parent="hr.menu_hr_root" name="Payroll" sequence="30"
+    	groups="group_hr_salary_officer"/>
+    	<menuitem id="hr_payroll.menu_hr_payroll_root" name="Payroll" sequence="45" web_icon="hr_payroll,static/description/icon.png" groups="base.group_hr_user"/>
+    	
+    	<!-- Add UoM into Salary Rule -->
+    	<!-- 
+    	<record id="hr_salary_rule_list_general_modify" model="ir.ui.view">
+            <field name="name">hr_salary_rule_list_general_modify</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_list"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='register_id']" position="after">
+                </xpath>
+            </field>
+        </record>
+         -->
+         
+    	<record id="hr_salary_rule_form_add_uom" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form.add.uom</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='amount_select']" position="after">
+                    <newline/>
+                    <field name="uom_id"/>
+                </xpath>
+                <group col="4" position="replace">
+                	<group>
+	                	<group>
+	                		<field name="code"/>
+	                		<field name="contribution"/>
+	                	</group>
+	                	<group>
+	                		<field name="sequence"/>
+	                		<field name="active"/>
+	                		<field name="appears_on_payslip"/>
+	                		<field name="company_id" options="{'no_create': True}" invisible="1"/>
+	                	</group>
+	                </group>
+                </group>
+            </field>
+        </record>
+        
+        <!-- Add UoM into Payslip -->
+    	<record id="view_hr_payslip_form_add_uom" model="ir.ui.view">
+            <field name="name">view.hr.payslip.form.add.uom</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='line_ids']/tree/field[@name='quantity']" position="after">
+                    <field name="uom_id"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/form/group/field[@name='quantity']" position="after">
+                    <field name="uom_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+    	<record id="view_hr_payslip_filter_add_department" model="ir.ui.view">
+            <field name="name">view.hr.payslip.search.add.department</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="department_id"/>
+                     <group expand="0" string="Group By...">
+                     <!-- <filter name="group_struct" string="Struct" icon="terp-go-today" domain="[]" context="{'group_by':'struct_id'}"/>
+              		 <filter name="group_month" string="Month" icon="terp-go-today" domain="[]" context="{'group_by':'date_to'}"/> -->
+              		</group>
+                </xpath>
+            </field>
+        </record>
+        
+    	<record id="view_hr_payslip_tree_add_department" model="ir.ui.view">
+            <field name="name">view.hr.payslip.tree.add.department</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="department_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+		<record id="view_hr_payslip_form_add_advance_payment" model="ir.ui.view">
+            <field name="name">view.hr.payslip.form.add.advance.payment</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='contract_id']" position="before">
+                    <field name="default_work_days" required='1'/>
+                </xpath>
+            	<xpath expr="//field[@name='credit_note']" position="after">
+                    <field name="department_id"/>
+                </xpath>
+                <xpath expr="//notebook/page" position="after">
+                	<page string="Attendances &amp; Overtimes">
+                		<separator string="Atendances"/>
+                		<field name="attendances_ids" context="{'tree_view_ref':'hr_attendance_analysis.view_attendance_analysis'}"/>
+                		<separator string="Overtime Approved"/>
+                        <field name="overtime_ids"/>
+                        <field name="overtime_hours" invisible='1'/>
+                    </page>
+                    <page string="Advance Payments">
+                        <field name="advance_payment_history_ids">
+                        	<tree decoration-muted="state == True" decoration-info="payment == False"> 
+               					<field name="sequence" widget="handle"/>
+               					<field name="advance_payment_id"/>
+               					<field name="date"/>
+               					<field name="currency_id"/>
+        						<field name="exchange_rate"/>
+               					<field name="payment_amount" widget='monetary' options="{'currency_field': 'currency_id'}" sum="payment_amount"/>
+               					<field name="company_id" invisible="1"/>
+               					<field name="state" invisible="1"/>
+               					<field name="payment" invisible="1"/>
+               				</tree>
+               				<form string="Payment History">
+               					<sheet>
+               						<group>
+               							<group>
+               								<field name="advance_payment_id"/>
+               								<field name="company_id" invisible="1"/>
+               							</group>
+               							<group>
+               								<field name="date"/>
+               								<field name="currency_id"/>
+               								<field name="exchange_rate"/>
+            								<field name="payment_amount" widget='monetary' options="{'currency_field': 'currency_id'}" sum="payment_amount"/>
+            								<field name="state" invisible="1"/>
+               								<field name="payment" invisible="1"/>
+               							</group>
+               						</group>
+               					</sheet>
+               				</form>
+                        </field>
+                        <field name="advance_total" invisible='1'/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_form_hr_payslip_inherited" model="ir.ui.view">
+		    <field name="name">view.form.hr.payslip.inherited</field>
+		    <field name="model">hr.payslip</field>
+		    <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+		    <field name="arch" type="xml">
+		    	<xpath expr="//field[@name='worked_days_line_ids']" position="after">
+		    		<separator string="Timesheets"/>
+		    		<field name="timesheet_line_ids">
+		    			<tree string="Timesheets" editable="bottom">
+                            <field name="rule_id"/>
+                            <field name="support_type"/>
+                            <field name="value"/>
+                            <field name="quantity"/>
+							<field name="result"/>
+                        </tree>
+                        <form string="Timesheets">
+                            <group col="4">
+                                <field name="rule_id"/>
+	                            <field name="support_type"/>
+	                            <field name="value"/>
+	                            <field name="quantity"/>
+								<field name="result"/>
+                            </group>
+                        </form>
+		    		</field>
+		    	</xpath>
+		    	<!--<xpath expr="//button[@name='compute_sheet']" position="before">
+		    		<button string="Compute TimeSheet" name="compute_timesheet" type="object" states="draft" class="oe_highlight"/>
+		    	</xpath>-->
+		    </field>
+		</record>   
+		
+		<record id="hr_payroll.action_view_hr_payslip_form" model="ir.actions.act_window">
+            <field name="name">Employee Payslips</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="search_view_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="context">{'search_default_group_struct': 1,'search_default_group_month': 1}</field>
+        </record>
+        
+		<record id="view_hr_payslip_input_tree" model="ir.ui.view">
+            <field name="name">view.hr.payslip.input.tree</field>
+            <field name="model">hr.payslip.input</field>
+            <field name="arch" type="xml">
+            	<tree string="Input Data" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="amount"/>
+                                    <field name="contract_id"/>
+                                    <field name="sequence" invisible="True"/>
+                                </tree>
+            </field>
+        </record>     
+		
+    	<record id="view_hr_payslip_worked_days_tree" model="ir.ui.view">
+            <field name="name">view.hr.payslip.worked_days.tree</field>
+            <field name="model">hr.payslip.worked_days</field>
+            <field name="arch" type="xml">
+            	<tree string="Worked Days" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="number_of_days" sum="Total Working Days"/>
+                                    <field name="number_of_hours"/>
+                                    <field name="contract_id"/>
+                                    <field name="sequence" invisible="True"/>
+                 </tree>
+            </field>
+        </record>     
+        
+        
+    	<record id="view_hr_payslip_timesheet_line_tree" model="ir.ui.view">
+            <field name="name">view.hr.payslip.timesheet.line.tree</field>
+            <field name="model">hr.payslip.timesheet</field>
+            <field name="arch" type="xml">
+            	<tree string="Timesheets" editable="bottom">
+                            <field name="rule_id"/>
+                            <field name="support_type"/>
+                            <field name="value"/>
+                            <field name="quantity"/>
+							<field name="result"/>
+                        </tree>
+            </field>
+        </record>   
+        
+        <record id="view_hr_payslip_ap_history_tree" model="ir.ui.view">
+            <field name="name">view.hr.payslip.ap.history.tree</field>
+            <field name="model">hr.advance.payment.history</field>
+            <field name="arch" type="xml">
+				<tree decoration-muted="state == True" decoration-info="payment == False"> 
+     					<field name="sequence" widget="handle"/>
+     					<field name="advance_payment_id"/>
+     					<field name="date"/>
+     					<field name="currency_id"/>
+						<field name="exchange_rate"/>
+      					<field name="payment_amount" widget='monetary' options="{'currency_field': 'currency_id'}" sum="payment_amount"/>
+      					<field name="company_id" invisible="1"/>
+      					<field name="state" invisible="1"/>
+      					<field name="payment" invisible="1"/>
+  				</tree>  
+            </field>
+        </record>   
+        
+    </data>
+</openerp>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<!-- Master Data -->
+		<menuitem name="Master Data" 
+	        id="menu_master_data" 
+	        sequence="199"/>
+	        
+	        <menuitem name="Master Partner" 
+		        id="menu_master_partner" 
+		        sequence="15"
+		        parent="menu_master_data"
+		        groups="group_customer_manager,group_supplier_manager"/>
+		    	
+		    	<!-- THANH: Move menu Contacts Address from Sales to Master Data -->
+		    		<menuitem id="base.menu_config_address_book" 
+		    			parent="menu_master_partner" 
+		    			name="Contacts" 
+		    			sequence="1"/>
+		    	
+		    		
+		    <menuitem id='menu_extra_tool' 
+		    	name='Extra Tools' 
+		    	parent='menu_master_data' sequence="300" 
+		    	groups='group_merge_master_data'/>
+		    	
+    </data>
+</openerp>

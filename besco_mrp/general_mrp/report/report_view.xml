@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+		
+	    <!-- Production Order  
+	    <record id="report_production_order" model="ir.actions.report.xml">
+	        <field name="name">report_production_order</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">mrp.production</field>
+	        <field name="report_name">report_production_order</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_mrp/report/production_order.py</field>
+	        <field name="report_rml">general_mrp/report/production_order.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="True" 
+			menu="True"
+			id="report_production_order"
+			model="mrp.production"
+			name="report_production_order"
+	        string="Production Order"
+        rml="general_mrp/report/production_order.ods"/>
+        
+        -->
+	</data>
+</openerp>

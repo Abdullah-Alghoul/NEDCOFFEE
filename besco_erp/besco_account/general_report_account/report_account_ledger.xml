@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+		<record id="view_besco_report_account_ledger_report_form" model="ir.ui.view">
+		    <field name="name">report.account.ledger.report.form</field>
+		    <field name="model">report.account.ledger</field>
+		    <field name="arch" type="xml">
+	         	<form string="General Ledger">
+         			<header>
+         				<button name="print_account_ledger" type="object" string="Print Account Ledger"/>
+         				<button name="print_general_journal" type="object" string="Print General Journal"/>
+	                </header>
+			         <sheet>
+			        	<group>
+			           		<group>
+				        		<field name="times"/>
+				        		<field name="partner_ids" widget="many2many_tags" string='Partners' options="{'no_create': True}"/>
+			                	<field name="account_ids" widget="many2many_tags" string='Accounts'  options="{'no_create': True}"
+			                		attrs="{'required':[('view_type','=', 'liquidity')]}"/>
+			                	<field name="cp_account_ids" widget="many2many_tags" string='Counterpart Accounts' context="{'filter_remove_account_ids': account_ids}" options="{'no_create': True}"/>
+			                	<field name="cp2_account_ids" widget="many2many_tags" string='Counterpart Accounts 2' context="{'filter_remove_cp_account_ids': cp_account_ids}" options="{'no_create': True}"/>
+				        		<field name="extend_payment" invisible="1"/>
+				        		<field name="view_type"/>
+			        		</group>
+			        		<group>
+				        		<field name="fiscalyear_id"  attrs="{'invisible':[('times', 'in', ['dates'])],'required':[('times','not in', ['dates'])]}"/>
+				        		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','month'])],'required':[('times', 'not in', ['dates','years','month'])]}"/>
+				        		<field name="month" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+				        		<field name="date_start"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+				        		<field name="date_end"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+			           			<field name="company_id"/>
+			           			<field name="child_company_ids" widget="many2many_tags" domain="[('id','child_of',company_id),('id','!=',company_id)]"/>
+			           			<field name="second_currency_id" invisible="1"/>
+			           		</group>
+			            </group>
+			            <notebook>
+				            <page string="Balance">
+				            	<group>
+				        			<button string="Load Data" name="load_data" type="object" class="oe_highlight"/>
+				        		</group>
+				            	<group>
+					            	<field name="general_ledger_ids" readonly="1" nolabel="1">
+					            		<tree decoration-info="description in ('Số dư đầu kỳ','Số phát sinh trong kỳ','Số dư cuối kỳ')" class="account_ledger_summary">
+					            			<field name="description"/>
+					            			<field name="debit"/>
+					            			<field name="credit"/>
+					            			<field name="com_currency_id" invisible="1"/>
+					            		</tree>
+					            	</field>
+				            	</group>
+				            </page>
+				            <page string="Transaction Details">
+				            	<group>
+				        			<button string="Load Data" name="load_data_detail" type="object" class="oe_highlight"/>
+				        		</group>
+				            	<group>
+					            	<field name="detail_ledger_ids" readonly="1" nolabel="1">
+					            		<tree decoration-danger="description in ('Số dư đầu kỳ','Số phát sinh trong kỳ','Số dư cuối kỳ')" 
+					            			class="account_ledger"
+					            			limit="300">
+					            			<field name="seq" invisible='1'/>
+					            			<field name="gl_date"/>
+					            			<field name="doc_date"/>
+					            			<field name="doc_no"/>
+					            			<field name="partner_id"/>
+					            			<field name="description"/>
+					            			<field name="acc_code"/>
+					            			<field name="cp_acc_code"/>
+					            			<field name="debit"/>
+					            			<field name="credit"/>
+									        <field name="ac_balance"/>
+					            			<field name="com_currency_id" invisible="1"/>
+					            		</tree>
+					            	</field>
+				            	</group>
+				            </page>
+				            <page string="Journals">
+				            	<div>
+			                        <button string="Public Journals" name="load_journal" type="object" context="{'journal_type':'public'}"/>
+				        			<button string="Internal Journals" name="load_journal" type="object" context="{'journal_type':'internal'}"/>
+				        			<button string="All Journals" name="load_journal" type="object"/>
+			                    </div>
+				            	<field name="journal_ids" nolabel="1"/>
+				            </page>
+			            </notebook>
+		            </sheet>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="view_besco_report_account_ledger_report_tree" model="ir.ui.view">
+		    <field name="name">report.account.ledger.report.tree</field>
+		    <field name="model">report.account.ledger</field>
+		    <field name="arch" type="xml">
+		         <tree string="General Ledger">
+		        	<field name="times"/>
+	        		<field name="company_id"/>
+		        </tree>
+		    </field>
+		</record>
+		
+		<record id="action_besco_account_ledger_report" model="ir.actions.act_window">
+            <field name="name">General Ledger</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.account.ledger</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+        
+		<menuitem
+	      		id="menu_action_besco_account_ledger_report" 
+	      		name="General Ledger"
+	      		action="action_besco_account_ledger_report" 
+	      		parent="menu_vas_financial_reports" 
+	      		sequence="100"/>
+	    
+	</data>
+</openerp>

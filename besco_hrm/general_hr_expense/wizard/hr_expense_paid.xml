@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+	<!-- Advance Expense payment -->
+		<record id="view_advance_expense_payment_form" model="ir.ui.view">
+	        <field name="name">view.advance.expense.payment.form</field>
+	        <field name="model">hr.expense.paid</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	             <form string="Advance expense payment" version="7.0">
+            		<group>
+            			<group>
+                			<field name="journal_id" required='1'/>
+                			<field name="date"/>
+            			</group>
+            			<group>
+                			<field name="amount" readonly="1"/>
+                		</group>
+            		</group>
+            		<group string='Note'>
+                		<field name="note" nolabel='1'/>
+            		</group>
+	                <footer>
+	                    <button string="Validate" type="object" name="validate"  icon='gtk-execute'/>
+	                    or
+	                    <button string="Cancel" class="oe_link" special="cancel"/>
+	                </footer>
+	            </form>
+	        </field>
+	    </record>
+        
+        <record id="action_advance_expense_payment_form" model="ir.actions.act_window">
+            <field name="name">Advance expense payment</field>
+            <field name="res_model">hr.expense.paid</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_advance_expense_payment_form"/>
+        </record>
+        
+    <!-- Expense generates Journal Entry -->
+		<record id="view_expense_generate_journal_entry_form" model="ir.ui.view">
+	        <field name="name">view.expense.generate.journal.entry.form</field>
+	        <field name="model">hr.expense.paid</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	             <form string="Generate Journal Entry" version="7.0">
+            		<group>
+                		<group>
+	                		<field name="date"/>
+	            		</group>
+            		</group>
+            		<group string='Note'>
+                		<field name="note" nolabel='1'/>
+            		</group>
+	                <footer>
+	                    <button string="Validate" type="object" name="validate"  icon='gtk-execute'/>
+	                    or
+	                    <button string="Cancel" class="oe_link" special="cancel"/>
+	                </footer>
+	            </form>
+	        </field>
+	    </record>
+        
+        <record id="action_expense_generate_journal_entry" model="ir.actions.act_window">
+            <field name="name">Generate Journal Entry</field>
+            <field name="res_model">hr.expense.paid</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_expense_generate_journal_entry_form"/>
+        </record>
+	    
+	</data>
+</openerp>

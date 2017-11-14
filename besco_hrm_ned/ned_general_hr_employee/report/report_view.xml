@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+		
+		<!-- report birthday employee -->
+	    <record id="report_birthday_employee" model="ir.actions.report.xml">
+	        <field name="name">report_birthday_employee</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.birthday.employee</field>
+	        <field name="report_name">report_birthday_employee</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_employee/report/birthday_employee.py</field>
+	        <field name="report_rml">ned_general_hr_employee/report/birthday_employee.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_birthday_employee"
+			model="wizard.birthday.employee"
+			name="report_birthday_employee"
+	        string="Birthday Employee"
+        	rml="ned_general_hr_employee/report/birthday_employee.ods" />
+        	
+		<!-- report chilren holiday -->
+	    <record id="report_children_holiday" model="ir.actions.report.xml">
+	        <field name="name">report_children_holiday</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.children.holiday</field>
+	        <field name="report_name">report_children_holiday</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_employee/report/children_holiday.py</field>
+	        <field name="report_rml">ned_general_hr_employee/report/children_holiday.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_children_holiday"
+			model="wizard.children.holiday"
+			name="report_children_holiday"
+	        string="Chilren Holiday"
+        	rml="ned_general_hr_employee/report/children_holiday.ods" />
+		
+		<!-- report holiday leaves -->
+	    <record id="report_holiday_leaves" model="ir.actions.report.xml">
+	        <field name="name">report_holiday_leaves</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.legal.leaves</field>
+	        <field name="report_name">report_holiday_leaves</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_employee/report/holiday_leaves_report.py</field>
+	        <field name="report_rml">ned_general_hr_employee/report/holiday_leaves_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_holiday_leaves"
+			model="wizard.legal.leaves"
+			name="report_holiday_leaves"
+	        string="Holiday Leaves"
+        	rml="ned_general_hr_employee/report/holiday_leaves_report.ods" />
+        	
+       	<!-- benefit information -->
+       	<record id="export_benefit_information_report" model="ir.actions.report.xml">
+	        <field name="name">export_benefit_information_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.benefit.information</field>
+	        <field name="report_name">export_benefit_information_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_employee/report/benefit_receive.py</field>
+	        <field name="report_rml">ned_general_hr_employee/report/benefit_receive.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="export_benefit_information_report"
+			model="wizard.benefit.information"
+			name="export_benefit_information_report"
+	        string="Benefit Information"
+        	rml="ned_general_hr_employee/report/benefit_receive.ods" />
+        	
+        	<!-- insurance -->
+       	<record id="export_insurance_information_report" model="ir.actions.report.xml">
+	        <field name="name">export_insurance_information_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.benefit.information</field>
+	        <field name="report_name">export_insurance_information_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_employee/report/insurance_list.py</field>
+	        <field name="report_rml">ned_general_hr_employee/report/insurance_list.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="export_insurance_information_report"
+			model="wizard.benefit.information"
+			name="export_insurance_information_report"
+	        string="Insurance Information"
+        	rml="ned_general_hr_employee/report/insurance_list.ods" />
+        
+        <!-- report employees -->
+	    <record id="report_export_empls" model="ir.actions.report.xml">
+	        <field name="name">report_export_empls</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.export.data.hr</field>
+	        <field name="report_name">report_export_empls</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_employee/report/ned_employee.py</field>
+	        <field name="report_rml">ned_general_hr_employee/report/ned_employee.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_export_contracts"
+			model="wizard.export.data.hr"
+			name="report_export_contracts"
+	        string="Export Contracts"
+        	rml="ned_general_hr_employee/report/ned_contract.ods" />
+        	
+        <!-- report Contracts -->
+	    <record id="report_export_contracts" model="ir.actions.report.xml">
+	        <field name="name">report_export_contracts</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.export.data.hr</field>
+	        <field name="report_name">report_export_contracts</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_employee/report/ned_contract.py</field>
+	        <field name="report_rml">ned_general_hr_employee/report/ned_contract.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_export_empls"
+			model="wizard.export.data.hr"
+			name="report_export_empls"
+	        string="Export Emp"
+        	rml="ned_general_hr_employee/report/ned_employee.ods" />
+        <!-- report Taxs -->
+	    <record id="report_export_taxs" model="ir.actions.report.xml">
+	        <field name="name">report_export_taxs</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.export.data.hr</field>
+	        <field name="report_name">report_export_taxs</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_employee/report/ned_taxs.py</field>
+	        <field name="report_rml">ned_general_hr_employee/report/ned_taxs.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_export_taxs"
+			model="wizard.export.data.hr"
+			name="report_export_taxs"
+	        string="Private Incomes Tax"
+        	rml="ned_general_hr_employee/report/ned_taxs.ods" />
+        	
+        <!-- Template social insurance required -->
+	   <record id="report_social_insurance_required_emp" model="ir.actions.report.xml">
+	        <field name="name">report_social_insurance_required</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.employee</field>
+	        <field name="report_name">report_social_insurance_required</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_general_hr_employee/report/social_insurance_required.py</field>
+	        <field name="report_rml">ned_general_hr_employee/report/social_insurance_required.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="True" 
+			menu="True"
+			id="report_social_insurance_required_emp"
+			model="hr.employee"
+			name="report_social_insurance_required"
+	        string="Social Insurance Required"
+        	rml="ned_general_hr_employee/report/social_insurance_required.odt"/>
+        	
+	</data>
+</openerp>

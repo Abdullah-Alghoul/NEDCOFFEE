@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+    	<record id="view_tree_stock_contract_allocation" model="ir.ui.view">
+            <field name="name">view.stock.contract.allocation</field>
+            <field name="model">stock.contract.allocation</field>
+            <field name="arch" type="xml">
+    			<tree string="Stock Contract Allocation">
+                    <!-- <field name = 'name'/> -->
+                    <field name = 'allocation_date'/>
+                    <field name = 'stack_no'/>
+                    <field name = 'shipping_id'/>
+                    <field name = 'allocating_quantity'/>
+                </tree>
+	         </field>
+         </record>
+
+         <record id="view_form_stock_contract_allocation" model="ir.ui.view">
+            <field name="name">Stock Contract Allocation</field>
+            <field name="model">stock.contract.allocation</field>
+            <field name="arch" type="xml">
+                <form string="Allocation">
+                    <group name="group_top">
+                        <group name="group_left">
+                            <!-- <field name = 'name'/> -->
+                            <field name = 'allocation_date'/>
+                            <field name = 'shipping_id'/>
+                            <field name = 'stack_no'/>
+                            <div name="loadstack" class="o_row">
+                                <button name="load_stack_info" string="Load stack quantity" type="object" 
+                                            icon="terp-gtk-jump-to-ltr" class="rallign"/>
+                            </div> 
+                            <br/>
+                            <field name = 'allocating_quantity'/>
+                        </group>
+                        <group name="group_center">
+                            <br/>
+                            <br/>
+                            <br/>
+                            
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- The block of code bellow determines a list of search parameters appear once user type in the searchbar -->
+        <record id="stock_contract_allocation_search" model="ir.ui.view">
+            <field name="name">view.pss.management.search</field>
+            <field name="model">stock.contract.allocation</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "shipping_id"/>
+                    <field name = 'shipping_id'/>
+                    <!-- <field name = 'receipt_note'/> -->
+                    <group expand="1" string="Group By">
+                        <filter string="SI" domain="[]" context="{'group_by':'shipping_id'}"/>
+                        <filter string="Shipping" domain="[]" context="{'group_by':'shipping_id'}"/>
+                    </group>
+                </search>
+             </field>
+         </record>
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_stock_contract_allocation" model="ir.actions.act_window">
+            <field name="name">Stock allocation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.contract.allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="priority">230</field>
+            <field name="search_view_id"/>
+            <!-- <field name="context">{"search_default_status":True}</field> -->
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_stock_contract_allocation" 
+            action="action_stock_contract_allocation" parent="general_kcs.menu_request_kcs" name="Stock allocation"
+            sequence="211" />
+        <!-- <menuitem id="menu_v_qc_details_ned_manufacturing" 
+            action="action_pss_management" parent="mrp.menu_mrp_planning" name="Stock Intake Quality"
+            sequence="210" /> -->
+    </data>
+</openerp>

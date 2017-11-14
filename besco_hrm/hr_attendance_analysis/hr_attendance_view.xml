@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_attendance_form" model="ir.ui.view">
+            <field name="name">hr.attendance.form</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_form"></field>
+            <field name="arch" type="xml">
+                <field name="action_desc" position="after">
+                	<field name="calendar_attendance_id"/>
+                	<field name="available_late"/>
+                    <field name="leave_soon"/>
+                    <field name="calendar_duration" widget="float_time"/>
+                    <field name="duration"   widget="float_time"/>
+                    <field name="outside_calendar_duration"   widget="float_time"/>
+                    <field name="inside_calendar_duration"  widget="float_time" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_attendance_analysis" model="ir.ui.view">
+            <field name="name">hr.attendance.analysis</field>
+            <field name="model">hr.attendance</field>
+            <field name="priority" eval="17"/>
+            <field name="arch" type="xml">
+                <tree string="Employee attendances analysis">
+                    <field name="employee_id"  />
+                    <field name="name" string="Start date time"/>
+                    <field name="end_datetime"/>
+                    <field name="calendar_attendance_id"/>
+                    <field name="available_late"/>
+                    <field name="leave_soon"/>
+                    <field name="calendar_duration" widget="float_time" sum="Total Schedule"/>
+                    <field name="duration" widget="float_time" sum="Total Duration"/>
+                    <field name="outside_calendar_duration" widget="float_time" sum="Total OT"/>
+                    <field name="inside_calendar_duration" sum="Within working schedule" widget="float_time" invisible="1"/>
+                    <field name="department_id"/>
+                    <field name="notes"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_attendance_calendar">
+            <field name="name">view_hr_attendance.calendar</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <calendar string="Calendar View" date_start="name" date_stop="end_datetime" color="color" mode="month">
+                    <field name="notes"/>
+                </calendar>
+            </field>
+        </record>
+		
+		<record id="view_hr_attendance_filter_add_working_shift" model="ir.ui.view">
+            <field name="name">view.hr.attendance.filter.add.working.shift</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_hr_attendance_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="end_datetime"/>
+                    <field name="calendar_attendance_id"/>
+                </field>
+                <filter name="groupby_name" position="after">
+                    <filter string="Shift" icon="terp-go-today" domain="[]" context="{'group_by':'calendar_attendance_id'}"/>
+                </filter>
+            </field>
+        </record>
+        
+        <record id="open_view_attendance_analys" model="ir.actions.act_window">
+            <field name="name">Attendances Analysis</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="domain">[('action', 'in', ('sign_in','action'))]</field>
+            <field name="view_id" ref="view_hr_attendance_calendar"/>
+            <field name="search_view_id" ref="hr_attendance.view_hr_attendance_filter"/>
+            <field name="context">{"search_default_today":0}</field>
+        </record>
+        <menuitem action="open_view_attendance_analys" id="menu_open_view_attendance_analys" 
+        	parent="hr_attendance.menu_hr_attendance_root"
+        	sequence="1" groups="base.group_user"/>
+        
+        
+        <!--<record id="open_view_attendance_analys_emp" model="ir.actions.act_window">
+            <field name="name">Attendances Analysis</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar,form</field>
+            <field name="domain">[('action', 'in', ('sign_in','action'))]</field>
+            <field name="view_id" ref="view_attendance_analysis"/>
+            <field name="search_view_id" ref="hr_attendance.view_hr_attendance_filter"/>
+            <field name="context">{"search_default_today":0,
+            					   "search_by_field_date"": ['name']}</field>
+        </record>
+        <menuitem action="open_view_attendance_analys_emp" id="menu_open_view_attendance_analys_emp" 
+        	parent="hr_attendance.menu_hr_attendance_root"
+        	sequence="1" groups="base.group_user"/>-->
+        			
+        <menuitem action="resource.action_resource_calendar_form" 
+        	id="menu_view_resource_calendar" 
+        	parent="hr_attendance.menu_hr_attendance_config" 
+        	sequence="3"
+        	groups="base.group_hr_user"/>
+    </data>
+</openerp>

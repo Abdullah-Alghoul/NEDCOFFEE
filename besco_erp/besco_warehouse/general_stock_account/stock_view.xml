@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+        <!-- Cost History -->
+        <record id="view_cost_history_filter" model="ir.ui.view">
+            <field name="name">cost.history.layers.filter</field>
+            <field name="model">average.cost.history</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Cost History">
+                    <field name="period_id"/>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_cost_history_tree">
+            <field name="name">view.cost.history.tree.tree</field>
+            <field name="model">average.cost.history</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Cost History">
+                    <field name="period_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record id="view_cost_history_form" model="ir.ui.view">
+            <field name="name">view.cost.history.form</field>
+            <field name="model">average.cost.history</field>
+            <field name="arch" type="xml">
+                <form string="Cost History" version="7.0">
+                <header>
+                	<button name="compute_cost" states="draft" string="Compute cost" type="object" groups="account.group_account_user" />
+                	<button name="post" string="Post" states="draft" type="object" groups="account.group_account_user" />
+                	<field name="state" widget="statusbar" statusbar_visible="draft,done,cancel"/>
+                </header>
+                <sheet string="Cost History">
+                	<div class="oe_title">
+                        <h1>
+                            <field name="period_id" default_focus="1" placeholder="Period ..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                        	<field name="detail_history_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_cost_history" model="ir.actions.act_window">
+            <field name="name">Average Cost Histories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">average.cost.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_cost_history_filter"/>
+        </record>
+        
+        <record id="view_cost_detail_history_tree" model="ir.ui.view">
+            <field name="name">average.cost.detail.history.tree</field>
+            <field name="model">average.cost.detail.history</field>
+            <field name="arch" type="xml">
+            	<tree string="Details">
+            		<field name="valuation" invisible='1'/>
+            		<field name="product_id"/>
+            		<field name="product_uom_id"/>
+            		<field name="previous_cost"/>
+            		<field name="qty_previous"/>
+            		<field name="previous_value"/>
+            		<field name="this_cost"/>
+            		<field name="qty_onhand"/>
+            		<field name="this_value"/>
+            	</tree>
+        	</field>
+        </record>
+        
+        <record id="view_cost_detail_history_form" model="ir.ui.view">
+            <field name="name">average.cost.detail.history.form</field>
+            <field name="model">average.cost.detail.history</field>
+            <field name="arch" type="xml">
+                <form string="Cost Detail History" version="7.0">
+                <header>
+                	<button name="compute_cost" string="Compute Cost" type="object"/>
+                	<button name="post" string="Post" type="object"/>
+                </header>
+                <sheet string="Cost Detail History">
+                	<div class="oe_title">
+                        <h3>
+                            <field name="product_id"/> - <field name="product_uom_id"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group>
+	                        <field name="qty_previous"/>
+	                        <field name="previous_cost"/>
+	                        <field name="previous_value"/>
+                         </group>
+                         <group>
+                         	<field name="valuation" invisible='1'/>
+	                        <field name="qty_onhand"/>
+	                        <field name="this_cost"/>
+	                        <field name="this_value"/>
+						 </group>                     
+                     </group>
+                     <group col="1">
+	                    <field name="move_ids" nolabel="1" >
+	                    	<tree>
+	                    		<field name="picking_id" string="Phiếu kho"/>
+	                    		<field name="date"/>
+	                    		<field name="type" invisible="1"/>
+	                    		<field name="product_id" invisible="1"/>
+	                    		<field name="product_qty"/>
+	                    		<field name="product_uom"/>
+	                    		<field name="price_unit"/>
+	                    		<field name="state" invisible="1"/>
+	                    		<field name="location_id"/>
+	                    		<field name="location_dest_id"/>
+	                    		<field name="product_qty" sum="Total"/>
+	                    		<field name="primary_uom_id"/>
+	                    		<field name="cur_qty"/>
+	                    		<field name="cur_cost"/>
+	                    		<field name="costed"/>
+	                    	</tree>
+	                    </field>
+	                 </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+                
+    </data>
+</openerp>

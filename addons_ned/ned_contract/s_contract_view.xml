@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	
+    	<record id="bes_sale_contract.action_sale_contract_export" model="ir.actions.act_window">
+            <field name="name">Sale Contract - Export</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','export')]</field>
+            <field name="context">{'default_type':'export','search_by_field_date': ['date_invoice']}</field>
+            <field name="search_view_id" ref="bes_sale_contract.sale_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a sale contract, the first step of a new contract.
+              </p>
+            </field>
+        </record>
+        
+    	<record id="view_post_shipment_line_search" model="ir.ui.view">
+            <field name="name">post.shipment.line.search</field>
+            <field name="model">post.shipment.line</field>
+            <field name="arch" type="xml">
+                <search string="Search shipment line">
+                    <field name="post_id"/>
+                    <field name="do_id"/>
+                    <field name="nvs_nls_id"/>
+                    <field name="cont_no"/>
+                    <group expand="0" string="Filter...">
+                    </group>
+                    <group expand="0" string="Group By...">
+                    	<filter string="Post" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'post_id'}"/>
+                    	<filter string="Do" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'do_id'}"/>
+                        <filter string="Nvs-Nls" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'nvs_nls_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        
+    	<record id="view_post_shipment_line_tree" model="ir.ui.view">
+            <field name="name">post.shipment.line.tree</field>
+            <field name="model">post.shipment.line</field>
+            <field name="arch" type="xml">
+                <tree string="Post Shipment Line">
+                	<field name="post_id"/>
+                	<field name="do_id"/>
+                	<field name="nvs_nls_id"/>
+    				<field name="cont_no"/>
+         			<field name="loading_date"/>
+         			<field name="bags" sum="bags"/>
+         			<field name="shipped_weight" sum="shipped_weight" string="Weight"/>
+         			<field name="bl_no"/>
+	   				<field name="bl_date"/>
+	   				<field name="supervisor_id"/>
+    			</tree>
+            </field>
+        </record>
+        
+        <record id="action_post_shipment_line" model="ir.actions.act_window">
+            <field name="name">Post Shipment Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">post.shipment.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_post_shipment_line_search"/>
+        </record>
+    	
+    	<menuitem id="menu_action_post_shipment_line" action="action_post_shipment_line" sequence="200" 
+        	parent="bes_sale_contract.menu_sale_contract"
+        	groups="bes_sale_contract.group_sales_contract_user"/>
+        
+    	<record id="view_post_shipment_form_inherit_ned" model="ir.ui.view">
+	        <field name="name">view.post.shipment.form.inherit.ned</field>
+	        <field name="model">post.shipment</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_post_shipment_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='delivery_place_id']" position="after">
+	           		<field name="packing_id"/>
+                </xpath>
+	        </field>
+	    </record>
+	    
+	    <record id="view_post_shipment_tree_inherit_ned" model="ir.ui.view">
+	        <field name="name">view.post.shipment.tree.inherit.ned</field>
+	        <field name="model">post.shipment</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_post_shipment_tree"/>
+	        <field name="arch" type="xml">
+	           	<xpath expr="//field[@name='delivery_place_id']" position="before">
+	           		<field name="packing_id"/>
+	           	</xpath>
+	        </field>
+	    </record>
+	    
+    	
+    	<record id="view_delivery_order_form_inherit_ned" model="ir.ui.view">
+	        <field name="name">view.delivery.order.form.inherit.ned</field>
+	        <field name="model">delivery.order</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_delivery_order_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='delivery_order_ids']/tree/field[@name='name']" position="after">
+                	<field name="certificate_id"/>
+                	<field name="packing_id"/> 
+                </xpath>
+               
+                <xpath expr="//field[@name='date']" position="attributes">
+	            	<attribute name="string">DO Date</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='partner_id']" position="attributes">
+	            </xpath>
+	            <xpath expr="//field[@name='trucking_no']" position="after">
+	            	<field name="type" required="0" invisible="1" />
+	           		<field name="delivery_place_id" domain="[('type','=','sale')]"/>
+                </xpath>
+                <xpath expr="//field[@name='picking_id']" position="after">
+	           		<field name="move_id" readonly="1"/>
+                </xpath>
+                
+	        </field>
+	    </record>
+    	<record id="view_delivery_order_tree_inherit_ned" model="ir.ui.view">
+	        <field name="name">view.delivery.order.tree.inherit.ned</field>
+	        <field name="model">delivery.order</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_delivery_order_tree"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='date']" position="attributes">
+	            	<attribute name="string">DO Date</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='date']" position="after">
+	            	<field name="shipping_id"/>
+	            </xpath>
+	            <xpath expr="//field[@name='trucking_id']" position="attributes">
+	           		<attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+	            	<attribute name="string">DO No.</attribute>
+	            </xpath>
+	            
+	           	<xpath expr="//field[@name='date']" position="attributes">
+	           		<attribute name="string">DO date</attribute>
+	           	</xpath>
+	           	<xpath expr="//field[@name='trucking_no']" position="after">
+	           		<field name="delivery_place_id"/>
+	           		<field name="picking_id"/>
+	           	</xpath>
+	           	<xpath expr="//field[@name='transrate']" position="after">
+	           		<field name="bagsfactory" sum="bagsfactory"/>
+	           		<field name="weightfactory" sum="weightfactory"/>
+	           		
+	           		<field name="bags" sum="bags"/>
+	           		<field name="shipped_weight" sum="shipped_weight"/>
+	           		
+	           		<field name="storing_loss" sum="storing_loss"/>
+	           		<field name="transportation_loss" sum="transportation_loss"/>
+	           	</xpath>
+	           	
+	           	
+	        </field>
+	    </record>
+    	<record id="view_s_contract_tree_inherit_ned" model="ir.ui.view">
+	        <field name="name">view.s.contract.tree.inherit.ned</field>
+	        <field name="model">s.contract</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_s_contract_tree"/>
+	        <field name="arch" type="xml">
+	       	 <xpath expr="//field[@name='name']" position="after">
+	            	<field name="si_id"/>
+	            </xpath>
+	            <xpath expr="//field[@name='product_id']" position="after">
+	            	<field name="certificate_id"/>
+	            	<field name="packing_id"/>
+	            	<field name="buyer_ref"/>
+	            </xpath>
+	            <xpath expr="//field[@name='state']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='state']" position="before">
+	           		<field name="shipment_date"/>
+                    <field name="pss"/>
+                </xpath>
+	        </field>
+	    </record>
+		
+		<record id="view_s_contract_form_inherit_ned_contract" model="ir.ui.view">
+	        <field name="name">view.s.contract.form.inherit.ned.contract</field>
+	        <field name="model">s.contract</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_s_contract_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='deadline']" position="replace">
+	            	<field name="shipment_date"/>
+	            	<field name="crop_id"/>
+	            	<field name="delivery_place_id" invisible="1"/>
+	            	<field name="differential"/>
+	            	<field name="check_by_cont"/>
+	            </xpath>
+	            <xpath expr="//field[@name='exchange_rate']" position="replace">
+	            	<field name="buyer_ref"/>
+	            	<field name="pss"/>
+	            	<field name="date_pss"/>
+	            </xpath>
+	            <xpath expr="//field[@name='partner_shipping_id']" position="replace">
+	            	<field name="status"/>
+	            </xpath>
+	            <xpath expr="//field[@name='container_status']" position="after">
+	            	<field name="fob_delivery"/>
+	            </xpath>
+	            <xpath expr="//field[@name='state']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='warehouse_id']" position="after">
+	            	<field name="incoterms_id"/>
+	            </xpath>
+	            <xpath expr="//group[@name='users_validate']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	        </field>
+	    </record>
+	    
+	    <record id="view_s_contract_line_form_inherit_ned_contract" model="ir.ui.view">
+	        <field name="name">view.s.contract.line.form.inherit.ned.contract</field>
+	        <field name="model">s.contract.line</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_s_contract_line_tree"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='name']" position="after">
+	            	<field name="certificate_id"/>
+	            	<field name="packing_id"/>
+	            </xpath>
+	        </field>
+	    </record>
+	    
+	    
+	    <record id="view_shipping_instruction_tree_inherit_ned" model="ir.ui.view">
+	        <field name="name">shipping.instruction.tree.inherit.ned</field>
+	        <field name="model">shipping.instruction</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_shipping_instruction_tree"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='name']" position="attributes">
+	            	<attribute name="string">SI No.</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='date']" position="attributes">
+	            	<attribute name="string">SI Date</attribute>
+	            </xpath>
+	            
+	            <xpath expr="//field[@name='state']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='origin']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            
+	            <xpath expr="//field[@name='total_line_qty']" position="after">
+	            	<field name="priority_by_month"/>
+	            	<field name="packing_id"/>
+	            	<field name="bill_no"/>
+	            	<field name="bill_date"/>
+	            	<field name="shipment_date"/>
+	            	<field name="fumigation_id"/>
+	            	<field name="fumigation_date"/>
+	            	<!-- <field name="shipping_line" invisible="1"/> -->
+	            	<field name="pss_condition"/>
+	            	<!-- <field name="pss_sent"/> -->
+	            	<!-- <field name="date_sent"/> -->
+	            	<!-- <field name="pss_approved"/> -->
+	            	<field name="factory_etd"/>
+	            	<field name="push_off_etd"/>
+	            	<field name="booking_date"/>
+	            	<field name="closing_time"/>
+    				<field name="shipped"/>
+    				<field name="booking_ref_no"/>
+    				<field name="shipping_line_id"/>
+    				<field name="prodcompleted"/>
+    				<field name="port_of_discharge"/>
+    				<field name="port_of_loading"/>
+    				<field name="delivery_place_id"/>
+    				<field name="ico_permit_no"/>
+    				<field name="allocated"/>
+    				<field name="remarks"/>
+	            </xpath>
+	        </field>
+        </record>
+	    
+	    
+	    <record id="view_shipping_instruction_form_inherit_ned_contract" model="ir.ui.view">
+	        <field name="name">shipping.instruction.form.inherit.ned.contract</field>
+	        <field name="model">shipping.instruction</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_shipping_instruction_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='shipping_ids']" position="replace">
+	            	<field name="shipping_ids" context="{'default_shipping_id': active_id}">
+            			<tree editable="top">
+            				<field name="sequence" widget="handle"/>
+		    				<field name="product_id"/>
+		    				<field name="name"/>
+		    				<field name="certificate_id"/>
+		    				<field name="packing_id"/>
+		    				<field name="product_uom"/>
+		    				<field name="product_qty" sum="product_qty"/>
+		    				<field name="price_unit" invisible="0" />
+							<field name="tax_id" invisible="1" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+            			</tree>
+            		</field>
+	            </xpath>
+	            
+	             <xpath expr="//field[@name='partner_id']" position="attributes">
+	            	<attribute name="readonly">1</attribute>
+	            </xpath>
+	            
+	             <xpath expr="//field[@name='invoice_ids']/tree/field[@name='currency_id']" position="after">
+		            <button name="printf_commercial_invoice" string="Print Commercial" type="object" />
+                 	<button name="printf_packing_list" string="Print Packing" type="object"/>
+	                   				
+		        </xpath>
+	            
+	            
+	            <xpath expr="//group[@name='users_validate']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            
+	            <xpath expr="//field[@name='state']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//div[@name='contract_id']" position="after">
+	            	<field name="pss_condition"/>
+	            	<field name="pss_send_schedule"/>
+	             	<!-- <field name="pss_sent" string="PSS Sent"/> -->
+	             	<!-- <field name="date_sent"/> -->
+	            	<!-- <field name="pss_approved" string="PSS Approved"/> -->
+	            	<field name="fumigation_id"/>
+	            </xpath>
+	            <xpath expr="//field[@name='deadline']" position="replace">
+	            	<field name="shipment_date"/>
+	            </xpath>
+	            <xpath expr="//field[@name='booking_date']" position="after">
+	            	<field name="closing_time"/>
+	            </xpath>
+	            <xpath expr="//field[@name='factory_etd']" position="after">
+	            	<field name="container_status"/>
+	            </xpath>
+	            
+	            <xpath expr="//field[@name='shipping_line']" position="replace">
+	            	<field name="shipping_line_id" invisible="0"/>
+	            </xpath>
+	            
+	            <xpath expr="//field[@name='push_off_etd']" position="after">
+	            	<field name="delivery_place_id"/>
+	            </xpath>
+	            <xpath expr="//field[@name='container_status']" position="after">
+	            	<field name="bill_no"/>
+	            	<field name="bill_date"/>
+	            	<field name="vessel"/>
+	            	<field name="voyage"/>
+	            </xpath>
+	            
+	            
+	            <xpath expr="//field[@name='origin']" position="replace">
+	            	<field name="materialstatus"/>
+	            	<field name="prodcompleted"/>
+	            	<field name="fumigation_date"/>
+	            	<field name="shipped"/>
+	            	<field name="remarks"/>
+	            	<field name="priority_by_month"/>
+	            </xpath>
+	            
+	            <xpath expr="//button[@name='button_waiting']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//button[@name='button_cancel']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//button[@name='button_approve']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//button[@name='button_waiting']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='state']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            	
+	        </field>
+	    </record>
+    
+      </data>
+</openerp>

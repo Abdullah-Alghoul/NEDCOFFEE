@@ -1,0 +1,31 @@
+<openerp>
+	<data>
+		<record id="view_action_wizard_import_overtime" model="ir.ui.view">
+	      <field name="name">Import Overtime</field>
+	      <field name="model">wizard.import.overtime</field>
+	      <field name="arch" type="xml">
+	        <form>
+	        	<sheet>
+	        		<group col="2" name="main">
+		       			<field name="file"/>
+			          	<field name="file_name" invisible="1"/>
+			        </group>
+			        <footer>
+			        	<button string="Export" name="export_wizard_overtime" type="object"/>
+			        	<button string="Import" name="import_wizard_overtime" type="object" class="oe_highlight"/>
+			        </footer>
+	        	</sheet>
+    		</form>
+	      </field>
+	    </record>
+	    
+		<record id="action_wizard_import_overtime" model="ir.actions.act_window">
+	        <field name="name">Import Overtime</field>
+	        <field name="res_model">wizard.import.overtime</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field eval="False" name="view_id"/>
+			<field name="target">new</field>	        
+	    </record>
+	</data>
+</openerp>

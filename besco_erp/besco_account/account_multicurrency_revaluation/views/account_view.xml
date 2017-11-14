@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<!-- THANH: Modified -->
+        <record id="view_account_form_inherit_currency_revaluation" model="ir.ui.view">
+            <field name="name">view_account_form_inherit_currency_revaluation</field>
+            <field name="model">account.account</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <field name="deprecated" position="after">
+                       <field name="groupby_account"/>
+                       <field name="revaluation_balance"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

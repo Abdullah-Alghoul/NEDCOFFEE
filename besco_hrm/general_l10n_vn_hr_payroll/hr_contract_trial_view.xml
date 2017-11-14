@@ -1,0 +1,40 @@
+<openerp>
+	<data>
+		
+		<menuitem action="general_hr_contract_trial.action_hr_contract_trial" 
+		id="general_hr_contract_trial.menu_action_hr_contract_trial" parent="hr.menu_hr_main" 
+		name="Trial Contracts" sequence="3" groups="base.group_hr_manager,group_hr_salary_officer"/>
+        
+		<record id="hr_contract_trial_view_form_add_basic_salary" model="ir.ui.view">
+            <field name="name">hr.contract.trial.view.form.add.basic.salary</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="general_hr_contract_trial.hr_contract_trial_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='wage']" position="after">
+                		<field name="struct_id" required="1"/>
+                    </xpath>
+                    
+                    <xpath expr="//group[@name='trial_duration_group']" position="after">
+                        <group name="salary_rule_group" string="Salary Rules">
+                			<field name="contract_salary_rule_ids" nolabel='1'>
+            					<tree string="Rules" editable='top'>
+            						<field name="sequence"/>
+		                            <field name="salary_rule_id"/>
+		                            <field name="amount"/>
+            					</tree>	
+            				</field>
+                        </group>
+                        <group name="overtime_group" string="Overtime">
+                			<field name="days_by_month" attrs="{'readonly': [('state','not in','draft')]}"/>
+                            <field name="hours_by_day" attrs="{'readonly': [('state','not in','draft')]}"/>
+                            <field name="overtime_rate" attrs="{'readonly': [('state','not in','draft')]}"/>
+                        </group>
+                    </xpath>
+                    
+                </data>
+            </field>
+        </record>
+                
+    </data>
+</openerp>

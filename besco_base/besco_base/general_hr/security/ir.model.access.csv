@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_job_employee,hr.job.employee,hr.model_hr_job,base.group_user,1,0,0,0
+access_resource_calendar_attendance_usr,resource.calendar.attendance.user,resource.model_resource_calendar_attendance,base.group_user,1,0,0,0
+access_resource_calendar_attendance_mgr,resource.calendar.attendance.manager,resource.model_resource_calendar_attendance,base.group_user,1,1,1,1
+access_hr_employee_dependent_employee,hr_employee_dependent_employee,model_hr_employee_dependent,base.group_user,1,0,0,0
+access_hr_employee_dependent_usr,hr_employee_dependent_user,model_hr_employee_dependent,base.group_user,1,1,1,1
+access_hr_employee_history_usr,hr_employee_history_user,model_hr_employee_history,base.group_user,1,1,1,1
+access_hr_work_location_usr,hr_work_location_user,model_hr_work_location,base.group_user,1,1,1,1
+resource.access_resource_calendar_leaves_user,resource.calendar.leaves,resource.model_resource_calendar_leaves,base.group_user,1,1,1,1
+access_res_ward_officier,res_ward_officier,model_res_ward,base.group_hr_user,1,1,1,1
+access_res_area_officier,res_area_officier,model_res_area,base.group_hr_user,1,1,1,1
+access_res_district_officier,res_district_officier,model_res_district,base.group_hr_user,1,1,1,1

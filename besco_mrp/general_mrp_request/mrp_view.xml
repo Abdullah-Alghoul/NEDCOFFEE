@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- Production Requirement-->
+	<record id="view_mrp_request_tree" model="ir.ui.view">
+        <field name="name">mrp.request.tree</field>
+        <field name="model">mrp.request</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Production Request">
+            	<field name="name"/>
+            	<field name="partner_id"/>
+				<field name="sale_id"/>
+            	<field name="product_id"/>
+                <field name="product_qty"/>
+                <field name="product_uom"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_mrp_request_form" model="ir.ui.view">
+        <field name="name">mrp.request.form</field>
+        <field name="model">mrp.request</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Production Request">
+            	<header>
+            		<button name="button_confirmed" states="draft" string ="Confirmed" type ="object"/>
+            		<button name="button_done" states="confirmed" string ="Done" type ="object"/>
+            		<button name="button_draft" states="cancel" string ="Set To Draft" type ="object"/>
+            		<button name="button_cancel" states="confirmed,draft" string ="Cancel" type="object"/>
+            		<field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
+            	</header>
+                <sheet>
+                	<div class="oe_title">
+	                	<label for="name" string="Production Requirement" class="oe_edit_only"/>
+						<h1>
+							<field name="name" readonly="1"/>
+						</h1>
+					</div>
+					<group col="4">
+						<field name="sale_id" options="{'no_write': True, 'no_create': True}" 
+							on_change="onchange_sale_id(sale_id)"/>
+						<field name="partner_id" options="{'no_write': True, 'no_create': True}"/>
+						<field name="product_id" options="{'no_write': True, 'no_create': True}"
+							on_change="onchange_product_id(product_id,sale_id)"/>
+						<label for="product_qty"/>
+						<div class="o_row">
+							<field name="product_qty"/>
+							<field name="product_uom" options="{'no_write': True, 'no_create': True}"/>
+						</div>
+						<field name="sale_line_id" invisible="1"/>
+					</group>	
+					<newline/>
+					<field name="request_ids" context="{'default_mrp_request_id': active_id}">
+						<tree string="Request Lines">
+							<field name="mrp_request_id" invisible="1"/>
+							<field name="product_id" options="{'no_write': True, 'no_create': True}"/>
+							<field name="product_qty"/>
+							<field name="product_uom" options="{'no_write': True, 'no_create': True}"/>
+							<field name="production_id"/>
+							<field name="state"/>
+							<button name="button_confirmed" string="Finished" type="object" states="draft" icon="terp-check"/>
+		                	<button name="button_cancel" string="Cancel" states="draft,confirmed" icon="gtk-cancel"/>
+						</tree>
+						<form string="Request Lines">
+							<header>
+								<button name="button_confirmed" states="draft" string ="Confirmed" type ="object"/>
+			            		<button name="button_cancel" states="production,draft" string ="Cancel" type="object"/>
+								<field name="state" widget="statusbar"  statusbar_visible="draft,confirmed"/>
+							</header>
+							<sheet>
+								<group>
+									<group>
+										<field name="product_id" options="{'no_write': True, 'no_create': True}"/>
+										<label for="production_norms"/>
+										<div class="o_row">
+											<field name="production_norms"/>
+											<field name="product_uom" options="{'no_write': True, 'no_create': True}"/>
+										</div>
+									</group>
+									<group>
+										<field name="product_qty"/>
+										<field name="production_id"/>
+										<field name="sale_line_id" invisible="1"/>
+									</group>
+								</group>
+								<group col="4">
+									<field name="create_uid"/>
+									<field name="create_date"/>
+									<field name="validator"/>
+									<field name="date_approved"/>
+								</group>
+							</sheet>
+						</form>
+					</field>
+					<newline/>
+					<group col="4">
+						<field name="create_uid"/>	
+						<field name="create_date"/>
+						<field name="validator"/>
+						<field name="date_approved"/>
+						<field name="date_done" attrs="{'invisible':[('state','!=','done')]}"/>	
+					</group>
+	            </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_mrp_request" model="ir.actions.act_window">
+        <field name="name">Production Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.request</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id"/>
+    </record>
+    
+    <menuitem action="action_mrp_request" id="menu_action_mrp_request" name="Production Request" parent="mrp.menu_mrp_planning" sequence="1"/>
+                
+    </data>
+</openerp>

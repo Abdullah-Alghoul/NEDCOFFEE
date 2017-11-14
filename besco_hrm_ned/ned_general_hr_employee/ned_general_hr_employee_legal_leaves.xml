@@ -1,0 +1,60 @@
+<openerp>
+	<data>
+	
+		<record id="view_tree_ned_general_hr_employee_legal_leaves" model="ir.ui.view">
+            <field name="name">view.tree.ned.general.hr.employee.legal.leaves</field>
+            <field name="model">ned.general.hr.employee.legal.leaves</field>
+            <field name="arch" type="xml">
+                <tree string="Annual Leaves">
+                	<field name="name"/>
+                	<field name="start_date"/>
+                	<field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+	    
+		<record id="view_form_ned_general_hr_employee_legal_leaves" model="ir.ui.view">
+			<field name="name">view.form.ned.general.hr.employee.legal.leaves</field>
+	      	<field name="model">ned.general.hr.employee.legal.leaves</field>
+	      	<field name="arch" type="xml">
+	      		<form string="Granting Annual Leave">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name"/>
+							</h1>
+						</div>
+		      			<group>
+		      				<label for="start_date" string="Period"/>
+			        		<div>
+	                            <field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+	                        </div>
+                        </group>
+                        <group>
+			        		<field name="employee_line_ids" nolabel="1" readonly = "1">
+								<tree editable='1'>
+									<field name="employee_id"/>
+			        				<field name="job"/>
+			        				<field name="total_legal_days"/>
+			        				<field name="used_days"/>
+			        				<field name="remain_days"/>
+			        				<field name="onleave_days"/>
+								</tree>
+		       				</field>
+						</group>
+			      	</sheet>
+		      	</form>
+	      </field>
+	    </record>
+	    
+	    <record id="action_ned_general_hr_employee_legal_leaves" model="ir.actions.act_window">
+	        <field name="name">Granting Annual Leave</field>
+	        <field name="res_model">ned.general.hr.employee.legal.leaves</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field eval="False" name="view_id"/>
+	    </record>
+		
+            
+	</data>
+</openerp>

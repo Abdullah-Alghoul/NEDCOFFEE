@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data noupdate='1'>
+		
+        <!-- Overtime-related subtypes for messaging / Chatter -->
+        <record id="mt_overtime_confirmed" model="mail.message.subtype">
+            <field name="name">To Approve</field>
+            <field name="res_model">hr.overtime</field>
+            <field name="description">Request created and waiting confirmation</field>
+        </record>
+        <record id="mt_overtime_approved" model="mail.message.subtype">
+            <field name="name">Approved</field>
+            <field name="res_model">hr.overtime</field>
+            <field name="description">Request approved</field>
+        </record>
+        <record id="mt_overtime_refused" model="mail.message.subtype">
+            <field name="name">Refused</field>
+            <field name="res_model">hr.overtime</field>
+            <field name="default" eval="False"/>
+            <field name="description">Request refused</field>
+        </record>
+
+	</data>
+</openerp>

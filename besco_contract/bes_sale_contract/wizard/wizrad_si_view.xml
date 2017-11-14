@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	
+		<record id="view_wizard_si" model="ir.ui.view">
+	        <field name="name">view.wizard.si.form</field>
+	        <field name="model">wizard.si</field>
+	        <field name="arch" type="xml">
+		        <form string="Shipping Instruction">
+		        	<sheet>
+			            <group>
+			            	<group>
+			            		<field name="name"/>
+			            	</group>
+			            	<group>	
+			            		<field name="date"/>
+			            	</group>
+		                </group>
+		            	<field name="wizard_ids">
+		            		<tree editable="top">
+		            			<field name="product_id" readonly='1' options="{'no_open': True, 'no_create': True}"/>
+		            			<field name="name" readonly='1'/>
+		                        <field name="product_qty"/>
+		                        <field name="product_uom" options="{'no_open': True, 'no_create': True}" readonly='1'/>
+		            		</tree>
+		            	</field>
+		                <footer>
+		                    <button string="Create SI" name="button_convert" type="object" class="oe_highlight"/>
+		                    <button string="_Cancel" class="btn-default" special="cancel" />
+		                </footer>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <record id="action_view_wizard_si" model="ir.actions.act_window">
+            <field name="name">Wizard SI</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.si</field>
+            <field name="view_id" ref="view_wizard_si"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+      </data>
+</openerp>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+        
+    	
+    	
+    	
+    	<!-- Kim: Search Account Invoiced -->
+    	<record model="ir.ui.view" id="view_account_invoice_filter_inherit_invoice_contract">
+	        <field name="name">view.account.invoice.filter.inherit.invoice.contract</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='journal_id']" position="after">
+                	<field name="purchase_contract_id"/>
+          		</xpath>
+          	</field>
+    	</record>
+		
+        
+     </data>
+</openerp>

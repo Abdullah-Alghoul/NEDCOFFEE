@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <!-- Thanh: Uy Nhiem Chi Ngan Hang ACB -->
+        	
+			<record id="uynhiemchi_acb" model="ir.actions.report.xml">
+		        <field name="name">uynhiemchi_acb</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">account.payment</field>
+		        <field name="report_name">uynhiemchi_acb</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-odt</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+		        <field name="parser_loc">general_account_uynhiemchi/report/account_voucher_report.py</field>
+		        <field name="report_rml">general_account_uynhiemchi/report/uynhiemchi_acb.odt</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="True" 
+				menu="True"
+				id="uynhiemchi_acb" 
+				model="account.payment" 
+				name="uynhiemchi_acb"
+		        string="UNC ACB"
+		        rml="general_account_uynhiemchi/report/uynhiemchi_acb.odt"/>
+		        
+        <!-- Thanh: Phieu Chi (Voucher) -->
+			<record id="phieuchi" model="ir.actions.report.xml">
+		        <field name="name">phieuchi</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">account.payment</field>
+		        <field name="report_name">phieuchi</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-odt</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+		        <field name="parser_loc">general_account_uynhiemchi/report/account_voucher_report.py</field>
+		        <field name="report_rml">general_account_uynhiemchi/report/phieuchi.odt</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="True" 
+				menu="False"
+				id="phieuchi" 
+				model="account.payment" 
+				name="phieuchi"
+		        string="Phiếu chi"
+		        rml="general_account_uynhiemchi/report/phieuchi.odt"/>     
+       
+       <!-- Thanh: Phieu Thu (Sales Receipt) -->
+			<record id="phieuthu" model="ir.actions.report.xml">
+		        <field name="name">phieuthu</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">account.payment</field>
+		        <field name="report_name">phieuthu</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-odt</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+		        <field name="parser_loc">general_account_uynhiemchi/report/account_voucher_report.py</field>
+		        <field name="report_rml">general_account_uynhiemchi/report/phieuthu.odt</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="True" 
+				menu="False"
+				id="phieuthu" 
+				model="account.payment" 
+				name="phieuthu"
+		        string="Phiếu thu"
+		        rml="general_account_uynhiemchi/report/phieuthu.odt"/>
+		
+		<!-- UNC Techcombank -->
+			<record id="unc_techcombank" model="ir.actions.report.xml">
+		        <field name="name">unc_techcombank</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">account.payment</field>
+		        <field name="report_name">unc_techcombank</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">general_account_uynhiemchi/report/account_voucher_report.py</field>
+		        <field name="report_rml">general_account_uynhiemchi/report/unc_techcombank.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="True" 
+				menu="True"
+				id="unc_techcombank" 
+				model="account.payment" 
+				name="unc_techcombank"
+		        string="UNC Techcombank"
+		        rml="general_account_uynhiemchi/report/unc_techcombank.ods"/>
+        
+        <!-- UNC Vietin -->
+			<record id="unc_vietinbank" model="ir.actions.report.xml">
+		        <field name="name">unc_vietinbank</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">account.payment</field>
+		        <field name="report_name">unc_vietinbank</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">general_account_uynhiemchi/report/account_voucher_report.py</field>
+		        <field name="report_rml">general_account_uynhiemchi/report/unc_vietinbank.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="True" 
+				menu="True"
+				id="unc_vietinbank" 
+				model="account.payment" 
+				name="unc_vietinbank"
+		        string="UNC Vietinbank"
+		        rml="general_account_uynhiemchi/report/unc_vietinbank.ods"/>
+        
+        <!-- UNC Vieta -->
+			<record id="unc_vietabank" model="ir.actions.report.xml">
+		        <field name="name">unc_vietabank</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">account.payment</field>
+		        <field name="report_name">unc_vietabank</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">general_account_uynhiemchi/report/account_voucher_report.py</field>
+		        <field name="report_rml">general_account_uynhiemchi/report/unc_vietabank.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="True" 
+				menu="True"
+				id="unc_vietabank" 
+				model="account.payment" 
+				name="unc_vietabank"
+		        string="UNC Vietabank"
+		        rml="general_account_uynhiemchi/report/unc_vietabank.ods"/>
+        
+        <!-- UNC Exim -->
+			<record id="unc_eximbank" model="ir.actions.report.xml">
+		        <field name="name">unc_eximbank</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">account.payment</field>
+		        <field name="report_name">unc_eximbank</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">general_account_uynhiemchi/report/account_voucher_report.py</field>
+		        <field name="report_rml">general_account_uynhiemchi/report/unc_eximbank.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="True" 
+				menu="True"
+				id="unc_eximbank" 
+				model="account.payment" 
+				name="unc_eximbank"
+		        string="UNC Eximbank"
+		        rml="general_account_uynhiemchi/report/unc_eximbank.ods"/>
+	</data>
+</openerp>

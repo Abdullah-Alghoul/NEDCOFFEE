@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+ 
+ <!--  ========================= Account Ledger Report ================= -->
+		<record id="view_partner_balance_report_form" model="ir.ui.view">
+		    <field name="name">partner.balance.report.form</field>
+		    <field name="model">partner.balance.report</field>
+		    <field name="arch" type="xml">
+		         <form string="Partner Balance" version="7.0">
+		        	<group>
+		        		<group>
+			        		<field name="times"/>
+			        		<field name="is_customer"/>
+			        		<field name="company_id" groups="base.group_multi_company"/>
+		        		</group>
+		        		<group>
+			        		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','periods'])],'required':[('times', 'not in', ['dates','years','periods'])]}"/>
+			        		<field name="period_id_start" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+			        		<field name="fiscalyear_start"  attrs="{'invisible':[('times', 'in', ['dates','periods','quarter'])],'required':[('times','not in', ['dates','periods'])]}"/>
+			        		<field name="date_start"  attrs="{'invisible':[('times', 'in', ['years','periods','quarter'])],'required':[('times','not in', ['years','periods'])]}"/>
+			        		<field name="date_end"  attrs="{'invisible':[('times', 'in', ['years','periods','quarter'])],'required':[('times','not in', ['years','periods'])]}"/>
+		           		</group>
+		            </group>
+		            <footer>
+                        <button string="Print" type="object" name="finance_report" context="{'type_report':'account_ledger_report'}" icon='gtk-execute'/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="action_partner_balance_report" model="ir.actions.act_window">
+		    <field name="name">Partner Balance</field>
+		    <field name="res_model">partner.balance.report</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">form</field>
+		    <field name="target">new</field>
+		    <field name="view_id" ref="view_partner_balance_report_form"/>
+		</record>
+		
+		<!-- 
+		<menuitem
+	        id="menu_action_partner_balance_report"
+	        name="Partner Balances"
+	        parent="menu_vas_partner_reports"
+	        action="action_partner_balance_report"
+	        sequence="3"
+	       />
+	        -->
+               
+   </data>
+</openerp>
+        
+        

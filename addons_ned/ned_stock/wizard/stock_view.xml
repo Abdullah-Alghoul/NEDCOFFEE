@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record id="view_create_stock_stack" model="ir.ui.view">
+            <field name="name">create.stock.stack.form</field>
+            <field name="model">create.stock.stack</field>
+            <field name="arch" type="xml">
+                <form string="Create Stack">
+                    <group col="4">
+                        <field name="zone_id" readonly="0"/>
+                        <field name="districts_id"/>
+                        <field name="hopper"/>
+                        
+                    </group>
+                    <footer>
+                        <button string="Create Stack" name="create_stack" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_view_create_stock_stack" model="ir.actions.act_window">
+            <field name="name">Create Stack</field>
+            <field name="res_model">create.stock.stack</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_create_stock_stack"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

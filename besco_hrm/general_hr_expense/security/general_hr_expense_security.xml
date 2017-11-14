@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="employee_coach_rule" model="ir.rule">
+        <field name="name">Employee Coach</field>
+        <field model="ir.model" name="model_id" ref="hr_expense.model_hr_expense_expense"/>
+        <field name="groups" eval="[(4, ref('general_hr.group_employee_coach'))]"/>
+        <field name="domain_force">[('employee_id.coach_id.user_id','=',user.id)]</field>
+    </record>
+    <record id="employee_manager_rule" model="ir.rule">
+        <field name="name">Employee Manager</field>
+        <field model="ir.model" name="model_id" ref="hr_expense.model_hr_expense_expense"/>
+        <field name="groups" eval="[(4, ref('general_hr.group_employee_manager'))]"/>
+        <field name="domain_force">[('employee_id.parent_id.user_id','=',user.id)]</field>
+    </record>
+	
+	<!-- Accounting Users -->
+		<record id="accountant_see_all_expense_rule" model="ir.rule">
+	        <field name="name">Accountant can see all expenses</field>
+	        <field model="ir.model" name="model_id" ref="hr_expense.model_hr_expense_expense"/>
+	        <field name="groups" eval="[(4, ref('account.group_account_invoice'))]"/>
+	        <field name="domain_force">[('state','in',['paid','done'])]</field>
+	    </record>
+    
+</data>
+</openerp>

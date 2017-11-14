@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    	
+         <!-- Request Materials -->
+        <record id="seq_request_materials" model="ir.sequence">
+            <field name="name">Request Materials</field>
+            <field name="code">request.materials</field>
+            <field name="prefix">PMR-%(y)s-</field>
+            <field name="padding">5</field>
+            <field name="suffix"></field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+    </data>
+</openerp>

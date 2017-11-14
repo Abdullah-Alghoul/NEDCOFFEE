@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+		
+	    <record id="report_employee_leaves" model="ir.actions.report.xml">
+	        <field name="name">report_employee_leaves</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.employee.leaves</field>
+	        <field name="report_name">report_employee_leaves</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_general_hr_attendance/report/employee_leaves.py</field>
+	        <field name="report_rml">ned_general_hr_attendance/report/employee_leaves.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_employee_leaves"
+			model="wizard.employee.leaves"
+			name="report_employee_leaves"
+	        string="Employee Leaves"
+        	rml="ned_general_hr_attendance/report/employee_leaves.ods"/>
+	</data>
+</openerp>

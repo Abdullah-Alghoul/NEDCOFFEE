@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<!-- Hide Original Sale Order -->
+		<report auto="False" menu="False" id="sale.report_sale_order" model="sale.order" name="sale.order"
+                rml="sale/report/sale_order.rml" string="Quotation / Order"
+                usage="default"/>
+                
+        <!-- Create new template Sale Order -->
+    	<record id="sale_order" model="ir.actions.report.xml">
+	        <field name="name">Quotation</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">sale.order</field>
+	        <field name="report_name">sale_order</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">tgtg_sale_margin/report/quotation.py</field>
+	        <field name="report_rml">tgtg_sale_margin/report/quotation.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="True"
+			id="sale_order" 
+			model="sale.order" 
+			name="sale_order"
+	        string="Quotation"
+	        rml="tgtg_sale_margin/report/quotation.ods"/>
+	    
+	    <record id="sale_order_eng" model="ir.actions.report.xml">
+	        <field name="name">Quotation Eng</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">sale.order</field>
+	        <field name="report_name">sale_order_eng</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">tgtg_sale_margin/report/quotation.py</field>
+	        <field name="report_rml">tgtg_sale_margin/report/quotation_eng.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="True"
+			id="sale_order_eng" 
+			model="sale.order" 
+			name="sale_order_eng"
+	        string="Quotation Eng"
+	        rml="tgtg_sale_margin/report/quotation_eng.ods"/>
+	         
+        <!-- Create new template Sales Fiscalyear -->
+    	<record id="sales_fiscalyear" model="ir.actions.report.xml">
+	        <field name="name">Sales Target</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">sales.fiscalyear</field>
+	        <field name="report_name">sales_fiscalyear</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">tgtg_sale_margin/report/sales_fiscalyear.py</field>
+	        <field name="report_rml">tgtg_sale_margin/report/sales_fiscalyear.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			id="sales_fiscalyear" 
+			model="sales.fiscalyear" 
+			name="sales_fiscalyear"
+	        string="Sales Target"
+	        rml="tgtg_sale_margin/report/sales_fiscalyear.ods"/>	 
+	   
+	   <!-- Create new template Sales Period -->
+    	<record id="sales_period" model="ir.actions.report.xml">
+	        <field name="name">Sales Period</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">sales.period</field>
+	        <field name="report_name">sales_period</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">tgtg_sale_margin/report/sales_period.py</field>
+	        <field name="report_rml">tgtg_sale_margin/report/sales_period.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			id="sales_period" 
+			model="sales.period" 
+			name="sales_period"
+	        string="Sales Period"
+	        rml="tgtg_sale_margin/report/sales_period.ods"/>
+	        
+	   <!-- Create new template Weekly Sales Report -->
+    	<record id="weekly_sales_report" model="ir.actions.report.xml">
+	        <field name="name">Weekly Sales Report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">weekly.sales.report</field>
+	        <field name="report_name">weekly_sales_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">tgtg_sale_margin/report/weekly_sales_report.py</field>
+	        <field name="report_rml">tgtg_sale_margin/report/weekly_sales_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<!-- Create new template Salesteam's Sales Report -->
+    	<record id="salesteam_sales_target_report" model="ir.actions.report.xml">
+	        <field name="name">Salesteam's Sales Report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">salesteam.sales.target.report</field>
+	        <field name="report_name">salesteam_sales_target_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">tgtg_sale_margin/report/salesteam_sales_target_report.py</field>
+	        <field name="report_rml">tgtg_sale_margin/report/salesteam_sales_target_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+    </data>
+</openerp>

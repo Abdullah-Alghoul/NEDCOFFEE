@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+stock_return_reason_user,stock_return_reason_user qu,model_stock_return_reason,stock.group_stock_user,1,0,0,0
+stock_return_picking_user,stock_return_picking_user qu,model_stock_return_picking,stock.group_stock_user,1,1,1,0
+stock_return_picking_manager,stock_return_picking_user qm,model_stock_return_picking,stock.group_stock_manager,1,1,1,1
+stock_return_reason_manager,stock_return_reason_manager qm,model_stock_return_reason,stock.group_stock_manager,1,1,1,1
+
+account_move_reopen_picking,account_move_reopen_picking,account.model_account_move,general_stock.group_stock_reopen_picking,1,1,1,1
+account_move_line_reopen_picking,account_move_line_reopen_picking,account.model_account_move_line,general_stock.group_stock_reopen_picking,1,1,1,1

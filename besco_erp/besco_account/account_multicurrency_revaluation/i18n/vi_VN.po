@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * account_multicurrency_revaluation
+# 
+# Translators:
+# Le Truong Thanh, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-10 14:09+0000\n"
+"PO-Revision-Date: 2016-09-10 10:43+0000\n"
+"Last-Translator: Le Truong Thanh\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: account_multicurrency_revaluation
+#: model:ir.ui.menu,name:account_multicurrency_revaluation.menu_multicurrency_revaluation
+msgid "Multi-currency Revaluation"
+msgstr "Đánh giá chênh lệch tỷ giá"
+
+#. module: account_multicurrency_revaluation
+#: model:ir.actions.act_window,name:account_multicurrency_revaluation.action_account_currency_revaluation_model
+#: model:ir.ui.menu,name:account_multicurrency_revaluation.menu_action_account_currency_revaluation_model
+msgid "Revaluation Models"
+msgstr "Danh mục đánh giá"
+
+#. module: account_multicurrency_revaluation
+#: model:ir.actions.act_window,name:account_multicurrency_revaluation.action_view_account_currency_revaluation
+#: model:ir.ui.menu,name:account_multicurrency_revaluation.menu_action_view_account_currency_revaluation
+msgid "Currency Revaluations"
+msgstr "Lịch sử đánh giá"
+

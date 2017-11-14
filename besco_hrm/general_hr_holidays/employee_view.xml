@@ -1,0 +1,14 @@
+<openerp>
+	<data>
+		<!-- <record id="view_employee_form_holiday_inherit" model="ir.ui.view">
+			 <field name="name">view_employee_form_holiday_inherit</field>
+			 <field name="model">hr.employee</field>
+			 <field name="inherit_id" ref="hr.view_employee_form"/>
+			 <field name="arch" type="xml">
+				<xpath expr="//field[@name='coach_id']" position="after">
+					<field name="admin_hr" />
+				</xpath>
+			 </field>
+		</record> -->
+	</data>
+</openerp>

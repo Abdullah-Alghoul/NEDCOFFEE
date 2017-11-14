@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	    <record id="view_tree_hr_payment_leaves_lines" model="ir.ui.view">   
+	      <field name="name">view.hr.payment.leaves.lines.tree</field>
+	      <field name="model">hr.payment.leaves.lines</field>
+	      <field name="arch" type="xml">        
+	         <tree>
+	         	<field name="employee_id"/>
+	         	<field name="remaining_leaves"/>
+	         	<field name="allocated_days"/>
+	         	<field name="amount"/>
+	        </tree>
+	      </field>
+	    </record>
+	    
+	    <record id="view_form_hr_payment_leaves_lines" model="ir.ui.view">
+	      <field name="name">view.form.hr.payment.leaves.lines</field>
+	      <field name="model">hr.payment.leaves.lines</field>
+	      <field name="arch" type="xml">
+	        <form>
+	        	<sheet>
+	       			<group>
+			         	<field name="employee_id"/>
+			         	<field name="remaining_leaves"/>
+			         	<field name="allocated_days"/>
+			         	<field name="amount"/>
+			        </group>
+				</sheet>
+    		</form>
+	      </field>
+	    </record>
+	    
+	    <record id="view_tree_hr_payment_leaves" model="ir.ui.view">   
+	      	<field name="name">view.tree.hr.payment.leaves</field>
+	      	<field name="model">hr.payment.leaves</field>
+	      	<field name="arch" type="xml">        
+	         	<tree> 
+		         	<field name="name"/>
+		         	<field name="leave_type_id"/>
+		         	<field name="effective_date"/>
+		          	<field name="company_id" groups="base.group_multi_company" />
+		        </tree>
+	      	</field>
+	    </record>    	
+	    
+	    <record id="view_form_hr_payment_leaves" model="ir.ui.view">
+			<field name="name">view.form.hr.payment.leaves</field>
+	   		<field name="model">hr.payment.leaves</field>
+	     	<field name="arch" type="xml">
+	        	<form string="Payment Leaves" >
+	        		<header>
+	        			<button name="set_to_draft" type="object" states="cancel" string="Set to Draft" class="oe_highlight" />
+	                    <button name="button_confirm" type="object" states="draft" string="Confirm" class="oe_highlight" />
+	                    <button name="button_approve" type="object" states='waiting' string="Approve" />
+                	    <button name="button_cancel" states="waiting,approve" string="Cancel" type="object" />
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting,approve,cancel"/>
+		            </header>
+		          	<sheet>
+		          	<group>
+			          	 <group>
+				          	<field name="name" attrs="{'readonly': [('state','!=','draft')]}"/>
+				         	<field name="leave_type_id" attrs="{'readonly': [('state','!=','draft')]}"/>
+				         </group>
+				         <group>
+				         	<field name="effective_date" attrs="{'readonly': [('state','!=','draft')]}"/>
+				          	<field name="company_id" groups="base.group_multi_company" readonly='1' attrs="{'readonly': [('state','!=','draft')]}"/>
+				          	<field name="user_approve_id"/>
+				         </group>
+				         <group>
+				         	<button name="button_load_employee" string="Load Employee" type="object" 
+									states="draft" class="btn-default"/>
+				         </group>
+				    </group>
+			            <notebook>
+			            	<page string="Employees Holidays" name="employees_holidays">
+			            		<field name="employee_holidays_ids" attrs="{'readonly': [('state','!=','draft')]}"> 
+			            			<tree editable="bottom"> 
+							         	<field name="employee_id"/>
+							         	<field name="remaining_leaves"/>
+							         	<field name="net_salary"/>
+							         	<field name="salary_per_day"/>
+							         	<field name="allocated_days"/>
+							         	<field name="amount"/>
+							         	<field name="remaining_leaves_after"/>
+			            			</tree>
+			            		</field>
+			            	</page>
+			            </notebook>
+		        	</sheet>
+		    	</form>
+		    </field>
+	    </record> 	
+	    
+	    <record id="action_hr_payment_leaves" model="ir.actions.act_window">
+            <field name="name">Payment Leaves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payment.leaves</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_hr_payment_leaves" 
+		 	id="menu_action_action_hr_payment_leaves" 
+		 	parent="hr_holidays.menu_hr_holidays_root" sequence="90" groups="base.group_hr_user"/>   
+	</data>
+</openerp>

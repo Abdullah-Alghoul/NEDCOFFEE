@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="view_wizard_sell_or_dispose_from" model="ir.ui.view">
+	        <field name="name">view.sell.or.dispose.form</field>
+	        <field name="model">sell.or.dispose</field>
+	        <field name="arch" type="xml">
+		        <form string="Sell or dispose">
+		        	<sheet>
+			            <group>
+			            	<group col="4">
+			            		<field name="partner_id" required="1"/>
+			            		<field name="date" required="1"/>
+			            	</group>
+		                </group>
+		                <footer>
+		                    <button string="Sell or dispose" name="sell_or_dispose" type="object" class="oe_highlight"/>
+		                    <button string="_Cancel" class="btn-default" special="cancel" />
+		                </footer>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <record id="action_view_wizard_sell_or_dispose" model="ir.actions.act_window">
+            <field name="name">Sell or dispose</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sell.or.dispose</field>
+            <field name="view_id" ref="view_wizard_sell_or_dispose_from"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+    </data>
+</openerp>

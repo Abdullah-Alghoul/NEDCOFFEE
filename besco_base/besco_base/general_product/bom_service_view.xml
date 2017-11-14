@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	<!-- Product BOM Service-->
+		<record model="ir.actions.act_window" id="template_open_pos_sale_bom">
+            <field name="context">{'default_product_tmpl_id': active_id, 'search_default_product_tmpl_id': active_id}</field>
+            <field name="name">BOM Service</field>
+            <field name="res_model">product.bom.service</field>
+            <field name="view_type">form</field>
+        </record>
+        
+		<record model="ir.ui.view" id="product_template_form_view_bom_service_button">
+            <field name="name">product.template.procurement</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_inline oe_stat_button" type="object" name="get_sale_bom"
+                        attrs="{'invisible':[('type', '!=', 'service')]}" icon="fa-flask">
+                        <field string="BOM Service" name="pos_bom_count" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+        
+        <record id="view_product_bom_service_from" model="ir.ui.view">
+            <field name="name">view.product.bom.service.form</field>
+            <field name="model">product.bom.service</field>
+            <field name="arch" type="xml">
+                <form string="Bill of Material">
+                    <group>
+                        <group>
+                            <field name="product_tmpl_id"/>
+                            <field name="product_id" invisible='1'/>
+                            <label for="product_qty" string="Quantity"/>
+                            <div>
+                                <field name="product_qty" class="oe_inline"/>
+                                <field name="product_uom" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code" string="Reference"/>
+                            <label for="date_start" string="Expire date"/>
+                            <div>
+	                            <field name="date_start" class="oe_inline"/>
+	                            <field name="date_stop" class="oe_inline"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Components">
+                            <field name="bom_line_ids" widget="one2many_list" context='{"default_bom_id": active_id}'>
+                                <tree string="Components" editable="bottom">
+                                	<field name="sequence" widget="handle"/>
+                                    <field name="product_id" context="{'search_materials': 1}" on_change="product_id_change(product_id)"/>
+                                    <field name="product_qty"/>
+                                    <field name="product_uom"/>
+                                    <field name="tolerance"/>
+                                    <field name="date_start"/>
+                                    <field name="date_stop"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+                
+    </data>
+</openerp>

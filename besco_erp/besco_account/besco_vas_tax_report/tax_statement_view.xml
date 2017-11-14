@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	
+		<record id="view_account_tax_statement_tree" model="ir.ui.view">
+		    <field name="name">view_account_tax_statement_tree</field>
+		    <field name="model">account.tax.statement</field>
+		    <field name="arch" type="xml">
+		        <tree string="Tax Statements">
+		        	<field name="times"/>
+               		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','periods'])],'required':[('times', 'not in', ['dates','years','periods'])]}"/>
+               		<field name="period_id_start" domain="[('company_id','=',company_id)]" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years'])],'required':[('times', 'not in', ['dates','years'])]}"/>
+               		<field name="period_id_end" domain="[('company_id','=',company_id)]" context="{'report_type':'1'}"  attrs="{'invisible':[('times', 'in', ['dates','years'])],'required':[('times', 'not in', ['dates','years'])]}"/>
+               		<field name="fiscalyear_start" domain="[('company_id','=',company_id)]" attrs="{'invisible':[('times', 'in', ['dates','periods'])],'required':[('times','not in', ['dates','periods'])]}"/>
+               		<field name="fiscalyear_stop" domain="[('company_id','=',company_id)]" attrs="{'invisible':[('times', 'in', ['dates','periods'])], 'required':[('times','not in', ['dates','periods'])]}"/>
+               		<field name="date_start" attrs="{'invisible':[('times', 'in', ['periods','years'])],'required':[('times','not in', ['periods','years'])]}"/>
+               		<field name="date_end" attrs="{'invisible':[('times', 'in', ['periods','years'])],'required':[('times','not in', ['periods','years'])] }"/>
+		        	<field name="company_id" groups="base.group_multi_company"/>
+		        </tree>
+		    </field>
+		</record>
+        
+		<record id="view_account_tax_statement_form" model="ir.ui.view">
+		    <field name="name">view_account_tax_statement_form</field>
+		    <field name="model">account.tax.statement</field>
+            <field name="arch" type="xml">
+                <form string="Tax Statements">
+                	<header>
+                		<button string="Print VAT IN" type="object" name="print_vat_in"/>
+                		<button string="Print VAT OUT" type="object" name="print_vat_out"/>
+                		<button string="Load Data" type="object" name="action_load_data" icon='gtk-execute' class="oe_highlight"/>
+	                </header>
+                	<sheet>
+	                	<group>
+	                		<group>
+	                			<field name="times"/>
+	                			<field name="company_id" groups="base.group_multi_company"/>
+	                		</group>
+	                		
+	                		<group>
+		                		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','periods'])],'required':[('times', 'not in', ['dates','years','periods'])]}"/>
+		                		<field name="period_id_start" attrs="{'invisible':[('times', 'in', ['dates','quarter','years'])],'required':[('times', 'not in', ['dates','years'])]}" domain="[('company_id','=',company_id)]" context="{'report_type':'1'}"/>
+		                		<field name="period_id_end" attrs="{'invisible':[('times', 'in', ['dates','quarter','years'])],'required':[('times', 'not in', ['dates','years'])]}" domain="[('company_id','=',company_id)]" context="{'report_type':'1'}"/>
+		                		<field name="fiscalyear_start" attrs="{'invisible':[('times', 'in', ['dates','periods','quarter'])],'required':[('times','not in', ['dates','periods'])]}" domain="[('company_id','=',company_id)]"/>
+		                		<field name="fiscalyear_stop" attrs="{'invisible':[('times', 'in', ['dates','periods','quarter'])], 'required':[('times','not in', ['dates','periods'])]}" domain="[('company_id','=',company_id)]"/>
+		                		<field name="date_start" attrs="{'invisible':[('times', 'in', ['periods','quarter','years'])],'required':[('times','not in', ['periods','years'])]}"/>
+		                		<field name="date_end" attrs="{'invisible':[('times', 'in', ['periods','quarter','years'])],'required':[('times','not in', ['periods','years'])] }"/>
+	                    	</group>
+	                    </group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_account_tax_statement" model="ir.actions.act_window">
+            <field name="name">Tax Statements</field>
+            <field name="res_model">account.tax.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_account_tax_statement_tree"/>
+        </record>
+        		
+    </data>
+</openerp>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+    	 
+	    <record id="report_payrolls" model="ir.actions.report.xml">
+	        <field name="name">report_payrolls</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.overtime</field>
+	        <field name="report_name">report_payrolls</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_l10n_vn_hr_payroll/report/template_payroll.py</field>
+	        <field name="report_rml">general_l10n_vn_hr_payroll/report/template_payroll.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_payrolls"
+			model="hr.overtime"
+			name="report_payrolls"
+	        string="Report Payrolls"
+        	rml="general_l10n_vn_hr_payroll/report/template_payroll.ods"/>
+  	</data>
+</openerp>

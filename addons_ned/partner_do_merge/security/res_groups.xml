@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="0">
+        <record id="res_group_partner_do_merge" model="res.groups">
+          <field name="name">Show wizard Partner Do Merge</field>
+          <field name="implied_ids" eval="[(4, ref('general_base.group_merge_master_data'))]"/>
+        </record>
+        
+        <!-- Add more group to this profile -->
+		<record id="general_base.profile_master_partner" model="profile">
+	        <field name="groups_ids" eval="[(4, ref('res_group_partner_do_merge'))]"/>
+	    </record>	    
+  </data>
+</openerp>

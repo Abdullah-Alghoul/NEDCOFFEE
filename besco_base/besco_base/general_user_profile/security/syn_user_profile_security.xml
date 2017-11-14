@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="user_profile_read_access_for_all" model="ir.model.access">
+        	<field name="name">Profile: Read Access For All</field>
+        	<field name="model_id" ref="model_profile"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        
+        <!--<record model="res.groups" id="group_configure_user">
+	        <field name="name">Administration / User</field>
+	    </record>-->
+	    
+    </data>
+</openerp>

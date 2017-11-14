@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record model="ir.ui.view" id="view_picking_form_landed_cost">
+            <field name="name">stock.picking.form.landed.cost</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <div class="oe_button_box" position="inside">
+                    <button class="oe_stat_button"
+                            name="action_open_landed_cost"
+                            icon="fa-credit-card"
+                            type="object"
+                            string="Landed costs">
+                    </button>
+                </div>
+            </field>
+        </record>
+		 
+        <!-- KIET : Modify Supplier Invoice Form 
+		<record model="ir.ui.view" id="view_invoice_supplier_form_landed_cost_modify">
+	        <field name="name">view.invoice.supplier.form.landed.cost.modify</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//notebook" position="inside">
+                    <page string="Landed Cost">
+                    	<field name="landed_cost_ids">
+                    		<tree string="Costs distribution picking lines" create="false">
+								<field name="picking_id" />
+								<field name="move_id" />
+                                <field name="product_id" readonly="1" />
+								<field name="product_qty" />
+								<field name="product_price_unit" />
+								<field name="total_amount" />
+								<field name="expense_amount" />
+								<field name="cost_ratio" />
+								<field name="standard_price_old" />
+								<field name="standard_price_new" />
+							</tree>
+                    	</field>
+                    </page>
+		        </xpath>
+	        </field>
+        </record>
+	-->
+	</data>
+</openerp>

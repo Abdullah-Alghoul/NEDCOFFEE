@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		
+		 <record id="nvp_thanhpham_report" model="ir.actions.report.xml">
+	        <field name="name">nvp_thanhpham_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="report_name">nvp_thanhpham_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_contract/report/report_nvp.py</field>
+	        <field name="report_rml">ned_contract/report/hd_thanhpham.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="nvp_thanhpham_report" 
+			model="purchase.contract" 
+			name="nvp_thanhpham_report"
+	        string="Graded Contract"
+	        rml="ned_contract/report/hd_thanhpham.ods"/>
+		
+		<record id="gain_loss_report" model="ir.actions.report.xml">
+		        <field name="name">gain_loss_report</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">gain.loss</field>
+		        <field name="report_name">gain_loss_report</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">ned_contract/report/gain_loss_report.py</field>
+		        <field name="report_rml">ned_contract/report/gain_loss_report.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>
+			
+			<report 
+				auto="True" 
+				menu="False"
+				id="gain_loss_report" 
+				model="gain.loss" 
+				name="gain_loss_report"
+		        string="Gain Loss"
+		        rml="ned_contract/report/gain_loss_report.ods"/>
+		
+		
+		<record id="printout_nvs_nls_list" model="ir.actions.report.xml">
+		        <field name="name">printout_nvs_nls_list</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">sale.contract</field>
+		        <field name="report_name">printout_nvs_nls_list</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">ned_contract/report/payment_npe.py</field>
+		        <field name="report_rml">ned_contract/report/printout_nvs_nls_list.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>
+			
+			<report 
+				auto="True" 
+				menu="True"
+				id="printout_nvs_nls_list" 
+				model="sale.contract" 
+				name="printout_nvs_nls_list"
+		        string="Export NLS- NVS"
+		        rml="ned_contract/report/printout_nvs_nls_list.ods"/>
+		        
+		
+		<record id="mau_unc_giai_ngan" model="ir.actions.report.xml">
+		        <field name="name">mau_unc_giai_ngan</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">request.payment</field>
+		        <field name="report_name">mau_unc_giai_ngan</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">ned_contract/report/account_voucher_report.py</field>
+		        <field name="report_rml">ned_contract/report/Mẫu UNC giải ngân.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>
+			
+			<report 
+				auto="True" 
+				menu="True"
+				id="mau_unc_giai_ngan" 
+				model="request.payment" 
+				name="mau_unc_giai_ngan"
+		        string="Tech giải ngân"
+		        rml="ned_contract/report/Mẫu UNC giải ngân.ods"/>
+		        
+	
+		<record id="mau_hao_hut_tram_report" model="ir.actions.report.xml">
+	        <field name="name">mau_hao_hut_tram_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.report.gain.loss</field>
+	        <field name="report_name">mau_hao_hut_tram_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_contract/report/mau_hao_hut_tram.py</field>
+	        <field name="report_rml">ned_contract/report/mau_hao_hut_tram.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="mau_hao_hut_tram_report" 
+			model="wizard.report.gain.loss" 
+			name="mau_hao_hut_tram_report"
+	        string="Gain/loss"
+	        rml="ned_contract/report/mau_hao_hut_tram.ods"/>
+	
+<!--  ========================= Advance Payment Report ================= -->
+		<record id="advance_payment_report" model="ir.actions.report.xml">
+	        <field name="name">advance_payment_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">request.payment</field>
+	        <field name="report_name">advance_payment_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/advance_payment.py</field>
+	        <field name="report_rml">ned_contract/report/advance_payment.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="advance_payment_report" 
+			model="request.payment" 
+			name="advance_payment_report"
+	        string="Advance Payment"
+	        rml="ned_contract/report/advance_payment.odt"/>
+	
+<!--  ========================= Printout Payment NPV ================= -->
+		<record id="printout_payment_npv_report" model="ir.actions.report.xml">
+	        <field name="name">printout_payment_npv_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">request.payment</field>
+	        <field name="report_name">printout_payment_npv_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/printout_payment_npv.py</field>
+	        <field name="report_rml">ned_contract/report/printout_payment_npv.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="printout_payment_npv_report" 
+			model="request.payment" 
+			name="printout_payment_npv_report"
+	        string="Printout Payment NPV"
+	        rml="ned_contract/report/printout_payment_npv.odt"/>	
+	        
+<!--  ========================= Payment Npe Report ================= -->
+		<record id="payment_npe_report" model="ir.actions.report.xml">
+	        <field name="name">payment_npe_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">request.payment</field>
+	        <field name="report_name">payment_npe_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/payment_npe.py</field>
+	        <field name="report_rml">ned_contract/report/payment_npe.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="payment_npe_report" 
+			model="request.payment" 
+			name="payment_npe_report"
+	        string="Payment NPE"
+	        rml="ned_contract/report/payment_npe.odt"/>
+
+
+<!--  ========================= Npe Report ================= -->
+	    <record id="npe_report" model="ir.actions.report.xml">
+	        <field name="name">npe_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="report_name">npe_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/report_npe.py</field>
+	        <field name="report_rml">ned_contract/report/report_npe.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="npe_report" 
+			model="purchase.contract" 
+			name="npe_report"
+	        string="Npe Report"
+	        rml="ned_contract/report/report_npe.odt"/>
+
+<!--  ========================= NVP Report ================= -->
+	    <record id="nvp_report" model="ir.actions.report.xml">
+	        <field name="name">nvp_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="report_name">nvp_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_contract/report/report_nvp.py</field>
+	        <field name="report_rml">ned_contract/report/report_npv_new.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="nvp_report" 
+			model="purchase.contract" 
+			name="nvp_report"
+	        string="NVP Report"
+	        rml="ned_contract/report/report_npv_new.ods"/>
+	    
+	    <!--  ========================= NVP Report ================= -->
+	    <record id="npe_nvp_report" model="ir.actions.report.xml">
+	        <field name="name">npe_nvp_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="report_name">npe_nvp_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/report_nvp.py</field>
+	        <field name="report_rml">ned_contract/report/report_npe_nvp.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="npe_nvp_report" 
+			model="purchase.contract" 
+			name="npe_nvp_report"
+	        string="NVP Report"
+	        rml="ned_contract/report/report_npe_nvp.odt"/>
+
+<!--  ========================= printout_nvp_liquidation Report ================= -->
+	    <record id="nvp_liquidation_report" model="ir.actions.report.xml">
+	        <field name="name">nvp_liquidation_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="report_name">nvp_liquidation_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/printout_nvp_liquidation.py</field>
+	        <field name="report_rml">ned_contract/report/printout_nvp_liquidation.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="nvp_liquidation_report" 
+			model="purchase.contract" 
+			name="nvp_liquidation_report"
+	        string="liquidation Report"
+	        rml="ned_contract/report/printout_nvp_liquidation.odt"/>
+	    
+	    
+	    
+	    <!--  ========================= trucking_list_report Report ================= -->
+	    <record id="trucking_list_report" model="ir.actions.report.xml">
+	        <field name="name">trucking_list_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">shipping.instruction</field>
+	        <field name="report_name">trucking_list_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/trucking_list.py</field>
+	        <field name="report_rml">ned_contract/report/trucking_list.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="trucking_list_report" 
+			model="shipping.instruction" 
+			name="trucking_list_report"
+	        string="Trucking list"
+	        rml="ned_contract/report/trucking_list.odt"/>
+	       
+	    
+	   
+	    <record id="report_huong_contract" model="ir.actions.report.xml">
+	        <field name="name">report_huong_contract</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="report_name">report_huong_contract</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_contract/report/partner_balance_confirmation.py</field>
+	        <field name="report_rml">ned_contract/report/report_huong_contract.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_huong_contract" 
+			model="purchase.contract" 
+			name="report_huong_contract"
+	        string="Contract"
+	        rml="ned_contract/report/report_huong_contract.ods"/>
+	    
+	   
+	  
+	   
+	   
+	   <record id="report_delivery_orders_form" model="ir.actions.report.xml">
+	        <field name="name">report_delivery_orders_form</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">delivery.order</field>
+	        <field name="report_name">report_delivery_orders_form</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/delivery_order.py</field>
+	        <field name="report_rml">ned_contract/report/delivery_order.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_delivery_orders_form" 
+			model="delivery.order" 
+			name="report_delivery_orders_form"
+	        string="delivery order"
+	        rml="ned_contract/report/delivery_order.odt"/>
+	     
+	  
+	     
+	    
+	   <record id="printout_nvs_report" model="ir.actions.report.xml">
+	        <field name="name">printout_nvs_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">sale.contract</field>
+	        <field name="report_name">printout_nvs_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/printout_nvs.py</field>
+	        <field name="report_rml">ned_contract/report/printout_nvs.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="printout_nvs_report" 
+			model="sale.contract" 
+			name="printout_nvs_report"
+	        string="Printout NVS"
+	        rml="ned_contract/report/printout_nvs.odt"/>
+	     
+	   	 
+	    
+	   <record id="delivery_order_report" model="ir.actions.report.xml">
+	        <field name="name">delivery_order_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">delivery.order</field>
+	        <field name="report_name">delivery_order_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/delivery_order.py</field>
+	        <field name="report_rml">ned_contract/report/delivery_order.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="delivery_order_report" 
+			model="delivery.order" 
+			name="delivery_order_report"
+	        string="delivery order Report"
+	        rml="ned_contract/report/delivery_order.odt"/>
+		
+		<!--  ========================= Contract Return Report ================= -->
+	    <record id="report_contract_return" model="ir.actions.report.xml">
+	        <field name="name">report_contract_return</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">contract.return</field>
+	        <field name="report_name">report_contract_return</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_contract/report/contract_return.py</field>
+	        <field name="report_rml">ned_contract/report/contract_return.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="report_contract_return" 
+			model="contract.return" 
+			name="report_contract_return"
+	        string="Contrac Return Report"
+	        rml="ned_contract/report/contract_return.odt"/>
+	    
+	</data>
+</openerp>

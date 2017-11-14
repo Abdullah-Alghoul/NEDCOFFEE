@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+    	<record id="view_kcs_sales_contract_ned" model="ir.ui.view">
+            <field name="name">view.kcs.sales.report.ned</field>
+            <field name="model">v.kcs.sales.contract</field>
+            <field name="arch" type="xml">
+    			<tree editable = 'False' readonly = 'True'>
+                    <field name = 'p_contract' readonly="1"/>
+                    <field name = "s_no" readonly="1"/>
+                    <field name = 'nvs_no' readonly="1"/>
+                    <field name = 'end_buyer' readonly="1"/>
+                </tree>
+	         </field>
+         </record>
+
+        <!-- The block of code bellow determines a list of search parameters appear once user type in the searchbar -->
+        <record id="supplier_risk_mgt_ned_search" model="ir.ui.view">
+            <field name="name">view.kcs.sales.contract.ned.search</field>
+            <field name="model">v.kcs.sales.contract</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "p_contract"/>
+                    <field name = 's_no'/>
+                    <field name = 'nvs_no'/>
+                    <field name = 'end_buyer'/>
+                    <!-- <group expand="1" string="Group By">
+                        <filter string="District" domain="[]" context="{'group_by':'district'}"/>
+                        <filter string="Type" domain="[]" context="{'group_by':'goods'}"/>
+                        <filter domain="[('status','=',True)]" string="Active trading" name='status'/>
+                        <filter domain="[('total_booked','!=',0)]" string="Purchased" name='total_booked'/>
+                    </group> -->
+                </search>
+             </field>
+         </record>
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_kcs_sales_report_ned" model="ir.actions.act_window">
+            <field name="name">Sales Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">v.kcs.sales.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="priority">210</field>
+            <field name="search_view_id"/>
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_kcs_sales_report_ned" 
+            action="action_kcs_sales_report_ned" parent="general_kcs.menu_report_kcs" name="Sales"
+            sequence="75" />
+    </data>
+</openerp>

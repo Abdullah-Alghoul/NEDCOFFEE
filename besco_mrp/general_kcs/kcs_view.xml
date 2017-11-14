@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="menu_root_kcs" name="QC"  groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="100"/>
+        <menuitem id="menu_request_kcs" name="QC Request" parent="menu_root_kcs" groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="1"/>
+        <menuitem id="menu_report_kcs" name="Report" parent="menu_root_kcs" groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="5"/>
+        <menuitem id="menu_configuration_kcs" name="Configuration"
+         parent="menu_root_kcs" groups="general_kcs.group_kcs_manager,general_kcs.group_kcs_user" sequence="10"/>
+    	
+    	
+    	
+    	<!-- Kiet: Add KCS into picking type -->
+	    <record id="view_picking_type_add_kcs_form" model="ir.ui.view">
+	        <field name="name">picking.type.add.kcs.form</field>
+	        <field name="model">stock.picking.type</field>
+	        <field name="inherit_id" ref="general_stock.view_picking_type_add_location_transfer_form"/>
+	        <field name="arch" type="xml">
+				<xpath expr="//field[@name='dashboard_invisible']" position="after">
+	        		<field name="kcs"/>
+	        		<field name="deduct"/>
+	        		<field name="kcs_approved"/>
+	        	</xpath>
+	        </field>
+		</record>
+		
+    	<!-- KCS Criterions Line-->
+    	<record id="view_kcs_criterions_line_tree" model="ir.ui.view">
+            <field name="name">kcs.criterions.line.tree</field>
+            <field name="model">kcs.criterions.line</field>
+            <field name="arch" type="xml">
+                <tree string="KCS Criterions Line">
+                    <field name="sequence"/>
+                    <field name="check_indicators"/>
+                    <field name="value"/>
+                    <field name="type"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_kcs_criterions_line_form" model="ir.ui.view">
+            <field name="name">kcs.criterions.line.form</field>
+            <field name="model">kcs.criterions.line</field>
+            <field name="arch" type="xml">
+                <form string="KCS Criterions Line">
+	                <sheet>
+	                	<group col="4">
+	                		<field name="sequence"/>
+		                    <field name="check_indicators"/>
+		                    <field name="value"/>
+		                    <field name="type"/>
+		                    <field name="description"/>
+	                	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+    	
+    	<!-- KCS Criterions -->
+    	<record id="view_kcs_criterions_tree" model="ir.ui.view">
+            <field name="name">kcs.criterions.tree</field>
+            <field name="model">kcs.criterions</field>
+            <field name="arch" type="xml">
+                <tree string="KCS Criterions">
+                    <field name="name" string="Criterion"/>
+                    <field name="categ_id"/>
+                    <field name="product_id"/>
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_kcs_criterions_form" model="ir.ui.view">
+            <field name="name">kcs.criterions.form</field>
+            <field name="model">kcs.criterions</field>
+            <field name="arch" type="xml">
+                <form string="QC Criterions">
+                	<header>
+	                    <button name="button_approve" type="object" states='draft' string="Approve"
+	                    	groups="general_kcs.group_kcs_manager" class="oe_highlight"/>
+	                    <button name="button_cancel" states="draft" string="Cancel" type="object" 
+	                    	confirm="Are you sure want to cancel Criterion?" groups="general_kcs.group_kcs_manager"/>
+	                  	<button name="button_cancel" states="approved" string="Cancel" type="object" 
+	                    	confirm="Are you sure want to cancel Criterion?" class="oe_highlight" groups="general_kcs.group_kcs_manager"/>
+	                    
+	                    <button name="button_draft" states="cancel" string="Set to draft" type="object" 
+	                    	confirm="Are you sure want to cancel Criterion?" class="oe_highlight" groups="general_kcs.group_kcs_manager"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+	                </header>
+	                <sheet>
+	                	<group col="4">
+	                		<field name="name" string="Criterions"/>
+	                		<label for="from_date" string="Period"/>
+	                		<div name="from_date" class="o_row">
+								<field name="from_date"/>
+								<label string=" - "/>
+								<field name="to_date"/>
+							</div>
+		                    <field name="categ_id"/>
+		                    <field name="product_id"/>
+		                    <field name="special"/>
+	                	</group>
+	                	<notebook>
+		                	<page string="Standard Compares" name="standard_compares">
+		                		<field name="ksc_line_ids">
+			                		<tree string="KCS Criterion Line" editable="top">
+					                    <field name="sequence"/>
+					                    <field name="check_indicators"/>
+					                    <field name="description"/>
+					                    <field name="value"/>
+					                    <field name="type"/>
+					                </tree>
+			                	</field>
+			                	<field name="note" class="oe_inline" placeholder="Notes..."/>
+			                	<div class="oe_clear"/>
+		                        <group col="4">
+		                        	<field name="create_uid"/>
+		                			<field name="create_date"/>
+		                			<field name="user_approve"/>
+		                			<field name="date_approve"/>
+		                		</group>
+		                	</page>
+	                	</notebook>
+	                </sheet>
+	                <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_kcs_criterions" model="ir.actions.act_window">
+            <field name="name">QC Criterions</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kcs.criterions</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a QC Criterions, the first step of a new QC Criterions.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_kcs_criterions" id="menu_action_kcs_criterions" 
+        	parent="menu_configuration_kcs" 
+        	groups="general_kcs.group_kcs_manager" sequence="1"/>
+        
+        <!-- Indicator KCS-->
+    	<record id="view_indicator_kcs_line_tree" model="ir.ui.view">
+            <field name="name">indicator.kcs.tree</field>
+            <field name="model">indicator.kcs</field>
+            <field name="arch" type="xml">
+                <tree string="Indicator KCS">
+                    <field name="check_indicators"/>
+                    <field name="standard"/>
+                    <field name="type"/>
+                    <field name="measured_value"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_indicator_kcs_form" model="ir.ui.view">
+            <field name="name">indicator.kcs.form</field>
+            <field name="model">indicator.kcs</field>
+            <field name="arch" type="xml">
+                <form string="Indicator KCS">
+	                <sheet>
+	                	<group col="4">
+	                		<field name="check_indicators"/>
+		                    <field name="standard"/>
+		                    <field name="type"/>
+		                    <field name="measured_value"/>
+		                    <field name="note"/>
+	                	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Request KCS Line -->
+    	<record id="view_request_kcs_line_tree" model="ir.ui.view">
+            <field name="name">request.kcs.line.tree</field>
+            <field name="model">request.kcs.line</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Request KCS Line">
+                    <field name="product_id"/>
+                    <field name="criterions_id"/>
+                    <field name="product_uom"/>
+                    <field name="product_qty"/>
+                    <field name="qty_reached"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_request_kcs_line_form" model="ir.ui.view">
+            <field name="name">request.kcs.line.form</field>
+            <field name="model">request.kcs.line</field>
+            <field name="arch" type="xml">
+                <form string="Request KCS Line">
+                	<header>
+                		<field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                	</header>
+	                <sheet>
+	                	<group>
+	                		<group>
+            		 			<field name="product_id" readonly="1"/>
+            		 			<label for="product_qty"/>
+								<div name="product_qty" class="o_row">
+									<field name="product_qty" readonly="1"/><field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button" readonly="1"/>
+								</div>
+                            	<field name="qty_reached" readonly="1"/>
+							</group>
+							<group>
+								<field name="categ_id" readonly="1"/>
+								<field name="criterions_id" invisible="1"/>
+							</group>	
+	                	</group>
+	                	<notebook>
+	                		<page string="Standard Compares" name="standard_compares">
+		            			<field name="indicator_kcs_ids">
+			                		<tree string="Indicator KCS" editable="top">
+					                    <field name="check_indicators"/>
+					                    <field name="standard"/>
+					                    <field name="type"/>
+					                    <field name="measured_value"/>
+					                </tree>
+			                	</field>
+			                	<div class="oe_clear"/>
+		            		</page>
+	                	</notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Request KCS -->
+    	<record id="view_request_kcs_tree" model="ir.ui.view">
+            <field name="name">request.kcs.tree</field>
+            <field name="model">request.kcs</field>
+            <field name="arch" type="xml">
+                <tree string="Request KCS">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="picking_id"/>
+                    <field name="auditor"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Product Template-->
+        <record id="view_template_property_form_inherit_general_kcs" model="ir.ui.view">
+            <field name="name">view.template.property.form.inherit.general.kcs</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+            	<group name="stock_property" position="before">
+            		<group name="check_kcs">
+            			<field name="product_kcs"/>
+            		</group>
+            	</group>
+            </field>
+        </record>
+        
+        <!-- Stock Move -->
+        <record model="ir.ui.view" id="view_move_tree_inherit_general_kcs">
+	        <field name="name">view.move.tree.inherit.general.kcs</field>
+	        <field name="model">stock.move</field>
+	        <field name="inherit_id" ref="stock.view_move_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='product_uom_qty']" position="after">
+                	<field name="init_qty"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	
+    	<record model="ir.ui.view" id="view_move_picking_tree_inherit_general_kcs">
+	        <field name="name">view.move.picking.tree.inherit.general.kcs</field>
+	        <field name="model">stock.move</field>
+	        <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='product_uom_qty']" position="before">
+                	<field name="init_qty"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	<record id="view_stock_kcs_ned_search" model="ir.ui.view">
+            <field name="name">stock.kcs.ned.search</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <search string="KCS">
+                	<field name="name" string="Picking"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="origin"/>
+                    <separator/>
+                    <group expand="1" string="Filters">
+                    	<filter domain="[('state_kcs','=','draft')]" string="KCS Draft"/>
+                    	<filter domain="[('state_kcs','=','approved')]" string="KCS Approve"/>
+                    	<filter domain="[('state_kcs','=','rejected')]" string="KCS Rejected"/>
+                	</group>
+                	<group expand="1" string="Group By">
+                    	<filter string="Type" domain="[]" context="{'group_by':'picking_type_id'}"/>
+                    	<filter string="State" name ="State" domain="[]" context="{'group_by':'state_kcs'}"/>
+                	</group>
+               </search>
+            </field>
+        </record>
+    	
+    	<record id="view_stock_kcs_tree" model="ir.ui.view">
+            <field name="name">view.stock.kcs.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <tree string="KCS" decoration-danger="state_kcs == 'draft'" decoration-muted="state in ('approved','rejected')" >
+                	<field name="name"/>
+                	<field name="origin"/>
+                	<field name="partner_id"/>
+                	<field name="date_done"/>
+                	<field name="product_id"/>
+                	<field name="total_init_qty" invisible="0" string="Net Weight"/>
+                	<field name="total_qty" string="Basis Weight"/>
+                	<field name="state_kcs" invisible="0"/>
+                	<field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_stock_kcs_form" model="ir.ui.view">
+            <field name="name">view.stock.kcs.form</field>
+            <field name="model">stock.picking</field>
+            <field name="priority">50</field>
+            <field name="arch" type="xml">
+                <form string="KCS">
+	                <header>
+	                	<button string="Load" name="btt_loads" type="object"  class="oe_highlight" attrs="{'invisible': [('state_kcs','!=','draft')]}"/>
+	                	<button string="Approve" name="btt_approved" type="object" class="oe_highlight" attrs="{'invisible': [('state_kcs','!=','draft')]}"/>
+	                	<button string="Reject" name="btt_reject" type="object" class="oe_highlight" attrs="{'invisible': [('state_kcs','!=','draft')]}"/>
+	                	<button string="Set to Draft" name="btt_draft" type="object" class="oe_highlight" attrs="{'invisible': [('state_kcs','not in',('approved','reject'))]}"/>
+	                	<field name="state_kcs" widget="statusbar" statusbar_visible="draft,approved,rejected"/>
+	                </header>
+	                <sheet>
+	                    <div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="1"/>
+	                        </h1>
+	                    </div>
+	                    <group>
+	                    	<group col="4">
+	                    		<field name="origin"/>
+	                    		<field name="partner_id" readonly="1"/>
+	                    		<field name="date_kcs"/>
+	                    		<field name="picking_type_id" readonly="1"/>
+	                    		<field name="product_id" readonly="1"/>
+	                    		<field name="total_qty" readonly="1"/>
+	                    		<field name="special" groups="general_kcs.group_kcs_manager"/>
+	                    		<field name="kcs_criterions_id" attrs="{'readonly': [('special','!=',True)]}"/>
+	                    		<field name="picking_type_code" invisible="1"/>
+	                    	</group>
+	                    	<newline/>
+	                    </group>
+	                    <group >
+                    		<field name="note"/>
+                    	</group>
+	                    <notebook>
+		                    <page string="KCS">
+		                    	<field name="kcs_line" context="{ 'tree_view_ref':'view_request_kcs_line_tree'}">
+		                    	</field>
+	                    	</page>	
+                    	</notebook>
+                    </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_stock_kcs" model="ir.actions.act_window">
+            <field name="name">QC Pickings</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_stock_kcs_ned_search"/>
+            <field name="domain">[('picking_type_code','in',('incoming','transfer_in','production_in')),('state','!=','draft')]</field>
+            <field name="help" type="html">
+            
+              <p class="oe_view_nocontent_create">
+                Click to create an internal move request. 
+              </p><p>
+                Most operations are prepared automatically by OpenERP according
+                to your preconfigured logistics rules, but you can also record
+                manual stock movements.
+              </p>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_stock_kcs_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_stock_kcs_tree"/>
+            <field name="act_window_id" ref="action_stock_kcs"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_kcs_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_stock_kcs_form"/>
+            <field name="act_window_id" ref="action_stock_kcs"/>
+        </record>
+        <menuitem id="menu_action_stock_kcs" 
+        	action="action_stock_kcs" parent="menu_request_kcs" name="QC Pickings"
+        	groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="50" />
+    	
+    </data>
+</openerp>

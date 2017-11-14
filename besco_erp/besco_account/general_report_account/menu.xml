@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!-- THANH: Add group  group_account_financial_report to menu report -->
+    	<menuitem id="account.menu_finance_reports" 
+    		name="Reporting" 
+    		parent="account.menu_finance" 
+    		sequence="100"
+    		groups="group_account_financial_report"/>
+    	
+    	<menuitem
+      		id="menu_vas_financial_reports" 
+      		parent="account.menu_finance_reports" 
+      		name="Financial Reports"
+      		groups="group_account_financial_report"
+      		sequence="100"/>
+     	
+    </data>
+</openerp>

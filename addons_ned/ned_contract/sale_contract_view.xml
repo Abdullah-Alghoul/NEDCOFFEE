@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+        
+        
+        <record id="view_sale_contract_local_pivot" model="ir.ui.view">
+            <field name="name">view.sale.contract.local.pivot</field>
+            <field name="model">sale.contract</field>
+            <field name="arch" type="xml">
+                <pivot string="nvs">
+               		<field name="date_tz" type="row"/>
+               		<field name="total_qty" type="measure"/>
+               		<field name="amount_total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <record id="action_sale_contract_local_pivot" model="ir.actions.act_window.view">
+            <field eval="500" name="sequence"/>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="view_sale_contract_local_pivot"/>
+            <field name="act_window_id" ref="bes_sale_contract.action_sale_contract_local"/>
+        </record>
+        
+         <record id="action_sale_contract_local_tree" model="ir.actions.act_window.view">
+            <field eval="100" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="bes_sale_contract.view_sale_contract_tree"/>
+            <field name="act_window_id" ref="bes_sale_contract.action_sale_contract_local"/>
+        </record>
+        
+        
+        <record id="bes_sale_contract.action_sale_contract_local" model="ir.actions.act_window">
+            <field name="name">Sale Contract - Local</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="domain">[('type','=','local')]</field>
+            <field name="context">{'default_type':'local'}</field>
+            <field name="search_view_id" ref="bes_sale_contract.sale_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a sale contract, the first step of a new contract.
+              </p>
+            </field>
+        </record>
+        
+        <record id="view_sale_contract_export_pivot" model="ir.ui.view">
+            <field name="name">view.sale.contract.export.pivot</field>
+            <field name="model">sale.contract</field>
+            <field name="arch" type="xml">
+                <pivot string="nvs">
+               		<field name="date_tz" type="row"/>
+               		<field name="total_qty" type="measure"/>
+               		<field name="amount_total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        
+        
+        <record id="action_sale_contract_export_pivot" model="ir.actions.act_window.view">
+            <field eval="150" name="sequence"/>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="view_sale_contract_export_pivot"/>
+            <field name="act_window_id" ref="bes_sale_contract.action_sale_contract_export"/>
+        </record>
+        
+        <record id="action_sale_contract_export_tree" model="ir.actions.act_window.view">
+            <field eval="100" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="bes_sale_contract.view_sale_contract_tree"/>
+            <field name="act_window_id" ref="bes_sale_contract.action_sale_contract_export"/>
+        </record>
+        
+         <record id="action_sale_contract_export_form" model="ir.actions.act_window.view">
+            <field eval="100" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bes_sale_contract.view_sale_contract_form"/>
+            <field name="act_window_id" ref="bes_sale_contract.action_sale_contract_export"/>
+        </record>
+        
+        
+        <record id="view_sale_contract_export_graph" model="ir.ui.view">
+            <field name="name">>view.sale.contract.export.graph</field>
+            <field name="model">sale.contract</field>
+            <field name="arch" type="xml">
+                <graph string="NVP">
+                    <field name="date_tz" type="row"/>
+               		<field name="total_qty" type="measure"/>
+               		<field name="amount_total" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+          <record id="action_sale_contract_export_graph" model="ir.actions.act_window.view">
+            <field eval="200" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_sale_contract_export_graph"/>
+            <field name="act_window_id" ref="bes_sale_contract.action_sale_contract_export"/>
+        </record>
+        
+        <record id="bes_sale_contract.action_sale_contract_export" model="ir.actions.act_window">
+            <field name="name">Sale Contract - Export</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="domain">[('type','=','export')]</field>
+            <field name="context">{'default_type':'export','search_by_field_date': ['date']}</field>
+            <field name="search_view_id" ref="bes_sale_contract.sale_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a sale contract, the first step of a new contract.
+              </p>
+            </field>
+        </record>
+        
+        
+         <record id="bes_sale_contract.sale_contract_search" model="ir.ui.view">
+            <field name="name">sale.contract.search</field>
+            <field name="model">sale.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search Sale Contract">
+                    <field name="name"/>
+                    <field name="origin"/>
+                    <field name="partner_id"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="approve" string="Approved" domain="[('state','=','approved')]"/>
+                    <filter name="done" string="Done" domain="[('state','=','done')]"/>
+                   	<filter string="Date" context="{'group_by':'day_tz'}"/>
+                   	<filter string="Month" context="{'group_by':'date_tz'}"/>
+                   	<filter string="Years" context="{'group_by':'years_tz'}"/>
+                   	<filter string="Partner" context="{'group_by':'partner_id'}"/>
+                  	<filter string="Product" context="{'group_by':'product_id'}"/>
+               </search>
+            </field>
+        </record>
+        
+		
+		<record id="view_sale_contract_tree_inherit_ned" model="ir.ui.view">
+            <field name="name">sale.contract.tree.inherit.ned</field>
+            <field name="model">sale.contract</field>
+            <field name="inherit_id" ref="bes_sale_contract.view_sale_contract_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+	           		<attribute name="string">NVS</attribute>
+	           	</xpath>
+	           	<xpath expr="//field[@name='validity_date']" position="replace">
+	           		<field name="date" string="NVS Date"/>
+	           		<field name="shipping_id"/>
+	           		<field name="scontract_id"/>
+	           		<field name="product_id"/>
+	           		<field name="certificate_id"/>
+	           		<field name="total_qty" sum="total_qty"/>
+	           	</xpath>
+	           	<xpath expr="//field[@name='origin']" position="attributes">
+	           		<attribute name="invisible">1</attribute>
+	           	</xpath>
+	           	<xpath expr="//field[@name='currency_id']" position="attributes">
+	           		<attribute name="invisible">1</attribute>
+	           	</xpath>
+	           	<xpath expr="//field[@name='currency_id']" position="after">
+	           		<field name="price_unit"/>
+	           		<field name="do_qty" sum="do_qty"/>
+	           		<field name="remain_qty" sum="remain_qty"/>
+	           		<field name="invoiced_qty" sum="invoiced_qty"/>
+	           		<field name="loss_qty" sum="loss_qty"/>
+	           		<field name="invoiced_amount_total" sum="invoiced_amount_total"/>
+	           	</xpath>
+	           	<xpath expr="//field[@name='certificate_id']" position="attributes">
+	           		<attribute name="invisible">1</attribute>
+	           	</xpath>
+	           	
+           
+            </field>
+        </record>
+        
+		<record id="view_sale_contract_form_inherit_ned_contract" model="ir.ui.view">
+	        <field name="name">view.sale.contract.form.inherit.ned.contract</field>
+	        <field name="model">sale.contract</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_sale_contract_form"/>
+	        <field name="arch" type="xml">
+				<xpath expr="//button[@name='button_approve']" position="after">
+                	<button name="print_printout_nvs" type="object" string="Printout Payment NVS" state="draft,approved,done"/>
+                	<button name="button_action_done" type="object" string="Done" state="approved" class="oe_highlight"/>
+                </xpath>
+	        	
+	            <xpath expr="//field[@name='deadline']" position="after">
+	            	<field name="crop_id"/>
+	            </xpath>
+	            <xpath expr="//field[@name='customer_representative']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='tax_id']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='origin']" position="replace">
+	            	<field name="p_contract"/>
+	            </xpath>
+	            <xpath expr="//field[@name='exchange_rate']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='partner_id']" position="attributes">
+	            	<attribute name="readonly">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='type']" position="after">
+	            	<field name="entries_id" readonly="1"/>
+	            </xpath>
+	            
+	            
+	            <xpath expr="//field[@name='contract_line']/tree/field[@name='product_uom']" position="before">
+	            	<field name="certificate_id"/>
+	            </xpath>
+	            <xpath expr="//field[@name='contract_line']/tree/field[@name='price_unit']" position="before">
+                	<field name="premium"/>
+                	<field name="provisional_g2_price"/>
+                	<field name="provisional_g2_diff"/>
+                	<field name="provisional_price"/>
+                	<field name="final_g2_price"/>
+                	<field name="final_g2_diff"/>
+                </xpath>
+                
+                <xpath expr="//page[@name='information']" position="before">
+	            	<page string="Clam">
+	            		<field name="clam_ids">
+	            			<tree editable="Top">
+	            				<field name="name" required="1"/>
+	            				<field name="product_qty"/>
+	            				<field name="price_unit"/>
+	            				<field name="amount" sum="amount"/>
+	            				<field name="move_id" readonly="1"/>
+	            				<field name="state"/>
+	            				<button name="btt_validate" type="object" string="Validated"/>
+	            				<button name="btt_cancel" type="object" string="Set to Draft"/>
+	            			</tree>
+	            		</field>
+	            	</page>
+	            </xpath>
+	        </field>
+	    </record>
+	    
+	    <record id="view_sale_contract_line_tree_inherit_ned_contract" model="ir.ui.view">
+	        <field name="name">sale.contract.line.tree.inherit.ned.contract</field>
+	        <field name="model">sale.contract.line</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_sale_contract_line_tree"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='price_subtotal']" position="after">
+	            	<field name="certificate_id"/>
+	            </xpath>
+	        </field>
+	    </record>
+	    
+	    <record id="view_sale_contract_line_form_inherit_ned_contract" model="ir.ui.view">
+	        <field name="name">sale.contract.line.form.inherit.ned.contract</field>
+	        <field name="model">sale.contract.line</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_sale_contract_line_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='tax_id']" position="after">
+	            	<field name="certificate_id"/>
+	            </xpath>
+	            
+	        </field>
+	    </record>
+	    
+	    <menuitem id="bes_sale_contract.menu_action_sale_contract_local" action="bes_sale_contract.action_sale_contract_local" 
+	    	sequence="1" parent="bes_sale_contract.menu_sale_contract" name="NLS"/>
+	    	
+	    <menuitem id="bes_sale_contract.menu_action_sale_contract_export" action="bes_sale_contract.action_sale_contract_export" 
+	    	sequence="2" parent="bes_sale_contract.menu_sale_contract" name="NVS"/> 
+	    
+	    
+	  
+	    	
+      </data>
+</openerp>

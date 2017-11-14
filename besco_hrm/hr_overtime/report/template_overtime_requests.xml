@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+    	 
+	    <record id="report_overtime_requests" model="ir.actions.report.xml">
+	        <field name="name">report_overtime_requests</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.overtime</field>
+	        <field name="report_name">report_overtime_requests</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">hr_overtime/report/template_overtime_requests.py</field>
+	        <field name="report_rml">hr_overtime/report/template_overtime_requests.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_overtime_requests"
+			model="hr.overtime"
+			name="report_overtime_requests"
+	        string="Template Import Overtime Requests"
+        	rml="hr_overtime/report/template_overtime_requests.ods"/>   	
+
+  	</data>
+</openerp>

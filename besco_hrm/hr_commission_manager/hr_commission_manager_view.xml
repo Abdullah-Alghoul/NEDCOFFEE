@@ -1,0 +1,114 @@
+<openerp>
+	<data>
+		<record id="view_tree_hr_commission_manager" model="ir.ui.view">   
+	      <field name="name">HR Commission Manager</field>
+	      <field name="model">hr.commission.manager</field>
+	      <field name="arch" type="xml">        
+	         <tree>
+	         	<field name="name"/>
+	         	<field name="job_id" />
+	          	<field name="user_import_id" />
+	          	<field name="user_approve_id" />
+	          	<field name="start_date"/>
+	          	<field name="end_date"/> 
+	        </tree>
+	      </field>
+	    </record>    	
+	    
+	    <record id="view_form_hr_commission_manager" model="ir.ui.view">
+	      <field name="name">HR Commission Manager</field>
+	      <field name="model">hr.commission.manager</field>
+	      <field name="arch" type="xml">
+	        <form>
+	         <header>
+                    <button name="button_confirm" type="object" states="draft" string="Confirm" class="oe_highlight"/>
+                    <button name="button_approve" type="object" states='approve' string="Approve" class="oe_highlight"/>
+                    <button name="button_set_to_draft" states="done" string="Set to Draft" type="object" class="oe_highlight"/>                    
+                    <field name="state" widget="statusbar" statusbar_visible="draft,to approve,done" readonly="1" />
+             </header>
+	          <sheet>
+	          	<div class="oe_title">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" placeholder="Timesheet's Name"/>
+                    </h1>
+                </div>
+	            <group name="group_top" col="4">
+	            	 <group>
+		          		<label for="start_date" string="Period"/>
+                        <div>
+                            <field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+                        </div>
+		          		<field name="job_id" />
+		          	 </group>
+		          	 <group>
+			          	<field name="user_import_id" />
+			          	<field name="import_date" />
+			          	<field name="user_approve_id" />
+			         </group>
+	            </group>
+	           	<field name="commission_manager_lines_ids" />
+	          </sheet>
+	        </form>
+	      </field>
+	    </record> 
+		
+		<record id="action_hr_commission_manager" model="ir.actions.act_window">
+	        <field name="name">HR Commission Manager</field>
+	        <field name="res_model">hr.commission.manager</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field eval="False" name="view_id"/>
+	    </record>
+	    
+	    <menuitem id="menu_hr_commission_manager"
+	      	name="Commission Manager"
+	      	parent="hr.menu_hr_root"
+			action="action_hr_commission_manager"
+			sequence="25"/>
+	    
+	    <record id="action_action_hr_commission_manager_lines" model="ir.actions.act_window">
+	        <field name="name">HR Commission Manager</field>
+	        <field name="res_model">hr.commission.manager.lines</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field eval="False" name="view_id"/>
+	    </record>
+	    
+	    <record id="view_tree_action_hr_commission_manager_lines" model="ir.ui.view">
+	    	<field name="name">HR Commission Manager</field>
+	        <field name="model">hr.commission.manager.lines</field>   
+		    <field name="arch" type="xml">        
+		         <tree>
+		         	<field name="name"/>
+					<field name="product_id"/>
+		          	<field name="uom"/>
+		          	<field name="quantity"/>
+		        </tree>
+		    </field>
+	    </record>
+	    
+	    <record id="view_form_action_hr_commission_manager_lines" model="ir.ui.view">
+	      <field name="name">HR Commission Manager</field>
+	      <field name="model">hr.commission.manager.lines</field>
+	      <field name="arch" type="xml">
+	        <form>
+	        	<sheet>
+	        		<group col="2" name="main">
+           				<group string="Employee">
+           					<field name="name"/>
+           				</group>
+				        <group string="Product" name="product">
+							<field name="product_id"/>
+				          	<field name="uom"/>
+				          	<field name="quantity"/>
+						</group>
+				    </group> 
+	        	</sheet>
+    		</form>
+	      </field>
+	    </record>
+	    
+	    	
+	</data>
+</openerp>

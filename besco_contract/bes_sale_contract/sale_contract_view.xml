@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<menuitem id= "menu_sale_contract" 
+    	parent= "bes_contract_base.menu_base_contracts" sequence= "2" 
+    	name= "Sale Contracts"
+    	groups="bes_sale_contract.group_sales_contract_user"/>
+            
+    	<record id="view_sale_contract_tree" model="ir.ui.view">
+            <field name="name">sale.contract.tree</field>
+            <field name="model">sale.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Contract List" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-danger="state not in ('cancel', 'done')">
+                    <field name="name" string="Contract Number"/>
+                    <field name="partner_id"/>
+                    <field name="validity_date"/>
+                    <field name="currency_id"/>
+                    <field name="origin"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_sale_contract_form" model="ir.ui.view">
+            <field name="name">sale.contract.form</field>
+            <field name="model">sale.contract</field>
+            <field name="arch" type="xml">
+                <form string="Sale Contract">
+	                <header>
+	                    <button name="button_approve" type="object" states='draft' string="Approve Contract" class="oe_highlight"/>
+	                    <button name="button_draft" states="approved" string="Set to Draft" type="object" 
+	                    	confirm="Are you sure want to Draft contract?"/>
+	                    <button name="create_invoice" string="Create Invoice" type="object" states="approved"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,invoice"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state','=','draft')]}">
+	                		<field name="delivery_ids" invisible="1"/>
+							<button type="object" name="action_view_do" class="oe_stat_button" icon="fa-truck" 
+									attrs="{'invisible': [('delivery_count','=',0)]}">
+								<field name="delivery_count" widget="statinfo" string="DO"/>
+							</button>
+							<button type="object" name="action_view_invoice" class="oe_stat_button" icon="fa-truck" 
+									attrs="{'invisible': [('invoice_count','=',0)]}">
+								<field name="invoice_count" widget="statinfo" string="Invoice"/>
+							</button>
+							
+						</div>
+	                    <div class="oe_title">
+	                        <h1>
+	                            <field name="name"/>
+	                        </h1>
+	                    </div>
+	                    <group>
+	                    	<group>
+	                            <field name="partner_id" domain="[('customer','=',True),('company_type','=','company')]"/> 
+	                    		<field name="customer_representative" domain="[('parent_id','=',partner_id)]" options="{'no_write': True, 'no_create': True}"/>
+	                    		<field name="partner_shipping_id" options="{'no_write': True, 'no_create': True}"/>
+	                    		<label for="shipping_id"/>
+	                    		<div name="shipping_id" class="o_row">
+									<field name="shipping_id"  options="{'no_write': True, 'no_create': True}"/>
+									<button name="button_load" string="Load" type="object" icon="terp-gtk-jump-to-ltr" 
+										states="draft" class="btn-default"/> 
+								</div>
+								<field name="scontract_id" options="{'no_write': True, 'no_create': True}" readonly="1"/>
+	                    		<field name="currency_id"/>
+            					<field name="exchange_rate"/>	
+	                    	</group>
+	                    	<group>
+	                    		<field name="date"/>
+	                    		<field name="deadline"/>
+                    			<field name="origin"/>
+	                    	</group>
+	                    </group>
+	                    <notebook>
+	                    	<page string="Products" name="product">
+	                    		<field name="contract_line">	
+	                    			<tree editable="top">
+					    				<field name="sequence" widget="handle"/>
+					    				<field name="contract_id" invisible="1"/>
+					    				<field name="product_id"/>
+					    				<field name="name"/>
+					    				<field name="product_uom"/>
+					    				<field name="product_qty"/>
+					    				<field name="conversion"/>
+					    				<field name="price_unit"/>
+					    				<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+					    				<field name="price_subtotal" widget="monetary"/>
+					    			</tree>
+	                    		</field>
+	                    		<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+	                                <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+	                                    <label for="amount_total" />
+	                                    <button name="button_dummy"
+	                                        states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+	                                </div>
+	                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                            </group>
+	                            <field name="note" class="oe_inline" placeholder="Setup default terms and conditions in your company settings."/>
+	                            <div class="oe_clear"/>
+	                            <group col="4">
+	                            	<field name="create_uid"/>
+	                    			<field name="create_date"/>
+	                    			<field name="user_approve"/>
+	                    			<field name="date_approve"/>
+	                    		</group>
+	                    	</page>
+	                    	<page string="Shipment Details">
+	                    		<group>
+	                    			<group>
+		                    			<field name="dispatch_mode"/>
+		                    			<field name="port_of_loading" domain="[('type','=','port')]"/>
+		                    			<field name="port_of_discharge" domain="[('type','=','port')]"/>
+		                    		</group>
+		                    		<group>
+		                    			<field name="weights"/>
+		                    			<field name="container_status"/>
+		                    		</group>
+	                    		</group>
+	                    	</page>
+	                    	<page string="DO - GDN" name="do_gdn" attrs="{'invisible': [('state','not in',('approved','done'))]}">
+	                    		<separator string="Delivery Orders" name="delivery_orders"/>
+	                    		<field name="delivery_ids" options='{"no_create": True}'/>	
+	                    		<separator string="Goods Delivery Notes" name="goods_delivery_notes"/>
+	                    	</page>
+	                    	<page string="Invoice" attrs="{'invisible': [('invoice_count','=',0)]}">
+	                    		<field name="invoice_ids" options='{"no_create": True}'>
+	                    			<tree>
+	                    				<field name="date_invoice"/>
+	                    				<field name="partner_id"/>
+	                    				<field name="amount_total" sum="amount_total"/>
+	                    				<field name="state"/>
+	                    				<field name="currency_id"/>
+	                    			</tree>
+	                    		</field>	
+	                    	</page>
+	                    	<page string="Other Information" name="information">
+	                    		<group>
+	                    			<group>
+	                    				<field name="warehouse_id" options="{'no_write': True, 'no_create': True}"/>
+	                    			</group>
+	                    			<group>
+	                    				<field name="company_id" options="{'no_write': True, 'no_create': True}"/>
+	                    				<field name="company_representative" invisible="1" domain="[('parent_id','=',company_id)]" options="{'no_write': True, 'no_create': True}"/>
+			                    			 
+	                    			</group>
+	                    			<group>
+	                    				<field name="payment_term_id"/>
+	                    				<field name="transportation_charges"/>
+										<field name="picking_policy"/>%
+	                    			</group>
+	                    			<group >
+	                    				<field name="validity_date"/>
+	                    				<field name="expiration_date"/>
+	                    				<field name="date_done" attrs="{'invisible': [('state','!=','done')]}"/>
+	                    				<field name="type"/>
+	                    			</group>
+	                    		</group>
+	                    	</page>
+	                    </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="bes_sale_contract.sale_contract_search" model="ir.ui.view">
+            <field name="name">sale.contract.search</field>
+            <field name="model">sale.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search Sale Contract">
+                    <field name="name"/>
+                    <field name="origin"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="approve" string="Approved" domain="[('state','=','approved')]"/>
+                    <filter name="done" string="Done" domain="[('state','=','done')]"/>
+                    <separator/>
+                    <filter name="validity_date" string="Validity Date" domain="[('validity_date', '&lt;', time.strftime('%%Y-%%m-%%d'))]"/>
+                    <separator/>
+                    <field name="partner_id"/>
+                    <separator/>
+                    <filter domain="[('create_uid','=',uid)]" help="My Contract"/>
+                    
+                    <group expand="1" string="Group By">
+                    	<filter string="Partner" context="{'group_by':'partner_id'}"/>
+                	</group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_sale_contract_local" model="ir.actions.act_window">
+            <field name="name">Sale Contract - Local</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','local')]</field>
+            <field name="context">{'default_type':'local'}</field>
+            <field name="search_view_id" ref="sale_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a sale contract, the first step of a new contract.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_sale_contract_local" action="action_sale_contract_local" sequence="1" 
+        	parent="menu_sale_contract" name="Sale Contract - Local"
+        	groups="bes_sale_contract.group_sales_contract_user"/>
+        	
+    	<record id="action_sale_contract_export" model="ir.actions.act_window">
+            <field name="name">Sale Contract - Export</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','export')]</field>
+            <field name="context">{'default_type':'export','search_by_field_date': ['date']}</field>
+            <field name="search_view_id" ref="sale_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a sale contract, the first step of a new contract.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_sale_contract_export" action="action_sale_contract_export" sequence="2" 
+        	parent="menu_sale_contract" name="Sale Contract - Export"
+        	groups="bes_sale_contract.group_sales_contract_user"/>
+        	
+       <!-- Contract Line -->
+    	<record id="view_sale_contract_line_tree" model="ir.ui.view">
+            <field name="name">sale.contract.line.tree</field>
+            <field name="model">sale.contract.line</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Contract List" editable="top">
+    				<field name="sequence" widget="handle"/>
+    				<field name="contract_id" invisible="1"/>
+    				<field name="product_id"/>
+    				<field name="name"/>
+    				<field name="conversion"/>
+    				<field name="product_qty"/>
+    				<field name="product_uom"/>
+    				<field name="price_unit"/>
+    				<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+    				<field name="price_subtotal" widget="monetary"/>
+    			</tree>
+            </field>
+        </record>
+        
+        <record id="view_sale_contract_line_form" model="ir.ui.view">
+            <field name="name">sale.contract.line.form</field>
+            <field name="model">sale.contract.line</field>
+            <field name="arch" type="xml">
+                <form string="Sale Contract Line">
+	                <sheet>
+	                	<group>
+	                		<group>
+	                			<field name="product_id"/>
+	                			<label for="product_qty"/>
+	                            <div>
+		                            <field name="product_qty" class="oe_inline"/>
+	                                <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button"/>
+	                            </div>
+	                            <field name="price_unit"/>
+	                		</group>
+	                		<group>
+	                			<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+	                		</group>
+	                	</group>
+	                	<label for="name"/>
+                        <field name="name"/>
+                        <field name="state" invisible="1"/>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <!-- Account Invoice 
+        <record id="invoice_form_inherit_sale_contract" model="ir.ui.view">
+            <field name="name">invoice.form.inherit.sale.contract</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">	
+	            <xpath expr="//field[@name='date_invoice']" position="after">
+	            	<field name="sale_contract_id" options="{'no_write': True, 'no_create': True}"/>
+	            </xpath>
+		    </field>
+        </record>
+        
+        <record model="ir.ui.view" id="invoice_tree_inherit_sale_contract">
+	        <field name="name">invoice.tree.inherit.sale.contract</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.invoice_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='number']" position="after">
+                	<field name="sale_contract_id" options="{'no_write': True, 'no_create': True}"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	
+    	<record model="ir.ui.view" id="view_account_invoice_filter_inherit_sale_contract">
+	        <field name="name">view.account.invoice.filter.inherit.sale.contract</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='journal_id']" position="after">
+                	<field name="sale_contract_id"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	
+    	<record model="ir.ui.view" id="view_move_tree_inherit_sale_contract">
+	        <field name="name">view.move.tree.inherit.sale.contract</field>
+	        <field name="model">stock.move</field>
+	        <field name="inherit_id" ref="stock.view_move_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='product_uom_qty']" position="after">
+                	<field name="out_stock_wti" invisible="1"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	
+    	<record model="ir.ui.view" id="view_move_picking_tree_inherit_sale_contract">
+	        <field name="name">view.move.picking.tree.inherit.sale.contract</field>
+	        <field name="model">stock.move</field>
+	        <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='product_uom_qty']" position="after">
+                	<field name="out_stock_wti" invisible="1"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	-->
+    	<record model="ir.ui.view" id="stock_picking_revert_picking_form_inherit_sale_contract">
+	        <field name="name">stock.picking.revert.picking.form.inherit.sale.contract</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="general_stock.stock_picking_revert_picking_form"/>
+	        <field name="arch" type="xml">
+	        	<button name="action_revert_done" position="after">
+	          		<button name="action_wizrad_out_stock_wti" string="Update Out stock WTI" type="object" class="oe_highlight"
+		            	attrs="{'invisible': ['|',('state','&lt;&gt;','done'),('picking_type_code','!=','outgoing')]}" 
+		            	groups="account.group_account_user"/>
+	            </button>
+	             <xpath expr="//field[@name='priority']" position="after">
+	        		<field name="sale_contract_id" readonly="1" attrs="{'invisible': [('picking_type_code','!=','outgoing')]}"/>
+	        		<field name="delivery_id" readonly="1" attrs="{'invisible': [('picking_type_code','!=','outgoing')]}"/>
+                </xpath>
+          	</field>
+    	</record>
+    	
+    </data>
+</openerp>

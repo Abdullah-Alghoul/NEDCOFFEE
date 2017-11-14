@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+    	<record id="view_wizard_report_gain_loss" model="ir.ui.view">
+	        <field name="name">wizard.report.gain.loss</field>
+	        <field name="model">wizard.report.gain.loss</field>
+	        <field name="arch" type="xml">
+		        <form string="Gain Loss">
+		        	<sheet>
+		            	<group col="4">
+		            		<field name="from_date" required="1"/>
+		            		<field name="to_date" required="1"/>
+		            		<field name="picking_type_id" required="1" domain="[('code','=','incoming')]"/>
+	                	</group>
+		                <footer>
+		                    <button string="Create Gain Loss" name="create_gain_loss" type="object" class="oe_highlight"/>
+		                    <button string="_Cancel" class="btn-default" special="cancel" />
+		                </footer>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <record id="action_view_wizard_report_gain_loss" model="ir.actions.act_window">
+            <field name="name">Report Gain Loss</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.report.gain.loss</field>
+            <field name="view_id" ref="view_wizard_report_gain_loss"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+        	
+    	
+    	<record id="view_wizard_purchase_add_qty_received_contract" model="ir.ui.view">
+	        <field name="name">view.purchase.contract.form.add.qty.received</field>
+	        <field name="model">wizard.purchase.contract</field>
+	        <field name="inherit_id" ref="bes_purchase_contract.view_wizard_purchase_contract"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='contract_line_ids']/tree/field[@name='product_uom']" position="after">
+	            	<field name="qty_received" sum="qty_received" readonly="1"/>
+	            	<field name="total_qty_fixed" sum="total_qty_fixed" readonly="1"/>
+	            	<field name="qty_unreceived" string="UnFixed" readonly="1"/>
+	            </xpath>
+	            <xpath expr="//field[@name='contract_line_ids']/tree/field[@name='product_remain_qty']" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</xpath>
+            	<xpath expr="//field[@name='contract_line_ids']/tree/field[@name='price_unit']" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</xpath>
+            	<xpath expr="//field[@name='contract_line_ids']/tree/field[@name='product_qty']" position="attributes">
+            		<attribute name="string">Qty Fix</attribute>
+            	</xpath>
+            </field>
+         </record>
+    
+      </data>
+</odoo>

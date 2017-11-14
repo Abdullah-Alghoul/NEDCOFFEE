@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+		
+		<!-- NHAT KY MO KY -->
+			<record id="sequence_journal_opening_balance" model="ir.sequence">
+	            <field name="name">Nhật ký mở kỳ</field>
+	            <field name="code"></field>
+	            <field name="prefix">OPEN-%(year)s</field>
+	            <field eval="1" name="number_next"/>
+	            <field eval="1" name="number_increment"/>
+	            <field name="padding">4</field>
+	            <field name="rollback_rule">Yearly</field>
+	            <field name="implementation">standard</field>
+	        </record>
+        
+		<record id="journal_opening_balance" model="account.journal">
+	        <field name="name">Nhật ký mở kỳ</field>
+	        <field name="code">OPEN</field>
+	        <field name="type">general</field>
+	        <field name="default_credit_account_id" search="[('code','=','009')]"/>
+	        <field name="default_debit_account_id" search="[('code','=','009')]"/>
+	        <field name="sequence_id" ref="sequence_journal_opening_balance"/>
+	    </record>
+	    
+		<!-- NHAT KY KET CHUYEN -->
+			<record id="sequence_journal_transfer" model="ir.sequence">
+	            <field name="name">Nhật ký kết chuyển</field>
+	            <field name="code"></field>
+	            <field name="prefix">AJTR-%(year)s%(month)s</field>
+	            <field eval="1" name="number_next"/>
+	            <field eval="1" name="number_increment"/>
+	            <field name="padding">4</field>
+	            <field name="rollback_rule">Monthly</field>
+	            <field name="implementation">standard</field>
+	        </record>
+        
+		<record id="journal_transfer" model="account.journal">
+	        <field name="name">Nhật ký kết chuyển</field>
+	        <field name="code">AJTR</field>
+	        <field name="type">general</field>
+	        <field name="sequence_id" ref="sequence_journal_transfer"/>
+	    </record>
+	    
+	    <!-- NHAT KY LUONG -->
+			<record id="sequence_journal_salary" model="ir.sequence">
+	            <field name="name">Nhật ký Lương</field>
+	            <field name="code"></field>
+	            <field name="prefix">AJSAL-%(year)s%(month)s</field>
+	            <field eval="1" name="number_next"/>
+	            <field eval="1" name="number_increment"/>
+	            <field name="padding">4</field>
+	            <field name="rollback_rule">Monthly</field>
+	            <field name="implementation">standard</field>
+	        </record>
+        
+		<record id="journal_salary" model="account.journal">
+	        <field name="name">Nhật ký Lương</field>
+	        <field name="code">AJSAL</field>
+	        <field name="type">general</field>
+	        <field name="sequence_id" ref="sequence_journal_salary"/>
+	    </record>
+	    
+	    <!-- NHAT KY KHAU HAO TSCD - Quản lý doanh nghiệp -->
+			<record id="sequence_journal_asset" model="ir.sequence">
+	            <field name="name">Nhật ký TSCĐ</field>
+	            <field name="code"></field>
+	            <field name="prefix">TSCĐ-%(year)s%(month)s</field>
+	            <field eval="1" name="number_next"/>
+	            <field eval="1" name="number_increment"/>
+	            <field name="padding">4</field>
+	            <field name="rollback_rule">Yearly</field>
+	            <field name="implementation">standard</field>
+	        </record>
+        
+		<record id="journal_asset" model="account.journal">
+	        <field name="name">Nhật ký TSCĐ</field>
+	        <field name="code">TSCĐ</field>
+	        <field name="type">general</field>
+	        <field name="default_credit_account_id" search="[('code','=','6424')]"/>
+	        <field name="default_debit_account_id" search="[('code','=','6424')]"/>
+	        <field name="sequence_id" ref="sequence_journal_asset"/>
+	    </record>
+	    
+	    <!-- NHAT KY chi phí trả trước -->
+			<record id="sequence_journal_prepaid_expense" model="ir.sequence">
+	            <field name="name">Nhật ký chi phí trả trước</field>
+	            <field name="code"></field>
+	            <field name="prefix">CPTT-%(year)s%(month)s</field>
+	            <field eval="1" name="number_next"/>
+	            <field eval="1" name="number_increment"/>
+	            <field name="padding">4</field>
+	            <field name="rollback_rule">Yearly</field>
+	            <field name="implementation">standard</field>
+	        </record>
+        
+		<record id="journal_prepaid_expense" model="account.journal">
+	        <field name="name">Nhật ký chi phí trả trước</field>
+	        <field name="code">CPTT</field>
+	        <field name="type">general</field>
+	        <field name="sequence_id" ref="sequence_journal_prepaid_expense"/>
+	    </record>
+
+	</data>
+</openerp>

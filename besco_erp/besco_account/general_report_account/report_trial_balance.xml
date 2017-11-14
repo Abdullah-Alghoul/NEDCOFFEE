@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	    <record id="view_fin_trial_balance_report_tree" model="ir.ui.view">
+		    <field name="name">fin.trial.balance.report.tree</field>
+		    <field name="model">fin.trial.balance.report</field>
+		    <field name="arch" type="xml">
+		         <tree string="Account Ledger">
+		        	<field name="times"/>
+		        	<field name="company_id"/>
+		        </tree>
+		    </field>
+		</record>
+		
+		<record id="view_fin_trial_balance_report_form" model="ir.ui.view">
+		    <field name="name">fin.trial.balance.report.form</field>
+		    <field name="model">fin.trial.balance.report</field>
+		    <field name="arch" type="xml">
+		    	<form string="Account Ledger">
+		    		<header>
+         				<button name="print_report" type="object" string="Print Trial Balance"/>
+	                </header>
+		        	<sheet>
+		         		<group>
+			        		<group>
+				        		<field name="times"/>
+				        		<field name="ac_date"/>
+				        		<field name="account_ids" widget="many2many_tags" string='Accounts'  options="{'no_create': True}" 
+				        			domain="[('level','>=',2)]"/>
+				        		<field name="show_parent"/>
+			        		</group>
+			        		<group>
+				        		<field name="fiscalyear_id"  attrs="{'invisible':[('times', 'in', ['dates'])],'required':[('times','not in', ['dates'])]}"/>
+				        		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','month'])],'required':[('times', 'not in', ['dates','years','month'])]}"/>
+				        		<field name="month" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+				        		<field name="date_start"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+				        		<field name="date_end"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+			           			<field name="company_id"/>
+			           			<field name="second_currency_id" invisible="1"/>
+			           		</group>
+		           		</group>
+		           		<notebook>
+				            <page string="Details" name='detail'>
+				            	<group>
+				            		<button string="Load Data" name="load_data" type="object" class="oe_highlight"/>
+				            	</group>
+				            	<group>
+					            	<field name="tria_ids" readonly="1" nolabel='1'>
+					            		<tree decoration-danger="description == 'Tồng cộng'"  colors="blue:acc_type == 'view'"
+					            			decoration-info="description in ('Tổng','Tài Khoản Ngoại bảng')" class="trial_balance"
+					            			limit="300">
+					            			<field name="coa_code"/>
+					            			<field name="coa_name"/>
+					            			<field name="description" invisible='1'/>
+					            			<field name="acc_type" invisible='1'/>
+					            			<field name="begin_dr"/>
+					            			<field name="begin_cr"/>
+					            			<field name="period_dr"/>
+					            			<field name="period_cr"/>
+					            			<field name="ac_dr"/>
+					            			<field name="ac_cr"/>
+					            			<field name="end_dr"/>
+					            			<field name="end_cr"/>
+					            			<field name="com_currency_id" invisible="1"/>
+					            		</tree>
+					            	</field>
+				            	</group>
+				            </page>
+				            <page string="Journals" name='journal'>
+				            	<div>
+			                        <button string="Public Journals" name="load_journal" type="object" context="{'journal_type':'public'}"/>
+				        			<button string="Internal Journals" name="load_journal" type="object" context="{'journal_type':'internal'}"/>
+				        			<button string="All Journals" name="load_journal" type="object"/>
+			                    </div>
+				            	<field name="journal_ids"/>
+				            </page>
+			            </notebook>
+		            </sheet>
+	            </form>
+            </field>
+          </record>
+          
+      <record id="action_fin_trial_balance_report" model="ir.actions.act_window">
+            <field name="name">Trial Balance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fin.trial.balance.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+        
+        <menuitem
+	      		id="menu_action_fin_trial_balance_report" 
+	      		action="action_fin_trial_balance_report" 
+	      		parent="menu_vas_financial_reports" 
+	      		sequence="120"/>
+	    
+	</data>
+</openerp>

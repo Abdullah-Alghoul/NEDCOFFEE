@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="report_partner_general_balance" model="ir.actions.report.xml">
+	        <field name="name">report_partner_general_balance</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">report.partner.balance</field>
+	        <field name="report_name">report_partner_general_balance</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_aged_partner_balance/report/report_partner_balance.py</field>
+	        <field name="report_rml">general_aged_partner_balance/report/report_partner_balance.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="report_partner_general_balance" 
+			model="report.partner.balance" 
+			name="report_partner_general_balance"
+	        string="Partner General Ledger"
+	        rml="general_aged_partner_balance/report/report_partner_balance.ods"/>       
+	    
+    	<record id="report_partner_invoice_balance" model="ir.actions.report.xml">
+	        <field name="name">report_partner_invoice_balance</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">report.partner.balance</field>
+	        <field name="report_name">report_partner_invoice_balance</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_aged_partner_balance/report/report_partner_balance.py</field>
+	        <field name="report_rml">general_aged_partner_balance/report/report_partner_invoice_balance.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="report_partner_invoice_balance"  
+			model="report.partner.balance" 
+			name="report_partner_invoice_balance"
+	        string="Partner Invoices"
+	        rml="general_aged_partner_balance/report/report_partner_invoice_balance.ods"/>	 
+        
+        <record id="report_partner_ledger_detail" model="ir.actions.report.xml">
+	        <field name="name">report_partner_ledger_detail</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">report.partner.balance</field>
+	        <field name="report_name">report_partner_ledger_detail</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_aged_partner_balance/report/report_partner_balance.py</field>
+	        <field name="report_rml">general_aged_partner_balance/report/report_partner_ledger_detail.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="report_partner_ledger_detail"  
+			model="report.partner.balance" 
+			name="report_partner_ledger_detail"
+	        string="Partner Ledger Details"
+	        rml="general_aged_partner_balance/report/report_partner_ledger_detail.ods"/>	 
+	   
+	</data>
+</openerp>

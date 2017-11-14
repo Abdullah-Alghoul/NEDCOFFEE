@@ -1,0 +1,48 @@
+<template>
+	
+	<t t-name="SearchRangeDate">
+		<div id="SearchRangeDate" class="oe-search-range-date">
+		    <table class="search_date_range">
+	            <tr>
+	                <th class="field_selection_column oe_form_field_selection">
+	                	<select id="field_name_selection" class="field_date_selection">
+				            <t t-foreach="widget.filter_fields" t-as="record">
+				                <option t-att-value="record.name"><t t-esc="record.string"/></option>
+				            </t>
+				        </select>
+	                </th>
+	                <th class="from_to_selection_column">
+	                	<div>
+	                		<span style="margin-top: 4px;">from</span>
+					        <input id="from_date" 
+					            class="search_from_date o_datepicker_input" type="text" t-att-placeholder="placeholder"/>
+					        <span class="fa fa-calendar o_datepicker_button" style="margin-top: 6px;"/>
+			            	<span style="margin-top: 4px;">to</span>
+			            	<input id="to_date" 
+					            class="search_to_date o_datepicker_input" type="text" t-att-placeholder="placeholder"/>
+					        <span class="fa fa-calendar o_datepicker_button" style="margin-top: 6px;"/>
+					    </div>
+					    <div>    
+	                    <button type="button" class="search_range_date btn btn-sm btn-primary" id="search_range_date" title="Search" autofocus="autofocus"><i class="fa fa-search" aria-hidden="true"></i></button>
+	                    <button type="button" class="clear_filter btn btn-sm btn-default" autofocus="autofocus"  id="clear_filter" title="Clear"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+	                	</div>
+	                </th>
+	                <th>
+	                	<div class="o_calendar_buttons">
+				            <button class="o_calendar_button_prev btn btn-sm btn-primary" ondblclick="return false"><span class="fa fa-arrow-left"/></button>
+				            <button class="o_calendar_button_today btn btn-sm btn-primary">Today</button>
+				            <button class="o_calendar_button_next btn btn-sm btn-primary"><span class="fa fa-arrow-right"/></button>
+				
+				            <div class="btn-group btn-group-sm">
+				                <button type="button" class="o_calendar_button_day btn btn-sm btn-default">Day</button>
+				                <button type="button" class="o_calendar_button_week btn btn-sm btn-default">Week</button>
+				                <button type="button" class="o_calendar_button_month btn btn-sm btn-default">Month</button>
+				            </div>
+				        </div>
+	                </th>
+	            </tr>
+	        </table>
+        </div>
+	</t>
+	
+</template>

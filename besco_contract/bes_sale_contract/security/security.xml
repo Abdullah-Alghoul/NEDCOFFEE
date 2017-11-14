@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+		
+		<record id="group_sales_contract_user" model="res.groups">
+	        <field name="name">Sales Contract User</field>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+	    </record>
+	    
+	    <record id="group_sales_contract_manager" model="res.groups">
+	        <field name="name">Sales Contract Manager</field>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	        <field name="inherit" eval="[(4, ref('group_sales_contract_user'))]"/>
+	    </record>
+	    
+	    <!-- Profiles -->
+    	<record id="profile_sales_contract_user" model="profile">
+        	<field name="name">Sales Contract User / Hợp đồng bán hàng Users</field>
+	        <field name="groups_ids" eval="[(6, 0, [ref('group_sales_contract_user')])]"/>
+	        <field name="description">- Nhập liệu, chỉnh sửa thông tin Hợp đồng bán hàng</field>
+	    </record>
+	    
+	    <!-- Profiles -->
+    	<record id="profile_sales_contract_manager" model="profile">
+        	<field name="name">Sales Contract Manager / Hợp đồng bán hàng Manager</field>
+	        <field name="groups_ids" eval="[(6, 0, [ref('group_sales_contract_user'),ref('group_sales_contract_manager')])]"/>
+	        
+	        <field name="description">- Toàn quyền Sale Contract</field>
+	    </record>
+	    
+	</data>
+</openerp>

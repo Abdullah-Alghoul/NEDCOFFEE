@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Sequences for purchase.contract --> 
+        <record id="seq_purchase_contract" model="ir.sequence">
+            <field name="name">Purchase Contract</field>
+            <field name="code">purchase.contract</field>
+            <field name="prefix">NVP-</field>
+            <field name="padding">5</field>
+            <field name="suffix">/%(y)s</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <record id="seq_npe_contract" model="ir.sequence">
+            <field name="name">Npe Contract</field>
+            <field name="code">npe.contract</field>
+            <field name="prefix">NPE-</field>
+            <field name="padding">5</field>
+            <field name="suffix">/%(y)s</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</openerp>

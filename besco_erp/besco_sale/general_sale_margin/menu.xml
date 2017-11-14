@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+	<menuitem id="menu_sales_report" name='Sales Reports'
+		parent="base.menu_sales" sequence="10" 
+		groups="base.group_sale_manager,base.group_sale_salesman"/>
+		
+		<menuitem action="action_sales_fiscalyear" id="menu_action_sales_fiscalyear" 
+			parent="menu_sales_report" sequence="5"
+			groups="base.group_sale_manager"/>
+		
+		<menuitem action="action_sales_period" id="menu_action_sales_period" 
+			parent="menu_sales_report" sequence="10"/>
+		
+		<menuitem action="action_sales_period_line" id="menu_action_sales_period_line" 
+			parent="menu_sales_report" sequence="11"
+			groups="base.group_sale_manager"/>
+		
+		<menuitem action="action_salesteam_performance" id="menu_action_salesteam_performance" 
+			parent="menu_sales_report" sequence="12"
+			groups="base.group_sale_manager"/>
+		
+		<menuitem action="action_fiscalyear_performance" id="menu_action_fiscalyear_performance" 
+			parent="menu_sales_report" sequence="13"
+			groups="base.group_sale_manager"/>
+			
+		<menuitem
+            parent="menu_sales_report"
+            sequence="15"
+            id="menu_action_view_weekly_sales_report"
+            action="action_view_weekly_sales_report"
+            groups="base.group_sale_manager,base.group_sale_salesman_all_leads"/>
+        
+        <menuitem
+            parent="menu_sales_report"
+            sequence="20"
+            id="menu_action_view_salesteam_sales_target_report"
+            action="action_view_salesteam_sales_target_report"
+            groups="base.group_sale_manager"/>
+
+</data>
+</openerp>

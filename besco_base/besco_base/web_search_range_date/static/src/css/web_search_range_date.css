@@ -1,0 +1,120 @@
+/* .openerp table .search_date_range{
+  position:fixed;
+  width: 100%;
+  padding-bottom:30px;
+  border-collapse: collapse;
+}
+
+.openerp .field_selection_column{
+  padding-right:10px;
+  height: 100%;                
+}
+
+.openerp .o-pivot-table{
+  padding-top:30px;                                 
+}
+.openerp .o_calendar_buttons{
+  padding-left:100px;                                 
+}
+.openerp .activity{
+      color:#333;
+      background-color:#e6e6e6;
+      border-color:#adadad;                                                              
+}
+
+ */
+  table.search_date_range > tbody > tr > th>div.o_calendar_buttons >button{
+ 	border:1px;
+ 	
+ }
+ /*button#clear_filter:hover, button#search_range_date:hover,table.search_date_range > tbody > tr > th>div.o_calendar_buttons > div.btn-group > button:hover{
+ 	border:none !important;
+ } */
+ table.search_date_range > tbody > tr > th,table.search_date_range > tbody > tr > th.from_to_selection_column > div{
+    display: inline-flex; 
+ } 
+ table.search_date_range > tbody > tr > th> button{
+ 	margin: 0 2px;
+ 	/* border: 1px solid white; */
+ }
+ table.search_date_range > tbody > tr > th> input,table.search_date_range > tbody > tr > th>span{
+	margin: 0 10px;
+ } 
+ table.search_date_range > tbody > tr > th:last-child{
+    float:right;
+ }
+ table.search_date_range{
+ 	width: 100%;
+  	padding-bottom:30px;
+
+ }
+ .openerp .oe_list_content{
+ 	background-color:white; 
+ } 
+/*  .oe_view_manager_current{
+ 	top:35px;
+ } */
+ /* table.search_date_range > tbody > tr{
+ 	position: fixed;
+    margin-top: 1px;
+    z-index: 2;
+    width: 1349px; 
+    display: inline-table;
+    background-color: white;
+    top:151px;
+ }  */
+ table.search_date_range > tbody > tr{
+    margin-top: 1px;
+    z-index: 2;
+    width: 1349px; 
+    display: inline-table;
+    background-color: white;
+    top:132px;
+ }
+ .openerp .field_selection_column{
+  padding-right:10px;
+  height: 100%;  
+  width: 20%;              
+}
+.openerp .o-pivot-table{
+  padding-top:30px;                                 
+}
+.openerp .o_calendar_buttons{
+  padding-left:100px;                                 
+}
+.openerp .activity{
+      color:#333;
+      background-color:#e6e6e6;
+      border-color:#adadad;                                                              
+}
+  
+@media screen and (max-width: 1024px) {  
+	table.search_date_range > tbody > tr{
+		display: table-row;
+	}
+	table.search_date_range > tbody > tr > th.from_to_selection_column{
+		display: block;
+	}
+	table.search_date_range > tbody > tr > th.from_to_selection_column >div{
+		margin: 5px;
+	}
+	table.search_date_range > tbody > tr >th >.o_calendar_buttons{
+		padding-left: 0;
+	} 
+	table.search_date_range > tbody > tr >th >.o_calendar_buttons >div{
+		margin-top: 5px;
+	} 
+	table.search_date_range > tbody > tr >th{
+		width: 100% !important;
+		margin: 3px 0;
+	}
+	table.search_date_range > tbody > tr >th >input.o_datepicker_input{
+		width: 75px; 
+	}
+	table.search_date_range > tbody > tr >th > .o_calendar_buttons >button,
+	table.search_date_range > tbody > tr >th > .o_calendar_buttons >div > button{
+		margin: 0 5px;
+	}
+}
+  
+

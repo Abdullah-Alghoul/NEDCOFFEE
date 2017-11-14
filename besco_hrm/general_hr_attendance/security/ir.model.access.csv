@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_attendance_import_hr_manager,hr_attendance_import_hr_manager,model_hr_attendance_import,base.group_hr_user,1,1,1,1
+access_hr_attendance_import_line_hr_manager,hr_attendance_import_line_hr_manager,model_hr_attendance_import_line,base.group_hr_manager,1,1,1,1
+access_hr_attendance_system_officer,hr.attendance.system.officer,hr_attendance.model_hr_attendance,general_hr.group_hr_modify_attendance,1,1,1,1
+access_hr_attendance_hr_manager,hr_attendance_hr_manager,model_hr_attendance,base.group_hr_manager,1,1,1,1

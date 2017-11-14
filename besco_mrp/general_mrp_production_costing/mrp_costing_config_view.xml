@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+	   <record id="view_mrp_account_config_tree" model="ir.ui.view">
+            <field name="name">mrp.account.config.tree</field>
+            <field name="model">mrp.account.config</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Account Configuration">
+                	<field name="company_id"/>
+                	<field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_mrp_account_config_form" model="ir.ui.view">
+            <field name="name">mrp.account.config.form</field>
+            <field name="model">mrp.account.config</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Mrp Account" >
+                    <header>
+                	</header>
+	                <sheet>
+	                    <group>
+	                        <group>
+	                        	<field name="company_id"/>
+	                        </group>
+	                        <group>
+	                            <field name="active"/>
+	                        </group>
+	                    </group>
+	                    <notebook>
+	                        <page string="Accounting Master">
+	                        	<group string="Direct Control">
+	                                <group>
+	                                	<field name="direct_material_account_ids" widget="many2many_tags"/>
+	                                </group>
+	                                <group>
+	                                	<field name="direct_labour_account_ids" widget="many2many_tags"/>
+	                                </group>
+	                            </group>
+	                        	<group string="Factory Overhead Control">
+	                                <group>
+	                                	<field name="indirect_material_account_ids" widget="many2many_tags"/>
+	                                	<field name="indirect_labour_account_ids" widget="many2many_tags"/>
+	                                    <field name="factory_utilities_account_ids" widget="many2many_tags"/>
+	                                </group>
+	                                <group>
+	                                    <field name="factory_depreciation_account_ids" widget="many2many_tags"/>
+	                                    <field name="other_indirect_account_ids" widget="many2many_tags"/>
+	                                </group>
+	                            </group>
+	                        </page>
+	                    </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="action_mrp_account_config" model="ir.actions.act_window">
+            <field name="name">MRP Account Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.account.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id"/>
+        </record>
+        
+        
+        <!-- New General Stock Account menu -->
+	
+      		
+        <menuitem action="action_mrp_account_config" id="menu_action_mrp_account_config"  parent="general_mrp_account.menu_account_mrp" sequence="1"/>
+        
+    </data>
+</openerp>

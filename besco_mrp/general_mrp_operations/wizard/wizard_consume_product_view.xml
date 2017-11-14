@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--  Consume, scrap move -->
+
+        <record id="view_wizard_consume_product" model="ir.ui.view">
+            <field name="name">Consume Move</field>
+            <field name="model">wizard.consume.product</field>
+            <field name="arch" type="xml">
+                <form string="Consume Move">
+                    <group string="Consume Products">
+                        <field name="product_id" readonly="1"/>
+                        <label for="product_qty"/>
+                        <div>
+                            <field name="product_qty" class="oe_inline"/>
+                            <field name="product_uom" class="oe_inline" readonly="1" groups="product.group_uom"/>
+                        </div>
+                        <field name="location_id" groups="stock.group_locations"/>
+                    </group>
+                    <footer>
+                        <button name="do_move_consume" string="Ok" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_consume_product" model="ir.actions.act_window">
+            <field name="name">Consume Move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.consume.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

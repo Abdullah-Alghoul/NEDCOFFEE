@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record id="view_report_stock_balance_sheet_tree" model="ir.ui.view">
+		    <field name="name">report.stock.balance.sheet.tree</field>
+		    <field name="model">report.stock.balance.sheet</field>
+		    <field name="arch" type="xml">
+		         <tree string="Report Stock Balance Sheet">
+		         	<field name="warehouse_ids" widget="many2many_tags"/>
+		        	<field name="location_ids" widget="many2many_tags"/>
+                	<field name="categ_ids" widget="many2many_tags"/>
+                	<field name="product_ids" widget="many2many_tags"/>
+                	<field name="date_start"/>
+                	<field name="date_end"/>
+	        		<field name="company_id"/>
+		        </tree>
+		    </field>
+		</record>
+		
+		<record id="view_report_stock_balance_sheet_form" model="ir.ui.view">
+		    <field name="name">report.stock.balance.sheet.form</field>
+		    <field name="model">report.stock.balance.sheet</field>
+		    <field name="arch" type="xml">
+		         <form string="Report Stock Balance Sheet">
+			         <header>
+			         	<button string="Load Data" name="load_data" type="object"/>
+			         </header>
+			         <sheet>
+			            <group>
+			        		<group>
+				        		<field name="times"/>
+				        		<field name="warehouse_ids" widget="many2many_tags"/>
+		        				<field name="location_ids" widget="many2many_tags" />
+			                	<field name="categ_ids" widget="many2many_tags"/>
+			                	<field name="product_ids" widget="many2many_tags" />
+			        		</group>
+			        		<group>
+				        		<field name="fiscalyear_id"  attrs="{'invisible':[('times', 'in', ['dates'])],'required':[('times','not in', ['dates'])]}"/>
+				        		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','month'])],'required':[('times', 'not in', ['dates','years','month'])]}"/>
+				        		<field name="month" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+				        		<field name="date_start"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+				        		<field name="date_end"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+			           			<field name="period_length"/>
+			           			<field name="company_id"/>
+			           		</group>
+			            </group>
+		            
+			            <notebook>
+				            <page string="Details">
+				            	<field name="report_lines">
+				            		<tree editable="top">
+				            			<field name="categ_id" invisible="1"/>
+				            			<field name="product_id"/>
+				            			<field name="uom_id"/>
+				            			<field name="conversion" invisible="1"/>
+				            			
+				            			<field name="bg_qty" sum="bg_qty"/>
+				            			<field name="bg_value" sum="bg_value"/>
+				            			
+				            			<field name="in_qty" sum="in_qty"/>
+				            			<field name="in_value" sum="in_value"/>
+				            			<field name="out_qty" sum="out_qty"/>
+				            			<field name="out_value" sum="out_value"/>
+				            			
+				            			<field name="end_qty" sum="end_qty"/>
+				            			<field name="end_value" sum="end_value"/>
+				            			
+				            			<field name="turnover_ratio" invisible="1"/>
+				            			<field name="turnover" invisible="1"/>
+				            			
+				            			<field name="com_currency_id" invisible="1"/>
+				            		</tree>
+				            	</field>
+				            </page>
+			            </notebook>
+		            </sheet>
+		        </form>
+		    </field>
+		</record>
+		
+		<record id="action_report_stock_balance_sheet" model="ir.actions.act_window">
+            <field name="name">Report Stock Balance Sheet</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.stock.balance.sheet</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+		<menuitem
+	      		id="menu_action_report_stock_balance_sheet" 
+	      		name="Report Stock Balance Sheet"
+	      		action="action_report_stock_balance_sheet" 
+	      		parent="general_account.menu_stock_account" 
+	      		sequence="100"/>
+	    
+	</data>
+</openerp>

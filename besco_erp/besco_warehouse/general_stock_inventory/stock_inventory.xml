@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<record id="view_inventory_tree_general_modify" model="ir.ui.view">
+            <field name="name">view.inventory.tree.general.modify</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="picking_type_id"/>
+                </xpath>
+            </field>
+        </record>
+		
+		<record id="view_inventory_form_general_modify" model="ir.ui.view">
+            <field name="name">view.inventory.form.general.modify</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_id']" position="before">
+					<field name="picking_type_id" domain="[('code','in',['production','phys_adj'])]" on_change="onchange_picking_type(picking_type_id)"/>
+                </xpath>
+                <xpath expr="//field[@name='filter']" position="after">
+                	<field name="file" filename="file_name"/>
+                	<field name="file_name" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='prepare_inventory']" position="before">
+					<button name="read_file" type="object" states="confirm" string="Read File" class="oe_highlight"/>
+					<button name="action_in_queue" type="object" states="confirm" string="In Queue" class="oe_highlight"/>
+                	<button name="action_cancel_done_inventory" type="object" states="done" string="Cancel" groups="base.group_erp_manager"/>
+                </xpath>
+                <xpath expr="//button[@name='action_done']" position="attributes">
+                	<attribute name="invisible">True</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='date']" position="after">
+					<field name="freeze_date"/>
+					<field name="queue_from_date"/>
+					<field name="queue_to_date"/>
+                </xpath>
+                <xpath expr="//field[@name='package_id']" position="after">
+					<!-- Thanh: Add categs and products -->
+					<field name="categ_ids" widget="many2many_tags" attrs="{'invisible':[('filter','!=','cats')], 'required':[('filter','=','cats')]}"/>
+                    <field name="product_ids" widget="many2many_tags" attrs="{'invisible':[('filter','!=','products')], 'required':[('filter','=','products')]}"/>   
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_qty']" position="after">
+					<field name="freeze_cost" groups="account.group_account_user"/>
+                    <field name="adjust_quantity" sum="adjust_quantity"/>
+                    <field name="adjust_value" groups="account.group_account_user" sum="adjust_value"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='move_ids']/tree/field[@name='product_uom']" position="after">
+					<field name="price_unit" groups="account.group_account_user"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='date']" position="attributes">
+                	<attribute name="readonly">True</attribute>
+                </xpath>
+				
+				<xpath expr="//field[@name='line_ids']" position="attributes">
+                	<attribute name="context">{'default_location_id': location_id,  'default_product_id': product_id, 'default_prod_lot_id': lot_id, 'default_package_id': package_id, 'default_partner_id': partner_id, 'freeze_date': freeze_date}</attribute>
+                	<attribute name="attrs">{'readonly': [('state','in',['in_queue','done'])]}</attribute>
+                </xpath>
+                 
+				<!-- Thanh: Warehouse Manage is able to to these actions -->
+				<xpath expr="//button[@name='action_cancel_draft']" position="attributes">
+                	<attribute name="groups">stock.group_stock_manager</attribute>
+                </xpath>
+				<xpath expr="//button[@name='action_cancel_inventory']" position="attributes">
+                	<attribute name="groups">stock.group_stock_manager</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_done']" position="attributes">
+                	<attribute name="groups">stock.group_stock_manager</attribute>
+                </xpath>
+                
+                <xpath expr="//notebook" position="attributes">
+                	<attribute name="attrs">{}</attribute>
+                </xpath>
+                
+            </field>
+        </record>
+        
+    </data>
+</openerp>

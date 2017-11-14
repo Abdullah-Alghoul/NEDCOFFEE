@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	
+		<record id="view_wizard_stock_picking" model="ir.ui.view">
+	        <field name="name">view.wizard.stock.picking.form</field>
+	        <field name="model">wizard.trucking.list</field>
+	        <field name="arch" type="xml">
+		        <form string="Transfer">
+		        	<sheet>
+		                <footer>
+		                	<button string="Trucking List" name="button_report" type="object" class="oe_highlight"/>
+		                    <button string="_Cancel" class="btn-default" special="cancel"/>
+		                </footer>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <record id="action_wizard_stock_picking" model="ir.actions.act_window">
+            <field name="name">Trucking List</field>
+            <field name="res_model">wizard.trucking.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_wizard_stock_picking"/>
+        </record>
+	<!--   
+	     <act_window name="Report Trucking List"
+            res_model="wizard.trucking.list"
+            src_model="delivery.order"
+            key2="client_action_multi"
+            multi="True"
+            view_mode="form"
+            view_type="form"
+            target="new"
+            id="action_wizard_stock_picking"/>
+      -->  
+    
+      </data>
+</openerp>

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+    <!-- HARDCODE SECTION OPEN -->
+    <!-- THESE 3 ACTION GET HARDCODE AT domain and context-->
+    	<record id="action_advance_additive_input" model="ir.actions.act_window">
+            <field name="name">Advance Rule Input</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rule.input</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+		    <field name="domain">[('hr_salary_rule_code','=','NS')]</field>
+		    <field name="context">{'default_hr_salary_rule_code': 'NS'}</field>
+        </record>
+        
+        <record id="action_additive_input" model="ir.actions.act_window">
+            <field name="name">Rule Input</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rule.input</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    
+        <record id="action_subtractive_input" model="ir.actions.act_window">
+            <field name="name">Rule Input</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rule.input</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('hr_salary_rule_code','=','GTNT')]</field>
+	        <field name="context">{'default_hr_salary_rule_code': 'GTNT'}</field>
+        </record>
+        
+        <record id="action_donation_input" model="ir.actions.act_window">
+            <field name="name">Rule Input</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rule.input</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('hr_salary_rule_code','=','UH')]</field>
+		    <field name="context">{'default_hr_salary_rule_code': 'UH'}</field>
+        </record>
+            <!-- HARDCODE SECTION CLOSED -->
+        <!-- Advance -->
+        <record id="advance_rule_input_tree" model="ir.ui.view">
+            <field name="name">advance.rule.input.tree</field>
+            <field name="model">rule.input</field>
+            <field name="arch" type="xml">
+                <tree string="Advance Rule Input">
+                    <field name="name"/>
+                    <field name="date_from"/>
+   					<!-- <field name="date_to"/> -->
+   					<field name="job_ids"/>
+                </tree>
+            </field>
+        </record>
+    
+       <record id="advance_rule_input_form" model="ir.ui.view">
+            <field name="name">advance.rule.input.form</field>
+            <field name="model">rule.input</field>
+            <field name="arch" type="xml">
+	            <form>
+		            <header>
+		            	<button string="Load" name="load_time" type="object" class="oe_highlight" />
+		            </header>
+		            <sheet>
+			            	<div class="oe_title">
+		                        <h1>
+		                        	<field name="name"/>
+		                        </h1>
+				            </div>
+				            <field name="hr_salary_rule_code" groups="general_base.group_nobody"/>
+				            
+		            		<group >
+		            			
+			                    <label for="date_start" string="Date"/>
+			                         <div>
+			                               <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
+			                         </div>
+			                    <field name="company_id" options="{'no_create': True}" required="1"/>     
+				                <field name="job_ids" widget="many2many_tags"/>
+		            		</group>
+		            		<group>
+		            			<field name="quantity"/>
+		            			<field name="price"/>
+		            			<field name="time" readonly="1"/>
+		            			<field name="unit" />
+		            		</group>
+		            		<separator string="Input Lines"/>
+		                   	<field name="rule_input_line_ids">
+		                   		<tree string="Rule Input Line" editable ="1" context="{'default_value':unit}">
+				                	<field name="hr_salary_rule_code" groups="general_base.group_nobody"/>
+				                	<!-- job_ids[0][2]: because args return style of many2many [[6,0,[id,id,...]] -->
+				                	<field name="job_id" domain="[('id','in',parent.job_ids[0][2])]"/>
+				                	<field name="rule_input_id" invisible = "1"/>
+				                	<field name="name" required = "1" domain="[('input_id.code','=',hr_salary_rule_code)]" options="{'no_create': True}"/>
+				                	<field name="value" />
+				                	<field name="detail"/>
+				                </tree> 
+		                   	</field>
+		            </sheet>
+	            </form>
+            </field>
+        </record>
+        
+        <!-- ADDTIVE AND SUBTRACTIVE RULE INPUT VIEWS -->
+        
+        <record id="rule_input_tree" model="ir.ui.view">
+            <field name="name">rule.input.tree</field>
+            <field name="model">rule.input</field>
+            <field name="arch" type="xml">
+                <tree string="Rule Input">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+    
+       <record id="rule_input_form" model="ir.ui.view">
+            <field name="name">rule.input.form</field>
+            <field name="model">rule.input</field>
+            <field name="arch" type="xml">
+	            <form>
+		            <sheet>
+			            	<div class="oe_title">
+				                        <h1>
+				                        	<field name="name"/>
+				                        </h1>
+				            </div>
+		            		<group >
+		            			
+			                    <label for="date_start" string="Date"/>
+			                         <div>
+			                               <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
+			                         </div>
+				                <field name="company_id" options="{'no_create': True}" required="1"/>
+		            		</group>
+		            		<separator string="Input Lines"/>
+		                   	<field name="rule_input_line_ids"/>
+		            </sheet>
+	            </form>
+            </field>
+        </record>
+        
+  		<record id="view_rule_input_line_tree" model="ir.ui.view">
+            <field name="name">view.rule.input.line.tree</field>
+            <field name="model">rule.input.line</field>
+            <field name="arch" type="xml">
+                <tree string="Rule Input Line" editable ="1">
+                	<field name="employee_id" required = "1" options="{'no_create': True}"/>
+			        <field name="contract_id" domain="[('employee_id.id', '=', employee_id)]" options="{'no_create': True}"/>
+                	<field name="rule_input_id" invisible = "1"/>
+                	<field name="name" required = "1" options="{'no_create': True}"/>
+                	<field name="value"/>
+                	<field name="detail"/>
+                </tree> 
+            </field>
+        </record>
+		
+		<!-- DONATION INPUT VIEWS-->
+		<record id="donation_rule_input_tree" model="ir.ui.view">
+            <field name="name">donation.rule.input.tree</field>
+            <field name="model">rule.input</field>
+            <field name="arch" type="xml">
+                <tree string="Donation Input">
+                    <field name="name"/>
+                    <field name="company_id"/>
+                    <field name="date_from"/>
+<!--                     <field name="date_to"/> -->
+                </tree>
+            </field>
+        </record>
+    
+       <record id="donation_rule_input_form" model="ir.ui.view">
+            <field name="name">donation.rule.input.form</field>
+            <field name="model">rule.input</field>
+            <field name="arch" type="xml">
+	            <form>
+		            <sheet>
+			            	<div class="oe_title">
+				                        <h1>
+				                        	<field name="name"/>
+				                        </h1>
+				            </div>
+				            <field name="hr_salary_rule_code" groups="general_base.group_nobody"/>
+		            		<group >
+		            			
+			                    <label for="date_start" string="Date"/>
+				                         <div>
+				                               <field name="date_from" class="oe_inline"/> <!-- <field name="date_to" class="oe_inline"/>-->
+				                         </div>
+				                <field name="company_id" options="{'no_create': True}" required="1"/>
+		            		</group>
+		            		<separator string="Donation Input Lines"/>
+		                   	<field name="rule_input_line_ids">
+		                   		<tree string="Rule Input Line" editable ="1">
+				                	<field name="hr_salary_rule_code" groups="general_base.group_nobody"/>
+				                	<field name="rule_input_id" invisible = "1"/>
+				                	<field name="name" required = "1" domain="[('input_id.code','=',hr_salary_rule_code)]" options="{'no_create': True}"/>
+				                	<field name="value"/>
+				                	<field name="detail"/>
+				                </tree> 
+		                   	</field>
+		            </sheet>
+	            </form>
+            </field>
+        </record>
+        
+		<!-- ACTION-VIEW reference -->
+		<record model="ir.actions.act_window.view" id="action_view_tree_additive_input">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="rule_input_tree"/>
+            <field name="act_window_id" ref="action_additive_input"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_view_tree_advance_additive_input">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="advance_rule_input_tree"/>
+            <field name="act_window_id" ref="action_advance_additive_input"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_view_tree_subtractive_input">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="rule_input_tree"/>
+            <field name="act_window_id" ref="action_subtractive_input"/>
+        </record>
+		<record model="ir.actions.act_window.view" id="action_view_tree_donation_input">
+            <field name="sequence" eval="5"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="donation_rule_input_tree"/>
+            <field name="act_window_id" ref="action_donation_input"/>
+        </record>
+		<record model="ir.actions.act_window.view" id="action_view_form_additive_input">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="rule_input_form"/>
+            <field name="act_window_id" ref="action_additive_input"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_view_form_advance_additive_input">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="advance_rule_input_form"/>
+            <field name="act_window_id" ref="action_advance_additive_input"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_view_form_subtractive_input">
+            <field name="sequence" eval="4"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="rule_input_form"/>
+            <field name="act_window_id" ref="action_subtractive_input"/>
+        </record>
+		<record model="ir.actions.act_window.view" id="action_view_form_donation_input">
+            <field name="sequence" eval="6"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="donation_rule_input_form"/>
+            <field name="act_window_id" ref="action_donation_input"/>
+        </record>
+
+        <menuitem id="menu_rule_input" name="Employee Inputs" parent="hr_attendance.menu_hr_attendance_root" sequence="35" groups="base.group_hr_user"/>
+		<menuitem id="menu_action_advance_additive_input" name="Advance Additive Inputs" action="action_advance_additive_input" parent="menu_rule_input" sequence="0" groups="base.group_hr_user"/>
+        <menuitem id="menu_action_additive_input" name="Additive Inputs" action="action_additive_input" parent="menu_rule_input" sequence="1" groups="base.group_hr_user"/>
+        <menuitem id="menu_action_subtractive_input" name="Subtractive Inputs" action="action_subtractive_input" parent="menu_rule_input" sequence="2" groups="base.group_hr_user"/>
+        <menuitem id="menu_action_donation_input" name="Donation Inputs" action="action_donation_input" parent="menu_rule_input" sequence="3" groups="base.group_hr_user"/>
+    </data>
+</openerp>
+

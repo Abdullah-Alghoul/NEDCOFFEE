@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	
+		<record id="view_stock_history_report_tree_add_ned" model="ir.ui.view">
+	        <field name="name">view.stock.history.report.tree.add.ned</field>
+	        <field name="model">stock.history</field>
+	        <field name="inherit_id" ref="stock_account.view_stock_history_report_tree"/>
+	        <field name="arch" type="xml">
+				<xpath expr="//field[@name='location_id']" position="after">
+					<field name="warehouse_id"/>
+			    	<field name="zone_id"/>
+			    	<field name="stack_id"/>
+				</xpath>
+        	</field>
+    	</record>
+    	
+    	<record id="stock_account.view_stock_history_report_search" model="ir.ui.view">
+        <field name="name">stock.history.report.search</field>
+        <field name="model">stock.history</field>
+        <field name="arch" type="xml">
+            <search string="Stock Value At Date">
+                <field name="product_id"/>
+                <field name="location_id" filter_domain="[('location_id', 'child_of', self)]"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="zone_id"/>
+                <field name="stack_id"/>
+                <field name="warehouse_id"/>
+                <group expand="1" string="Group By">
+                	<filter string="Warehouse" context="{'group_by':'warehouse_id'}" name='group_by_warehouse'/>
+                    <filter string="Zone" context="{'group_by':'zone_id'}" name='group_by_zone'/>
+                    <filter string="Stack" context="{'group_by':'stack_id'}" name='group_by_stack'/>
+                    
+                    <filter string="Product" context="{'group_by':'product_id'}" name='group_by_product'/>
+                    <filter string="Product Category" context="{'group_by':'product_categ_id'}"/>
+                    <filter string="Product Template" context="{'group_by':'product_template_id'}" name="group_by_product_template"/>
+                    <filter string="Location" context="{'group_by':'location_id'}" name='group_by_location'/>
+                    <filter string="Move" context="{'group_by':'move_id'}"/>
+                    <filter string="Serial Number" context="{'group_by':'serial_number'}" groups="stock.group_production_lot"/>
+                    <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    
+                 </group>
+            </search>
+        </field>
+    </record>
+    
+    </data>
+</openerp>
+

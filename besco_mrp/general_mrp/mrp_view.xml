@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- Thay doi giao dien Lenh SX -->
+	<record id="mrp_production_tree_view_general_modify" model="ir.ui.view">
+        <field name="name">mrp.production.tree.view.general.modify</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cycle_total']" position="attributes">
+            	<attribute name="invisible">0</attribute>
+            </xpath>
+        </field>
+    </record>
+            
+            
+<!-- Thay doi gia dien BOM -->
+	
+	<record id="mrp.view_mrp_bom_filter" model="ir.ui.view">
+        <field name="name">mrp.bom.select</field>
+        <field name="model">mrp.bom</field>
+        <field name="arch" type="xml">
+            <search string="Search Bill Of Material">
+                <field name="code"/>
+                <field name="bom_line_ids" string="Components"/>
+                <field name="product_id" string="Product"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                    <filter string='Default Unit of Measure' domain="[]" context="{'group_by' : 'product_uom'}"/>
+                    <filter string="Routings" domain="[]" context="{'group_by':'routing_id'}"/>
+                    <filter string="Valid From Month" domain="[]" context="{'group_by':'date_start'}" help="Valid From Date by Month"/>
+               </group>
+            </search>
+        </field>
+    </record>
+	
+	<record id="mrp_add_routing_view" model="ir.ui.view">
+        <field name="name">mrp.add.routing</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+        	<field name="routing_id" class="oe_inline" position="replace">
+        		<field name="routing_id" class="oe_inline" on_change="onchange_routing(routing_id)"/>
+        		<button name="create_semi_product" string="Generate Semi-Products" type="object"/>
+        	</field>
+        	
+	        <xpath expr="//notebook/page" position="before">
+	         	<page string="BOM Stage Lines">
+	         		<field name="bom_stage_lines" context="{'default_bom_id': active_id}">
+	         			<tree >
+	         				<field name="seq"/>
+		                    <field name="name"/>
+		                    <field name="production_stage_id"/>
+		                    <field name="workcenter_id"/>
+		                    <field name="cycle_nbr"/>
+		                    <field name="hour_nbr" widget="float_time"/>
+	         			</tree>
+	         			<form>
+	         				<group col="4">
+		                        <field colspan="4" name="name"/>
+	                        	<field name="production_stage_id"/>
+		                        <field name="workcenter_id"/>
+		                        <field name="cycle_nbr"/>
+		                        <field name="hour_nbr" widget="float_time"/>
+		                    </group>
+	         				<newline/>
+	         				<group col="4" string="Materials">
+		         				<field name="bom_stage_material_line" nolabel="1">
+		         					<tree editable="top">
+		         						<field name="sequence"/>
+		         						<field name="product_id" on_change="onchange_product_id(product_id)" context="{'search_materials':1}"/>
+		         						<field name="product_uom"/>
+		         						<field name="product_qty"/>
+		         						<field name="type"/>
+		         					</tree>
+		         				</field>
+		         			</group>
+		         			<newline/>
+		         			<group col="4" string="Semi or Finished Goods">
+		         				<field name="bom_stage_output_line" nolabel="1">
+		         					<tree editable="top">
+		         						<field name="product_id" on_change="onchange_product_id(product_id)" context="{'search_finished_goods':1, 'search_semi_finished_goods':1}"/>
+		         						<field name="product_uom"/>
+		         						<field name="product_qty"/>
+		         					</tree>
+		         				</field>
+		         			</group>
+	         			</form>
+	         		</field>
+	         	</page>
+			</xpath>	        
+        </field>
+    </record>
+	
+<!-- Thay doi gia dien Workcenter -->
+	<record id="mrp_workcenter_tree_view_general_modify" model="ir.ui.view">
+        <field name="name">mrp.workcenter.tree.view.general.modify</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_tree_view"/>
+        <field name="arch" type="xml">
+        	<field name="name" position="after">
+				<field name="production_stage_id"/>
+   			</field>
+        </field>
+	</record>
+	
+<!-- Modify view routing workcenter -->
+	<record id="mrp_routing_workcenter_tree_view_general_modify" model="ir.ui.view">
+        <field name="name">mrp.routing.workcenter.tree.view.general.modify</field>
+        <field name="model">mrp.routing.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_routing_workcenter_tree_view"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='workcenter_id']" position="before">
+        		<field name="production_stage_id"/>
+            </xpath>
+        </field>
+	</record>
+	
+	<record id="mrp_routing_workcenter_form_view_general_modify" model="ir.ui.view">
+        <field name="name">mrp.routing.workcenter.form.view.general.modify</field>
+        <field name="model">mrp.routing.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='workcenter_id']" position="before">
+        		<field name="production_stage_id"/>
+            </xpath>
+            <xpath expr="//field[@name='sequence']" position="replace"></xpath>
+        </field>
+	</record>
+
+<!-- Modify view workcenter -->	
+	<record id="mrp_mrp_workcenter_invisible_inherit" model="ir.ui.view">
+        <field name="name">mrp.mrp.workcenter.invisible.inherit</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+        	<field name="code" position="after">
+				<field name="production_stage_id"/>
+   			</field>
+        </field>
+	</record>
+		
+<!-- Giao dien Production Stage -->
+	<record id="view_mrp_production_stage_tree" model="ir.ui.view">
+        <field name="name">mrp.production.stage.tree</field>
+        <field name="model">mrp.production.stage</field>
+        <field name="type">tree</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Production Stages" editable='top'>
+            	<field name="sequence"/>
+            	<field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+        
+    <record id="view_mrp_production_stage_form" model="ir.ui.view">
+        <field name="name">mrp.production.stage.form</field>
+        <field name="model">mrp.production.stage</field>
+        <field name="type">form</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Production Stage" version="7.0">
+                <group col="4">
+                	<field name="sequence"/>
+	                <field name="name"/>
+	                <field name="code"/>
+	            </group>
+            </form>
+        </field>
+    </record>
+        
+    <record id="action_production_stage" model="ir.actions.act_window">
+        <field name="name">Production Stage</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.production.stage</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id"/>
+    </record>
+    
+    <menuitem action="action_production_stage" id="menu_action_production_stage"  parent="mrp.menu_mrp_configuration" sequence="26"/>
+	
+    </data>
+</openerp>

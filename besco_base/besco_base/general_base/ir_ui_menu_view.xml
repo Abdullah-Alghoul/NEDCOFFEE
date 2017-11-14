@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<!-- 
+	    <record id="module_form_general_modify" model="ir.ui.view">
+            <field name="name">module_form_general_modify</field>
+            <field name="model">ir.module.module</field>
+            <field name="inherit_id" ref="base.module_form"/>
+            <field name="arch" type="xml">
+            	<data>
+	            	<xpath expr="//field[@name='installed_version']" position="after">
+	            		<field name="overwrite"/>
+	            	</xpath>
+                </data>
+            </field>
+        </record>
+         -->
+    </data>
+</openerp>

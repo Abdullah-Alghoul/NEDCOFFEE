@@ -1,0 +1,109 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * besco_vas_tax_report
+# 
+# Translators:
+# Le Truong Thanh, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-10 14:09+0000\n"
+"PO-Revision-Date: 2016-09-10 10:43+0000\n"
+"Last-Translator: Le Truong Thanh\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: besco_vas_tax_report
+#: model:ir.ui.menu,name:besco_vas_tax_report.menu_vas_taxes_reports
+msgid "Taxes Reports"
+msgstr "Báo cáo thuế"
+
+#. module: besco_vas_tax_report
+#: model:ir.ui.menu,name:besco_vas_tax_report.menu_action_report_vat_in
+msgid "Print VAT IN"
+msgstr "Bảng kê đầu vào"
+
+#. module: besco_vas_tax_report
+#: model:ir.ui.menu,name:besco_vas_tax_report.menu_action_report_vat_out
+msgid "Print VAT OUT"
+msgstr "Bảng kê đầu ra"
+
+#. module: besco_vas_tax_report
+#: model:ir.model.fields,field_description:besco_vas_tax_report.field_print_tax_statement_times
+msgid "Periods Type"
+msgstr "Thời gian xem"
+
+#. module: besco_vas_tax_report
+#: model:ir.model.fields,field_description:besco_vas_tax_report.field_print_tax_statement_quarter
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: besco_vas_tax_report
+#: model:ir.model.fields,field_description:besco_vas_tax_report.field_print_tax_statement_month
+msgid "Month"
+msgstr "Tháng"
+
+#. module: besco_vas_tax_report
+#: model:ir.model.fields,field_description:besco_vas_tax_report.field_print_tax_statement_fiscalyear_id
+msgid "Fiscalyear"
+msgstr "Năm"
+
+#. module: besco_vas_tax_report
+#: model:ir.model.fields,field_description:besco_vas_tax_report.field_print_tax_statement_date_start
+msgid "Date start"
+msgstr "Từ ngày"
+
+#. module: besco_vas_tax_report
+#: model:ir.model.fields,field_description:besco_vas_tax_report.field_print_tax_statement_date_end
+msgid "Date end"
+msgstr "Đến ngày"
+
+#. module: besco_vas_tax_report
+#: model:ir.model.fields,field_description:besco_vas_tax_report.field_print_tax_statement_show_untax_invoice
+msgid "Show Untaxed Invoices"
+msgstr "HĐ không thuế"
+
+#. module: besco_vas_tax_report
+#: model:ir.ui.view,arch_db:besco_vas_tax_report.view_print_vat_in_form
+msgid "Filters"
+msgstr "Điều kiện lọc dữ liệu"
+
+#. module: besco_vas_tax_report
+#: model:ir.ui.view,arch_db:besco_vas_tax_report.view_print_vat_in_form
+msgid "Journals"
+msgstr "Nhật ký kế toán"
+
+#. module: besco_vas_tax_report
+#: model:ir.ui.view,arch_db:besco_vas_tax_report.view_print_vat_out_form
+msgid "Filters"
+msgstr "Điều kiện lọc dữ liệu"
+
+#. module: besco_vas_tax_report
+#: model:ir.ui.view,arch_db:besco_vas_tax_report.view_print_vat_out_form
+msgid "Journals"
+msgstr "Nhật ký kế toán"
+
+#. module: besco_vas_tax_report
+#: selection:print.tax.statement,times:0
+msgid "Date"
+msgstr "Ngày"
+
+#. module: besco_vas_tax_report
+#: selection:print.tax.statement,times:1
+msgid "Month"
+msgstr "Tháng"
+
+#. module: besco_vas_tax_report
+#: selection:print.tax.statement,times:2
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: besco_vas_tax_report
+#: selection:print.tax.statement,times:3
+msgid "Years"
+msgstr "Năm"

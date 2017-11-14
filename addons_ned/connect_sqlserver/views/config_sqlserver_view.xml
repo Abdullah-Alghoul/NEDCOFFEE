@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Action for system.3cxserver -->
+	<act_window 
+		id="config_sql_server_action" 
+		name="Config SQL Server" 
+		res_model="connect.sqlserver" 
+		view_mode="tree,form"/>
+	
+	<!-- Menu entry under Settings > Technical > SQL server -->
+	<menuitem action="config_sql_server_action" id="act_menu_sql_server" parent="base.menu_custom" sequence="50"/>
+	
+	
+	<record id="view_sql_connection_python" model="ir.ui.view">
+           <field name="name">view.sql.connection.python</field>
+           <field name="model">connect.sqlserver</field>
+           <field name="arch" type="xml">
+           		<form string="Connect SQL Server">
+           			<sheet>
+           				<field name="name" string="Name Connect SQL Server" required="1"/>
+	           			<group name="group_top">
+	           				<group name="group_left">
+	           					<field name="type" required="1" string="Type Connect"/>
+	           					<field name="db_name" required="1" string="Database Name"/>
+	           					<field name="dsn_server" required="1" string="DNS Server"/>
+	           					<button name="test_connect_sqlserver" type="object"
+				                        string="Test Connection to SQL Server"
+				                        icon="gtk-network" colspan="2"/>
+	           				</group>
+	           				<group name="group_right">
+	           					<field name="server_name" required="1" string="Server Sql"/>
+	           					<field name="db_user" required="1" string="User Name"/>
+			           			<field name="db_password" password="True" string="Password"/>
+	           				</group>
+	           			</group>
+           			</sheet>	
+           		</form>
+           </field>
+    </record>
+    
+    
+    <record id="view_sql_connection_python_tree" model="ir.ui.view">
+           <field name="name">view.sql.connection.python.tree</field>
+           <field name="model">connect.sqlserver</field>
+           <field name="arch" type="xml">
+           		<tree string="List Connection Sql Server">
+           			<field name="name"/>
+           			<field name="type"/>
+           			<field name="db_name"/>
+           			<field name="dsn_server"/>
+           			<field name="server_name"/>
+           		</tree>
+           </field>
+    </record>
+</odoo>

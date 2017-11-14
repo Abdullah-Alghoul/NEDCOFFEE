@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+    	<record id="view_tree_grn_matching_report" model="ir.ui.view">
+            <field name="name">view.grn.matching.report</field>
+            <field name="model">v.grn.matching</field>
+            <field name="arch" type="xml">
+    			<tree colors="red:deficit == 'Deficit'">
+                    <field name = 'branch_id' readonly = '1'/>
+                    <field name = 'grn_branch' readonly = '1'/>
+                    <field name = 'branch_date_received' readonly = '1'/>
+                    <field name = 'grn_factory' readonly = '1'/>
+                    <field name = 'factory_date_received' readonly = '1'/>
+                    <field name = 'deficit' invisible="1"/>
+                    
+                    <field name = 'deduction_branch' avg = 'Deduction at Branch Avg.' readonly = '1'/>
+                    <field name = 'deduction_factory' avg = 'Deduction at Factory Avg.' readonly = '1'/>
+                    <field name = 'brn_fac' avg = 'Deduction Difference Avg.' readonly = '1'/>
+                    <field name = 'net_weight_branch' sum='Branch Net total' readonly = '1'/>
+                    <field name = 'net_weight_factory' sum='Factory Net total' readonly = '1'/>
+                    <field name = 'basis_weight_branch' sum='Branch Weight total' readonly = '1'/>
+                    <field name = 'basis_weight_factory' sum='Factory Weight total' readonly = '1'/>
+                </tree>
+	         </field>
+        </record>
+
+        <record id="view_grn_matching_report_form" model="ir.ui.view">
+            <field name="name">grn.matching.report.form</field>
+            <field name="model">v.grn.matching</field>
+            <field name="arch" type="xml">
+                <form string="GRN Matching Report">
+                    <sheet>
+                        <group name="group_top">
+                                <field name="branch_id" readonly="1"/>
+                           <group name="group_left">
+                                <field name="grn_branch" readonly="1"/>
+                                <field name="branch_date_received" readonly="1"/>
+                                <field name="deduction_branch" readonly="1"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="grn_factory" readonly="1"/>
+                                <field name="factory_date_received" readonly="1"/>
+                                <field name="deduction_factory" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <group name="group_center">
+                            <field name="brn_fac" readonly="1"/>
+                        </group>
+
+                        <group name="group_bottom">
+                           <group name="group_left">
+                                <field name="net_weight_branch" readonly="1"/>
+                                <field name="basis_weight_branch" readonly="1"/>
+                                <field name="mc_branch" readonly="1"/>
+ 
+                                <field name="fm_branch" readonly="1"/>
+                                <field name="black_branch" readonly="1"/>
+                                <field name="broken_branch" readonly="1"/>
+                                <field name="brown_branch" readonly="1"/>
+                                <field name="cherry_branch" readonly="1"/>
+                                <field name="screen18_branch" readonly="1"/>
+                                <field name="screen16_branch" readonly="1"/>
+                                <field name="screen13_branch" readonly="1"/>
+                                <field name="belowsc12_branch" readonly="1"/>
+                           </group>
+                            <group name="group_right">
+                                <field name="net_weight_factory" readonly="1"/>
+                                <field name="basis_weight_factory" readonly="1"/>
+                                <field name="mc_factory" readonly="1"/>
+
+                                <field name="fm_factory" readonly="1"/>
+                                <field name="black_factory" readonly="1"/>
+                                <field name="broken_factory" readonly="1"/>
+                                <field name="brown_factory" readonly="1"/>
+                                <field name="cherry_factory" readonly="1"/>
+                                <field name="screen18_factory" readonly="1"/>
+                                <field name="screen16_factory" readonly="1"/>
+                                <field name="screen13_factory" readonly="1"/>
+                                <field name="belowsc12_factory" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="search_grn_matching_report" model="ir.ui.view">
+            <field name="name">search.grn.matching.report</field>
+            <field name="model">v.grn.matching</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "branch_id"/>
+                    <field name = "grn_branch"/>
+                    <field name = "grn_factory"/>
+                    
+                    <group expand="1" string="Group By">
+                        <filter string="Deduction at Branch" domain="[]" context="{'group_by':'deduction_branch'}"/>
+                        <filter string="Deduction at Factory" domain="[]" context="{'group_by':'deduction_factory'}"/>
+                        <filter string="Branch Date" domain="[]" context="{'group_by':'branch_date_received'}"/>
+                        <filter string="Factory Date" domain="[]" context="{'group_by':'factory_date_received'}"/>
+                    </group>
+                </search>
+             </field>
+         </record>
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_grn_matching_report" model="ir.actions.act_window">
+            <field name="name">GRN Matching Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">v.grn.matching</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="context">{'search_by_field_date': ['branch_date_received', 'factory_date_received']}</field>
+<!--             <field name="priority">260</field>
+            <field name="search_view_id"/> -->
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_grn_matching_report" 
+            action="action_grn_matching_report" parent="menu_report_ned_mrp_master" name="GRN Matching Report"
+            sequence="215" />
+    </data>
+</openerp>

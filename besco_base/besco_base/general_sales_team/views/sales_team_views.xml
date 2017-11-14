@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<odoo>
+	
+	<record id="view_users_tree_sales_team_modify" model="ir.ui.view">
+        <field name="name">view_users_tree_sales_team_modify</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_tree"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//tree" position="inside">
+  				<field name="leader_team_name"/>
+  				<field name="sale_team_id"/>
+	        </xpath>
+        </field>
+    </record>
+    
+	<record id="crm_team_view_tree_general_modify" model="ir.ui.view">
+        <field name="name">crm_team_view_tree_general_modify</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_tree"/>
+        <field name="arch" type="xml">
+        
+        	<xpath expr="//field[@name='name']" position="before">
+  				<field name="complete_name"/>
+  				<field name="parent_id"/>
+	        </xpath>
+        
+        </field>
+    </record>
+    
+    <record id="crm_team_view_form_general_modify" model="ir.ui.view">
+        <field name="name">crm_team_view_form_general_modify</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//page[@name='members']" position="after">
+        		 <page name="partners" string="Team Partners">
+                	 <field name="partner_ids" widget="many2many_kanban" options="{'not_delete': True}">
+                            <kanban quick_create="false" create="true" delete="true">
+                                <field name="name"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div class="oe_kanban_global_click" style="position: relative">
+                                            <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+                                            <div class="oe_module_vignette">
+                                                <img t-att-src="kanban_image('res.partner', 'image', record.id.value)" class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                                <div class="oe_module_desc">
+                                                    <field name="name"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                 </page>
+        	</xpath>
+        	<xpath expr="//field[@name='user_id']" position="before">
+  				<field name="parent_id"/>
+	        </xpath>
+	        
+	        <xpath expr="//field[@name='user_id']" position="attributes">
+  				<attribute name='required'>1</attribute>
+	        </xpath>
+	        
+	        <xpath expr="//field[@name='code']" position="attributes">
+  				<attribute name='required'>1</attribute>
+	        </xpath>
+        
+        </field>
+    </record>
+    
+</odoo>

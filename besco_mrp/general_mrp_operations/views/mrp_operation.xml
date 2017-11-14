@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="general_mrp_operations assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/general_mrp_operations/static/src/css/mrp_operation_quick_search.css"/>
+
+                <script type="text/javascript" src="/general_mrp_operations/static/src/js/mrp_operation_quick_search.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

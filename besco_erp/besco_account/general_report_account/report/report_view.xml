@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+	    <!--  ========================= Report General Ledger ================= -->
+		<record id="general_report_account_ledger" model="ir.actions.report.xml">
+	        <field name="name">general_report_account_ledger</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">report.account.ledger</field>
+	        <field name="report_name">general_report_account_ledger</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_report_account/report/report_account_ledger.py</field>
+	        <field name="report_rml">general_report_account/report/report_account_ledger.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="general_report_account_ledger" 
+			model="report.account.ledger" 
+			name="general_report_account_ledger"
+	        string="Sổ cái"
+	        rml="general_report_account/report/report_account_ledger.ods"/>
+	    
+	    
+	    <!--  ========================= Report General Journal ================= -->
+		<record id="report_general_journal" model="ir.actions.report.xml">
+	        <field name="name">report_general_journal</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">report.account.ledger</field>
+	        <field name="report_name">report_general_journal</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_report_account/report/report_account_ledger.py</field>
+	        <field name="report_rml">general_report_account/report/report_general_journal.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_general_journal" 
+			model="report.account.ledger" 
+			name="report_general_journal"
+	        string="Nhật ký chung"
+	        rml="general_report_account/report/report_general_journal.ods"/>
+	        
+	        
+	   	<!--  ========================= Trial Balance ================= -->
+		<record id="fn_trial_balance_report" model="ir.actions.report.xml">
+	        <field name="name">fn_trial_balance_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">fin.trial.balance.report</field>
+	        <field name="report_name">fn_trial_balance_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_report_account/report/general_trial_balance_report.py</field>
+	        <field name="report_rml">general_report_account/report/general_trial_balance_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="fn_trial_balance_report" 
+			model="fin.trial.balance.report" 
+			name="fn_trial_balance_report"
+	        string="Trial Balance"
+	        rml="general_report_account/report/general_trial_balance_report.ods"/>
+	       
+	     
+	     
+	    <!--  ========================= Report P/L ================= -->
+		<record id="report_financial_report" model="ir.actions.report.xml">
+	        <field name="name">report_financial_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">report.account.financial</field>
+	        <field name="report_name">report_financial_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_report_account/report/report_financial_report.py</field>
+	        <field name="report_rml">general_report_account/report/financial_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_financial_report" 
+			model="report.account.financial" 
+			name="report_financial_report"
+	        string="Financial Report"
+	        rml="general_report_account/report/financial_report.ods"/>
+	   
+	</data>
+</openerp>

@@ -1,0 +1,411 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* hr_overtime
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.2\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-09-16 08:57+0000\n"
+"PO-Revision-Date: 2011-09-21 09:15+0000\n"
+"Last-Translator: Loris Turchetti <Unknown>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-01-19 05:11+0000\n"
+"X-Generator: Launchpad (build 14692)\n"
+
+#. module: hr_overtime
+#: sql_constraint:hr.overtime:0
+msgid "The start date must be before the end date !"
+msgstr "La data di inizio deve essere antecedente a quella di fine !"
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+msgid "Waiting Second Approval"
+msgstr "In attesa della seconda approvazione"
+
+#. module: hr_overtime
+#: model:ir.actions.act_window,name:hr_overtime.open_ask_overtime
+#: model:ir.ui.menu,name:hr_overtime.menu_open_ask_overtime_new
+msgid "Overtime Requests"
+msgstr "Richiesta straordinario"
+
+#. module: hr_overtime
+#: model:ir.actions.act_window,name:hr_overtime.action_hr_overtime_odt_month
+msgid "Employee Overtimes Monthly odt"
+msgstr "Straordinari Impiegati Mensili odt"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Confirm"
+msgstr "Conferma"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Number of hours"
+msgstr "Numero di ore"
+
+#. module: hr_overtime
+#: field:hr.overtime.type,double_validation:0
+msgid "Apply Double Validation"
+msgstr "Applica doppia validazione"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Refuse"
+msgstr "Rifiutato"
+
+#. module: hr_overtime
+#: sql_constraint:hr.overtime:0
+msgid "The number of hours must be greater than 0 !"
+msgstr "Il numero di ore deve essere maggiore di 0 !"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Group By..."
+msgstr "Raggruppa per..."
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,state:0
+msgid "State"
+msgstr "Stato"
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Overtime Summary"
+msgstr "Riepilogo Straordinario"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,department_id:0
+msgid "Department"
+msgstr "Dipartimento"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,employee_id:0
+msgid "Employee"
+msgstr "Impiegato"
+
+#. module: hr_overtime
+#: field:hr.overtime.wizard_odt.month,month:0
+msgid "Month"
+msgstr "Mese"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Type"
+msgstr "Tipo"
+
+#. module: hr_overtime
+#: code:addons/hr_overtime/hr_overtime.py:81
+#, python-format
+msgid "You cannot delete a overtime which is not in draft state !"
+msgstr "Non puoi cancellare lo straordinario se non è in stato bozza !"
+
+#. module: hr_overtime
+#: model:ir.module.module,shortdesc:hr_overtime.module_meta_information
+msgid "Human Resources: overtime management"
+msgstr "Risorse Umane: Gestione Straordinario"
+
+#. module: hr_overtime
+#: help:hr.overtime.type,active:0
+msgid ""
+"If the active field is set to false, it will allow you to hide the overtime "
+"type without removing it."
+msgstr ""
+"Se il campo è impostato su falso, vi permetterà di nascondere il tipo di "
+"straordinario senza rimuoverlo."
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "March"
+msgstr "Marzo"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "August"
+msgstr "Agosto"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "May"
+msgstr "Maggio"
+
+#. module: hr_overtime
+#: view:hr.overtime.wizard_odt.month:0
+msgid "Print"
+msgstr "Stampa"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "June"
+msgstr "Giugno"
+
+#. module: hr_overtime
+#: view:hr.overtime.wizard_odt.month:0
+msgid "Print Overtime Report Monthly"
+msgstr "Stampa Report Straordinari Mensile"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Set to Draft"
+msgstr "Imposta a Bozza"
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+msgid "Refused"
+msgstr "Rifiutato"
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+msgid "Waiting Approval"
+msgstr "In attesa di approvazione"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "To Approve"
+msgstr "Approvare"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Overtime Request"
+msgstr "Richiesta Straordinario"
+
+#. module: hr_overtime
+#: field:hr.overtime,user_id:0
+msgid "User"
+msgstr "Utente"
+
+#. module: hr_overtime
+#: help:hr.overtime.type,double_validation:0
+msgid ""
+"If its True then its overtime type have to be validated by second validator"
+msgstr ""
+"Se è vero allora il tipo gli straordinari devono avere una seconda "
+"approvazione"
+
+#. module: hr_overtime
+#: field:hr.overtime.type,active:0
+msgid "Active"
+msgstr "Attivo"
+
+#. module: hr_overtime
+#: field:hr.overtime,date_from:0
+msgid "Start Date"
+msgstr "Data iniziale"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "July"
+msgstr "Luglio"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Extended Filters..."
+msgstr "filtri estesi..."
+
+#. module: hr_overtime
+#: model:ir.module.module,description:hr_overtime.module_meta_information
+msgid ""
+"Human Resources: Overtime tracking and workflow\n"
+"   \n"
+msgstr ""
+"Risorse Umane: tracking and workflow degli straordinari\n"
+"   \n"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: selection:hr.overtime,state:0
+msgid "Approved"
+msgstr "Approvato"
+
+#. module: hr_overtime
+#: code:addons/hr_overtime/hr_overtime.py:81
+#, python-format
+msgid "Warning!"
+msgstr "Attenzione!"
+
+#. module: hr_overtime
+#: field:hr.overtime,date_to:0
+msgid "End Date"
+msgstr "Data finale"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "February"
+msgstr "Febbraio"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "October"
+msgstr "Ottobre"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "January"
+msgstr "Gennaio"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Search Overtime"
+msgstr "Ricerca Straordinario"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,number_of_hours:0
+#: field:hr.overtime,number_of_hours_temp:0
+msgid "Number of Hours"
+msgstr "Numero di ore"
+
+#. module: hr_overtime
+#: field:hr.overtime,manager_id:0
+msgid "First Approval"
+msgstr "Prima approvazione"
+
+#. module: hr_overtime
+#: field:hr.overtime,overtime_type_id:0
+#: model:ir.model,name:hr_overtime.model_hr_overtime_type
+msgid "Overtime Type"
+msgstr "tipo di Straordinario"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "April"
+msgstr "Aprile"
+
+#. module: hr_overtime
+#: help:hr.overtime,manager_id2:0
+msgid ""
+"This area is automaticly filled by the user who validate the leave with "
+"second level (If Leave type need second validation)"
+msgstr ""
+"Questo campo è automaticamente riempito dall'utente che effettuerà la "
+"seconda approvazione(Se il tipo di permesso necessita della doppia "
+"approvazione)"
+
+#. module: hr_overtime
+#: field:hr.overtime,manager_id2:0
+msgid "Second Approval"
+msgstr "Seconda approvazione"
+
+#. module: hr_overtime
+#: model:ir.actions.act_window,help:hr_overtime.open_ask_overtime
+msgid ""
+"Overtime requests can be recorded by employees and validated by their "
+"managers. Once a leave request is validated, it appears automatically in the "
+"agenda of the employee."
+msgstr ""
+"Le richieste di straordinario possono essere registrate dai dipendenti e "
+"validate dai loro manager. Una volta che una richiesta è convalidata, appare "
+"automaticamente nell'agenda del dipendente."
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+msgid "Cancelled"
+msgstr "Cancellato"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Approve"
+msgstr "Approva"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "November"
+msgstr "Novembre"
+
+#. module: hr_overtime
+#: field:hr.overtime,name:0
+#: field:hr.overtime.type,name:0
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: hr_overtime
+#: help:hr.overtime,state:0
+msgid ""
+"When the overtim request is created the state is 'Draft'.\n"
+" It is confirmed by the user and request is sent to admin, the state is "
+"'Waiting Approval'.            If the admin accepts it, the state is "
+"'Approved'. If it is refused, the state is 'Refused'."
+msgstr ""
+"Quando la richiesta di straordinario è creata è  in stato in 'Bozza'.\n"
+" Se c'è la conferma da parte dell'utente,la richiesta viene inviata "
+"all'amministratore, lo stato è 'in attesa di approvazione'.            Se "
+"l'amministratore conferma, lo stato è 'approvato'. Se rifiuta, lo stato è "
+"'rifiutato'"
+
+#. module: hr_overtime
+#: model:ir.actions.report.xml,name:hr_overtime.aeroo_report_overtime_odt_id
+msgid "Employees Overtimes odt"
+msgstr "Straordinari Dipendenti odt"
+
+#. module: hr_overtime
+#: model:ir.model,name:hr_overtime.model_hr_overtime
+#: model:ir.ui.menu,name:hr_overtime.menu_open_ask_overtime
+msgid "Overtime"
+msgstr "Straordinario"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,notes:0
+msgid "Reasons"
+msgstr "Motivi"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "December"
+msgstr "Dicembre"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "General"
+msgstr "Generale"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "September"
+msgstr "Settembre"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Manager"
+msgstr "Manager"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "To Confirm"
+msgstr "Confermare"
+
+#. module: hr_overtime
+#: field:hr.overtime.wizard_odt.month,year:0
+msgid "Year"
+msgstr "Anno"
+
+#. module: hr_overtime
+#: view:hr.overtime.wizard_odt.month:0
+msgid "Cancel"
+msgstr "Annulla"
+
+#. module: hr_overtime
+#: model:ir.model,name:hr_overtime.model_hr_overtime_wizard_odt_month
+msgid "Print Monthly Overtime Report"
+msgstr "Stampa Report Straordinario Mensile"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "This Month"
+msgstr "Questo mese"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Validated"
+msgstr "Validato"

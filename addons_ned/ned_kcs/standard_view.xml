@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+        <!-- Broken Standard -->
+    	<record id="view_broken_standard_tree" model="ir.ui.view">
+            <field name="name">broken.standard.tree</field>
+            <field name="model">broken.standard</field>
+            <field name="arch" type="xml">
+                <tree string="Broken">
+                    <field name="name"/>
+                    <field name="range_start" string="From Values"/>
+                    <field name="range_end" string="To Values"/>
+                    <field name="percent"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_broken_standard_form" model="ir.ui.view">
+            <field name="name">broken.standard.form</field>
+            <field name="model">broken.standard</field>
+            <field name="arch" type="xml">
+                <form string="Broken">
+	                <sheet>
+	                	<div class="oe_title">
+                			<h1>
+                            	<field name="name" readonly="1"/>
+                        	</h1>
+                		</div>
+	                	<group>
+	                		<group>
+	                			<label for="range_start" string="Range"/>
+								<div name="range_start" class="o_row">
+									<field name="range_start" required="1"/> - <field name="range_end" required="1"/>
+								</div>
+							</group>
+							<group>
+								<field name="subtract"/>
+								<field name="percent" attrs="{'required': [('subtract','=',True)],'invisible': [('subtract','!=',True)]}"/>
+							</group>
+	                	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Brown Standard -->
+    	<record id="view_brown_standard_tree" model="ir.ui.view">
+            <field name="name">brown.standard.tree</field>
+            <field name="model">brown.standard</field>
+            <field name="arch" type="xml">
+                <tree string="Brown">
+                    <field name="name"/>
+            	 	<field name="range_start" string="From Values"/>
+                    <field name="range_end" string="To Values"/>
+                    <field name="percent"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_brown_standard_form" model="ir.ui.view">
+            <field name="name">brown.standard.form</field>
+            <field name="model">brown.standard</field>
+            <field name="arch" type="xml">
+                <form string="Brown">
+	                <sheet>
+	                	<div class="oe_title">
+                			<h1>
+                            	<field name="name" readonly="1"/>
+                        	</h1>
+                		</div>
+	                	<group>
+	                		<group>
+	                			<label for="range_start" string="Range"/>
+								<div name="range_start" class="o_row">
+									<field name="range_start" required="1"/> - <field name="range_end" required="1"/>
+								</div>
+							</group>
+							<group>
+								<field name="subtract"/>
+								<field name="percent" attrs="{'required': [('subtract','=',True)],'invisible': [('subtract','!=',True)]}"/>
+								<field name="check_values"/>
+								<field name="values" attrs="{'required': [('check_values','=',True)],'invisible': [('check_values','!=',True)]}"/>
+							</group>
+	                	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Mold Standard -->
+    	<record id="view_mold_standard_tree" model="ir.ui.view">
+            <field name="name">mold.standard.tree</field>
+            <field name="model">mold.standard</field>
+            <field name="arch" type="xml">
+                <tree string="Mold">
+                    <field name="name"/>
+                    <field name="range_start" string="From Values"/>
+                    <field name="range_end" string="To Values"/>
+                    <field name="percent"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_mold_standard_form" model="ir.ui.view">
+            <field name="name">mold.standard.form</field>
+            <field name="model">mold.standard</field>
+            <field name="arch" type="xml">
+                <form string="Mold">
+	                <sheet>
+	                	<div class="oe_title">
+                			<h1>
+                            	<field name="name" readonly="1"/>
+                        	</h1>
+                		</div>
+	                	<group>
+	                		<group>
+	                			<field name="compares"/>
+	                			<label for="range_start" string="Range"/>
+								<div name="range_start" class="o_row">
+									<field name="range_start" required="1"/> - <field name="range_end" required="1"/>
+								</div>
+							</group>
+							<group>
+								<field name="subtract"/>
+								<field name="percent" required="1"/>
+							</group>
+	                	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+    	<record id="view_degree_mc_tree" model="ir.ui.view">
+            <field name="name">degree.mc.tree</field>
+            <field name="model">degree.mc</field>
+            <field name="arch" type="xml">
+                <tree string="Mold" editable="top">
+                    <field name="mconkett"/>
+                    <field name="deduction"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_view_mconKett" model="ir.actions.act_window">
+            <field name="name">Degree</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">degree.mc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a MconKett, the first step of a MconKett.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_view_mconKett" action="action_view_mconKett" sequence="60" 
+        	parent="ned_master.menu_master_ned_cafe"/>
+        
+        <menuitem id="menu_action_view_mconKett"  action="action_view_mconKett" 
+        	parent="general_kcs.menu_configuration_kcs" 
+        	sequence="20"/>
+        
+        
+        
+
+    </data>
+</openerp>

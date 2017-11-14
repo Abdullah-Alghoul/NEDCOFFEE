@@ -1,0 +1,1 @@
+import wizrad_purchase_contract

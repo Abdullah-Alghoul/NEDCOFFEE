@@ -1,0 +1,100 @@
+<openerp>
+    <data>
+    	
+    	<menuitem name="Interviews" 
+			parent="hr_recruitment.menu_hr_recruitment_root" 
+			id="menu_interview_root" sequence="4"/>
+			
+    	<record model="ir.actions.act_window" id="action_interview_form">
+            <field name="name">Interview Forms</field>
+            <field name="res_model">survey.survey</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to add a survey.</p>
+            </field>
+        </record>
+        
+		<menuitem name="Interview Forms" 
+			parent="menu_interview_root" 
+			id="menu_action_interview_form" 
+			action="action_interview_form" sequence="5"/>
+		
+		<menuitem name="Interview Results" 
+			parent="menu_interview_root" 
+			id="menu_interview_action_survey_user_input" 
+			action="survey.action_survey_user_input" sequence="10"/>
+	    
+	    <!-- Application 
+	    	<record id="hr_kanban_view_applicant_general_inherit" model="ir.ui.view">
+	            <field name="name">hr_kanban_view_applicant_general_inherit</field>
+	            <field name="model">hr.applicant</field>
+	            <field name="inherit_id" ref="hr_recruitment.hr_kanban_view_applicant"/>
+	            <field name="arch" type="xml">
+	                <xpath expr="//field[@name='title_action']" position="after">
+	                	<field name="quizz_score"/>
+	                </xpath>
+	            </field>
+	        </record>
+        -->
+	    <!-- THANH: Remove group TACHNICAL from some fields -->
+	    <record id="survey_user_input_form_recruitment_inherit" model="ir.ui.view">
+            <field name="name">survey_user_input_form_recruitment_inherit</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='quizz_score']" position="replace">
+                	<field name="quizz_score"/>
+                </xpath>
+                <xpath expr="//field[@name='quizz_mark']" position="replace">
+                	<field name="quizz_mark"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="survey_user_input_tree_recruitment_inherit" model="ir.ui.view">
+            <field name="name">survey_user_input_tree_recruitment_inherit</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='quizz_score']" position="replace">
+                	<field name="quizz_score"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="survey_question_form_recruitment_inherit" model="ir.ui.view">
+            <field name="name">survey_question_form_recruitment_inherit</field>
+            <field name="model">survey.question</field>
+            <field name="inherit_id" ref="survey.survey_question_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='quizz_mark']" position="replace">
+                	<field name="quizz_mark"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="survey_user_input_line_form_recruitment_inherit" model="ir.ui.view">
+            <field name="name">survey_user_input_line_form_recruitment_inherit</field>
+            <field name="model">survey.user_input_line</field>
+            <field name="inherit_id" ref="survey.survey_user_input_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='quizz_mark']" position="replace">
+                	<field name="quizz_mark"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="survey_response_line_tree_recruitment_inherit" model="ir.ui.view">
+            <field name="name">survey_response_line_tree_recruitment_inherit</field>
+            <field name="model">survey.user_input_line</field>
+            <field name="inherit_id" ref="survey.survey_response_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='quizz_mark']" position="replace">
+                	<field name="quizz_mark"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

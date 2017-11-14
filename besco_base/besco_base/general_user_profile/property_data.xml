@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+		<record id="vietnamese_timezone" model="admin.property">
+            <field name="name">vietnamese_timezone</field>
+            <field name="value">Asia/Ho_Chi_Minh</field>
+        </record>
+        
+    </data>
+</openerp>

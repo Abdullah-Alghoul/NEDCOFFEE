@@ -1,0 +1,309 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * general_aged_partner_balance
+# 
+# Translators:
+# Le Truong Thanh, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-10 14:09+0000\n"
+"PO-Revision-Date: 2016-09-10 10:43+0000\n"
+"Last-Translator: Le Truong Thanh\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.menu,name:general_aged_partner_balance.menu_vas_partner_reports
+msgid "Partner Reports"
+msgstr "Báo cáo công nợ"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.menu,name:general_aged_partner_balance.menu_action_view_report_partner_balance
+msgid "Partner Balances"
+msgstr "BC công nợ chi tiết"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_times
+msgid "Periods Type"
+msgstr "Thời gian xem"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_quarter
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_month
+msgid "Month"
+msgstr "Tháng"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_fiscalyear_id
+msgid "Fiscalyear"
+msgstr "Năm"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_date_start
+msgid "Date start"
+msgstr "Từ ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_date_end
+msgid "Date end"
+msgstr "Đến ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Partners"
+msgstr "Đối tác"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_extend_payment
+msgid "Payment Mode"
+msgstr "Hình thức thanh toán"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,extend_payment:payment
+msgid "Payment"
+msgstr "Thanh toán trực tiếp"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,type:0
+msgid "Receivable"
+msgstr "Phải thu"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,type:1
+msgid "Payable"
+msgstr "Phải trả"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,type:2
+msgid "Receivable & Payable"
+msgstr "Phải thu & Phải trả"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,times:0
+msgid "Date"
+msgstr "Ngày"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,times:1
+msgid "Month"
+msgstr "Tháng"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,times:2
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,times:2
+msgid "Years"
+msgstr "Năm"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,extend_payment:advance
+msgid "Advance"
+msgstr "Ứng tiền"
+
+#. module: general_aged_partner_balance
+#: selection:report.partner.balance,extend_payment:none
+msgid "All"
+msgstr "Tất cả"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Accounts"
+msgstr "Tài khoản"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Load Report"
+msgstr "Xem báo cáo"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Print"
+msgstr "In báo cáo"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Print General Balances"
+msgstr "In báo cáo"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Print Partner Invoices"
+msgstr "In báo cáo"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Customer Invoices"
+msgstr "HĐ đầu ra"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Supplier Invoices"
+msgstr "HĐ đầu vào"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "General Balances"
+msgstr "Sổ tổng hợp"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Partner Invoices"
+msgstr "Chi tiết công nợ theo hóa đơn"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Transaction Details"
+msgstr "Sổ chi tiết"
+
+#. module: general_aged_partner_balance
+#: model:ir.ui.view,arch_db:general_aged_partner_balance.view_report_partner_balance_form
+msgid "Journals"
+msgstr "Nhật ký"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_line_partner_id
+msgid "Partner"
+msgstr "Đối tác"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_line_account_code
+msgid "Account Code"
+msgstr "Tài khoản"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_line_begin_dr
+msgid "Open Dr"
+msgstr "Nợ đầu kỳ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_line_begin_cr
+msgid "Open Cr"
+msgstr "Có đầu kỳ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_line_period_dr
+msgid "Period Dr"
+msgstr "Nợ trong kỳ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_line_period_cr
+msgid "Period Cr"
+msgstr "Có trong kỳ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_line_end_dr
+msgid "Balance Dr"
+msgstr "Nợ cuối kỳ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_balance_line_end_cr
+msgid "Balance Cr"
+msgstr "Có cuối kỳ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_invoice_due_amount
+msgid "Due Amount"
+msgstr "Số tiền còn nợ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_invoice_due_30_day
+msgid "Over 30 Days"
+msgstr ">= 30 ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_invoice_due_60_day
+msgid "Over 60 Days"
+msgstr ">= 60 ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_invoice_due_90_day
+msgid "Over 90 Days"
+msgstr ">= 90 ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_invoice_due_120_day
+msgid "Over 120 Days"
+msgstr ">= 120 ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_account_invoice_residual
+msgid "Amount Due"
+msgstr "Số tiền còn nợ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_account_invoice_over_30_day
+msgid "Over 30 Days"
+msgstr ">= 30 ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_account_invoice_over_60_day
+msgid "Over 60 Days"
+msgstr ">= 60 ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_account_invoice_over_90_day
+msgid "Over 90 Days"
+msgstr ">= 90 ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_account_invoice_over_120_day
+msgid "Over 120 Days"
+msgstr ">= 120 ngày"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_ledger_detail_acc_code
+msgid "Acc"
+msgstr "TK"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_ledger_detail_cp_acc_code
+msgid "CP Acc"
+msgstr "TK đối ứng"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_ledger_detail_debit
+msgid "Dr"
+msgstr "Nợ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_ledger_detail_credit
+msgid "Cr"
+msgstr "Có"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_ledger_detail_gl_date
+msgid "GL Date"
+msgstr "Ngày hạch toán"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_ledger_detail_doc_date
+msgid "Doc Date"
+msgstr "Ngày chứng từ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_ledger_detail_date_due
+msgid "Due Date"
+msgstr "Ngày đến hạn"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_ledger_detail_doc_no
+msgid "Doc No"
+msgstr "Số chứng từ"
+
+#. module: general_aged_partner_balance
+#: model:ir.model.fields,field_description:general_aged_partner_balance.field_report_partner_ledger_detail_description
+msgid "Description"
+msgstr "Mô tả"

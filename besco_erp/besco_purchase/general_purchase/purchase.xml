@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!-- Kiet: Modify Purchase Order View -->
+    	<record id="purchase_order_tree_general_modify" model="ir.ui.view">
+            <field name="name">purchase.order.tree.general.modify</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                	<field name="product_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='origin']" position="after">
+                	<field name="currency_id"/>
+                	<field name="total_qty"/>
+                </xpath>
+            </field>
+        </record>
+	        
+    	<record id="view_purchase_order_form_general_modify" model="ir.ui.view">
+            <field name="name">view.purchase.order.form.general.modify</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='currency_id']" position="after">
+                	<field name="currency_rate"/>
+                </xpath>
+                
+            <!-- KIET: Add Currency Conversion Tab -->
+                <xpath expr="//notebook[last()]" position="inside">
+                	<page string="Currency Conversion">
+		             	<field name="currency_order_line" colspan="4" nolabel="1"  widget="one2many_list" readonly="1">
+		             		<tree>
+		             			<field name="name"/>
+		             			<field name="product_qty"/>
+		             			<field name="product_uom" string="UoM"/>
+		             			<field name="currency_price_unit"/>
+		             			<field name="currency_price_unit_include"/>
+		             			<field name="currency_price_subtotal" sum="total"/>
+		             		</tree>
+		             	</field>
+		             	<group class="oe_subtotal_footer oe_right">
+		             			<field name="currency_currency_id" invisible="1"/>
+		                          <field name="currency_amount_untaxed" widget="monetary" options="{'currency_field': 'currency_currency_id'}"/>
+		                          <field name="currency_amount_tax" widget="monetary" options="{'currency_field': 'currency_currency_id'}"/>
+		                          <div class="oe_subtotal_footer_separator oe_inline">
+		                              <label for="currency_amount_total"/>
+		                              <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+		                          </div>
+		                          <field name="currency_amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_currency_id'}"/>
+		                    </group>
+		                   <div class="oe_clear"/>
+                  </page>
+          	  </xpath>
+            </field>
+        </record>
+    	
+    	
+	</data>
+</openerp>
+    

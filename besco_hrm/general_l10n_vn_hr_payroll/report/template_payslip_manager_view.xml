@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        	
+        <!-- Template Quit Contract -->
+	    <record id="report_payslip_manager_ned" model="ir.actions.report.xml">
+	        <field name="name">report_payslip_manager_ned</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.payslip</field>
+	        <field name="report_name">report_payslip_manager_ned</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">general_l10n_vn_hr_payroll/report/template_payslip_manager.py</field>
+	        <field name="report_rml">general_l10n_vn_hr_payroll/report/template_payslip_manager.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_payslip_manager_ned"
+			model="hr.payslip"
+			name="report_payslip_manager_ned"
+	        string="Report Payslip Manager"
+        	rml="general_l10n_vn_hr_payroll/report/template_payslip_manager.odt"/>	
+        
+  	</data>
+</openerp>

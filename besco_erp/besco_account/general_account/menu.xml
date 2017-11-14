@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<!-- New General Stock Account menu -->
+		<menuitem 
+      		id="menu_stock_account" 
+      		name="Stock Accounting" 
+      		sequence="50"
+      		parent="account.menu_finance" 
+      		groups="general_account.group_stock_accountant"
+      		/>
+      		
+	<!-- New General MRP Account menu -->
+		<menuitem 
+			id="menu_account_mrp" 
+			name="MRP Accounting" 
+			sequence="90"
+			parent="account.menu_finance"
+			groups="group_mrp_account_user"
+			/>
+      		
+	<!-- THANH: Add groups to original menu -->
+		<menuitem id="account.menu_finance_receivables" 
+			name="Sales" parent="account.menu_finance" sequence="20"
+			groups="group_finance_receivables"/>
+			
+        <menuitem id="account.menu_finance_payables" 
+        	name="Purchases" parent="account.menu_finance" sequence="30"
+        	groups="group_finance_payables"/>
+		
+	<!--  -->
+		<menuitem action="account.action_account_type_form" 
+			id="menu_action_account_type_form" 
+			parent="account.menu_account_reports" 
+			sequence="100"/>
+	
+	<!-- Account Tags -->
+		<record id="action_account_account_tag" model="ir.actions.act_window">
+            <field name="name">Account Tags</field>
+            <field name="res_model">account.account.tag</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem action="action_account_account_tag" 
+			id="menu_action_account_account_tag"
+			parent="account.menu_account_reports" 
+			sequence="150"/>
+	
+	<!-- Account Templates -->
+		<menuitem action="account.action_account_template_form" 
+			id="menu_action_account_template_form" 
+			parent="account.menu_account_reports" 
+			sequence="200"/>
+	
+	<!-- THANH: New Menu Other Receives & Payments -->
+		<menuitem id="menu_other_receives_payments" 
+			name="Other Receipts &amp; Payments"
+			parent="account.menu_finance" 
+			sequence="32" groups="group_finance_other_expense,group_finance_other_income"/>
+			
+			<!-- Cong no phai thu khac -->
+				<menuitem action="action_invoice_other_receivables" 
+					id="menu_action_invoice_other_receivables" 
+					parent="menu_other_receives_payments" sequence="1"/>
+			<!-- Cong no phai tra khac -->
+				<menuitem action="action_invoice_other_payables" 
+					id="menu_action_invoice_other_payables" 
+					parent="menu_other_receives_payments" sequence="5"/>
+					
+			<!-- THU -->
+				<menuitem action="action_other_receives" id="menu_action_other_receives" 
+			        parent="menu_other_receives_payments" 
+			        sequence="20"/>
+	        <!-- CHI -->
+		        <menuitem action="action_other_payments" id="menu_action_other_payments" 
+			        parent="menu_other_receives_payments" 
+			        sequence="30"/>
+	
+	<!-- THANH: Periodic Processing-->
+		<menuitem id="menu_finance_periodical_processing" 
+			name="Periodic Processing" 
+			parent="account.menu_finance_entries" sequence="200" 
+			groups="account.group_account_user,account.group_account_manager"/>
+</odoo>

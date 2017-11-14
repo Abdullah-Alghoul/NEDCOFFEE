@@ -1,0 +1,324 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * general_base
+# 
+# Translators:
+# Le Truong Thanh, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-10 14:09+0000\n"
+"PO-Revision-Date: 2016-09-10 10:43+0000\n"
+"Last-Translator: Le Truong Thanh\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: general_base
+#: model:ir.ui.menu,name:general_base.menu_master_data
+msgid "Master Data"
+msgstr "Dữ liệu gốc"
+
+#. module: general_base
+#: model:ir.ui.view,arch_db:general_base.view_partner_form_general_modify
+msgid "Partner Code"
+msgstr "Mã khách hàng"
+
+#. module: general_base
+#: model:ir.ui.view,arch_db:general_base.view_partner_form_general_modify
+msgid "Internal Code"
+msgstr "Mã nội bộ"
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_partner_mobile
+msgid "Mobile"
+msgstr "Di động"
+
+#. module: base
+#: model:ir.ui.view,arch_db:base.view_partner_form
+msgid "Sales & Purchases"
+msgstr "Bán & Mua hàng"
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_partner_customer
+#: model:ir.model.fields,field_description:base.field_res_users_customer
+msgid "Is a Customer"
+msgstr "Là khách hàng"
+
+#. module: general_base
+#: model:ir.model.fields,field_description:general_base.field_res_partner_property_purchase_currency_id
+msgid "Supplier Currency"
+msgstr "Tiền tệ nhà cung cấp"
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_partner_supplier
+#: model:ir.model.fields,field_description:base.field_res_users_supplier
+msgid "Is a Vendor"
+msgstr "Là nhà cung cấp"
+
+#. module: base
+#: model:ir.ui.view,arch_db:base.view_partner_form
+msgid "Internal Notes"
+msgstr "Ghi chú nội bộ"
+
+#. module: base
+#: model:ir.ui.view,arch_db:base.view_partner_form
+msgid "Contacts & Addresses"
+msgstr "Người liên hệ"
+
+#. module: base
+#: code:addons/base/res/res_company.py:107
+#: model:ir.model.fields,field_description:base.field_res_partner_vat
+#: model:ir.model.fields,field_description:base.field_res_users_vat
+#, python-format
+msgid "TIN"
+msgstr "Mã số thuê"
+
+#. module: base
+#: selection:res.partner,company_type:0
+msgid "Individual"
+msgstr "Cá nhân"
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_partner_function
+#: model:ir.model.fields,field_description:base.field_res_users_function
+msgid "Job Position"
+msgstr "Chức vụ"
+
+#. module: general_base
+#: model:ir.ui.view,arch_db:general_base.view_partner_form_general_modify
+msgid "Personal Information"
+msgstr "Thông tin cá nhân"
+
+#. module: general_base
+#: model:ir.model.fields,field_description:general_base.field_res_partner_identification_id
+msgid "Personal ID"
+msgstr "Số CMND"
+
+#. module: general_base
+#: model:ir.model.fields,field_description:general_base.field_res_partner_identification_date_issue
+msgid "ID Date Issue"
+msgstr "Ngày cấp"
+
+#. module: general_base
+#: model:ir.model.fields,field_description:general_base.field_res_partner_identification_place_issue
+msgid "ID Place Issue"
+msgstr "Nơi cấp"
+
+#. module: general_base
+#: model:ir.model.fields,field_description:general_base.field_res_partner_marital
+msgid "Marital"
+msgstr "Tình trạng hôn nhân"
+
+#. module: base
+#: selection:res.partner,type:0
+msgid "Invoice address"
+msgstr "Địa chỉ nhận hóa đơn"
+
+#. module: base
+#: selection:res.partner,type:0
+msgid "Shipping address"
+msgstr "Địa chỉ nhận hàng"
+
+#. module: base
+#: selection:res.partner,type:0
+msgid "Shipping address"
+msgstr "Địa chỉ nhận hàng"
+
+#. module: base
+#: selection:res.partner,type:0
+msgid "Other address"
+msgstr "Địa chỉ khác"
+
+#. module: general_base
+#: model:ir.actions.act_window,name:base.action_partner_supplier_form
+msgid "Vendors"
+msgstr "Nhà cung cấp"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_sale
+#: model:ir.ui.view,arch_db:base.view_partner_form
+msgid "Sale"
+msgstr "Bán hàng"
+
+#. module: base
+#: model:ir.ui.view,arch_db:base.view_partner_form
+msgid "Purchase"
+msgstr "Mua hàng"
+
+#. module: base
+#: model:ir.ui.view,arch_db:base.view_partner_form
+msgid "Misc"
+msgstr "Thông tin khác"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.partner_view_buttons
+msgid "Payments"
+msgstr "Thông tin thanh toán"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.partner_view_buttons
+msgid "Bank account(s)"
+msgstr "Tài khoản ngân hàng"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_res_partner_property_stock_supplier
+#: selection:stock.location,usage:0
+msgid "Vendor Location"
+msgstr "Kho nhà cung cấp"
+
+#. module: mail
+#: model:ir.ui.view,arch_db:mail.view_emails_partner_info_form
+msgid "Mailing Opt-Out"
+msgstr "Gửi mail tự động"
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_partner_notify_email
+#: model:ir.model.fields,field_description:mail.field_res_users_notify_email
+msgid "Email Messages and Notifications"
+msgstr "Cho phép gửi mail và thông báo"
+
+#. module: mail
+#: selection:res.partner,notify_email:0
+msgid "All Messages"
+msgstr "Tất cả email và thông báo"
+
+#. module: base
+#: model:ir.ui.view,arch_db:base.view_res_partner_filter
+msgid "Persons"
+msgstr "Cá nhân"
+
+#. module: base
+#: model:ir.actions.act_window,name:base.action_partner_supplier_form
+#: model:ir.ui.menu,name:base.menu_procurement_management_supplier_name
+#: model:ir.ui.view,arch_db:base.view_res_partner_filter
+msgid "Vendors"
+msgstr "Nhà cung cấp"
+
+#. module: base
+#: model:ir.ui.view,arch_db:base.view_res_partner_filter
+msgid "My Partners"
+msgstr "Đối tác của tôi"
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_partner_user_id
+#: model:ir.model.fields,field_description:base.field_res_users_user_id
+#: model:ir.ui.view,arch_db:base.view_res_partner_filter
+msgid "Salesperson"
+msgstr "Nhân viên kinh doanh"
+
+#. module: general_base
+#: model:ir.ui.view,arch_db:general_base.view_res_partner_filter_general_modify
+msgid "Internal Partners"
+msgstr "Nhân viên công ty"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/xml/base.xml:1213
+#, python-format
+msgid "Filters"
+msgstr "Bộ lọc"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/xml/base.xml:1213
+#, python-format
+msgid "Group By"
+msgstr "Nhóm dữ liệu"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/xml/base.xml:1213
+#, python-format
+msgid "Favorites"
+msgstr "Bộ lọc hay dùng"
+
+#. module: web
+#. openerp-web
+#: code:addons/web/static/src/xml/base.xml:1245
+#, python-format
+msgid "Save current search"
+msgstr "Lưu bộ lọc đang dùng"
+
+#. module: general_member_card
+#: model:ir.ui.view,arch_db:general_member_card.view_customer_form_add_member_card
+msgid "Member Card"
+msgstr "Thẻ thành viên"
+
+#. module: general_member_card
+#: model:ir.ui.view,arch_db:general_member_card.view_customer_form_add_member_card
+msgid "Lose Card"
+msgstr "Mất thẻ"
+
+#. module: general_member_card
+#: model:ir.model.fields,field_description:general_member_card.field_res_partner_card_member_id
+msgid "Card ID"
+msgstr "Liên kết thẻ"
+
+#. module: general_member_card
+#: model:ir.model.fields,field_description:general_member_card.field_res_partner_date_of_issue
+msgid "Issue Date"
+msgstr "Ngày cấp"
+
+#. module: general_member_card
+#: model:ir.model.fields,field_description:general_member_card.field_res_partner_current_point_act
+msgid "Total Balance"
+msgstr "Điểm tích lũy hiện tại"
+
+#. module: general_member_card
+#: model:ir.model.fields,field_description:general_member_card.field_res_partner_total_point_act
+msgid "Total Point"
+msgstr "Tổng điểm đã tích lũy"
+
+#. module: general_member_card
+#: model:ir.model.fields,field_description:general_member_card.field_res_partner_lasted_date_act
+msgid "Last Update"
+msgstr "Ngày tích điểm gần nhất"
+
+#. module: general_member_card
+#: model:ir.model.fields,field_description:general_member_card.field_res_partner_card_level_id
+msgid "Card Level"
+msgstr "Cấp độ thẻ"
+
+#. module: purchase
+#: model:ir.actions.act_window,name:purchase.action_purchase_line_product_tree
+#: model:ir.ui.view,arch_db:purchase.res_partner_view_purchase_buttons
+#: model:ir.ui.view,arch_db:purchase.view_product_template_purchase_buttons_from
+msgid "Purchases"
+msgstr "Đơn hàng mua"
+
+#. module: purchase
+#: model:ir.ui.view,arch_db:purchase.res_partner_view_purchase_account_buttons
+msgid "Vendor Bills."
+msgstr "HĐ đầu vào"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.partner_view_buttons
+msgid "Invoiced"
+msgstr "HĐ đầu ra"
+
+#. module: sale
+#: model:ir.ui.view,arch_db:sale.res_partner_view_buttons
+msgid "Sales"
+msgstr "Đơn hàng bán"
+
+#. module: general_base
+#: model:ir.ui.menu,name:general_base.menu_master_vendor
+msgid "Vendors"
+msgstr "Nhà cung cấp"
+
+#. module: general_base
+#: model:ir.ui.menu,name:general_base.menu_master_customer
+msgid "Customers"
+msgstr "Khách hàng"
+
+#. module: general_base
+#: model:ir.ui.menu,name:general_base.menu_master_other_partner
+msgid "Other Partners"
+msgstr "Đối tác khác"
+
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_salesteam_sales_target_report" model="ir.ui.view">
+            <field name="name">Print Salesteam's Sales Target Report</field>
+            <field name="model">salesteam.sales.target.report</field>
+            <field name="arch" type="xml">
+                <form string="Print Salesteam's Sales Target Report">
+                    <separator colspan="4" />
+                    <field name="from_date"/>
+                    <field name="to_date"/>
+                    <separator string="" colspan="4"/>
+                    <group colspan="4" col="4" >
+                        <button string="Cancel" icon="gtk-close" special="cancel" />
+                        <button name="print_report" type="object" string="_Print" icon="gtk-ok" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_salesteam_sales_target_report" model="ir.actions.act_window">
+            <field name="name">Print Salesteam's Sales Target Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">salesteam.sales.target.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_salesteam_sales_target_report"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>
+

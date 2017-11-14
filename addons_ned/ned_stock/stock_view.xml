@@ -1,0 +1,1510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	
+    	<menuitem id="menu_sale_contract_action_ned_stock_stack" 
+    		action="ned_stock.action_ned_stock_stack" sequence="1" 
+        	parent="bes_sale_contract.menu_report_sale_contract" 
+        	groups="bes_sale_contract.group_sales_contract_user"
+        	name="Report Tồn kho"/>
+        	
+       
+        
+        <menuitem id="menu_purchase_contract_action_ned_stock_stack" 
+    		action="ned_stock.action_ned_stock_stack" sequence="1" 
+        	parent="bes_purchase_contract.menu_report_purchase_contract" 
+        	groups="bes_purchase_contract.group_purchase_contract_user"
+        	name="Current Stock"/>
+       
+       <!-- Delivery Orders -->
+        <record id="view_tranfers_delivery_order_tree" model="ir.ui.view">
+            <field name="name">delivery.order.tree</field>
+            <field name="model">delivery.order</field>
+            <field name="arch" type="xml">
+                <tree string="Delivery Orders" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-danger="state not in ('cancel','done')">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="from_warehouse_id" string="From warehosue"/>
+                    <field name="warehouse_id" string="To warehosue"/>
+                    <field name="product_id"/>
+                    <field name="total_qty" sum="total_qty"/>
+                    <field name="trucking_id"/>
+                    <field name="trucking_no"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="state"/>
+                	<field name="bagsfactory" sum="bagsfactory"/>
+	           		<field name="weightfactory" sum="weightfactory"/>
+	           		<field name="bags" sum="bags"/>
+	           		<field name="shipped_weight" sum="shipped_weight"/>
+	           		<field name="storing_loss" sum="storing_loss"/>
+	           		<field name="transportation_loss" sum="transportation_loss"/>
+                    	
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_tranfers_delivery_order_form" model="ir.ui.view">
+            <field name="name">delivery.order.form</field>
+            <field name="model">delivery.order</field>
+            <field name="arch" type="xml">
+                <form string="Delivery Order">
+                	<header>
+                		<button name="button_approve" type="object" states='draft' string="Approve" class="oe_highlight" groups="bes_sale_contract.group_sales_contract_manager"/>
+	                  	<button name="button_draft" states="approved,done" string="Set to Draft" type="object" class="oe_highlight" groups="bes_sale_contract.group_sales_contract_manager"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+	                </header>
+                	<sheet>
+                		<div class="oe_title">
+                			<h1>
+                            	<field name="name"/>
+                        	</h1>
+                		</div>
+                		<group>
+                			<group>
+                				<label for="contract_id"/>
+								<div name="contract_id" class="o_row">
+									<field name="contract_id" domain="[('state','=','approved')]"/>
+									<button name="button_load_do" string="Load" type="object" icon="terp-gtk-jump-to-ltr" 
+										states="draft" class="btn-default" attrs="{'invisible': [('state','!=', 'draft')]}"/> 
+								</div>
+                				<field name="partner_id"/>
+                				<field name="trucking_id" domain="[('transfer','=',True),('company_type','=','company')]"/>
+                				<label for="transrate"/>
+                				<div name="transrate" class="o_row">
+                					<field name="transrate"/>
+                					<field name="currency_id"/>	
+								</div>
+                			</group>
+                			<group>
+                				<field name="date"/>
+                				<field name="trucking_no"/>
+                				<field name="picking_type_id" options='{"no_create": True, "no_write": True}' invisible="1"/>	
+                				<field name="from_warehouse_id" />
+	           					<field name="warehouse_id"  string="To Warehouse"/>
+                			</group>
+                		</group>
+                		<notebook>
+                			<page string="Products">
+                				<field name="delivery_order_ids">
+                					<tree editable="top">
+                						<field name="sequence" invisible="1"/>
+                						<field name="product_id"/>
+                						<field name="name"/>
+                						<field name="product_uom"/>
+                						<field name="packing_id"/>
+                						<field name="product_qty"/>
+                					</tree>
+                				</field>
+                				<field name="markings" class="oe_inline" placeholder="Markings..."/>
+		            			<div class="oe_clear"/>
+		                        <group col="4">
+		                        	<field name="create_uid"/>
+		                			<field name="create_date"/>
+		                			<field name="user_approve"/>
+		                			<field name="date_approve"/>
+		                		</group>
+                			</page>
+                			<page string="Truck / Transporter Details" name="truck_list">
+                				<group col="4">
+		            				<field name="vehicle_manufacture"/>
+		            				<field name="driver_name"/>
+		            				<field name="registration_certificate"/>
+		            				<field name="company_ref_guide"/>
+		            				<field name="transporter_ref_guide"/>
+		            				<field name="picking_id" readonly="0"/>
+		            				<field name="date_out"/>
+		            				<field name="received_date"/>
+		            			</group>
+		            			<newline/>
+		            			<group string="Post Shipment">
+		            				<field name="post_shippemnt_ids" nolabel="1"/>
+		            			</group>
+		            			<newline/>
+		            				<separator string="Reason"/>
+	                    			<field name="reason" nolabel="1"/>
+                			</page>
+                		</notebook>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+    	  
+    	
+    		
+    	  <record id="action_tranfers_delivery_order" model="ir.actions.act_window">
+            <field name="name">Transfer Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.order</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('type','=','Transfer')]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context" eval="{'search_by_field_date': ['date'],'default_type':'Transfer'}"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a DO, the first step of a new DO.
+              </p>
+            </field>
+        </record>
+         <record model="ir.actions.act_window.view" id="action_transfer_delivery_order_view">
+	            <field name="sequence" eval="1"/>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_tranfers_delivery_order_tree"/>
+	            <field name="act_window_id" ref="action_tranfers_delivery_order"/>
+	        </record>
+	        <record model="ir.actions.act_window.view" id="action_transfer_delivery_order_form">
+	            <field name="sequence" eval="2"/>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_tranfers_delivery_order_form"/>
+	            <field name="act_window_id" ref="action_tranfers_delivery_order"/>
+	        </record>
+        
+        <menuitem id="menu_action_tranfers_delivery_order" action="action_tranfers_delivery_order" sequence="4" 
+        	parent="bes_sale_contract.menu_sale_contract"
+        	groups="bes_sale_contract.group_sales_contract_user"/>
+       
+       
+       <record id="view_delivery_order_form_inherit_ned_add_warehouse" model="ir.ui.view">
+	        <field name="name">view.delivery.order.form.inherit.ned</field>
+	        <field name="model">delivery.order</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_delivery_order_form"/>
+	        <field name="arch" type="xml">
+	             <xpath expr="//button[@name='button_approve']" position="after">
+                	<button name="create_picking" string="Create GDN" type="object"/>
+                </xpath>
+                <xpath expr="//field[@name='trucking_no']" position="after">
+                	<field name="from_warehouse_id" />
+                </xpath>
+                
+	        </field>
+	    </record>
+	    
+       	
+       	
+       	<record id="view_warehouse_general_inherit_add_type_consu" model="ir.ui.view">
+            <field name="name">view.warehouse.general.type.consu.inherit</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='out_type_id']" position="after">
+	            	<field name ="production_out_type_consu_id" readonly="0"/>
+	            	<field name ="transfer_in_id"/>
+	            	<field name ="transfer_out_id"/>
+	            	<field name ="out_type_local_id"/>
+	            </xpath>
+            </field>
+        </record>
+        	
+    	<!-- Kiet: Add KCS into picking type -->
+	    <record id="view_picking_type_add_stack_form" model="ir.ui.view">
+	        <field name="name">picking.type.add.stack.form</field>
+	        <field name="model">stock.picking.type</field>
+	        <field name="inherit_id" ref="general_stock.view_picking_type_add_location_transfer_form"/>
+	        <field name="arch" type="xml">
+				<xpath expr="//field[@name='dashboard_invisible']" position="after">
+	        		<field name="stack"/>
+	        		<field name="allow_fifo"/>
+	        	</xpath>
+	        </field>
+		</record>
+    	
+        
+    	<!-- Kiet: Modify Picking -->
+		<record id="stock_picking_tree_add_do_transfer_modify" model="ir.ui.view">
+	        <field name="name">stock.picking.tree.add.do.transfer.modify</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="general_stock.stock_picking_tree_general_modify"/>
+	        <field name="arch" type="xml">
+                <xpath expr="//field[@name='min_date']" position="after">
+	        		<field name="transfer" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='total_qty']" position="before">
+	        		<field name="total_init_qty" invisible="0" string="Net Weight" sum="total_init_qty"/> 
+	        		
+                </xpath>
+                <xpath expr="//field[@name='total_qty']" position="attributes">
+	        		<attribute name="string">Basis Weight</attribute>
+                </xpath>
+                <xpath expr="//field[@name='total_qty']" position="after">
+	        		<field name="allocated_qty"  string="Allocated" sum="allocated_qty"/> 
+	        		<field name="qty_available" sum="qty_available"/> 
+                </xpath>
+                
+                <xpath expr="//field[@name='location_id']" position="attributes">
+                	<attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='location_dest_id']" position="replace">
+                 	<field name="zone_id"/>
+                	<field name="stack_id" invisible="0"/>
+                </xpath>
+                <xpath expr="//field[@name='date_done']" position="after">
+                	<field name="vehicle_no" invisible="0"/>
+                	<field name="certificate_id" invisible="1"/>
+                </xpath>
+                 <xpath expr="//field[@name='origin']" position="attributes">
+	        		<attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='min_date']" position="attributes">
+	        		<attribute name="invisible">True</attribute>
+                </xpath>
+	        </field>
+        </record>
+        
+    	<!-- Kiet: Search Stock -->
+    	<record id="view_picking_internal_search_add_do_transfer_modify" model="ir.ui.view">
+            <field name="name">view.picking.internal.search.add.do.transfer.general.modify</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='group_id']" position="after">
+                    <filter name="zone_id" context="{'group_by':'zone_id'}" string="Zone"/>
+                    <filter name="stack_id" string="Stack" domain="[]" context="{'group_by':'stack_id'}"/>
+                    <filter name="categ_id" string="Category" domain="[]" context="{'group_by':'categ_id'}"/>
+                    <filter name="product_id" string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                    <filter name="certificate_id" string="Certificate" domain="[]" context="{'group_by':'certificate_id'}"/>
+                    <filter name="production_id" string="Prodution" domain="[]" context="{'group_by':'production_id'}"/>
+                    <filter name="state_kcs" string="Status KCs" domain="[]" context="{'group_by':'state_kcs'}"/>
+                    <filter name="warehouse_id" string="Warehouse" domain="[]" context="{'group_by':'warehouse_id'}"/>
+                    <filter domain="[('state_kcs','=','approved')]" string="Kcs Approved"/>
+                    <filter domain="[('state_kcs','=','draft')]" string="Kcs Draft"/>
+                    <filter domain="[('state_kcs','=','rejected')]" string="Kcs Reject"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                	<field name="categ_id" string="Category" domain="[]"/>
+                	<field name="warehouse_id"/>
+                	<field name="picking_type_id"/>
+                	<field name="zone_id"/>
+                	<field name="stack_id"/>
+                	<field name="vehicle_no"/>
+                	<field name="production_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+    	
+    	<record id="view_picking_type_add_ned_transfer_form" model="ir.ui.view">
+	        <field name="name">picking.type.add.ned.transfer.form</field>
+	        <field name="model">stock.picking.type</field>
+	        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='barcode_nomenclature_id']" position="after">
+	        		<field name="picking_type_npe_id"/>
+	        		<field name="picking_type_nvp_id"/>
+	        	</xpath>
+	        	
+	        </field>
+		</record>
+		
+    	<!-- Ned Delivery Fee -->
+    	<record id="view_delivery_fee_tree" model="ir.ui.view">
+            <field name="name">delivery.fee.tree</field>
+            <field name="model">delivery.fee</field>
+            <field name="arch" type="xml">
+                <tree string="Delivery Fee" editable="top">
+                	<field name="province_id"/>
+                	<field name="district_id" domain="[('state_id', '=', province_id)]"/>
+                	<field name="cost" sum="cost"/>
+                	<field name="currency_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+    	<!-- Ned Stack Transfer -->
+    	<record id="view_ned_stock_stack_transfer_tree" model="ir.ui.view">
+            <field name="name">ned.stock.stack.transfer.tree</field>
+            <field name="model">stock.stack.transfer</field>
+            <field name="arch" type="xml">
+                <tree string="Transfer Stack">
+                	<field name="name"/>
+                	<field name="date_order"/>
+                	<field name="user_approve_id"/>
+                	<field name="from_zone_id"/>
+                	<field name="to_zone_id" />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_ned_stock_stack_transfer_form" model="ir.ui.view">
+            <field name="name">ned.stock.stack.transfer.form</field>
+            <field name="model">stock.stack.transfer</field>
+            <field name="arch" type="xml">
+                <form string="Transfer Stack">
+                	<header>
+	                    <button name="button_approved" type="object" states='draft' string="Approved" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+	                </header>
+                	<sheet>
+                		<div class="oe_title">
+                			<label for="name" string="Name" class="oe_edit_only"/>
+	                        <h1>
+	                            <field name="name"/>
+	                        </h1>
+	                    </div>
+                		<group col="4">
+		                    <field name="date_order"/>
+		                    <field name="user_responsible_id"/>
+		                    <field name="from_zone_id"/>
+                			<field name="to_zone_id"/>
+                			<field name="user_approve_id"/>
+		                    <field name="date_approve"/>
+                		</group>
+                		<notebook>
+	                    	<page string="Stack" name="stack">
+	    						<field name="stack_ids" nolabel="1" context="{'zone_id':from_zone_id}">
+	    							<tree>
+	    								<field name="zone_id"/>
+	    								<field name="name"/>
+	    								<field name="remaining_qty"/>
+	    							</tree>
+	    						</field>
+	                    	</page>
+	                    </notebook>
+	                    <field name="note" class="oe_inline" placeholder="Setup default terms and conditions in your company settings."/>
+                        <div class="oe_clear"/>
+	                </sheet>
+	                 <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ned_stock_stack_transfer" model="ir.actions.act_window">
+            <field name="name">Stack Transfer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.stack.transfer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Transfer Stack, the first step of a Transfer Stack.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_ned_stock_stack_transfer" 
+        	id="menu_action_ned_stock_stack_transfer" 
+        	parent="general_stock.menu_stock_warehouse_internal" sequence="40"
+        	groups="general_stock.group_warehouse_transfer"/>
+        
+    	
+    	<!-- Ned Stack Lock -->
+    	<record id="view_ned_stack_lock_tree" model="ir.ui.view">
+            <field name="name">ned.stack.lock.tree</field>
+            <field name="model">stack.lock</field>
+            <field name="arch" type="xml">
+                <tree string="Lock Stack">
+                	<field name="name"/>
+                	<field name="type"/>
+                	<field name="date_order"/>
+                    <field name="zone_id"/>
+                    <field name="reason_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_ned_stack_lock_form" model="ir.ui.view">
+            <field name="name">ned.stack.lock.form</field>
+            <field name="model">stack.lock</field>
+            <field name="arch" type="xml">
+                <form string="Lock Stack">
+                	<header>
+	                    <button name="button_approved" type="object" states='draft' string="Approved" class="oe_highlight"/>
+	                    <button name="button_draft" states="cancel" string="Set to Draft" type="object" />
+	                    <button name="button_cancel" states="approved" string="Cancel" type="object" 
+	                    	confirm="Are you sure want to cancel contract?" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+	                </header>
+                	<sheet>
+                		<div class="oe_title">
+                			<label for="name" string="Name" class="oe_edit_only"/>
+	                        <h1>
+	                            <field name="name"/>
+	                        </h1>
+	                    </div>
+                		<group col="4">
+		                    <field name="date_order"/>
+		                    <field name="reason_id"/>
+		                    <field name="zone_id"/>
+		                    <field name="type"/>
+		                    <field name="user_responsible_id"/>
+		                    <field name="user_approve_id"/>
+		                    <field name="date_approve"/>
+		                    <field name="production_id"/>
+		                    <field name="contract_id"/>
+                		</group>
+                		<notebook>
+	                    	<page string="Stack" name="stack">
+	    						<field name="stack_ids" nolabel="1" context="{'type':type,'zone_id':zone_id,'lock_stack':True}">
+	    							<tree>
+	    								<field name="name" readonly="1"/>
+	    								<field name="remaining_qty" readonly="1"/>
+	    								<field name="lock" readonly="1"/>
+	    								<field name="production_id" readonly="1"/>
+	    								<field name="contract_id" readonly="1"/>
+	    							</tree>
+	    						</field>
+	    						<field name="notes" class="oe_inline" placeholder="Description"/>
+	                    	</page>
+	                    </notebook>
+	                    <field name="note" class="oe_inline" placeholder="Setup default terms and conditions in your company settings."/>
+                        <div class="oe_clear"/>
+	                </sheet>
+	                 <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ned_stack_lock" model="ir.actions.act_window">
+            <field name="name">Lock Stack</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stack.lock</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Lock Stack, the first step of a Lock Stack.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_ned_stack_lock" 
+        	id="menu_action_ned_stack_lock" 
+        	parent="general_stock.menu_stock_warehouse_internal" sequence="40"
+        	groups="general_stock.group_warehouse_transfer"/>
+        
+    	<menuitem id="menu_reason_config" 
+	    	name="Reason Lock Stack" 
+	    	parent="stock.menu_stock_config_settings" sequence="1"/>
+    	
+    	<!-- Ned stock Zone -->
+    	<record id="view_ned_stock_zone_tree" model="ir.ui.view">
+            <field name="name">ned.tock.zone.tree</field>
+            <field name="model">stock.zone</field>
+            <field name="arch" type="xml">
+                <tree string="Zone">
+                	<field name="warehouse_id"/>
+                	<field name="name" string="Zone" filter_domain="['|',('name','ilike', self),('code','ilike',self)]"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_ned_stock_zone_form" model="ir.ui.view">
+            <field name="name">ned.stock.zone.form</field>
+            <field name="model">stock.zone</field>
+            <field name="arch" type="xml">
+                <form string="Zone">
+                	<sheet>
+                		<group col="4">
+                			
+		                    <field name="name"/>
+		                    <field name="description"/>
+		                    <field name="warehouse_id"/>
+		                    <field name="active"/>
+                		</group>
+    					<field name="stack_ids">
+    						<tree editable="top">
+    							<field name="code"/>
+    							<field name="name"/>
+    							<field name="remaining_qty"/>
+    						</tree>
+    					</field>
+                	</sheet>
+                	<div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ned_stock_zone" model="ir.actions.act_window">
+            <field name="name">Zones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.zone</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Zone, the first step of a new Zone.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_ned_stock_zone" action="action_ned_stock_zone" sequence="1" 
+        	parent="stock.menu_warehouse_config" name="Zone"/>
+        
+        
+        <!-- Ned stock stack -->
+        
+        <record id="view_ned_stock_stack_search" model="ir.ui.view">
+            <field name="name">ned.stock.stack.search</field>
+            <field name="model">stock.stack</field>
+            <field name="arch" type="xml">
+                <search string="Stack">
+                    <field name="code" string="Stack" filter_domain="['|',('name','ilike', self),('code','ilike',self)]"/>
+                    <field name="zone_id"/>
+                    <field name="product_id"/>
+                    <field name="categ_id"/>
+                    <field name="picking_id"/>
+                    <field name="warehouse_id"/>
+                    <separator/>
+                    
+                    <group expand="1" string="Group By">
+                    	<filter string="Stack" context="{'group_by':'name'}"/>
+                    	<filter string="Zone" context="{'group_by':'zone_id'}"/>
+                    	<filter string="Category" context="{'group_by':'categ_id'}"/>
+                    	<filter string="Product" context="{'group_by':'product_id'}"/>
+                    	<filter string="Warehouse" context="{'group_by':'warehouse_id'}"/>
+                	</group>
+               </search>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="view_ned_stock_stack_graph">
+            <field name="name">view.ned.stock.stack.graph</field>
+            <field name="model">stock.stack</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <graph  type="bar" string="Stack ">
+                    <field name="name" type="row"/>
+                    <field name="remaining_qty"/>
+                    <field name="limit_qty"/>
+                </graph>
+            </field>
+         </record>
+         
+        <!-- Ned stock stack -->
+    	<record id="view_ned_stock_stack_tree" model="ir.ui.view">
+            <field name="name">ned.stock.stack.tree</field>
+            <field name="model">stock.stack</field>
+            <field name="arch" type="xml">
+                <tree string="Stack">
+                	<field name="warehouse_id" invisible="1"/>
+                    <field name="zone_id"/>
+                    <field name="districts_id"/>
+                    <field name="code" invisible="1"/>
+                    <field name="name"/>
+                    <field name="stack_type"/>
+                    <field name="categ_id" invisible="1"/>
+                    <field name="product_id"/>
+					<field name="stack_qty" invisible="1"/>
+					<field name="init_qty" string="Net Weight" sum="init_qty"/>
+                    <field name="remaining_qty" sum="remaining_qty" string="Basis Weight"/>
+                    <field name="total_remain" sum="total_remain" string="Remain Allocated" invisible="1"/>
+                    <field name="limit_qty" invisible="1"/>
+                    <field name="lock" invisible="1"/>
+                    <field name="active" invisible="1"/>
+                     <field name="picking_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_ned_stock_stack_form" model="ir.ui.view">
+            <field name="name">ned.stock.stack.form</field>
+            <field name="model">stock.stack</field>
+            <field name="arch" type="xml">
+                <form string="Stack">
+                	<header>
+                		<button name="change_product" string="Change Product" type="object"/>
+                		<button name="dieuchinhqc" type="object" string="Update Deduct"/>
+                		<button name="stack_reports" type="object" string="Report Stack"/>
+                	</header>
+                	<sheet>
+                		<group col="4">
+		                    <field name="name"/>
+		                    <field name="zone_id"/>
+		                    <field name="districts_id"/>
+		                    <field name="date"/>
+                            <field name="stack_type"/>
+		                    <field name="limit_qty"/>
+		                    <field name="active"/>
+		                    <field name="lock"/>
+		                    <field name="init_qty" string="Net Weight"/>
+		                    
+		                    <field name="remaining_qty"/>
+		                    <field name="pledged" string="Bank of Pledge"/>
+		                    <field name="product_id"/>
+		                    <field name="product_change_id"/>
+		                    <label for="avg_deduction"/>
+							<div name="avg_deduction" class="o_row">
+								<field name="avg_deduction" readonly="1"/><label string="%" class="oe_inline oe_no_button" readonly="1"/>
+							</div>
+		                    <field name="code" invisible="1"/>
+		                    <field name="stack_qty" invisible="1"/>
+		                    
+                		</group>
+                		<notebook>
+	                		<page string="History Tranfer">
+		        				<field name="move_ids" nolabel="1" readonly="1">
+		        					<tree editable="top">
+		        						<field name="picking_id" string="GRN"/>
+		        						<field name="product_id"/>
+		        						<field name="product_uom" string="UoM"/>
+		        						<field name="init_qty" string="Net Weight" sum="total_init_qty"/>
+		        						<field name="product_uom_qty" string="Basis Weight" sum="product_uom_qty"/>
+		        						
+		        						<field name="location_id" string="From"/>
+		        						<field name="location_dest_id" string="To"/>
+		        						<field name="state"/>
+		        					</tree>
+		        				</field>
+		        			</page>
+		        			<page string="History Stack">
+		        				<field name="stack_his_ids"/>
+		        			</page>
+		        			<page string="Allocation NPE">
+		        				<field name="allocation_npe_ids">
+		        					<tree>
+		        						<field name="contract_id"/>
+		        						<field name="product_qty"/>
+		        					</tree>
+		        				</field>
+		        			</page>
+		        			<page string="Expenses" groups="account.group_account_user">
+		        				<button name="btt_expenses" type ="object" string="Expenses"/>
+			        				<group string="Expenses">
+				        				<field name="expenses_ids" nolabel="1">
+				        					<tree>
+				        						<field name="delivery_place_id"/>
+				        						<field name="date" invisible="1"/>
+				        						<field name="picking_id" string="GRN"/>
+				        						<field name="name"/>
+				        						<field name="product_qty" sum="product_qty"/>
+				        						<field name="values" sum="values"/>
+				        						<field name="total_values" sum="total_values"/>
+				        						<field name="total_values2rd" sum="total_values2rd"/>
+				        						<field name="company_id" invisible="1"/>
+				        						<field name="company_currency_id" invisible="1"/>
+				        						<field name="second_currency_id" invisible="1"/>
+				        						<field name="entries_id"/>
+				        					</tree>
+				        				</field>
+			        				</group>
+			        				<newline/>
+			        				<group string="Loss">
+				        				<field name="loss_ids" nolabel="1">
+				        					<tree>
+				        						<field name="picking_id"/>
+				        						<field name="product_id"/>
+				        						<field name="product_uom"/>
+				        						<field name="first_qty" sum="first_qty"/>
+				        						<field name="first_bassis_qty" sum="first_bassis_qty"/>
+				        						<field name="second_qty" sum="second_qty"/>
+				        						<field name="second_bassis_qty" sum="second_bassis_qty"/>
+				        						<field name="loss_qty" sum="loss_qty"/>
+				        					</tree>
+				        				</field>
+			        				</group>
+		        			</page>
+		        			
+	        			</notebook>
+                	</sheet>
+
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ned_stock_stack" model="ir.actions.act_window">
+            <field name="name">Stacks</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.stack</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Stack, the first step of a new Stack.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_ned_stock_stack" action="action_ned_stock_stack" sequence="2" 
+        	parent="stock.menu_warehouse_report" name="Stack"
+        	groups="stock.group_stock_user"/>
+        
+        <!-- Kiet: Add Chỉnh sữa giao diện-->
+	    <record id="view_move_picking_tree_remove_inherit_ned_contract" model="ir.ui.view">
+            <field name="name">view.move.picking.tree.remove.inherit.ned.contract</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="general_stock.view_move_picking_tree_general_inherit"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//field[@name='is_promotion']" position="attributes">
+	        		<attribute name="invisible">True</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='primary_uom_id']" position="attributes">
+	        		<attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_uom_qty']" position="attributes">
+	        		<attribute name="string">Basis Weight</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='product_uom']" position="attributes">
+	        		<attribute name="string">UoM</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_qty']" position="attributes">
+	        		<attribute name="invisible">1</attribute>
+                </xpath>
+	             <xpath expr="//button[@name='%(stock.move_scrap)d']" position="attributes">
+	             	<attribute name="invisible">1</attribute>
+                </xpath>
+                
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_pack_operation_details_form_modify">
+	        <field name="name">view.pack.operation.details.form.modify</field>
+	        <field name="model">stock.pack.operation</field>
+	        <field name="inherit_id" ref="stock.view_pack_operation_details_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='product_id']" position="attributes">
+	        		<attribute name="readonly">0</attribute>
+                </xpath>
+			</field>
+		</record>
+		
+		<record id="view_move_picking_weighing_tree" model="ir.ui.view">
+            <field name="name">stock.move.weighing.tree</field>
+            <field name="model">stock.move</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <tree decoration-muted="scrapped == True" string="Stock Moves" editable="top">
+                    <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, parent.partner_id)"/>
+                    <field name="product_uom" options="{'no_open': True, 'no_create': True}" string="UoM" groups="product.group_uom"/>
+                    <field name="zone_id" options="{'no_create': True, 'no_write': True}" invisible="1"/>
+		                                 
+	            	<field name="stack_id" options="{'no_create': True, 'no_write': True}"
+	            		context="{'product_id':product_id,'picking_id':parent.id,'zone_id': zone_id,'production_id': parent.production_id}"/>
+	            	
+	            	<button name="%(action_view_create_stock_stack)d" context="{'default_zone_id': zone_id}"
+	                      string="Create stack" type="action"
+	                      states="draft,waiting,confirmed,assigned"
+	                      groups="stock.group_stock_user" invisible="0"/>
+	                   
+	                <button name="create_stack" context="{'default_zone_id': zone_id}"
+	                      string="Create stack" type="object"
+	                      icon="terp-gtk-jump-to-ltr"
+	                      states="draft,waiting,confirmed,assigned"
+	                      groups="stock.group_stock_user" invisible="1"/>
+                    <field name="first_weight"/>
+                    <field name="second_weight"/>
+                    <field name="packing_id"/>
+                    <field name="bag_no"/>
+                    <field name="tare_weight"/>
+                    <field name="weighbridge" sum="weighbridge" string="weighbridge"/>
+                    <field name="init_qty" string="Net Weight" />
+                    <field name="location_id" invisible="1"/>
+                    <field name="location_dest_id" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="scrapped" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_move_picking_weighing_gdn_tree" model="ir.ui.view">
+            <field name="name">stock.move.weighing.gdn.tree</field>
+            <field name="model">stock.move</field>
+            <field eval="150" name="priority"/>
+            <field name="arch" type="xml">
+                <tree decoration-muted="scrapped == True" string="Stock Moves" editable="top">
+                    <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, parent.partner_id)"/>
+                    <field name="product_uom" options="{'no_open': True, 'no_create': True}" string="UoM" groups="product.group_uom"/>
+                    <field name="zone_id" options="{'no_create': True, 'no_write': True}" invisible="1"/>
+		                                 
+	            	<field name="stack_id" options="{'no_create': True, 'no_write': True}"
+	            		context="{'product_id':product_id,'picking_id':parent.id,'zone_id': zone_id,'production_id': parent.production_id}"/>
+	            	
+	            	<button name="%(action_view_create_stock_stack)d" context="{'default_zone_id': zone_id}"
+	                      string="Create stack" type="action"
+	                      states="draft,waiting,confirmed,assigned"
+	                      groups="stock.group_stock_user" invisible="0"/>
+	                   
+	                <button name="create_stack" context="{'default_zone_id': zone_id}"
+	                      string="Create stack" type="object"
+	                      icon="terp-gtk-jump-to-ltr"
+	                      states="draft,waiting,confirmed,assigned"
+	                      groups="stock.group_stock_user" invisible="1"/>
+                    <field name="packing_id"/>
+                    <field name="bag_no"/>
+                    <field name="init_qty" string="Net Qty"/>
+                    <field name="product_uom_qty" string="Basis Qty"/>
+                    <field name="weighbridge" string ="Real Qty"/>
+                    <field name="grp_id"/>
+                    <field name="location_id" invisible="1"/>
+                    <field name="location_dest_id" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="scrapped" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+		
+
+		<record id="view_picking_form_inherit_ned_contract" model="ir.ui.view">
+	        <field name="name">stock.picking.form.inherit.ned.contract</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="stock.view_picking_form"/>
+	        <field name="arch" type="xml">
+	        	
+	        	<xpath expr="//button[@name='action_cancel']" position="after">
+	        		<button name="create_picking_itr" string="Create ITR" type="object" attrs="{'invisible': [('picking_type_code','!=', 'transfer_out')]}"/>
+                </xpath>
+                
+	        	<xpath expr="//field[@name='location_dest_id']" position="after">
+	        		<field name="delivery_place_id" options='{"no_create": True, "no_write": True}' 
+	        		attrs="{'invisible': [('picking_type_code','=', 'internal')]}"
+	        		context="{'picking_type_code': picking_type_code}"/>
+                </xpath>
+                <xpath expr="//field[@name='location_dest_id']" position="after">
+                	<field name="certificate_id"/>
+                	<field name="districts_id" required="0"/>
+                	<field name="vehicle_no" required="0"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='location_dest_id']" position="attributes">
+                	<attribute name="invisible">True</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='location_id']" position="attributes">
+                	<attribute name="invisible">True</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='origin']" position="after">
+                	<field name="to_picking_type_id"/>
+                	<field name="barcode"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='vehicle_no']" position="after">
+                	<label string="Delivery order"/>
+                         <div name="delivery_order_id" class="o_row">
+							<field name="delivery_order_id"/>
+							<button name="button_load" string="Delivery Order" type="object" icon="terp-gtk-jump-to-ltr" states="draft" class="btn-default"/> 
+						</div>
+				</xpath>
+                
+	        	<notebook position="replace">
+	        		<notebook>
+	        			<page string="Weighing">
+	        				<field name="move_weight" context="{'address_in_id': partner_id, 'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'view_move_picking_weighing_tree', 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}">
+	        					<tree ediable="top">
+		        					 <field name="product_id"/>
+	                                 <field name="product_uom"/>
+	                                 <field name="product_uom_qty"/>
+                                 </tree>
+	        				</field>
+	        			</page>
+                        <page string="Initial Demand" name="move_lines">
+                            <field name="move_lines" options="{'reload_on_button': True}" mode="tree,kanban" context="{'address_in_id': partner_id, 'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'stock.view_move_picking_tree', 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}">
+                                    <kanban class="o_kanban_mobile">
+                                    <field name="product_id"/>
+                                    <field name="availability"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="product_uom" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="location_dest_id"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong><span><t t-esc="record.product_id.value"/></span></strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-8 text-muted">
+                                                        <span><t t-esc="record.availability.value"/> on <t t-esc="record.product_uom_qty.value"/> <t t-esc="record.product_uom.value"/></span>
+                                                    </div>
+                                                    <div class="col-xs-4 text-muted">
+                                                        <span class="pull-right text-right"><t t-esc="record.location_dest_id.value"/></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                            <field name="pack_operation_exist" invisible="1"/>
+                            <field name="note" placeholder="Add an internal note..." class="oe_inline"/>
+                        </page>
+                        <page string="Initial Demand" invisible="1" name="move_lines_related">
+                            <field name="move_lines_related" readonly="1" context="{'address_in_id': partner_id, 'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'stock.view_move_picking_tree', 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}"/>
+                        </page>
+                        
+                        <page string="Transfer Picking" invisible="1">
+                        	<field name="picking_transfer_internal_ids" attrs="{'invisible': [('picking_transfer_internal_ids', '=', False)]}"/>
+                        	<field name="orign_transfer_internal_ids" attrs="{'invisible': [('orign_transfer_internal_ids', '=', False)]}"/>
+                        </page>
+                        <page string="Additional Info" name="extra" invisible="1">
+                            <group>
+                                <group>
+                                    <field name="move_type"/>
+                                    <field name="picking_type_id" on_change="onchange_picking_type(picking_type_id,partner_id)"/>
+                                    <field name="picking_type_code" invisible="1"/>
+                                    <field name="quant_reserved_exist" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                    <field name="group_id"/>
+                                    <field name="priority"/>
+                                </group>
+                            </group>
+                        </page>
+                        <!-- <page string="Operations" attrs="{'invisible': [('state', 'in', ('draft', 'confirmed', 'waiting'))]}" name="operations"> -->
+	                    <page string="Operations" invisible ="1">
+                            <button name="do_prepare_partial" type="object" string="Recompute" attrs="{'invisible': [('recompute_pack_op','=', False)]}"/>
+                            <field name="recompute_pack_op" invisible="1"/>
+                            <field name="pack_operation_ids" invisible="1"/>
+                            <field name="pack_operation_product_ids" invisible ="1" string="Operation Product" options="{'reload_on_button': True}" context="{'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}">
+                                <tree editable="top" decoration-muted="result_package_id" decoration-danger="qty_done&gt;product_qty" decoration-success="qty_done==product_qty and state!='done' and not result_package_id">
+                                    <field name="package_id" groups="stock.group_tracking_lot" invisible="1"/>
+                                    <field name="product_id" on_change="product_id_change(product_id, product_uom_id, product_qty)" required="1" attrs="{'readonly': [('fresh_record', '=', False)]}"/>
+                                    <field name="fresh_record" invisible="1"/>
+                                    <field name="product_uom_id" attrs="{'readonly': [('fresh_record', '=', False)]}" groups="product.group_uom"/>
+                                    <field name="lots_visible" invisible="1"/>
+                                    <field name="owner_id" groups="stock.group_tracking_owner"/>
+                                    <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" invisible="1"/>
+                                    <field name="location_dest_id" domain="[('id', 'child_of', parent.location_dest_id)]" invisible="1"/>
+                                    <field name="from_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="to_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="result_package_id" groups="stock.group_tracking_lot" context="{'location_id': location_dest_id}" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="product_qty" readonly="1" attrs="{'required': [('product_id', '!=', False)]}"/>
+                                    <field name="qty_done" attrs="{'readonly': [('lots_visible', '=', True)]}"/>
+                                    <button name="split_lot" string="Lot Split" type="object" icon="fa-list" groups="stock.group_production_lot"
+                                            attrs="{'invisible': ['|', ('lots_visible', '=', False), ('state', 'not in', ['confirmed', 'assigned', 'waiting', 'partially_available','done'])]}"/>
+                                    <button name="show_details" string="Modify" type="object" icon="fa-pencil" groups="stock.group_locations"
+                                            states="confirmed,assigned,waiting,partially_available"/>
+                                </tree>
+                            </field>
+                            <field name="picking_type_entire_packs" invisible="1"/>
+                            <field name="pack_operation_pack_ids" options="{'reload_on_button': True}" attrs="{'invisible': [('pack_operation_pack_ids', '=', []), ('picking_type_entire_packs', '=', False)]}" context="{'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_picking_id': id}" groups="stock.group_tracking_lot">
+                                <tree editable="bottom" decoration-muted="qty_done&gt;0">
+                                    <field name="package_id" required="1" string="Package To Move"/>
+                                    <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" invisible="1"/>
+                                    <field name="from_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="to_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="location_dest_id" domain="[('id', 'child_of', parent.location_dest_id)]" invisible="1"/>
+                                    <field name="result_package_id" groups="stock.group_tracking_lot" context="{'location_id': location_dest_id}" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="qty_done" invisible="1"/>
+                                    <field name="lots_visible" invisible="1"/>
+                                    <field name="processed_boolean"/>
+                                    <button name="show_details" string="Modify" type="object" icon="fa-pencil"
+                                            states="confirmed,assigned,waiting,partially_available" groups="base.group_no_one"/>
+                                </tree>
+                            </field>
+                            <button class="oe_link oe_right" name="put_in_pack" type="object" string="&#8627;Put in Pack" attrs="{'invisible': [('state', 'in', ('done', 'cancel'))]}" groups="stock.group_tracking_lot"/>
+                        </page>
+                    </notebook>
+                </notebook>
+            </field>
+        </record>
+        
+        <record id="view_incoterms_tree_inherit_ned_contract" model="ir.ui.view">
+            <field name="name">stock.incoterms.tree.inherit.ned.contract</field>
+            <field name="model">stock.incoterms</field>
+            <field name="inherit_id" ref="stock.view_incoterms_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="type"/>
+                    <field name="active"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="stock_incoterms_form_inherit_ned_contract" model="ir.ui.view">
+            <field name="name">stock.incoterms.form.inherit.ned.contract</field>
+            <field name="model">stock.incoterms</field>
+            <field name="inherit_id" ref="stock.stock_incoterms_form"/>
+            <field name="arch" type="xml">
+                <group position="replace">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="code"/>
+                        <field name="active"/>
+                        <field name="transit_day"/>
+                    </group>
+                    <label for="description"/>
+                    <field name="description"/>
+                </group>
+            </field>
+        </record>
+        
+        <menuitem action="stock.action_incoterms_tree" id="stock.menu_action_incoterm_open" parent="stock.menu_warehouse_config" sequence="5" groups="stock.group_stock_manager"/>
+        
+        
+        <record id="view_picking_tree_grp_good_tree" model="ir.ui.view">
+            <field name="name">view.picking.tree.grp.good.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-danger="state not in ('cancel', 'done') and min_date &lt; current_date" string="Picking list">
+                    <field name="production_id"/>
+                    <field name="name"/>
+                    <field name="origin"/>
+                    <field name="min_date" invisible="0"/>
+                    <field name="zone_id"/>
+                    <field name="stack_id"/>
+                    <field name="date" invisible="1"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="total_init_qty" invisible="0" string="Net Weight" sum="total_init_qty"/> 
+                    <field name="total_qty" sum="total_qty" string="Basis Qty"/>
+                    <field name="note"/>
+                    <field name="state"/>
+                    <field name="state_kcs"/>
+                    <field name="picking_type_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record id="view_grp_graph" model="ir.ui.view">
+            <field name="name">>view.grp.graph</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <graph string="GRP">
+                    <field name="day_tz" type="row"/>
+                    <field name="product_id" type="col"/>
+               		<field name="total_qty" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record id="action_finished_good_receipt" model="ir.actions.act_window">
+            <field name="name">GRP</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('picking_type_id.code','=','production_in')]</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="context" eval="{'search_by_field_date': ['day_tz'],'picking_grp_Goods':True}"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_grp_good_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_picking_tree_grp_good_tree"/>
+            <field name="act_window_id" ref="action_finished_good_receipt"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_grp_good_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock.view_picking_form"/>
+            <field name="act_window_id" ref="action_finished_good_receipt"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_view_grp_graph">
+            <field name="sequence" eval="50"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_grp_graph"/>
+            <field name="act_window_id" ref="action_finished_good_receipt"/>
+        </record>
+        
+        <menuitem action="action_finished_good_receipt" 
+           	id="menu_action_finished_good_receipt"
+           	parent="stock.menu_stock_warehouse_mgmt" sequence="250"/>
+        
+        <record id="action_finished_good_receipt_mrp" model="ir.actions.act_window">
+            <field name="name">GRP</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id.code','=','production_in')]</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="context" eval="{'search_by_field_date': ['day_tz']}"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_grp_good_mrp_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_picking_tree_grp_good_tree"/>
+            <field name="act_window_id" ref="action_finished_good_receipt_mrp"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_grp_good_mrp_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock.view_picking_form"/>
+            <field name="act_window_id" ref="action_finished_good_receipt_mrp"/>
+        </record>
+        
+        <menuitem action="action_finished_good_receipt_mrp" id="menu_action_finished_good_receipt_mrp" 
+        	parent="mrp.menu_mrp_manufacturing" sequence="800"/>
+        
+        
+        <record id="action_material_issue" model="ir.actions.act_window">
+            <field name="name">GIP</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id.code','=','production_out')])</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="context" eval="{'search_by_field_date': ['day_tz']}"/>
+        </record>
+           
+        
+        <menuitem action="action_material_issue" 
+           	id="menu_action_material_issue"
+           	parent="stock.menu_stock_warehouse_mgmt" sequence="200"/>
+        
+        <record id="action_grn_receipt_ned" model="ir.actions.act_window">
+            <field name="name">GRN</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id.code','=','incoming')]</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="context" eval="{'search_by_field_date': ['day_tz'],'picking_grn_Goods':True}"/>
+        </record>
+        
+        <menuitem action="action_grn_receipt_ned" 
+           	id="menu_action_grn_receipt_ned"
+           	parent="stock.menu_stock_warehouse_mgmt" sequence="170"/>
+        
+        <record id="view_picking_form_gdn_good" model="ir.ui.view">
+	        <field name="name">view.picking.form.gdn.good</field>
+	        <field name="model">stock.picking</field>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Transfer">
+                <header>
+                    <button name="action_confirm" states="draft" string="Mark as Todo" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="action_assign" states="confirmed,waiting" string="Reserve" type="object" class="oe_highlight" groups="base.group_user"/>
+                    <button name="force_assign" states="confirmed,waiting,partially_available" string="Force Availability" type="object" groups="base.group_user"/>
+                    <button name="do_new_transfer" states="draft,partially_available,assigned" string="Validate" groups="stock.group_stock_user" type="object" class="oe_highlight"/>
+                    <button name="do_print_picking" string="Print" groups="stock.group_stock_user" type="object" attrs="{'invisible': [('state', 'not in', ('assigned', 'partially_available'))]}"/>
+                    <button name="%(stock.act_stock_return_picking)d" string="Reverse" states="done" type="action" groups="base.group_user"/>
+                    <button name="action_cancel" states="assigned,confirmed,partially_available,draft,waiting" string="Cancel" groups="base.group_user" type="object"/>
+                    <button name="do_unreserve" string="Unreserve" groups="base.group_user" type="object" attrs="{'invisible': [('quant_reserved_exist', '=', False)]}"/>
+                    <button name="do_prepare_partial" attrs="{'invisible': ['|', ('launch_pack_operations', '=', True), '|', ('state', 'not in', ('assigned', 'partially_available')), ('pack_operation_ids', '!=', [])]}"
+                            string="Reset Operations" type="object"/>
+                    <field name="launch_pack_operations" invisible="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,partially_available,assigned,done" statusbar_colors='{"shipping_except":"red","invoice_except":"red","waiting_date":"blue"}'/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <h1>
+                        <field name="name" attrs="{'invisible': [('name','=','/')]}" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                        	<field name="picking_type_id" on_change="onchange_picking_type(picking_type_id,partner_id)"/>
+                            <field name="partner_id" attrs="{'invisible': [('picking_type_code', '=', 'internal')]}" on_change="onchange_picking_type(picking_type_id,partner_id)"/>
+                            <field name="location_id" groups="stock.group_locations" />
+                            <field name="location_dest_id" />
+                            <field name="vehicle_no"/>
+                        </group>
+                        <group>
+                            <field name="min_date"/>
+                            <field name="origin" placeholder="e.g. PO0032" class="oe_inline"/>
+                            <field name="date_done" required="1"/>
+                            <field name="production_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                    	<page string="Weighing">
+	        				<field name="move_weight" context="{'address_in_id': partner_id, 'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'ned_stock.view_move_picking_weighing_gdn_tree', 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}">
+	        				</field>
+	        			</page>
+                    	<page string="Initial Demand">
+                            <field name="move_lines" attrs="{'invisible': [('state', 'not in', ('draft', 'confirmed', 'waiting'))]}" options="{'reload_on_button': True}" mode="tree,kanban" context="{'address_in_id': partner_id, 'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'stock.view_move_picking_tree', 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}">
+                                    <kanban class="o_kanban_mobile">
+                                    <field name="product_id"/>
+                                    <field name="availability"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="product_uom" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="location_dest_id"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong><span><t t-esc="record.product_id.value"/></span></strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-8 text-muted">
+                                                        <span><t t-esc="record.availability.value"/> on <t t-esc="record.product_uom_qty.value"/> <t t-esc="record.product_uom.value"/></span>
+                                                    </div>
+                                                    <div class="col-xs-4 text-muted">
+                                                        <span class="pull-right text-right"><t t-esc="record.location_dest_id.value"/></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                            <field name="move_lines_related" attrs="{'invisible': [('state', 'in', ('draft', 'confirmed', 'waiting', 'done'))]}" readonly="1" context="{'address_in_id': partner_id, 'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'stock.view_move_picking_tree', 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}"/>
+                            <field name="pack_operation_exist" invisible="1"/>
+                            <field name="note" placeholder="Add an internal note..." class="oe_inline"/>
+                        </page>
+                        <page string="Operations" attrs="{'invisible': [('state', 'in', ('draft', 'confirmed', 'waiting'))]}" invisible="1">
+                            <button name="do_prepare_partial" type="object" string="Recompute" attrs="{'invisible': [('recompute_pack_op','=', False)]}"/>
+                            <field name="recompute_pack_op" invisible="1"/>
+                            <field name="pack_operation_ids" invisible="1"/>
+                            <field name="pack_operation_product_ids" options="{'reload_on_button': True}" context="{'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}" mode="tree,kanban">
+                                <tree editable="bottom" decoration-muted="result_package_id" decoration-danger="qty_done&gt;product_qty" decoration-success="qty_done==product_qty and state!='done' and not result_package_id">
+                                    <field name="package_id" groups="stock.group_tracking_lot" invisible="1"/>
+                                    <field name="product_id" on_change="product_id_change(product_id, product_uom_id, product_qty)" required="1" attrs="{'readonly': [('fresh_record', '=', False)]}"/>
+                                    <field name="fresh_record" invisible="1"/>
+                                    <field name="product_uom_id" attrs="{'readonly': [('fresh_record', '=', False)]}" groups="product.group_uom"/>
+                                    <field name="lots_visible" invisible="1"/>
+                                    <field name="owner_id" groups="stock.group_tracking_owner"/>
+                                    <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" invisible="1"/>
+                                    <field name="location_dest_id" domain="[('id', 'child_of', parent.location_dest_id)]" invisible="1"/>
+                                    <field name="from_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="to_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="result_package_id" groups="stock.group_tracking_lot" context="{'location_id': location_dest_id}" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="product_qty" readonly="1" attrs="{'required': [('product_id', '!=', False)]}"/>
+                                    <field name="qty_done" attrs="{'readonly': [('lots_visible', '=', True)]}"/>
+                                    <button name="split_lot" string="Lot Split" type="object" icon="fa-list" groups="stock.group_production_lot"
+                                            attrs="{'invisible': ['|', ('lots_visible', '=', False), ('state', 'not in', ['confirmed', 'assigned', 'waiting', 'partially_available','done'])]}"/>
+                                    <button name="show_details" string="Modify" type="object" icon="fa-pencil" groups="stock.group_locations"
+                                            states="confirmed,assigned,waiting,partially_available"/>
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="package_id" groups="stock.group_tracking_lot" invisible="1"/>
+                                    <field name="product_id" on_change="product_id_change(product_id, product_uom_id, product_qty)" required="1" attrs="{'readonly': [('fresh_record', '=', False)]}"/>
+                                    <field name="fresh_record" invisible="1"/>
+                                    <field name="product_uom_id" attrs="{'readonly': [('fresh_record', '=', False)]}" groups="product.group_uom"/>
+                                    <field name="lots_visible" invisible="1"/>
+                                    <field name="owner_id" groups="stock.group_tracking_owner"/>
+                                    <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" invisible="1"/>
+                                    <field name="location_dest_id" domain="[('id', 'child_of', parent.location_dest_id)]" invisible="1"/>
+                                    <field name="from_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="to_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="result_package_id" groups="stock.group_tracking_lot" context="{'location_id': location_dest_id}" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="product_qty" readonly="1" attrs="{'required': [('product_id', '!=', False)]}"/>
+                                    <field name="qty_done" attrs="{'readonly': [('lots_visible', '=', True)]}"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click
+                                                               #{record.qty_done.raw_value&gt;record.product_qty.raw_value ? 'oe_kanban_color_2' : ''}
+                                                               #{record.qty_done.raw_value==record.product_qty.raw_value &amp;&amp; record.state.raw_value!='done' &amp;&amp; ! record.result_package_id.raw_value ? 'oe_kanban_color_3' : ''}">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong><span><t t-esc="record.product_id.value"/></span></strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-6 text-muted">
+                                                        <span><t t-esc="record.from_loc.string"/>: <t t-esc="record.from_loc.value"/></span>
+                                                    </div>
+                                                    <div class="col-xs-6 text-muted">
+                                                        <span><t t-esc="record.to_loc.string"/>: <t t-esc="record.to_loc.value"/></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-6 text-muted">
+                                                        <span><t t-esc="record.product_qty.string"/>: <t t-esc="record.product_qty.value"/></span>
+                                                    </div>
+                                                    <div class="col-xs-6 text-muted">
+                                                        <span>
+                                                            <t t-esc="record.qty_done.string"/>: <t t-esc="record.qty_done.value"/>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                            <field name="picking_type_entire_packs" invisible="1"/>
+                            <field name="pack_operation_pack_ids" options="{'reload_on_button': True}" attrs="{'invisible': [('pack_operation_pack_ids', '=', []), ('picking_type_entire_packs', '=', False)]}" context="{'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_picking_id': id}" groups="stock.group_tracking_lot">
+                                <tree editable="bottom" decoration-muted="qty_done&gt;0">
+                                    <field name="package_id" required="1" string="Package To Move"/>
+                                    <field name="location_id" domain="[('id', 'child_of', parent.location_id)]" invisible="1"/>
+                                    <field name="from_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="to_loc" groups="stock.group_locations,stock.group_tracking_lot"/>
+                                    <field name="location_dest_id" domain="[('id', 'child_of', parent.location_dest_id)]" invisible="1"/>
+                                    <field name="result_package_id" groups="stock.group_tracking_lot" context="{'location_id': location_dest_id}" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="qty_done" invisible="1"/>
+                                    <field name="lots_visible" invisible="1"/>
+                                    <field name="processed_boolean"/>
+                                    <button name="show_details" string="Modify" type="object" icon="fa-pencil"
+                                            states="confirmed,assigned,waiting,partially_available" groups="base.group_no_one"/>
+                                </tree>
+                            </field>
+                            <button class="oe_link oe_right" name="put_in_pack" type="object" string="&#8627;Put in Pack" attrs="{'invisible': [('state', 'in', ('done', 'cancel'))]}" groups="stock.group_tracking_lot"/>
+                        </page>
+                        
+                        <page string="Additional Info" name="extra" invisible="1">
+                            <group>
+                                <group>
+                                    <field name="move_type"/>
+                                    <field name="picking_type_code" invisible="1"/>
+                                    <field name="quant_reserved_exist" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                    <field name="group_id"/>
+                                    <field name="priority"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_picking_tree_gdn_good" model="ir.ui.view">
+            <field name="name">view.picking.tree.gdn.good</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-danger="state not in ('cancel', 'done') and min_date &lt; current_date" string="Picking list">
+                    <field name="name"/>
+                    <field name="origin"/>
+                    <field name="min_date" invisible="1"/>
+                    <field name="zone_id"/>
+                    <field name="stack_id"/>
+                    <field name="date" invisible="1"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="total_weighbridge_qty" string="Real Qty" sum="total_weighbridge_qty"/>
+                    <field name="total_init_qty" invisible="0" string="Net Weight" sum="total_init_qty"/> 
+                    <field name="total_qty" sum="total_qty" string="Basis Qty"/>
+                    <field name="state"/>
+                    <field name="picking_type_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_gdn_graph" model="ir.ui.view">
+            <field name="name">>view.gdn.graph</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <graph string="GIP">
+                    <field name="day_tz" type="row"/>
+                    <field name="product_id" type="col"/>
+               		<field name="total_qty" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+        <record id="action_gdns_good" model="ir.actions.act_window">
+            <field name="name">GDN</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('picking_type_id.code','=','outgoing')]</field>
+            <field name="context">{'warehouse_receipt': True}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="context" eval="{'search_by_field_date': ['day_tz']}"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_gdn_good_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_picking_tree_gdn_good"/>
+            <field name="act_window_id" ref="action_gdns_good"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_gdn_good_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_picking_form_gdn_good"/>
+            <field name="act_window_id" ref="action_gdns_good"/>
+        </record>
+        
+              
+        <menuitem action="action_gdns_good" 
+           	id="menu_action_gdns_good"
+           	parent="stock.menu_stock_warehouse_mgmt" sequence="350"/>
+        
+        
+        <record id="action_adj_stock_good" model="ir.actions.act_window">
+            <field name="name">ADJ-Stock</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id.code','=','phys_adj')]</field>
+            <field name="context">{'warehouse_receipt': True}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+            <field name="context" eval="{'search_by_field_date': ['day_tz']}"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_gdn_good_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_picking_tree_gdn_good"/>
+            <field name="act_window_id" ref="action_adj_stock_good"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_gdn_good_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_picking_form_gdn_good"/>
+            <field name="act_window_id" ref="action_adj_stock_good"/>
+        </record>
+        
+        <menuitem action="action_adj_stock_good" 
+           	id="menu_action_adj_stock_good"
+           	parent="stock.menu_stock_warehouse_mgmt" sequence="450"/>
+        
+        
+        
+        <record id="mrp_production_stock_action" model="ir.actions.act_window">
+            <field name="name">Manufacturing Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,gantt</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a manufacturing order.
+              </p><p>
+                A manufacturing order, based on a bill of materials, will
+                consume raw materials and produce finished products.
+              </p><p>
+                Manufacturing orders are usually proposed automatically based
+                on customer requirements or automated rules like the minimum
+                stock rule.
+              </p>
+            </field>
+        </record>
+        <menuitem action="mrp_production_stock_action"
+            id="menu_mrp_production_stock_action"
+            parent="stock.menu_stock_warehouse_mgmt"
+            sequence="1000"/>
+        
+    
+      <!-- Kiet: Menu for warehouse Consumable -->
+    	<menuitem id="menu_stock_warehouse_request_consumable" 
+  			name="Warehouse Consumable" 
+  			parent="stock.menu_stock_root" 
+  			sequence="2"
+  			/>
+
+       
+    </data>
+</openerp>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- Hr Timesheet Lines -->
+	    <record id="view_tree_hr_timesheet_lines" model="ir.ui.view">   
+	      <field name="name">view.tree.hr.timesheet.lines</field>
+	      <field name="model">general.hr.timesheet.lines</field>
+	      <field name="arch" type="xml">        
+	         <tree editable="bottom" decoration-danger="type_day == 'sunday'" decoration-info="type_day == 'holiday'">
+	         	<field name="employee_id"/>
+     			<field name="shift_id"/>
+       			<field name="standard_worked" widget='float_time' string="Regular Hrs"/>
+	          	<field name="real_worked" widget='float_time' required="1"/>
+	          	<field name="duration" widget='float_time' invisible="1"/>
+	          	<field name="salary_worked" widget="float_time"/>
+	          	<field name="rate"/>
+	          	<field name="ot_worked" widget='float_time'/>
+	          	<field name="ot_rate"/>
+	          	<field name="sign_in"/>
+	          	<field name="sign_out"/>
+	          	<field name="sign_in_id" invisible='1'/>
+	          	<field name="sign_out_id" invisible='1'/>
+	          	<field name="target" invisible="1"/>
+	          	<field name="quantity" invisible="1"/>
+	          	<field name="other_support" invisible="1"/>
+				<button name="action_hr_overtime" string="Overtime Request" type="object" states="draft" icon="terp-project"/>
+	          	<field name="type_timesheet" invisible="1"/>
+				<field name="state" invisible="1"/>
+				<field name="work_date" invisible="1"/>
+				<field name="type_day" invisible="1"/>
+	        </tree>
+	      </field>
+	    </record>
+	    
+	    <record id="view_form_hr_timesheet_lines" model="ir.ui.view">
+	      <field name="name">view.form.hr.timesheet.lines</field>
+	      <field name="model">general.hr.timesheet.lines</field>
+	      <field name="arch" type="xml">
+	        <form>
+	        	<sheet>
+	        		<group>
+       					<field name="employee_id"/>
+	        		</group>
+	        		<group name="main">
+	        			<group string="Work Time" name="work_time">
+							<field name="shift_id"/>
+	           				<field name="standard_worked" required="1" string="Regular Hrs"/>
+				          	<field name="real_worked"/>
+				          	<field name="duration" invisible="1"/>
+				          	<field name="sign_in"/>
+				          	<field name="sign_out"/>
+				          	<field name="sign_in_id" invisible='1'/>
+							<field name="sign_out_id" invisible='1'/>
+				          	<field name="ot_worked"/>
+				          	<field name="rate"/>
+				          	<field name="salary_worked" widget="float_time"/>
+				          	<field name="state" invisible="1"/>
+				        </group>
+				        <group string="Other Information" name="other">
+				          	<field name="target" invisible="1"/>
+							<field name="quantity" invisible="1"/>
+							<field name="other_support" invisible="1"/>
+						</group>
+				    </group>
+				    <group string="Overtime Requests" name="overtime_requests">
+				    	<field name="hr_overtime_ids" nolabel="1" context="{'default_employee_id': employee_id}">
+				    		<tree string="Overtime Requests" colors="red:state in ('refuse');blue:state in (' draft');black:state in ('confirm','validate','validate1')">
+			                    <field name="employee_id" invisible="1"/>
+			                    <field name="department_id" invisible="not context.get('set_visible',False)"/>
+			                    <field name="name"/>
+			                    <field name="overtime_type_id"/>
+			                    <field name="number_of_hours" string="Number of Hours" sum="Number of Hours" widget="float_time"/>
+			                    <field name="date_from"/>
+			                    <field name="date_to"/>
+			                    <field name="manager_id" invisible="1"/>
+			                    <field name="user_id" invisible="1"/>
+			                    <field name="state"/>
+			                    <button string="Refuse" name="refuse" states="confirm,validate,validate1" type="workflow" icon="gtk-no" groups="base.group_hr_user,base.group_hr_manager"/>
+		                        <button string="Confirm" name="confirm" states="draft" type="workflow" icon="gtk-yes" groups="base.group_hr_user"/>
+		                        <button string="Approve" name="validate" states="confirm" type="workflow" icon="gtk-apply" groups="base.group_hr_user"/>
+		                        <button string="Approved" name="second_validate" states="validate1" type="workflow" icon="gtk-apply" groups="base.group_hr_user"/>
+		                        <button string="Set to Draft" name="set_to_draft" states="refuse" type="object" icon="gtk-refresh" groups="base.group_hr_user"/>
+			                </tree>
+			                <form string="Overtime Request">
+								<header>
+									<button string="Refuse" name="refuse" states="confirm,validate,validate1" type="workflow" icon="gtk-no"/>
+									<button string="Confirm" name="confirm" states="draft" type="workflow" icon="gtk-yes"/>
+									<button string="Approve" name="validate" states="confirm" type="workflow" icon="gtk-apply"/>
+									<button string="Approved" name="second_validate" states="validate1" type="workflow" icon="gtk-apply"/>
+									<button string="Set to Draft" name="set_to_draft" states="refuse" type="object" icon="gtk-refresh"/>
+									<button string="Import All" name="show_wizard_import_overtime" type="object"/>
+									<field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate" statusbar_colors="{'confirm':'blue','validate1':'blue','refuse':'red'}"/>
+								</header>
+								<sheet string="Overtime Request">
+									<group>
+										<group>
+											<field name="name"/>
+											<field name="overtime_type_id" widget="selection" on_change="onchange_overtime_type_id(overtime_type_id)"/>
+											<label for="number_of_hours_temp" string="Duration"/>
+											<div name="duration">
+												<div>
+													<field name="date_from" nolabel="1" on_change="onchange_date_from(date_to, date_from)" required="1" class="oe_inline"/>
+													-
+													<field name="date_to" nolabel="1" on_change="onchange_date_to(date_to, date_from)" required="1" class="oe_inline"/>
+												</div>
+												<div>
+													<field name="number_of_hours_temp" widget="float_time" class="oe_inline"/> Hours
+												</div>
+											</div>
+										</group>
+										<group>
+											<field name="employee_id" readonly="1"/>
+											<field name="department_id"/>
+											<field name="manager_id"/>
+											<field name="manager_id2"/>
+										</group>
+										<separator string="Reasons" colspan="4"/>
+										<field name="notes" nolabel="1" colspan="4"/>
+										<separator string="Attendances" colspan="4"/>
+										<field name="attendances_ids" nolabel="1" colspan="4" context="{'tree_view_ref':'hr_attendance_analysis.view_attendance_analysis'}"/>
+									</group>
+								</sheet>
+								<div class="oe_chatter">
+									<field name="message_follower_ids" widget="mail_followers"/>
+									<field name="message_ids" widget="mail_thread"/>
+								</div>
+							</form>
+				    	</field>
+				    </group>
+				</sheet>
+    		</form>
+	      </field>
+	    </record>
+   	    <!-- Hr Timesheet Lines Manager-->
+	    <!-- 
+	    <record id="view_tree_hr_timesheet_lines_manager" model="ir.ui.view">
+	      <field name="name">view.tree.hr.timesheet_lines.manager</field>
+	      <field name="model">general.hr.timesheet.lines.manager</field>
+	      <field name="arch" type="xml">        
+	         <tree>
+	         	<field name="employee_id"/>
+				<field name="quantity" sum="Quantity"/>
+				<field name="other_support"/>
+				<field name="state" invisible="1"/>
+	        </tree>
+	      </field>
+	    </record>
+	    
+	    <record id="view_form_hr_timesheet_lines_manager" model="ir.ui.view">
+	      <field name="name">view.form.hr.timesheet.lines.manager</field>
+	      <field name="model">general.hr.timesheet.lines.manager</field>
+	      <field name="arch" type="xml">
+	        <form>
+	        	<sheet>
+	        		<group col="2" name="main">
+           				<group>
+           					<field name="employee_id"/>
+							<field name="quantity"/>
+							<field name="other_support"/>
+							<field name="state" invisible="1"/>
+						</group>
+				    </group> 
+	        	</sheet>
+    		</form>
+	      </field>
+	    </record>
+	     -->
+	    
+	    <!-- Hr Timesheet-->
+	    <record id="view_tree_hr_timesheet" model="ir.ui.view">   
+	      	<field name="name">view.tree.hr.timesheet</field>
+	      	<field name="model">general.hr.timesheet</field>
+	      	<field name="arch" type="xml">        
+	         	<tree string="Hr Timesheet" decoration-danger="state == 'waiting'" decoration-info="state == 'draft'" decoration-muted="state == 'cancel'"> 
+		         	<field name="name" string="Reference"/>
+		         	<field name="dayofweek" invisible="1"/>
+		         	<field name="work_date"/>
+		         	<field name="work_date_to" invisible='1'/>
+		         	<field name="start_date" invisible="1"/>
+		         	<field name="end_date" invisible="1"/> 
+		         	<field name="type_timesheet"/>
+		         	<field name="hr_team_id"/>
+		          	<field name="user_import_id"/>
+		          	<field name="user_approve_id"/>
+		          	<field name="state"/> 
+		          	<field name="company_id" groups="base.group_multi_company" />
+		        </tree>
+	      	</field>
+	    </record>    	
+	    
+	    <record id="view_form_hr_timesheet" model="ir.ui.view">
+			<field name="name">view.form.hr.timesheet</field>
+	   		<field name="model">general.hr.timesheet</field>
+	     	<field name="arch" type="xml">
+	        	<form string="Hr Timesheet">
+	         		<header>
+		         		<button string="Import" type="object" name="action_import" class="oe_highlight" 
+		         			attrs="{'invisible': ['|',('file', '=', False),('state','!=','draft')]}"/>
+	                    <button name="button_confirm" type="object" states="draft" string="Confirm" class="oe_highlight" groups="base.group_hr_user,general_hr.group_employee_manager"/>
+	                    <button name="button_approve" type="object" states='waiting' string="Approve" class="oe_highlight" groups="base.group_hr_user"/>
+                	    <button name="button_set_to_draft" states="waiting" string="Set to Draft" type="object" groups="base.group_hr_user,general_hr.group_employee_coach"/>
+	                    <button name="button_cancel" states="draft,waiting,approve" string="Cancel" type="object" groups="base.group_hr_user"/>
+	                    <button name="button_refuse" states="cancel" string="Refuse" type="object" icon="gtk-refresh" groups="base.group_hr_user,general_hr.group_employee_manager"/>
+	                    <button string="OT Batches" 
+	                    	name="%(action_wizard_hr_overtime_batches)d" 
+	                    	type="action"
+	                    	attrs="{'invisible': ['|',('state','!=','draft')]}"
+	                    	/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting,approve"/>
+		            </header>
+		          	<sheet>
+		          		<div class="oe_button_box" name="button_box">
+							<button type="object" name="action_hr_overtime" class="oe_stat_button" icon="fa-pencil-square-o" 
+									attrs="{'invisible': [('ot_count','=',0)]}">
+								<field name="ot_count" widget="statinfo" string="OT Requests"/>
+							</button>
+							
+						</div>
+			          	<div class="oe_title">
+		                    <label for="name" class="oe_edit_only" string="Employee Timesheets"/>
+		                    <h1>
+		                        <field name="name" placeholder="Timesheet's Name"/>
+		                    </h1>
+		                </div>
+			            <group name="group_top">
+			            	 <group>
+			            	 	<label for="work_date"/>  
+			            	 	<div name="work_date" class="o_row">
+									
+									<field name="dayofweek" class="oe_inline"/> <field name="work_date" class="oe_inline"/> - <field name="work_date_to" class="oe_inline" invisible='1'/>
+								</div>
+								<!-- 
+				          		<label for="start_date" string="Period"/>
+		                        <div>
+		                            <field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+		                        </div>
+		                         -->
+		                        <field name="type_timesheet" readonly='1'/>
+								<label for="hr_team_id"/>  
+	                    		<div name="hr_team_id" class="o_row">
+									<field name="hr_team_id"  options="{'no_write': True, 'no_create': True}"/>
+									<button name="button_load_employee" string="Load" type="object" 
+										icon="terp-gtk-jump-to-ltr" 
+										states="draft" class="btn-default"/> 
+								</div>
+			                	<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+			                	<field name="force_working_time"/>
+			                	<button name="button_real_worked" string="Set Default Real Worked" type="object" 
+										states="draft" class="btn-default"/>
+				          	 </group>
+				          	 <group>
+					          	<field name="file"/>
+			          			<field name="file_name" invisible="1"/>
+			          			<field name="import_date"/>
+			          			<field name="user_import_id" />
+			          			<field name="user_approve_id" />
+					         </group>
+			            </group>
+			            <notebook>
+			            	<page string="Employees" name="employees">
+			            		<field name="hr_timesheet_line" context="{'default_work_date': work_date}"> 
+			            			<tree editable="bottom" decoration-danger="type_day == 'sunday'" decoration-info="type_day == 'holiday'"> 
+			            				<field name="employee_id"/>
+			            				<field name="shift_id"/>
+						       			<field name="standard_worked" widget='float_time' string="Regular Hrs"/>
+							          	<field name="real_worked" widget='float_time' required="1"/>
+							          	<field name="duration" widget='float_time' invisible="1"/>
+							          	<field name="salary_worked" widget="float_time"/>
+							          	<field name="rate"/>
+							          	<field name="ot_worked" widget='float_time'/>
+							          	<field name="ot_rate"/>
+							          	<field name="sign_in"/>
+							          	<field name="sign_out"/>
+							          	<field name="sign_in_id" invisible='1'/>
+							          	<field name="sign_out_id" invisible='1'/>
+							          	<field name="target" invisible="1"/>
+							          	<field name="quantity" invisible="1"/>
+							          	<field name="other_support" invisible="1"/>
+   										<button name="action_hr_overtime" string="Overtime Request" type="object" states="draft" icon="terp-project"/>
+							          	<field name="type_timesheet" invisible="1"/>
+										<field name="state" invisible="1"/>
+										<field name="work_date" invisible="1"/>
+										<field name="type_day" invisible="1"/>
+			            			</tree>
+			            		</field>
+			            		<field name="hr_overtime_ids" invisible="1"/>
+			            	</page>
+			            	<!-- <page string="Managers" name="manager"/>
+			            		<field name="hr_timesheet_manager_lines_ids"/>
+			            	</page>  -->
+			            </notebook>
+		        	</sheet>
+		    	</form>
+		    </field>
+	    </record> 	
+	    
+	    <record id="hr_timesheet_search" model="ir.ui.view">
+            <field name="name">hr.timesheet.search</field>
+            <field name="model">general.hr.timesheet</field>
+            <field name="arch" type="xml">
+                <search string="Search Employee Timesheets">
+                    <field name="name"/>
+                    <field name="work_date"/>
+                    <field name="hr_team_id"/>
+                    <field name="start_date"/>
+                    <separator/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="waiting" string="Waiting Approval" domain="[('state','=','waiting')]"/>
+                    <filter name="approve" string="Approved" domain="[('state','=','approved')]"/>
+                    <!-- 
+                    <filter string="This Month" name="filter_month"  domain="[('work_date', '&gt;=' ,(context_today()).strftime('%Y-%m-01'))]"/>
+              		 -->
+              		<group expand="0" string="Group By...">
+              		 <filter name="group_team_id" string="Team Timesheet" icon="terp-go-today" domain="[]" context="{'group_by':'hr_team_id'}"/>
+              		 <filter name="group_month" string="Month" icon="terp-go-today" domain="[]" context="{'group_by':'end_date'}"/>
+              		</group>
+               </search>
+            </field>
+        </record>
+	    
+	    <record id="action_hr_timesheet" model="ir.actions.act_window">
+            <field name="name">Employee Timesheets</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">general.hr.timesheet</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_waiting':0, 'group_by': 'hr_team_id', 'search_default_filter_month':1,
+            'search_default_group_team_id': 1,
+            'search_default_group_month': 1}
+            </field>
+            <field name="search_view_id" ref="hr_timesheet_search"/>
+        </record>
+	    
+	    <menuitem id="menu_hr_timesheet" name="Employee Timesheets" 
+	    	parent="hr_attendance.menu_hr_attendance_root" action="action_hr_timesheet" sequence="0"
+	    	groups="base.group_hr_user,general_hr.group_employee_coach"/>
+	      	
+	</data>
+</openerp>

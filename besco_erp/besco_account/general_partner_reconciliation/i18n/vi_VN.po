@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * general_partner_reconciliation
+# 
+# Translators:
+# Le Truong Thanh, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-10 14:09+0000\n"
+"PO-Revision-Date: 2016-09-10 10:43+0000\n"
+"Last-Translator: Le Truong Thanh\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: general_partner_reconciliation
+#: model:ir.actions.act_window,name:general_partner_reconciliation.action_account_partner_reconciliation
+#: model:ir.ui.menu,name:general_partner_reconciliation.menu_action_account_partner_reconciliation
+msgid "Partner Reconciliations"
+msgstr "Cấn trừ công nợ"
+
+#. module: general_partner_reconciliation
+#: model:ir.actions.act_window,name:general_partner_reconciliation.action_account_customer_reconciliation
+#: model:ir.ui.menu,name:general_partner_reconciliation.menu_action_account_customer_reconciliation
+msgid "Customer Reconciliations"
+msgstr "Cấn trừ công nợ phải thu"
+
+#. module: general_partner_reconciliation
+#: model:ir.actions.act_window,name:general_partner_reconciliation.action_account_supplier_reconciliation
+#: model:ir.ui.menu,name:general_partner_reconciliation.menu_action_account_supplier_reconciliation
+msgid "Supplier Reconciliations"
+msgstr "Cấn trừ công nợ phải trả"
+
+#. module: general_partner_reconciliation
+#: model:ir.ui.view,arch_db:general_partner_reconciliation.view_account_partner_reconciliation_form
+msgid "Customer Invoices"
+msgstr "Hóa đơn đầu ra"
+
+#. module: general_partner_reconciliation
+#: model:ir.ui.view,arch_db:general_partner_reconciliation.view_account_partner_reconciliation_form
+msgid "Vendor Invoices"
+msgstr "Hóa đơn đầu vào"
+
+#. module: general_partner_reconciliation
+#: model:ir.ui.view,arch_db:general_partner_reconciliation.view_account_partner_reconciliation_form
+msgid "Cancel"
+msgstr "Hủy"
+
+#. module: general_partner_reconciliation
+#: model:ir.ui.view,arch_db:general_partner_reconciliation.view_account_partner_reconciliation_form
+msgid "Set to Draft"
+msgstr "Chuyển sang nháp"
+
+#. module: general_partner_reconciliation
+#: model:ir.ui.view,arch_db:general_partner_reconciliation.view_account_partner_reconciliation_form
+msgid "Set to Draft"
+msgstr "Chuyển sang nháp"
+
+#. module: general_partner_reconciliation
+#: model:ir.ui.view,arch_db:general_partner_reconciliation.view_account_partner_reconciliation_form
+msgid "Journal Entry"
+msgstr "Bút toán cấn trừ"
+
+#. module: general_partner_reconciliation
+#: model:ir.ui.view,arch_db:general_partner_reconciliation.view_account_partner_reconciliation_form
+msgid "Load Invoices"
+msgstr "Load hóa đơn"
+
+#. module: general_partner_reconciliation
+#: model:ir.ui.view,arch_db:general_partner_reconciliation.view_account_partner_reconciliation_form
+msgid "Allocate"
+msgstr "Phân bổ"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_partner_id
+msgid "Partner"
+msgstr "Đối tác"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_reconcile_date
+msgid "Reconcile Date"
+msgstr "Ngày đối soát"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_type
+msgid "Reconcile Type"
+msgstr "Loại"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_currency_id
+msgid "Currency"
+msgstr "Tiền tệ"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_fixed_amount
+msgid "Reconciled Amount"
+msgstr "Giá trị cấn trừ"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_journal_id
+msgid "Journal"
+msgstr "Nhật ký"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_company_id
+msgid "Company"
+msgstr "Công ty"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_state
+msgid "Status"
+msgstr "Trạng thái"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_line_date_invoice
+msgid "Entry Date"
+msgstr "Ngày hạch toán"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_line_allocated_amount
+msgid "Allocated Amount"
+msgstr "Giá trị phân bổ"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_line_residual
+msgid "Amount Due"
+msgstr "Còn nợ"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_line_invoice_id
+msgid "Invoice"
+msgstr "Hóa đơn"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_line_amount_total
+msgid "Total"
+msgstr "Tổng tiền"
+
+#. module: general_partner_reconciliation
+#: model:ir.model.fields,field_description:general_partner_reconciliation.field_account_partner_reconciliation_line_amount_residual
+msgid "Amount Due"
+msgstr "Còn nợ"
+
+#. module: general_partner_reconciliation
+#: selection:account.partner.reconciliation,state:draft
+msgid "Draft"
+msgstr "Nháp"
+
+#. module: general_partner_reconciliation
+#: selection:account.partner.reconciliation,state:posted
+msgid "Posted"
+msgstr "Đã hạch toán"
+
+#. module: general_partner_reconciliation
+#: selection:account.partner.reconciliation,state:cancel
+msgid "Cancelled"
+msgstr "Hủy"

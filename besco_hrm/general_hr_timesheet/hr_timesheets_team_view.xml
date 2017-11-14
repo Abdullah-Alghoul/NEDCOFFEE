@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<!-- HR Timesheets Team -->
+        <record id="view_hr_team_tree" model="ir.ui.view">
+            <field name="name">hr.team.tree</field>
+            <field name="model">hr.team</field>
+            <field name="arch" type="xml">
+                <tree string="Timesheet Teams">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="employee_id"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_team_form" model="ir.ui.view">
+            <field name="name">hr.team.form</field>
+            <field name="model">hr.team</field>
+            <field name="arch" type="xml">
+                <form string="Timesheet Team">
+                   <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="HR team"/>
+                            <h1>
+                                <field name="name" placeholder="HR Timesheets team name..."/>
+                            </h1>
+                            <div name="options_active"/>
+                        </div>
+                        <group>
+                            <group name="left">
+                                <field name="employee_id" on_change="onchange_employee_id(employee_id)"/>
+                                <field name="department_id"/>
+                            </group>
+                            <group name="right">
+                            	<field name="code"/>
+                            	<field name="active"/>
+                            	<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="members" string="Team Members">
+                                <field name="member_ids" widget="many2many_kanban" options="{'not_delete': True}">
+                                    <kanban quick_create="false" create="true" delete="true">
+                                        <field name="name"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_kanban_global_click" style="position: relative">
+                                                    <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+                                                    <div class="oe_module_vignette">
+                                                        <img t-att-src="kanban_image('hr.employee', 'image_small', record.id.value)" class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                                        <div class="oe_module_desc">
+                                                        	<field name="code"/>
+                                                            <field name="name"/>
+                                                            <field name="department_id"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_hr_team" model="ir.actions.act_window">
+            <field name="name">Timesheet Teams</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.team</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create a Team, the first step of a new Team.
+                </p>
+            </field>
+        </record>
+	    
+	    <menuitem name = "Timesheet Teams" action="action_hr_team" id="menu_action_hr_team" 
+	    	sequence="2" parent="hr_attendance.menu_hr_attendance_config" groups="base.group_hr_user"/>
+		
+		<menuitem name="Configuration" parent="hr_attendance.menu_hr_attendance_root" id="hr_attendance.menu_hr_attendance_config" sequence="100" groups="base.group_configuration,base.group_hr_attendance,base.group_hr_user" action="hr_attendance.open_view_attendance_reason"/>
+		
+		<!-- <record id="view_employee_form_inherit_general_hr_timesheet" model="ir.ui.view">
+            <field name="name">view.employee.form.inherit.general.hr.timesheet</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='department_id']" position="after">
+                	<field name="hr_team_id"/>
+                </xpath>
+            </field>
+        </record> -->
+    </data>
+</openerp>
+
+

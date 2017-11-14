@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+		<record id="view_report_partner_balance_form" model="ir.ui.view">
+            <field name="name">view_report_partner_balance_form</field>
+            <field name="model">report.partner.balance</field>
+            <field name="arch" type="xml">
+                <form string="Partner Balance">
+                	<header>
+			        </header>
+			        <sheet>
+		                <group>
+			                <group>
+			                	<field name="times"/>
+			                	<field name="type"/>
+			                	<field name="partner_ids" widget="many2many_tags" string='Partners' options="{'no_create': True}"/>
+			                	<field name="account_ids" widget="many2many_tags" string='Accounts' options="{'no_create': True}"
+			                		context="{'filter_type': type}"/>
+		                		<field name="extend_payment"/>
+				            </group>
+				            <group>
+				        		<field name="fiscalyear_id"  attrs="{'invisible':[('times', 'in', ['dates'])],'required':[('times','not in', ['dates'])]}"/>
+				        		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','month'])],'required':[('times', 'not in', ['dates','years','month'])]}"/>
+				        		<field name="month" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+				        		<field name="date_start"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+				        		<field name="date_end"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+			           			<field name="company_id"/>
+			           			<field name="second_currency_id" invisible="1"/>
+			           		</group>
+				        </group>
+				        <notebook>
+				        	<page string="General Balances" name="general_balances">
+				        		<group>
+				        			<button name="load_general_balance" string ="Load Report" type="object" class="oe_highlight"/>
+				            		<button name="print_report_balance" type="object" string="Print General Balances"/>
+				        		</group>
+				            	<group>
+				            		<field name="balance_lines" nolabel="1">
+				            			<tree limit="300">
+					            			<field name="partner_id"/>
+					            			<field name="account_code"/>
+					            			<field name="begin_dr" sum="begin_dr"/>
+					            			<field name="begin_cr" sum="begin_cr"/>
+					            			<field name="period_dr" sum="period_dr"/>
+					            			<field name="period_cr" sum="period_cr"/>
+					            			<field name="end_dr" sum="end_dr"/>
+				            				<field name="end_cr" sum="end_cr"/>
+				            				<field name="com_currency_id" invisible='1'/>
+				            			</tree>
+				            		</field>
+				            	</group>
+				            </page>
+				            
+				            <page string="Transaction Details">
+			            		<group>
+				        			<button name="load_ledger_detail" string ="Load Report" type="object" class="oe_highlight"/>
+				            		<button name="print_report_ledger_detail" type="object" string="Print"/>
+				        		</group>
+				            	<field name="ledger_detail_lines" readonly="1">
+				            		<tree decoration-danger="description in ('Số dư đầu kỳ','Số phát sinh trong kỳ','Số dư cuối kỳ')" 
+				            			class="account_ledger"
+				            			limit="300">
+				            			<field name="seq" invisible='1'/>
+				            			<field name="gl_date"/>
+				            			<field name="doc_date"/>
+				            			<field name="date_due"/>
+				            			<field name="doc_no"/>
+				            			<field name="description"/>
+				            			<field name="acc_code"/>
+				            			<field name="cp_acc_code"/>
+				            			<field name="debit"/>
+				            			<field name="credit"/>
+				            			<field name="com_currency_id" invisible="1"/>
+				            		</tree>
+				            	</field>
+				            </page>
+				            
+				            <page string="Partner Invoices">
+				            	<group>
+				        			<button name="load_partner_invoice" string ="Load Report" type="object" class="oe_highlight"/>
+				            		<button name="print_report_partner_invoice" type="object" string="Print Partner Invoices"/>
+				        		</group>
+				        		<group>
+					            	<field name="invoice_balance_lines" nolabel="1">
+					            		<tree limit="300">
+					            			<field name="partner_id"/>
+					            			<field name="due_amount" sum="Total Due"/>
+					            			<field name="due_30_day" sum="due_30_day"/>
+					            			<field name="due_60_day" sum="due_60_day"/>
+					            			<field name="due_90_day" sum="due_90_day"/>
+					            			<field name="due_120_day" sum="due_120_day"/>
+					            		</tree>
+					            		<form>
+					            			<group string="Customer Invoices">
+					            				<field name="customer_invoice_line" nolabel="1" context="{'form_view_ref':'account.invoice_form'}">
+					            					<tree>
+								            			<field name="journal_id"/>
+								            			<field name="date_invoice"/>
+								            			<field name="reference"/>
+								            			<field name="currency_id"/>
+								            			<field name="amount_total" sum="Total"/>
+								            			<field name="residual" sum="Total"/>
+								            			<field name="state"/>
+								            			<field name="over_30_day" sum="over_30_day"/>
+								            			<field name="over_60_day" sum="over_60_day"/>
+								            			<field name="over_90_day" sum="over_90_day"/>
+								            			<field name="over_120_day" sum="over_120_day"/> 
+					            					</tree>
+					            				</field>
+					            			</group>
+					            			<newline/>
+					            			<group string="Supplier Invoices">
+					            				<field name="vendor_invoice_line" nolabel="1" context="{'form_view_ref':'account.invoice_supplier_form'}">
+					            					<tree>
+								            			<field name="journal_id"/>
+								            			<field name="date_invoice"/>
+								            			<field name="reference"/>
+								            			<field name="currency_id"/>
+								            			<field name="amount_total" sum="Total"/>
+								            			<field name="residual" sum="Total"/>
+								            			<field name="state"/>
+								            			<field name="over_30_day" sum="over_30_day"/>
+								            			<field name="over_60_day" sum="over_60_day"/>
+								            			<field name="over_90_day" sum="over_90_day"/>
+								            			<field name="over_120_day" sum="over_120_day"/> 
+					            					</tree>
+					            				</field>
+					            			</group>
+					            		</form>
+					            	</field>
+				            	</group>
+				            </page>
+			            	<page string="Journals">
+				            	<field name="journal_ids" nolabel="1"/>
+				            </page>
+			            </notebook>
+		            </sheet>
+	            </form>
+            </field>
+        </record>
+        
+        <record id="action_view_report_partner_balance" model="ir.actions.act_window">
+            <field name="name">Partner Balances</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.partner.balance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+		
+			<record id="action_view_report_partner_balance_form" model="ir.actions.act_window.view">
+	           <field eval="2" name="sequence"/>
+	           <field name="view_mode">form</field>
+	           <field name="view_id" ref="view_report_partner_balance_form"/>
+	           <field name="act_window_id" ref="action_view_report_partner_balance"/>
+	       </record>
+       
+    </data>
+</openerp>

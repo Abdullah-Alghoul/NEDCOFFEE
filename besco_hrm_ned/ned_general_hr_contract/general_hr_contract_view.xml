@@ -1,0 +1,83 @@
+<openerp>
+	<data>
+	
+		<!-- Function Auto -->
+        <record forcecreate="True" id="ir_cron_update_hr_contract_remind_action" model="ir.cron">
+    		<field name="name">Updated HR Contract Remind</field>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.contract'" name="model"/>
+            <field eval="'run_check_remind'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+       <!-- contract_type -->
+        <record id="hr_contract_type_view_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.type.view.tree.inherit</field>
+            <field name="model">hr.contract.type</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_type_view_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//tree" position="replace">
+                    	<tree editable="1">
+                    		<field name="name"/>
+	                    	<field name="number_of_remind_time"/>
+                    	</tree>
+	                </xpath>                    	
+                </data>
+            </field>
+        </record>
+        
+        <record id="view_hr_contract_filter_general_modify_ned" model="ir.ui.view">
+            <field name="name">view.hr.contract.filter.general.modify.ned</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='to_renew']" position="after">
+                	<filter name="is_remind" string="Remind Contracts" domain="[('check_remind', '=', True)]"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="hr_contract_view_tree_general_modify_ned" model="ir.ui.view">
+            <field name="name">view.contract.tree.general.modify.ned</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                	<xpath expr="//tree" position="replace">
+                		<tree string="Contracts" decoration-info="state == 'draft'" decoration-warning="state == 'close'" 
+                			decoration-bf="message_needaction == True" decoration-danger="check_remind == True">
+		                    <field name="name"/>
+		                    <field name="employee_id"/>
+		                    <field name="type_id"/>
+		                    <field name="job_id"/>
+		                    <field name="working_hours"/>
+		                    <field name="date_start"/>
+		                    <field name="date_end"/>
+                       		<field name="state"/>
+                       		<field name="check_remind" invisible="1"/>
+		                    <field name="wage" invisible="1"/>
+		                    <field name="priority" invisible="1"/>
+		                    <field name="message_needaction" invisible="1"/>
+		                </tree>
+			        </xpath>
+                </data>
+            </field>
+        </record>
+        
+        <record id="view_employee_form_general_modify_ned_contract" model="ir.ui.view">
+            <field name="name">view.employee.form.general.modify.ned.contract</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='official_joining_date']" position="after">
+                	<field name="struct_salary_id" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

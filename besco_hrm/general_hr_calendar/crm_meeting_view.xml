@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+		<record model="ir.ui.view" id="view_crm_meeting_form_inherit_modify">
+	        <field name="name">crm.meeting.inherit.modify</field>
+	        <field name="model">crm.meeting</field>
+	        <field name="inherit_id" ref="base_calendar.view_crm_meeting_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='user_id']" position="replace">
+	        		<field name="employee_id"/>
+	            </xpath>
+	            
+	            <xpath expr="//sheet" position="before">
+	        		<header>
+	        			<button name="approve" string="Approve" type="object" states="draft" class="oe_highlight" groups="general_hr.group_employee_coach"/>
+	        			<button name="refuse" string="Refuse" type="object" states="approved" class="oe_highlight" groups="general_hr.group_employee_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved,refuse"/>
+                	</header>
+	            </xpath>
+	        </field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_crm_meeting_calendar_inherit_modify">
+	        <field name="name">crm.meeting.inherit.modify</field>
+	        <field name="model">crm.meeting</field>
+	        <field name="inherit_id" ref="base_calendar.view_crm_meeting_calendar"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//calendar[@string='Meetings']" position="replace">
+	        		<calendar string="Meetings" date_start="date" color="employee_id" date_stop="date_deadline" date_delay="duration">
+		                <field name="name"/>
+		                <field name="employee_id"/>
+		            </calendar>
+	            </xpath>
+	            
+	        </field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_crm_meeting_tree_inherit_modify">
+	        <field name="name">crm.meeting.inherit.modify</field>
+	        <field name="model">crm.meeting</field>
+	        <field name="inherit_id" ref="base_calendar.view_crm_meeting_tree"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='user_id']" position="replace">
+	        		<field name="employee_id"/>
+	            </xpath>
+	            
+	            <xpath expr="//field[@name='duration']" position="after">
+	        		<field name="state"/>
+	            </xpath>
+	            
+	        </field>
+		</record>
+		
+    </data>
+</openerp>

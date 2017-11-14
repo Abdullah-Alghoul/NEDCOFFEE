@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+		
+	    <!-- Template Import CR, FU-->
+	    <record id="report_exist_holidays" model="ir.actions.report.xml">
+	        <field name="name">report_exist_holidays</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.payment.leaves</field>
+	        <field name="report_name">report_exist_holidays</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">general_hr_holidays/report/report_exist_holidays.py</field>
+	        <field name="report_rml">general_hr_holidays/report/report_exist_holidays.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="True" 
+			menu="True"
+			id="report_exist_holidays"
+			model="hr.payment.leaves"
+			name="report_exist_holidays"
+	        string="Report Payment Leaves"
+        	rml="general_hr_holidays/report/report_exist_holidays.odt"/>
+  	</data>
+</openerp>

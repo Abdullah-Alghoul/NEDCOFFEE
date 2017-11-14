@@ -1,0 +1,183 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* general_account_regularization
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130327-002325\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-29 08:44+0000\n"
+"PO-Revision-Date: 2014-07-29 08:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: general_account_regularization
+#: field:account.move,regularization_id:0
+#: view:account.regularization:0
+#: model:ir.ui.menu,name:general_account_regularization.menu_account_regularization
+msgid "Regularization"
+msgstr "Kết chuyển (doanh thu/chi phí)"
+
+#. module: general_account_regularization
+#: help:wizard.regularize,journal_id:0
+msgid "Journal for the move"
+msgstr "Nhật ký"
+
+#. module: general_account_regularization
+#: view:account.regularization:0
+#: field:account.regularization,account_ids:0
+msgid "Accounts to balance"
+msgstr "TK cần kết chuyển"
+
+#. module: general_account_regularization
+#: view:wizard.regularize:0
+msgid "Accounts Regularization"
+msgstr "Kết chuyển (doanh thu/chi phí)"
+
+#. module: general_account_regularization
+#: view:account.regularization:0
+msgid "Main"
+msgstr "Thông tin chung"
+
+#. module: general_account_regularization
+#: field:account.regularization,company_id:0
+msgid "Company"
+msgstr "Công ty"
+
+#. module: general_account_regularization
+#: help:wizard.regularize,date_move:0
+msgid "Date for the move"
+msgstr "Ngày kết chuyển"
+
+#. module: general_account_regularization
+#: selection:account.regularization,balance_calc:0
+#: selection:wizard.regularize,balance_calc:0
+#: field:wizard.regularize,date_move:0
+msgid "Date"
+msgstr "Ngày kết chuyển"
+
+#. module: general_account_regularization
+#: field:account.regularization,debit_account_id:0
+msgid "Result account, debit"
+msgstr "Số dư về bên nợ TK"
+
+#. module: general_account_regularization
+#: model:ir.model,name:general_account_regularization.model_account_account
+msgid "Account"
+msgstr "Tài khoản"
+
+#. module: general_account_regularization
+#: field:account.regularization,balance_calc:0
+#: field:wizard.regularize,balance_calc:0
+msgid "Regularization time calculation"
+msgstr "Thời gian kết chuyển"
+
+#. module: general_account_regularization
+#: view:wizard.regularize:0
+msgid "Compute"
+msgstr "Thực hiện"
+
+#. module: general_account_regularization
+#: field:account.regularization,name:0
+msgid "Name"
+msgstr "Tên kết chuyển"
+
+#. module: general_account_regularization
+#: help:wizard.regularize,period_id:0
+msgid "Period for the move"
+msgstr "Kỳ kết chuyển"
+
+#. module: general_account_regularization
+#: field:wizard.regularize,date_to:0
+msgid "Date To"
+msgstr "Đến ngày"
+
+#. module: general_account_regularization
+#: view:account.regularization:0
+#: field:account.regularization,active:0
+msgid "Active"
+msgstr "Kích hoạt"
+
+#. module: general_account_regularization
+#: model:ir.actions.act_window,name:general_account_regularization.action_account_regularization_model_form
+#: model:ir.ui.menu,name:general_account_regularization.menu_action_account_regularization_model_form
+msgid "Account Regularization Models"
+msgstr "Danh mục kết chuyển"
+
+#. module: general_account_regularization
+#: model:ir.actions.act_window,name:general_account_regularization.action_account_regularization_form
+#: model:ir.ui.menu,name:general_account_regularization.menu_action_account_regularization_form
+msgid "Account Regularizations"
+msgstr "Lịch sử kết chuyển"
+
+#. module: general_account_regularization
+#: model:ir.model,name:general_account_regularization.model_account_move
+msgid "Account Entry"
+msgstr "Bút toán kết chuyển"
+
+#. module: general_account_regularization
+#: model:ir.actions.act_window,name:general_account_regularization.action_view_wizard_regularize_form
+#: model:ir.ui.menu,name:general_account_regularization.menu_action_view_wizard_regularize_form
+msgid "Regularize Accounts"
+msgstr "Thực hiện kết chuyển"
+
+#. module: general_account_regularization
+#: field:account.regularization,sequence:0
+msgid "Sequence"
+msgstr "Thứ tự"
+
+#. module: general_account_regularization
+#: model:ir.model,name:general_account_regularization.model_account_regularization
+msgid "Account Regularization Model"
+msgstr "Account Regularization Model"
+
+#. module: general_account_regularization
+#: selection:wizard.regularize,balance_calc:0
+#: field:wizard.regularize,period_id:0
+msgid "Period"
+msgstr "Kỳ kết chuyển"
+
+#. module: general_account_regularization
+#: view:wizard.regularize:0
+msgid "or"
+msgstr "hoặc"
+
+#. module: general_account_regularization
+#: field:account.regularization,credit_account_id:0
+msgid "Result account, credit"
+msgstr "Số dư về bên có TK"
+
+#. module: general_account_regularization
+#: selection:account.regularization,balance_calc:0
+msgid "Periods"
+msgstr "Theo kỳ"
+
+#. module: general_account_regularization
+#: view:wizard.regularize:0
+msgid "Cancel"
+msgstr "Hủy"
+
+#. module: general_account_regularization
+#: view:account.regularization:0
+msgid "Moves"
+msgstr "Bút toán kết chuyển"
+
+#. module: general_account_regularization
+#: help:wizard.regularize,date_to:0
+msgid "Include movements up to this date"
+msgstr "Include movements up to this date"
+
+#. module: general_account_regularization
+#: field:account.regularization,move_ids:0
+msgid "Regularization Moves"
+msgstr "Các bút toán"
+
+#. module: general_account_regularization
+#: field:account.regularization,journal_id:0
+#: field:wizard.regularize,journal_id:0
+msgid "Journal"
+msgstr "Nhật ký"

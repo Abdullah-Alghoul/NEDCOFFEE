@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!-- Product Category -->
+    		<record id="product_category_list_view_general_modify" model="ir.ui.view">
+	            <field name="name">product.category.list.view.general.modify</field>
+	            <field name="model">product.category</field>
+	            <field name="inherit_id" ref="product.product_category_list_view"/>
+	            <field name="arch" type="xml">
+	            	<xpath expr="//field[@name='complete_name']" position="before">
+           				<field name="seq"/>
+	                	<field name="code"/>
+	                	<field name="parent_id"/>
+	                </xpath>
+	            </field>
+	        </record>
+	        
+			<record id="product_category_form_view_general_view" model="ir.ui.view">
+	            <field name="name">product.category.form.view.general.view</field>
+	            <field name="model">product.category</field>
+	            <field name="inherit_id" ref="product.product_category_form_view"/>
+	            <field name="arch" type="xml">
+	            	<xpath expr="//field[@name='name']" position="replace">
+	            		<field name="name" class="oe_inline"/>
+	                </xpath>
+                	<xpath expr="//h1" position="after">
+                		<label for='code' class="oe_edit_only"/>
+                		<h2><field name="code" required='1'/></h2>
+                	</xpath>
+                	
+	            	<field name="parent_id" position="attributes">
+	            		<attribute name="on_change">
+	            			onchange_parent_id(parent_id)
+	            		</attribute>
+	            	</field>
+	            	
+	            	<xpath expr="//field[@name='type']" position="after">
+                		<field name="seq"/>
+                	</xpath>
+	            	
+	            </field>
+	        </record>
+	        
+	        
+	        <record id="view_category_property_form_add_account_refund" model="ir.ui.view">
+	            <field name="name">product.category.property.form.inherit.add.account.refund</field>
+	            <field name="model">product.category</field>
+	            <field name="inherit_id" ref="account.view_category_property_form"/>
+	            <field name="arch" type="xml">
+	            	<field name="property_account_expense_categ_id" position="after">
+	            		<field name="property_account_cogs_export"/>
+	            		<field name="property_account_cogs_local"/>
+	            		<field name="property_account_refund_categ"/>
+	            		<field name="property_stock_account_loss_categ"/>
+	                    <field name="property_stock_account_scrap_categ"/>
+	                    <field name="property_wip_account"/>
+	            	</field>
+	            	
+	            </field>
+	        </record>
+        
+        
+    	<!-- Product -->
+    		<!-- 
+    		<record model="ir.ui.view" id="product_search_form_view_general_modify">
+	            <field name="name">product.template.search.view.general.modify</field>
+	            <field name="model">product.template</field>
+	            <field name="inherit_id" ref="product.product_template_search_view"/>
+	            <field name="arch" type="xml">
+	            	<xpath expr="//field[@name='name']" position="after">
+	            		<field name="seller_id"/>
+                	</xpath>
+	            </field>
+	        </record>
+	         -->
+        	<!-- Thanh: Add shop to product form -->
+			<record id="product_template_general_modify_form" model="ir.ui.view">
+	            <field name="name">product.template.general.modify.form</field>
+	            <field name="model">product.template</field>
+	            <field name="inherit_id" ref="product.product_template_form_view"/>
+	            <field name="arch" type="xml">
+	            	<xpath expr="//notebook/page/group" position="after">
+	            		<group>
+	            			<field name="uom_ids"/>
+	            		</group>
+		            </xpath>
+	            </field>
+	        </record>
+        
+    	<!-- Modify UoM -->
+			<record id="view_product_uom_relation_on_product_tree" model="ir.ui.view">
+	            <field name="name">view.product.uom.relation.on.product.tree</field>
+	            <field name="model">product.uom.relation</field>
+	            <field name="type">tree</field>
+	            <field name="arch" type="xml">
+	                <tree string='UoMs' editable="top">
+	        			<field name="uom_id"/>
+	                	<field name="factor"/>
+						<field name="uom_type"/>
+	        		</tree>
+	            </field>
+	        </record>
+        
+    </data>
+</openerp>

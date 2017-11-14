@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	
+    <data noupdate="0">
+	    <record id="hr_salary_rule_bdktt" model="hr.salary.rule">
+	            <field name="code">BDKTT</field>
+	            <field name="name">Phụ Cấp Biến Động</field>
+	            <field name="category_id" ref="general_l10n_vn_hr_payroll.ALW_FREE_PIT"/>
+	            <field name="condition_select">none</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">inputs.PC.amount</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_python_compute">result=0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="375"/>
+	            <field name="note"></field>
+	    </record>
+	    
+		<record id="hr_salary_rule_gtnt" model="hr.salary.rule">
+	            <field name="code">GTNT</field>
+	            <field name="name">Giảm Trừ</field>
+	            <field name="category_id" ref="general_l10n_vn_hr_payroll.ATINCOME_DED"/>
+	            <field name="condition_select">none</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_percentage_base"></field>
+	            <field name="quantity">1</field>
+	            <field name="amount_python_compute">result=0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="320"/>
+	            <field name="note"></field>
+	    </record>
+		
+		<record id="hr_salary_rule_uh" model="hr.salary.rule">
+	            <field name="code">UH</field>
+	            <field name="name">Ủng Hộ</field>
+	            <field name="category_id" ref="general_l10n_vn_hr_payroll.ATINCOME_DED"/>
+	            <field name="condition_select">none</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_percentage_base"></field>
+	            <field name="quantity">1</field>
+	            <field name="amount_python_compute">result=0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="330"/>
+	            <field name="note"></field>
+	    </record>
+	    
+	    <record id="hr_salary_rule_ns" model="hr.salary.rule">
+	            <field name="code">NS</field>
+	            <field name="name">Năng suất</field>
+	            <field name="category_id" ref="general_l10n_vn_hr_payroll.ATINCOME_DED"/>
+	            <field name="condition_select">none</field>
+            	<field name="condition_python">result = bool((worked_days.WORK100 and worked_days.WORK100.number_of_days > 0) or (worked_days.WORKTRIAL and worked_days.WORKTRIAL.number_of_days > 0) or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">inputs.LNS.amount</field>
+	            <field name="quantity">sum([x.number_of_hours for x in payslip.worked_days_line_ids if (x.code =='WORK100' or x.code =='WORKTRIAL')])</field>
+	            <field name="amount_python_compute">result=0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="330"/>
+	            <field name="note"></field>
+	    </record>
+    </data>
+</openerp>

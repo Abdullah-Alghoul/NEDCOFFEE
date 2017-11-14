@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	    
+	    <!--  General NXT PRODUCT -->
+	    <record id="stock_balancesheet_product_report" model="ir.actions.report.xml">
+	        <field name="name">stock_balancesheet_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">report.stock.balance.sheet</field>
+	        <field name="report_name">stock_balancesheet_product_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_report_warehouse/report/balancesheet_report.py</field>
+	        <field name="report_rml">general_report_warehouse/report/balancesheet_by_product.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+    	
+		<report 
+			auto="True" 
+			menu="True"
+			id="stock_balancesheet_product_report"
+			model="report.stock.balance.sheet"
+			name="stock_balancesheet_product_report"
+	        string="Balance Sheet By Products"
+	        rml="general_report_warehouse/report/balancesheet_by_product.ods"/>
+	    
+	    
+	    <!--  General NXCHITIET PRODUCT -->
+	    <record id="stock_balancesheet_nxct_report" model="ir.actions.report.xml">
+	        <field name="name">stock_balancesheet_nxct_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">report.stock.balance.sheet</field>
+	        <field name="report_name">stock_balancesheet_nxct_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_report_warehouse/report/stock_balancesheet_nxct_report.py</field>
+	        <field name="report_rml">general_report_warehouse/report/stock_balancesheet_nxct_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+    	
+		<report 
+			auto="True" 
+			menu="True"
+			id="stock_balancesheet_nxct_report"
+			model="report.stock.balance.sheet"
+			name="stock_balancesheet_nxct_report"
+	        string="Nhap Xuat Chi tiet"
+	        rml="general_report_warehouse/report/stock_balancesheet_nxct_report.ods"/>
+	     
+	   
+	   <!--  General NXT CATEGORY
+	    <record id="stock_balancesheet_categ_report" model="ir.actions.report.xml">
+	        <field name="name">stock_balancesheet_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.balancesheet.report</field>
+	        <field name="report_name">stock_balancesheet_categ_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_report_warehouse/report/balancesheet_report.py</field>
+	        <field name="report_rml">general_report_warehouse/report/balancesheet_by_categ.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+    	
+		<report 
+			auto="True" 
+			menu="True"
+			id="stock_balancesheet_categ_report"
+			model="stock.balancesheet.report"
+			name="stock_balancesheet_categ_report"
+	        string="stock_balancesheet_categ_report"
+	        rml="general_report_warehouse/report/balancesheet_by_categ.ods"/>
+	         -->
+	</data>
+</openerp>

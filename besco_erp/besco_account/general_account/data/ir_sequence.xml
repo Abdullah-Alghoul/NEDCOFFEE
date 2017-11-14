@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    
+    <!-- THANH: Phieu thu -->
+        <record id="seq_receive_money_bank" model="ir.sequence">
+            <field name="name">Receive Money Bank</field>
+            <field name="code">receive.money.bank</field>
+            <field name="prefix">ARB%(y)s%(month)s</field>
+            <field name="date_get">2</field>
+            <field name="rollback_rule">Monthly</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+        
+        <record id="seq_receive_money_cash" model="ir.sequence">
+            <field name="name">Receive Money Cash</field>
+            <field name="code">receive.money.cash</field>
+            <field name="prefix">ARC%(y)s%(month)s</field>
+            <field name="date_get">2</field>
+            <field name="rollback_rule">Monthly</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+    
+    <!-- THANH: Phieu chi -->
+        <record id="seq_send_money_bank" model="ir.sequence">
+            <field name="name">Send Money Bank</field>
+            <field name="code">send.money.bank</field>
+            <field name="prefix">ASB%(y)s%(month)s</field>
+            <field name="date_get">2</field>
+            <field name="rollback_rule">Monthly</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+        
+        <record id="seq_send_money_cash" model="ir.sequence">
+            <field name="name">Send Money Cash</field>
+            <field name="code">send.money.cash</field>
+            <field name="prefix">ASC%(y)s%(month)s</field>
+            <field name="date_get">2</field>
+            <field name="rollback_rule">Monthly</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+        
+    </data>
+</openerp>

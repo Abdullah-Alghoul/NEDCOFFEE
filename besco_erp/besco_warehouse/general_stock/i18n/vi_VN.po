@@ -1,0 +1,130 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * general_stock
+# 
+# Translators:
+# LE TRUONG THANH <thanh.lt@besco.vn>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-09 09:18+0000\n"
+"PO-Revision-Date: 2015-10-10 09:45+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: stock
+#: model:stock.location,name:stock.stock_location_locations
+msgid "Physical Locations"
+msgstr "Kho vật lý"
+
+#. module: stock
+#: model:stock.location,name:stock.stock_location_locations_partner
+msgid "Partner Locations"
+msgstr "Kho đối tác bên ngoài"
+
+#. module: stock
+#: model:stock.location,name:stock.stock_location_locations_virtual
+msgid "Virtual Locations"
+msgstr "Kho ảo"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_stock_move_scrapped
+#: model:stock.location,name:stock.stock_location_scrapped
+msgid "Scrapped"
+msgstr "Kho hàng hư hỏng"
+
+#. module: stock
+#: model:stock.location,name:stock.location_inventory
+msgid "Inventory loss"
+msgstr "Kho hàng mất mát"
+
+#. module: stock
+#: model:stock.location,name:stock.location_production
+#: selection:stock.location,usage:0
+msgid "Production"
+msgstr "Kho sản xuất, chế biến"
+
+#: selection:stock.location,usage:0
+msgid "Vendor Location"
+msgstr "Kho nhà cung cấp"
+
+#. module: stock
+#: model:stock.location,name:stock.stock_location_suppliers
+msgid "Vendors"
+msgstr "Kho nhà cung cấp"
+
+#. module: stock
+#: model:ir.model.fields,field_description:stock.field_res_partner_property_stock_customer
+#: selection:stock.location,usage:0
+msgid "Customer Location"
+msgstr "Kho khách hàng"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_location_search
+msgid "Customer Locations"
+msgstr "Kho khách hàng"
+
+#. module: stock
+#: model:stock.location,name:stock.stock_location_customers
+msgid "Customers"
+msgstr "Kho khách hàng"
+
+#. module: stock
+#: selection:stock.picking,picking_type_code:0
+#: selection:stock.picking.type,code:0
+msgid "Customers"
+msgstr "Xuất hàng bán"
+
+#. module: stock
+#: model:stock.location,name:stock.stock_location_inter_wh
+msgid "Inter Company Transit"
+msgstr "Kho trung chuyển nôi bộ"
+
+#. module: stock
+#: model:ir.ui.view,arch_db:stock.view_location_search
+#: selection:stock.picking,picking_type_code:0
+#: selection:stock.picking.type,code:0
+msgid "Internal"
+msgstr "Chuyển kho nội bộ"
+
+#. module: stock
+#: selection:stock.picking,picking_type_code:0
+#: selection:stock.picking.type,code:0
+msgid "Suppliers"
+msgstr "Nhập kho hàng mua"
+
+#. module: stock
+#: selection:stock.picking,picking_type_code:0
+#: selection:stock.picking.type,code:0
+msgid "Return Customers"
+msgstr "Nhập kho hàng trả"
+
+#. module: stock
+#: selection:stock.picking,picking_type_code:0
+#: selection:stock.picking.type,code:0
+msgid "Return Suppliers"
+msgstr "Xuất trả nhà cung cấp"
+
+#. module: stock
+#: selection:stock.picking,picking_type_code:0
+#: selection:stock.picking.type,code:0
+msgid "Production Out"
+msgstr "Xuất sang sản xuất"
+
+#. module: stock
+#: selection:stock.picking,picking_type_code:0
+#: selection:stock.picking.type,code:0
+msgid "Production In"
+msgstr "Nhận về từ sản xuất"
+
+#. module: stock
+#: selection:stock.picking,picking_type_code:0
+#: selection:stock.picking.type,code:0
+msgid "Physical Adjustment"
+msgstr "Kiểm kê hàng hóa"

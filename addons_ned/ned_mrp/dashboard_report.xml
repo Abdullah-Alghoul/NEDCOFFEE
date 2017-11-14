@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<openerp>
+    <data >
+		<record id="view_report_mrp_grp_pivot" model="ir.ui.view">
+            <field name="name">report.mrp.grp.pivot</field>
+            <field name="model">report.mrp.grp</field>
+            <field name="arch" type="xml">
+                <pivot string="mrp grp" grouped="False">
+               		<field name="years_tz" type="col"/>
+               		<field name="categ_id"  type="row"/>
+               		<field name="quantity" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        
+         <!--My Dashboard Action-->
+        <record model="ir.actions.act_window" id="open_board_mrp_grp_pivot">
+            <field name="name">Grp Pivot</field>
+            <field name="res_model">report.mrp.grp</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">pivot</field>
+            <field name="usage">menu</field>
+        </record>
+        
+        
+        <record id="view_report_mrp_grp_graph" model="ir.ui.view">
+            <field name="name">report.mrp.grp.graph</field>
+            <field name="model">report.mrp.grp</field>
+            <field name="arch" type="xml">
+                <graph string="mrp grp" type="pivot" grouped="False">
+               		<field name="years_tz" type="col"/>
+               		<field name="categ_id"  type="row"/>
+               		<field name="quantity" type="measure"/>
+                </graph>
+            </field>
+        </record>
+		
+        <!--My Dashboard Action-->
+        <record model="ir.actions.act_window" id="open_board_mrp_grp_dash_action">
+            <field name="name">open.board.mrp.grp.graph</field>
+            <field name="res_model">report.mrp.grp</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph</field>
+            <field name="usage">menu</field>
+        </record> 
+         <record id="board_mrp_form_pm" model="ir.ui.view">
+            <field name="name">board.mrp.form</field>
+            <field name="model">board.board</field>
+            <field name="arch" type="xml">
+                <form string="MRP Dashboard">
+                    <board style="2-2">					
+                        <column>
+                        	<action name="%(open_board_mrp_grp_dash_action)d" string="GRP"/> 
+                        </column>		
+                        <column>
+                        	<action name="%(open_board_mrp_grp_pivot)d" string="GRP"/>   
+                        </column>
+                        <newline/>
+                        				
+                    </board>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="open_board_mrp_dash_action">
+            <field name="name">My Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="board_mrp_form_pm"/>
+            <field name="help" type="html">
+              <div class="oe_empty_custom_dashboard">
+                  <p>
+                    <b>Your personal dashboard is empty.</b>
+                  </p><p>
+                    To add your first report into this dashboard, go to any
+                    menu, switch to list or graph view, and click <i>'Add to
+                    Dashboard'</i> in the extended search options.
+                  </p><p>
+                    You can filter and group data before inserting into the
+                    dashboard using the search options.
+                  </p>
+              </div>
+            </field>
+        </record> 
+        <menuitem id="menu_open_board_mrp_dash_action" action="open_board_mrp_dash_action" 
+        	parent="mrp_operations.menu_report_mrp_workorders_tree"
+        	sequence="1"/>
+       	</data>
+</openerp>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data> 
+		<template id="assets_backend" name="back-end border assets" inherit_id="web.assets_backend">
+			<xpath expr="." position="inside">
+				<link rel="stylesheet" href="/backend_border/static/src/css/border.css"/> 
+			</xpath>
+		</template> 
+	</data>
+</openerp>

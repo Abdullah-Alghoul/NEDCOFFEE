@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data noupdate="0">
+    	
+    	<record id="ir_cron_create_account_payment_entries" model="ir.cron">
+            <field name="name">Update Entries Account Payment</field>
+            <field name="interval_number">60</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'account.payment'" name="model"/>
+            <field eval="'create_account_payment_entries'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+    	
+    	
+        <record id="ir_cron_cron_stock_hcm_customer_fifo_action" model="ir.cron">
+            <field name="name">STOCK FIFO Customer</field>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'stock.move.allocation'" name="model"/>
+            <field eval="'cron_stock_hcm_cus_fifo'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_cron_stock_hcm_customer_fifo_action" model="ir.cron">
+            <field name="name">Update Qty MRP</field>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'stock.move.allocation'" name="model"/>
+            <field eval="'cron_update_qty_mrp'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_update_entries_faq_action" model="ir.cron">
+            <field name="name">Update entries faq</field>
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'stock.move'" name="model"/>
+            <field eval="'cron_update_entries_faq'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_validate_fifo" model="ir.cron">
+            <field name="name">Validate FIFO</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">1</field>
+            <field eval="False" name="active"/>
+            <field eval="True" name="doall"/>
+            <field eval="'fifo.management'" name="model"/>
+            <field eval="'cron_validate_fifo'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_watch_validate_fifo" model="ir.cron">
+            <field name="name">Watch Cron Validate FIFO</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="active"/>
+            <field eval="True" name="doall"/>
+            <field eval="'fifo.management'" name="model"/>
+            <field eval="'cron_watch_cron_validate_fifo'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+    </data>
+</openerp>

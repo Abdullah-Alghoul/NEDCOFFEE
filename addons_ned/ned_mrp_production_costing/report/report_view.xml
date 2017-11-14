@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+	<!-- 
+		<record id="production_costing_report" model="ir.actions.report.xml">
+	        <field name="name">production_costing_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">mrp.periodical.production.costing</field>
+	        <field name="report_name">production_costing_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_mrp_production_costing/report/production_costing.py</field>
+	        <field name="report_rml">ned_mrp_production_costing/report/report_cost_production.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="production_costing_report" 
+			model="mrp.periodical.production.costing" 
+			name="production_costing_report"
+	        string="Production Costing"
+	        rml="ned_mrp_production_costing/report/report_cost_production.ods"/>
+	   
+	    -->
+	   <record id="report_cost_productions" model="ir.actions.report.xml">
+	        <field name="name">report_cost_productions</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">mrp.periodical.production.costing</field>
+	        <field name="report_name">report_cost_productions</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_mrp_production_costing/report/report_cost_production.py</field>
+	        <field name="report_rml">ned_mrp_production_costing/report/report_cost_production.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="report_cost_productions" 
+			model="mrp.periodical.production.costing" 
+			name="report_cost_productions"
+	        string="Report Mrp"
+	        rml="ned_mrp_production_costing/report/report_cost_production.ods"/>
+	    
+	        
+	</data>
+</openerp>

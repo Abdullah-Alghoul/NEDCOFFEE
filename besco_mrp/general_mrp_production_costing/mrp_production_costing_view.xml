@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	
+		<record id="view_mrp_production_order_cost_collection_search" model="ir.ui.view">
+            <field name="name">mrp.production.order.cost.collection.search</field>
+            <field name="model">mrp.production.order.cost.collection</field>
+            <field name="arch" type="xml">
+                <search string="MO Cost Collection">
+                    <filter icon="terp-check" name="draft" string="Draft" domain="[('state','=','draft')]" help="Mới tạo"/>
+                    <filter icon="terp-camera_test" name="confirmed" string="Confirmed" domain="[('state','=','confirmed')]"/>
+                    <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]"/>
+                    <field name="warehouse_id"/>
+                    <field name="period_id"/>
+                    <field name="production_id"/>
+                    <separator/>
+                    <separator/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Production" domain="[]"  context="{'group_by':'production_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+		
+	   <record id="view_mrp_production_order_cost_collection_tree" model="ir.ui.view">
+            <field name="name">mrp.production.order.cost.collection.tree</field>
+            <field name="model">mrp.production.order.cost.collection</field>
+            <field name="arch" type="xml">
+                <tree string="MO Cost Collection">
+                	<field name="period_id"/>
+                	<field name="warehouse_id"/>
+                	<field name="production_id"/>
+                	<field name="company_id"/>
+                	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_mrp_production_order_cost_collection_form" model="ir.ui.view">
+            <field name="name">mrp.production.order.cost.collection.form</field>
+            <field name="model">mrp.production.order.cost.collection</field>
+            <field name="arch" type="xml">
+                <form string="MO Cost Collection">
+                    <header>
+	                	<button name="compute_cost" states="draft" string="Compute cost" type="object" groups="general_mrp_production_costing.group_mrp_costing_accountant"/>
+	                	<button name="post" string="Post" states="draft" type="object" groups="general_mrp_production_costing.group_mrp_costing_accountant"/>
+	                	<field name="state" widget="statusbar" statusbar_visible="draft,posted,cancel"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_title">
+	                        <h1>
+	                            <field name="period_id" default_focus="1" placeholder="Period ..."/>
+	                        </h1>
+	                    </div>
+	                    <group>
+	                        <group>
+	                        	<field name="warehouse_id"/>
+	                        	<field name="production_id" domain="[('state','in',['in_production','done']),
+	                        										 ('warehouse_id','=',warehouse_id)]"/>
+	                        </group>
+	                        <group>
+	                            <field name="company_id"/>
+	                            <field name="total_labor_hours" widget="float_time"/>
+	                            <field name="total_machine_hours" widget="float_time"/>
+	                            <field name="total_material"/>
+	                        </group>
+	                    </group>
+	                    <notebook>
+	                        <page string="Direct Costs" name="direct_costs">
+	                        	<group>
+                                	<field name="direct_cost_lines" nolabel='1'>
+                                		<tree string='Direct Cost Details'>
+                                			<field name="product_id"/>
+                                			<field name="planned_qty"/>
+                                			<field name="produced_qty"/>
+                                			<field name="product_uom_id"/>
+                                			<field name="price_unit" sum="Total"/>
+                                			<field name="price_subtotal" sum="Total"/>
+                                			<field name="state"/>
+                                		</tree>
+                                		<form string="MO Cost Collection"  >
+                                			<header>
+							                	<field name="state" widget="statusbar" statusbar_visible="draft,startworking,pause,cancel,done"/>
+							                </header>
+                                			<sheet>
+                                				<div class="oe_title">
+							                        <h1>
+							                            <field name="congdoan_id" default_focus="1"/>
+							                        </h1>
+							                        <h2>
+							                            <field name="workcenter_id"/>
+							                        </h2>
+							                    </div>
+                                				<group>
+	                        						<group>
+			                                			<field name="product_id"/>
+			                                			<field name="planned_qty"/>
+			                                			<field name="product_uom_id"/>
+		                                			</group>
+		                                			<group>
+			                                			<field name="produced_qty"/>
+			                                			<field name="price_unit" />
+                                						<field name="price_subtotal"/>
+	                                				</group>
+                                				</group>
+												<notebook>
+	                        						<page string="Direct Materials">
+	                        							<group>
+	                        								<field name="material_ids" nolabel="1">
+	                        									<tree>
+	                        										<field name="product_id"/>
+	                        										<field name="uom_id"/>
+	                        										<field name="product_qty" sum="Total"/>
+	                        										<field name="price_unit" sum="Total"/>
+	                        									</tree>
+	                        								</field>
+		                        						</group>
+                        							</page>
+                        							<page string="Direct Labor Hours">
+	                       								<group>
+	                        								<field name="labor_ids" nolabel="1">
+	                        									<tree>	
+	                        										<field name="emp_id"/>
+	                        										<field name="hours" widget="float_time" sum="Total"/>
+	                        									</tree>
+	                        								</field>
+	                        							</group>
+                        							</page>
+                        							<page string="Direct Machine Hours">
+                        								<group>
+	                        								<field name="marchine_ids" nolabel="1">
+	                        									<tree>	
+	                        										<field name="workcenter_id"/>
+	                        										<field name="hours" widget="float_time" sum="Total"/>
+	                        									</tree>
+	                        								</field>
+	                        							</group>
+                        							</page>
+	                    						</notebook>
+                                			</sheet>
+                                		</form>
+                                	</field>
+                                </group>
+	                        </page>
+	                        <page string="Periodical Overhead Absorbed">
+	                        	<group>
+	                        		<field name="overhead_absorbed_lines" nolabel='1'>
+                                		<tree string='OH Absorbed Details'>
+                                			<field name="absorbed_type"/>
+                                			<field name="type"/>
+                                			<field name="periodical_amount" sum="Total"/>
+                                			<field name="absorbed_amount" sum="Total"/>
+                                		</tree>
+                            		</field>
+	                        	</group>
+	                        </page>
+	                    </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="action_mo_cost_collection" model="ir.actions.act_window">
+            <field name="name">MO Cost Collection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production.order.cost.collection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id"/>
+        </record>
+        
+        <menuitem action="action_mo_cost_collection" id="menu_action_mo_cost_collection"  parent="general_mrp_account.menu_account_mrp" 
+        	groups="general_mrp_production_costing.group_mrp_costing_accountant"
+        	sequence="10"/>
+    	
+	<!-- Periodical Production Costing -->
+		<record id="view_mrp_periodical_production_costing_tree" model="ir.ui.view">
+            <field name="name">mrp.periodical.production.costing.tree</field>
+            <field name="model">mrp.periodical.production.costing</field>
+            <field name="arch" type="xml">
+                <tree string="Periodical Costing">
+                	<field name="period_id"/>
+                	<field name="warehouse_id"/>
+                	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_mrp_periodical_production_costing_form" model="ir.ui.view">
+            <field name="name">mrp.periodical.production.costing.form</field>
+            <field name="model">mrp.periodical.production.costing</field>
+            <field name="arch" type="xml">
+                <form string="Periodical Costing"  >
+                    <header>
+	                	<button name="compute_cost" states="draft" string="Compute cost" type="object" groups="general_mrp_production_costing.group_mrp_costing_accountant"/>
+	                	<button name="post" string="Post" states="draft" type="object" groups="general_mrp_production_costing.group_mrp_costing_accountant"/>
+	                	<field name="state" widget="statusbar" statusbar_visible="draft,posted,cancel"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_title">
+	                        <h1>
+	                            <field name="period_id" default_focus="1" placeholder="Period ..."/>
+	                        </h1>
+	                    </div>
+                    	<group>
+	                        <group>
+	                        	<field name="warehouse_id"/>
+	                        </group>
+	                        <group>
+	                        </group>
+	                    </group>
+	                    <notebook>
+	                    	<page string="Production Orders">
+	                        	<group>
+                                	<field name="production_order_ids" nolabel='1' domain="[('state','in',['in_production','done'])]"/>
+                                </group>
+	                        </page>
+	                    	<page string="Overheads">
+	                    		<group>
+	                    			<field name="periodical_overhead_lines" nolabel='1'>
+                                		<tree>
+                                			<field name="type"/>
+						                	<field name="allocation_type"/>
+						                	<field name="balance"/>
+						                </tree>
+						                <form string="Periodical Costing"  >
+						                	<sheet>
+						                		<group>
+							                        <group>
+							                        	<field name="type"/>
+							                        	<field name="allocation_type"/>
+							                        </group>
+							                        <group>
+							                        	<field name="balance"/>
+							                        </group>
+							                    </group>
+							                    <notebook>
+	                    							<page string="Overhead Balances">
+									                	<group string="Indirect Materials" 
+									                			attrs="{'invisible': [('type', 'not in', ['indirect_material'])]}">
+						                                	<field name="indirect_material_lines" readonly='1' nolabel='1'>
+						                                		<tree>
+						                                			<field name="ref"/>
+												                	<field name="date"/>
+												                	<field name="account_id"/>
+												                	<field name="debit" sum="total_dr"/>
+												                	<field name="credit" sum="total_cr"/>
+												                	<field name="balance" sum="total"/>
+												                </tree>
+											                </field>
+					                                	</group>
+					                                	<group string="Indirect Labours" 
+					                                			attrs="{'invisible': [('type', 'not in', ['indirect_labour'])]}">
+						                                	<field name="indirect_labour_lines" readonly='1' nolabel='1'>
+						                                		<tree>
+						                                			<field name="ref"/>
+												                	<field name="date"/>
+												                	<field name="account_id"/>
+												                	<field name="debit" sum="total_dr"/>
+												                	<field name="credit" sum="total_cr"/>
+												                	<field name="balance" sum="total"/>
+												                </tree>
+											                </field>
+					                                	</group>
+					                                	<group string="Factory Utilities" 
+					                                			attrs="{'invisible': [('type', 'not in', ['factory_utilities'])]}">
+						                                	<field name="factory_utilities_lines" readonly='1' nolabel='1'>
+						                                		<tree>
+						                                			<field name="ref"/>
+												                	<field name="date"/>
+												                	<field name="account_id"/>
+												                	<field name="debit" sum="total_dr"/>
+												                	<field name="credit" sum="total_cr"/>
+												                	<field name="balance" sum="total"/>
+												                </tree>
+											                </field>
+					                                	</group>
+					                                	<group string="Factory Depreciation" 
+					                                			attrs="{'invisible': [('type', 'not in', ['factory_depreciation'])]}">
+						                                	<field name="factory_depreciation_lines" readonly='1' nolabel='1'>
+						                                		<tree>
+						                                			<field name="ref"/>
+												                	<field name="date"/>
+												                	<field name="account_id"/>
+												                	<field name="debit" sum="total_dr"/>
+												                	<field name="credit" sum="total_cr"/>
+												                	<field name="balance" sum="total"/>
+												                </tree>
+											                </field>
+					                                	</group>
+					                                	<group string="Other Indirect" 
+					                                			attrs="{'invisible': [('type', 'not in', ['other_indirect'])]}">
+						                                	<field name="other_indirect_lines" readonly='1' nolabel='1'>
+						                                		<tree>
+						                                			<field name="ref"/>
+												                	<field name="date"/>
+												                	<field name="account_id"/>
+												                	<field name="debit" sum="total_dr"/>
+												                	<field name="credit" sum="total_cr"/>
+												                	<field name="balance" sum="total"/>
+												                </tree>
+											                </field>
+					                                	</group>
+				                                	</page>
+			                                	</notebook>
+		                                	</sheet>
+	                                	</form>
+					                </field>
+                                </group>
+	                        </page>
+	                        <page string="Overhead Allocated">
+	                        	<group>
+                                	<field name="mo_cost_collection_lines" nolabel='1'>
+                                		<tree string="MO Cost Collection">
+						                	<field name="warehouse_id"/>
+						                	<field name="production_id"/>
+						                	<field name="state"/>
+						                </tree>
+					                </field>
+                                </group>
+	                        </page>
+	                    </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="action_periodical_production_costing" model="ir.actions.act_window">
+            <field name="name">Periodical Production Costing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.periodical.production.costing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id"/>
+        </record>
+        
+        <menuitem action="action_periodical_production_costing" id="menu_action_periodical_production_costing"
+        	parent="general_mrp_account.menu_account_mrp" 
+        	groups="general_mrp_production_costing.group_mrp_costing_accountant"
+        	sequence="5"/>
+        
+    </data>
+</openerp>

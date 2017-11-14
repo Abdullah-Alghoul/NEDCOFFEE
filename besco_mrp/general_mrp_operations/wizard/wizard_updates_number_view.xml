@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <record id="view_updates_number_wizard" model="ir.ui.view">
+            <field name="name">updates.number.wizard</field>
+            <field name="model">updates.number</field>
+            <field name="arch" type="xml">
+                <form string="Updates Quantity Actual">
+                    <group>
+                        <field name="operation_id" readonly="1"/>
+                    </group>
+					<field name="updates_number_lines">
+						<tree editable='top'>
+							<field name="product_id"/>
+							<field name="received_qty" readonly="1"/>
+							<field name="actual_qty" readonly="1"/>
+							<field name="update_qty"/>
+							<field name="product_uom" readonly="1"/>
+							<field name="consumed_id" invisible="1"/>
+							<field name="updates_number_id" invisible="1"/>
+						</tree>  
+					</field>                  
+                    <footer>
+						<button name="button_update" string="Update" type="object" class="oe_highlight"/>
+	                  	or
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_updates_number" model="ir.actions.act_window">
+            <field name="name">Updates Quantity Actual</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">updates.number</field>
+            <field name="view_id" ref="view_updates_number_wizard"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

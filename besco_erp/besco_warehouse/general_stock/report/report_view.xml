@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<!-- 
+	    <record id="import_picking" model="ir.actions.report.xml">
+	        <field name="name">Import Picking</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">import_picking</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_stock/report/import_picking.py</field>
+	        <field name="report_rml">general_stock/report/import_picking.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+    	
+		<report 
+			auto="True" 
+			menu="False"
+			id="import_picking"
+			model="stock.picking"
+			name="import_picking"
+	        string="Import Picking"
+	        rml="general_stock/report/import_picking.ods"/>
+	      -->
+	</data>
+</openerp>

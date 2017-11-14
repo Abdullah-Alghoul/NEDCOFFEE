@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    <record id="view_company_form_add_employee_expense_currency" model="ir.ui.view">
+            <field name="name">res.company.form.add.employee.expense</field>
+             <field name="inherit_id" ref="base.view_company_form" />
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+	            <field name="currency_id" position="after">
+	            	<field name="advance_employee_expense_id"/>
+	            </field>
+       		 </field>
+       	</record>
+       	
+    <record id="view_hr_expense_invoice_tree" model="ir.ui.view">
+            <field name="name">view_hr_expense_invoice_tree</field>
+            <field name="model">hr.expense.invoice</field>
+            <field name="arch" type="xml">
+				<tree>
+					<field name="journal_id"/>
+					<field name="reference"/>
+					<field name="number"/>
+					<field name="date"/>
+					<field name="partner_id"/>
+					<field name="accounts"/>
+					<field name="sub_total"/>
+					<field name="tax_amount" sum="amount"/>
+					<field name="tax_correction" string="Tax Correction" sum="amount"/>
+					<field name="amount" sum="amount"/>
+					<field name="currency_id" invisible="1"/>
+					
+					<field name="move_id" invisible="0"/>
+					<field name="move_check" invisible="1"/>
+					<button name="duplicate" string="Copy" type="object" icon="gtk-copy" attrs="{'invisible': [('move_check','!=',False)]}"/>
+				</tree>
+            </field>
+        </record>
+        
+        <record id="view_hr_expense_invoice_form" model="ir.ui.view">
+            <field name="name">view_hr_expense_invoice_form</field>
+            <field name="model">hr.expense.invoice</field>
+            <field name="arch" type="xml">
+				<form>
+	                <sheet>
+	                    <group>
+	                        <group>
+	                            <field name="partner_id" domain="[('supplier','=',True)]" string="Vendor" context="{'default_customer': 0, 'search_default_supplier': 1, 'default_supplier': 1}" />
+	                            <field name="journal_id" options="{'no_create': True}"/>
+	                            <field name="asset_id"/>
+	                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+	                        </group>
+	                        <group>
+	                            <field name="date"/>
+	                            <field name="reference"/>
+	                            <field name="number"/>
+	                            <field name="currency_id" invisible="1"/>
+	                            
+	                            <field name="move_id" invisible="1"/>
+								<field name="move_check" invisible="1"/>
+	                        </group>
+	                    </group>
+	                    <notebook>
+	                        <page string="Invoice Information">
+	                            <field name="invoice_lines">
+	                                <tree string="Invoice Lines" editable="top">
+	                                    <field name="product_id"/>
+	                                    <field name="name"/>
+	                                    <field name="account_id" options="{'no_create': True}" groups="account.group_account_user"/>
+	                                    <field name="account_analytic_id" domain="[('account_type','=','normal'), ('company_id', '=', parent.company_id)]" groups="analytic.group_analytic_accounting"/>
+	                                    <field name="quantity"/>
+	                                    <field name="price_unit"/>
+	                                    <field name="price_subtotal"/>
+	                                </tree>
+	                            </field>
+				                <group>
+	                                <group class="oe_subtotal_footer oe_right">
+	                                	<field name="sub_total"/>
+	                                	<field name="tax_ids" widget="many2many_tags"  />
+	                                    <field name="tax_amount"/>
+	                                    <field name="tax_correction" string="Tax Correction"/>
+	                                    <field name="amount"/>
+	                                </group>
+	                                <field name="narration" placeholder="Internal Notes" nolabel="1"/>
+				                </group>
+	                        </page>
+	                    </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+	<!-- THANH: Modify Expenses Views -->
+		<record id="hr_expense.view_hr_expense_filter" model="ir.ui.view">
+            <field name="name">hr.expense.filter</field>
+            <field name="model">hr.expense</field>
+            <field name="arch" type="xml">
+                <search string="Expense">
+                    <field name="name" string="Expenses"/>
+                    <field name="date"/>
+                    <field name="employee_id"/>
+                    <field name="department_id" string="Department" context="{'invisible_department': False}"/>
+                    <field name="request_type"/>
+                    <separator />
+                    <filter domain="[('state', '=', 'draft')]" string="New" help="New Expense"/>
+                    <filter domain="[('state', '=', 'submit')]" string="To Approve" name="submitted" help="Confirmed Expenses"/>
+                    <filter domain="['|', ('state', '=', 'approve'), ('state', '=', 'post')]" string="To Pay" name="approved" help="Expenses to Invoice"/>
+                    <separator />
+                    <filter string="My Team Expenses" domain="[('employee_id.parent_id.user_id', '=', uid)]" groups="base.group_hr_manager" help="Expenses of Your Team Member"/>
+                    <filter string="My Expenses" domain="[('employee_id.user_id', '=', uid)]"/>
+                    <separator />
+                    <filter string="New Mail" name="message_unread" domain="[('message_unread', '=', True)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Employee" domain="[]" context="{'group_by': 'employee_id'}"/>
+                        <filter string="Department" domain="[]" context="{'group_by': 'department_id'}" groups="hr.group_multi_departments"/>
+                        <filter string="Company" domain="[]" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                        <filter string="Expenses Month" domain="[]" context="{'group_by': 'date'}" help="Expenses by Month"/>
+                        <filter string="Request Type" domain="[]" context="{'group_by': 'request_type'}"/>
+                    </group>
+                    <separator />
+                    <filter domain="[('employee_id.active', '=', False)]" string="Former Employees" name="inactive" groups="base.group_hr_user,base.group_hr_manager"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_expenses_tree_general_inherit" model="ir.ui.view">
+            <field name="name">view_expenses_tree_general_inherit</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.view_expenses_tree"></field>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='total_amount']" position="replace">
+           		</xpath>
+            	<xpath expr="//field[@name='analytic_account_id']" position="replace">
+            		<field name="analytic_account_id" groups="analytic.group_analytic_accounting" invisible="1"/>
+                    <field name="currency_id" groups="base.group_multi_currency" invisible="1"/>
+                    <field name="request_type"/>
+                    <field name="unit_amount" 
+            			widget="monetary" 
+            			options="{'currency_field': 'currency_id'}"
+            			attrs="{'invisible': [('request_type', '=', 'reimburse')], 'required': [('request_type', '=', 'advance')]}"
+            			/>
+                    <field name="total_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                    <field name="reimburse_amount" 
+           				widget='monetary' 
+           				options="{'currency_field': 'currency_id'}"
+           				attrs="{'invisible': [('request_type', '=', 'reimburse')], 'required': [('request_type', '=', 'advance')]}"
+           				/>
+           		</xpath>
+          	</field>
+        </record>
+        
+        <record id="hr_expense_my_tree_general_inherit" model="ir.ui.view">
+            <field name="name">hr_expense_my_tree_general_inherit</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_my_tree"></field>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='total_amount']" position="replace">
+           		</xpath>
+            	<xpath expr="//field[@name='analytic_account_id']" position="replace">
+            		<field name="analytic_account_id" groups="analytic.group_analytic_accounting" invisible="1"/>
+                    <field name="currency_id" groups="base.group_multi_currency" invisible="1"/>
+                    <field name="request_type"/>
+                    <field name="unit_amount" 
+            			widget="monetary" 
+            			options="{'currency_field': 'currency_id'}"
+            			attrs="{'invisible': [('request_type', '=', 'reimburse')], 'required': [('request_type', '=', 'advance')]}"
+            			/>
+                    <field name="total_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                    <field name="reimburse_amount" 
+           				widget='monetary' 
+           				options="{'currency_field': 'currency_id'}"
+           				attrs="{'invisible': [('request_type', '=', 'reimburse')], 'required': [('request_type', '=', 'advance')]}"
+           				/>
+           		</xpath>
+          	</field>
+        </record>
+        
+    	<record id="hr_expense_form_view_general_inherit" model="ir.ui.view">
+            <field name="name">hr_expense_form_view_general_inherit</field>
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_form_view"></field>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='state']" position="replace">
+            		<!-- THANH: remove state approve and add new state completed -->
+            		<field name="state" widget="statusbar" statusbar_visible="draft,submit,post,done,completed" statusbar_colors='{"submit":"blue","cancel":"red"}'/>
+           		</xpath>
+           		
+            	<xpath expr="//button[@name='action_move_create']" position="after">
+            		<button name="action_payment" states="post" 
+            			string="Pay" type="object" groups="account.group_account_user" class="oe_highlight"/>
+            		
+            		<button name="action_done" states="done" 
+            			string="Done" type="object" groups="account.group_account_user" class="oe_highlight"/>
+		        </xpath>
+		        
+            	<xpath expr="//sheet/div/button[@name='action_get_attachment_view']" position="before">
+	        		<button type="object" string="Journal Items"
+	                    name="action_view_move_line"
+	                    class="oe_stat_button"
+	                    icon="fa-bars"
+	                    attrs="{'invisible': [('state', 'not in', ('completed'))]}"/>
+		        </xpath>
+		        
+            	<xpath expr="//field[@name='product_id']" position="replace">
+            		<field name="request_type" required='1'/>
+            	</xpath>
+            	<xpath expr="//field[@name='quantity']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='product_uom_id']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='tax_ids']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='journal_id']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='payment_mode']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='bank_journal_id']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='total_amount']" position="replace">
+            	</xpath>
+            	
+            	<xpath expr="//field[@name='unit_amount']" position="replace">
+            		<field name="unit_amount" 
+            			widget="monetary" 
+            			options="{'currency_field': 'currency_id'}"
+            			attrs="{'invisible': [('request_type', '=', 'reimburse')], 'required': [('request_type', '=', 'advance')]}"
+            			/>
+           			<field name="total_amount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+           			<field name="reimburse_amount" 
+           				widget='monetary' 
+           				options="{'currency_field': 'currency_id'}"
+           				attrs="{'invisible': [('request_type', '=', 'reimburse')], 'required': [('request_type', '=', 'advance')]}"
+           				/>
+          			<field name="reimburse_date" 
+           				attrs="{'invisible': [('request_type', '=', 'reimburse')], 'required': [('request_type', '=', 'advance'),('state', '=', 'done')]}"
+           				/>
+            	</xpath>
+            	<xpath expr="//field[@name='currency_id']" position="after">
+            		<label for="payment_method_id" attrs="{'invisible': [('state', '!=', 'post')]}"/>
+                    <div attrs="{'invisible': [('state', '!=', 'post')]}">
+                        <field name="payment_method_id" options="{'no_open': True, 'no_create': True}" groups="account.group_account_user"
+            				attrs="{'required': [('state', '=', 'post')]}" class="oe_inline"/>
+            			at 
+            			<field name="payment_date" groups="account.group_account_user"
+            				attrs="{'required': [('state', '=', 'post')]}" class="oe_inline"/>
+                    </div>
+                    <field name="payment_id"/>
+                    <field name="final_payment_id"/>
+            	</xpath>
+            	
+            	<xpath expr="//field[@name='description']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='analytic_account_id']" position="replace">
+            	</xpath>
+            	<xpath expr="//field[@name='account_move_id']" position="replace">
+            	</xpath>
+            	<xpath expr="//sheet" position="inside">
+            		<notebook>
+		            	<page string="Invoices" name="invoice">
+		            		<group>
+		                    	<group>
+				            		<field name="journal_id" domain="[('type', '=', 'general')]" groups="account.group_account_user"
+		                                options="{'no_open': True, 'no_create': True}"/>
+                                </group>
+                                <group></group>
+                            </group>
+                            <group>
+				            	<field name="invoice_lines" nolabel="1" 
+				            			context="{'default_currency_id': currency_id, 'default_date': date,
+		                       					'default_journal_id':journal_id}"
+		                       			options="{'reload_on_button': true}"> 
+			            			<tree> 
+				            			<field name="journal_id"/>
+										<field name="reference"/>
+										<field name="number"/>
+										<field name="date"/>
+										<field name="partner_id"/>
+										<field name="accounts"/>
+										<field name="sub_total"/>
+										<field name="tax_amount" sum="amount"/>
+										<field name="tax_correction" string="Tax Correction" sum="amount"/>
+										<field name="amount" sum="amount"/>
+										<field name="currency_id" invisible="1"/>
+										
+										<field name="move_id" invisible="0"/>
+										<field name="move_check" invisible="1"/>
+										<button name="duplicate" string="Copy" type="object" icon="gtk-copy" attrs="{'invisible': [('move_check','!=',False)]}"/>
+			            			</tree>
+			            		</field>
+		            		</group>
+		            	</page>
+		            	<page string="Notes" name="notes">
+		            		<field name="description" placeholder="Notes..."/>
+		            	</page>
+			        </notebook>
+            	</xpath>
+            </field>
+        </record>
+        
+      	<!-- THANH: New menu for Waiting Payment -->
+      		<record id="action_request_waiting_payment" model="ir.actions.act_window">
+	            <field name="name">Expenses to payment</field>
+	            <field name="res_model">hr.expense</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">tree,kanban,form,pivot,graph</field>
+	            <field name="context">{'search_default_approved': 1, 'needaction_menu_ref': 'hr_expense.menu_expense_all'}</field>
+	            <field name="search_view_id" ref="hr_expense.view_hr_expense_filter"/>
+	            <field name="view_id" ref="hr_expense.view_expenses_tree"/>
+	        </record>
+	        
+	        <menuitem id="menu_action_request_waiting_payment" action="action_request_waiting_payment" 
+	        	name="To Pay" parent="hr_expense.menu_hr_expense_root" groups="account.group_account_user"/>
+	        
+    </data>
+</openerp>
+
+

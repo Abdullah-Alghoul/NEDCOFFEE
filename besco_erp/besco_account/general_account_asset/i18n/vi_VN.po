@@ -1,0 +1,336 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * general_account_asset
+# 
+# Translators:
+# LE TRUONG THANH <thanh.lt@besco.vn>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-09 09:18+0000\n"
+"PO-Revision-Date: 2015-10-10 09:45+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: general_account_asset
+#: model:ir.ui.menu,name:general_account_asset.menu_finance_assets
+msgid "Assets"
+msgstr "Kế toán tài sản"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_asset_account_income_recognition_id
+msgid "Depr. Expense Account"
+msgstr "TK chi phí khấu hao"
+
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_form
+#: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_form
+msgid "Assets"
+msgstr "Danh sách tài sản"
+
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_account_asset_asset_list_normal_purchase
+#: model:ir.ui.menu,name:account_asset.menu_action_account_asset_asset_list_normal_purchase
+msgid "Asset Types"
+msgstr "Phân loại tài sản"
+
+#. module: account_asset
+#: model:ir.ui.menu,name:account_asset.menu_asset_depreciation_confirmation_wizard
+msgid "Generate Assets Entries"
+msgstr "Sinh bút toán khấu hao"
+
+#. module: general_account_asset
+#: model:ir.actions.act_window,name:general_account_asset.action_account_prepaid_asset_form
+#: model:ir.ui.menu,name:general_account_asset.menu_action_account_prepaid_asset_form
+msgid "Pre-paid Expenses"
+msgstr "Chi phí trả trước"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_name
+msgid "Asset Name"
+msgstr "Tên tài sản"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_code
+msgid "Reference"
+msgstr "Mã tài sản"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_category_id
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_category_search
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Category"
+msgstr "Loại tài sản"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+msgid "Compute Depreciation"
+msgstr "Tính khấu hao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_date
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report_date
+msgid "Date"
+msgstr "Ngày bắt đầu khấu hao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_value
+msgid "Gross Value"
+msgstr "Giá trị tài sản"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_salvage_value
+msgid "Salvage Value"
+msgstr "Giá trị ngưng khấu hao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_value_residual
+msgid "Residual Value"
+msgstr "Giá trị còn lại"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+msgid "Depreciation Board"
+msgstr "Lịch khấu hao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line_depreciation_date
+#: model:ir.model.fields,field_description:account_asset.field_asset_asset_report_depreciation_date
+msgid "Depreciation Date"
+msgstr "Ngày khấu hao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line_move_id
+msgid "Depreciation Entry"
+msgstr "Bút toán khấu hao"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
+msgid "Depreciation Asset Account"
+msgstr "Tài khoản tài sản"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
+msgid "Depreciation Expense Account"
+msgstr "Tài khoản khấu hao"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+msgid "Depreciation"
+msgstr "Giá trị khấu hao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_depreciation_line_depreciated_value
+msgid "Cumulative Depreciation"
+msgstr "Giá trị đã khấu hao"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_asset_purchase_tree
+msgid "Vendor"
+msgstr "Nhà cung cấp"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_method
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category_method
+msgid "Computation Method"
+msgstr "Phương pháp khấu hao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_method_time
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category_method_time
+msgid "Time Method"
+msgstr "Khấu hao dựa trên"
+
+#. module: account_asset
+#: selection:account.asset.asset,method_time:0
+#: selection:account.asset.category,method_time:0
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_method_number
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category_method_number
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify_method_number
+msgid "Number of Depreciations"
+msgstr "Số lần khấu hao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_method_period
+msgid "Number of Months in a Period"
+msgstr "Khoảng cách khấu hao (tháng)"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+msgid "Depreciation Information"
+msgstr "Thiết lập khấu hao"
+
+#. module: general_account_asset
+#: model:ir.ui.view,arch_db:general_account_asset.view_account_asset_asset_form_general_modify
+msgid "Components"
+msgstr "Danh sách bộ phận"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_component_name
+msgid "Component Name"
+msgstr "Tên bộ phận"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_component_employee_id
+msgid "Employee"
+msgstr "Người phụ trách"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_asset_department_id
+msgid "Department"
+msgstr "Bộ phận phụ trách"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_asset_sale_invoice_id
+msgid "Sale Invoice"
+msgstr "Hóa đơn thanh lý"
+
+#. module: general_account_asset
+#: model:ir.ui.view,arch_db:general_account_asset.view_account_asset_asset_form_general_modify
+msgid "History"
+msgstr "Lịch sử thay đổi"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_history_name
+msgid "History name"
+msgstr "Mô tả"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_history_method_time
+msgid "Time Method"
+msgstr "Khấu hao dựa trên"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_history_method_number
+msgid "Number of Depreciations"
+msgstr "Số lần khấu hao"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_history_method_period
+msgid "Number of Months in a Period"
+msgstr "Khoảng cách khấu hao (tháng)"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+msgid "Items"
+msgstr "Bút toán khấu hao"
+
+#. module: account_asset
+#: selection:account.asset.asset,state:0 selection:asset.asset.report,state:0
+#: model:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
+msgid "Draft"
+msgstr "Nháp"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category_method_period
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify_method_period
+msgid "Period Length"
+msgstr "Số tháng khấu hao"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+msgid "Modify Depreciation"
+msgstr "Thay đổi lịch khấu hao"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
+msgid "Time Method Based On"
+msgstr "Khấu hao dựa trên"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
+msgid "Number of Entries"
+msgstr "Số lần khấu hao"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
+msgid "Every"
+msgstr "Khoảng cách khấu hao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category_name
+#: model:ir.model.fields,field_description:account_asset.field_product_template_asset_category_id
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
+msgid "Asset Type"
+msgstr "Loại tài sản"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
+msgid "Depreciation Method"
+msgstr "Phưởng pháp khấu hao"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_category_form
+msgid "Periodicity"
+msgstr "Thời gian khấu khao"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category_account_income_recognition_id
+msgid "Recognition Income Account"
+msgstr "TK ghi nhận chi phí, doanh thu"
+
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_asset_depreciation_confirmation_wizard
+msgid "Post Depreciation Lines"
+msgstr "Hạch toán khấu hao tự động"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_depreciation_confirmation_wizard_date
+msgid "Account Date"
+msgstr "Ngày hạch toán"
+
+#. module: general_account_asset
+#: model:ir.ui.view,arch_db:general_account_asset.view_account_asset_asset_form_payment_modify
+msgid "Maintenance Histories"
+msgstr "Lịch sử bảo trì"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_invoice_line_asset_category_id
+#: model:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
+#: model:ir.ui.view,arch_db:account_asset.view_invoice_asset_category
+msgid "Asset Category"
+msgstr "Loại tài sản"
+
+#. module: general_account_asset
+#: model:ir.ui.view,arch_db:general_account_asset.view_account_asset_asset_form_general_modify
+msgid "Sell or Dispose Entries"
+msgstr "Bút toán thanh lý"
+
+#. module: general_account_asset
+#: model:ir.ui.view,arch_db:general_account_asset.view_account_asset_asset_form_general_modify
+msgid "Asset Upgrades"
+msgstr "Nâng cấp"
+
+#. module: general_account_asset
+#: model:ir.ui.view,arch_db:general_account_asset.view_account_asset_asset_form_general_modify
+msgid "Maintenance Histories"
+msgstr "Lịch sử bảo trì"
+
+#. module: account_asset
+#: selection:account.asset.asset,state:0 selection:asset.asset.report,state:0
+#: model:ir.ui.view,arch_db:account_asset.view_asset_asset_report_search
+msgid "Running"
+msgstr "Đang sử dụng"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_asset_prorata
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_category_prorata
+msgid "Prorata Temporis"
+msgstr "Khấu hao theo ngày bắt đầu"
+
+#. module: general_account_asset
+#: model:ir.model.fields,field_description:general_account_asset.field_account_asset_category_tax_ids
+msgid "Taxes"
+msgstr "Thuế suât"
+
+#. module: account_asset
+#: model:ir.ui.view,arch_db:account_asset.view_account_asset_asset_form
+msgid "Sell or Dispose"
+msgstr "Thanh lý"

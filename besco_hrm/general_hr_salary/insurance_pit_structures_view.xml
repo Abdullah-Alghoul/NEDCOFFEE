@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+		<!-- Insurance and PIT Structure -->
+		<record id="view_insurance_pit_structure_tree" model="ir.ui.view">
+            <field name="name">insurance.pit.structure.tree</field>
+            <field name="model">insurance.pit.structure</field>
+            <field name="arch" type="xml">
+                <tree string="Insurance and Pit Structures">
+                	<field name="name"/>
+                	<field name="max_social_insurance" string="Maximum salaries social insurance"/>
+                	<field name="reduction_yourself"/>
+                	<field name="reduction_dependents"/>
+                	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+		
+		
+        <record id="view_insurance_pit_structure_form" model="ir.ui.view">
+            <field name="name">insurance.pit.structure.form</field>
+            <field name="model">insurance.pit.structure</field>
+            <field name="arch" type="xml">
+                <form string="Insurance and Pit Structures">
+                	<header>
+                        <button string="Confirm" name="button_confirm" states="draft" type="object" class="oe_highlight"/>
+                        <button string="Compute PIT structure" name="compute_structure_line" states="draft" type="object"/>
+                        <button string="Expire" name="button_expired" states="confirm" type="object"/>
+                        <button string="Cancel" name="button_cancel" states="confirm,expired" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,expired"/>
+                	</header>
+                    <sheet>    
+   	                   	<group col="4">
+	                        <field name="name"/>
+                    	</group>
+                    	<group>
+                    		<group string="Maximum salaries">
+	                            <field name="max_social_insurance"/>
+	                            <field name="max_unemployment_insurance"/>
+	                        </group>
+	                        <group string="Rates">
+	                            <field name="reduction_yourself"/>
+	                            <field name="reduction_dependents"/>
+	                        </group>
+                    	</group>
+                        <notebook> 
+                        	<page string="Insurance Structures">
+	                            <field name='insurance_ids' context="{'default_structure_id': active_id}">
+	                                <tree string="Insurance Structures" editable="bottom">
+	                                	<field name="insurance_laborer_id" options="{'no_write': True, 'no_create': True}"
+                               				domain="[('contribution','=','employee')]"/>
+	                                    <field name='of_laborer' sum="of_laborer"/>
+	                                    <field name="insurance_company_id" options="{'no_write': True, 'no_create': True}"/> 
+	                                    <field name="of_company" sum="of_company"/>
+	                                    <field name='sum_value' sum="sum_value"/>
+	                                </tree>
+	                                <form string="Insurance Deduction Rates">
+	                                	<sheet>
+	                                		<group col="4">
+	                                			<field name="insurance_laborer_id" options="{'no_write': True, 'no_create': True}"
+	                                				domain="[('contribution','=','employee')]"/>
+			                                    <field name='of_laborer' sum="of_laborer"/>
+			                                    <field name="insurance_company_id" options="{'no_write': True, 'no_create': True}"/>
+			                                    <field name="of_company" sum="of_company"/>
+	                                		</group>
+	                                	</sheet>
+	                                </form>
+	                            </field>
+                         	</page>
+                           	<page string="PIT Structures">
+	                           	<field name='structure_line_ids' context="{'default_structure_id': active_id}">
+	                                <tree string="PIT Structures" editable="bottom">
+	                                    <field name="poai_from"/>
+	                                    <field name="poai_to"/>
+	                                    <field name="tax_rate"/>
+	                                    <field name="pipb_tax"/>
+	                                    <field name="pa_from"/>
+	                                    <field name="pa_to"/>
+	                                    <field name="ni_from"/>
+	                                    <field name="ni_to"/>
+	                                </tree>
+	                                <form string="Salary Deduction Line">
+	                                	<sheet>
+	                                		<group col="6">
+                                			  	<field name="poai_from"/>
+			                                    <field name="poai_to"/>
+			                                    <field name="tax_rate"/>
+			                                    <field name="pipb_tax"/>
+			                                    <field name="pa_from"/>
+			                                    <field name="pa_to"/>
+			                                    <field name="ni_from"/>
+			                                    <field name="ni_to"/>
+	                                		</group>
+	                                	</sheet>
+	                                </form>
+	                            </field>
+                         	</page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_insurance_pit_structure" model="ir.actions.act_window">
+            <field name="name">Insurance and PIT Structures</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">insurance.pit.structure</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem id="menu_action_insurance_pit_structure" action="action_insurance_pit_structure" parent="hr_payroll.menu_hr_payroll_configuration" sequence="12"/>
+    </data>
+</openerp>

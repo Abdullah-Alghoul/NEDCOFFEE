@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+	<record id="pdf_report_entertainment_claim" model="ir.actions.report.xml">
+	        <field name="name">pdf_report_entertainment_claim</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.expense.expense</field>
+	        <field name="report_name">pdf_report_entertainment_claim</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_hr_expense/report/entertainment_claim.py</field>
+	        <field name="report_rml">general_hr_expense/report/entertainment_claim.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="pdf_report_entertainment_claim" 
+			model="hr.expense.expense" 
+			name="pdf_report_entertainment_claim"
+	        string="Entertainment Claim"
+	        rml="general_hr_expense/report/entertainment_claim.ods"/>  
+	       
+	    <record id="pdf_report_entertainment_request" model="ir.actions.report.xml">
+	        <field name="name">pdf_report_entertainment_request</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.expense.expense</field>
+	        <field name="report_name">pdf_report_entertainment_request</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">general_hr_expense/report/entertainment_claim.py</field>
+	        <field name="report_rml">general_hr_expense/report/entertainment_request.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False" 
+			menu="False"
+			id="pdf_report_entertainment_request" 
+			model="hr.expense.expense" 
+			name="pdf_report_entertainment_request"
+	        string="Entertainment Request"
+	        rml="general_hr_expense/report/entertainment_request.odt"/>   
+	  
+	</data>
+</openerp>

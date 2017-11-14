@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record id="view_system_sequence_tree" model="ir.ui.view">
+            <field name="name">view.system.sequence.tree</field>
+            <field name="model">system.sequence</field>
+            <field name="arch" type="xml">
+                <tree string="System Sequence">
+                	<field name="product_code"/>
+                	<field name="product_barcode"/>
+               		<field name="finished_good_code"/>
+               		<field name="material_code"/>
+               		<field name="semi_finished_good_code"/>
+               		<field name="consumable_item_code"/>
+               		<field name="tools_code"/>
+               		<field name="partner_code"/>
+               		<field name="employee_code" invisible='0'/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_system_sequence_form" model="ir.ui.view">
+            <field name="name">view.system.sequence.form</field>
+            <field name="model">system.sequence</field>
+            <field name="arch" type="xml">
+                <form string="System Sequence">
+                	<sheet>
+	                	<group>
+	                		<group>
+	                			<field name="product_code"/>
+	                			<field name="product_barcode"/>
+		                		<field name="finished_good_code"/>
+		                		<field name="material_code"/>
+		                		<field name="semi_finished_good_code"/>
+		                		<field name="consumable_item_code"/>
+		                		<field name="tools_code"/>
+	                		</group>
+	                		<group>
+		                		<field name="partner_code"/>
+		                		<field name="location_code" invisible='1'/>
+		                		<field name="warehouse_code" invisible='1'/>
+		                		<field name="employee_code" invisible='0'/>
+		                		<field name="contract_code"/>
+		                		<field name="asset_code" invisible='1'/>
+		                		<field name="prepaid_expense_code" invisible='1'/>
+	                		</group>
+	                	</group>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_system_sequence" model="ir.actions.act_window">
+            <field name="name">System Sequence</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">system.sequence</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+	 	<menuitem action="action_system_sequence" 
+	 		id="menu_action_system_sequence" 
+	 		parent="general_base.menu_master_data" 
+	 		sequence="1"/>
+        	
+    </data>
+</openerp>

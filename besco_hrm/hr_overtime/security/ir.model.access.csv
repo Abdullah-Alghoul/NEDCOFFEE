@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_overtime_type_mgr,hr.overtime.type.mgr,model_hr_overtime_type,base.group_hr_manager,1,1,1,1
+access_hr_overtime_request_usr,hr.overtime.req.user,model_hr_overtime,base.group_hr_user,1,1,1,1
+access_hr_overtime_request_mgr,hr.overtime.req.manager,model_hr_overtime,base.group_hr_manager,1,1,1,1
+access_hr_overtime_type_usr,hr.overtime.type.usr,model_hr_overtime_type,base.group_hr_user,1,0,0,0
+access_hr_overtime_batch_usr,hr.overtime.batch.usr,model_hr_overtime_batch,base.group_hr_user,1,1,1,1
+access_hr_overtime_request_coach,hr.overtime.req.coach,model_hr_overtime,general_hr.group_employee_coach,1,1,1,1
+access_hr_overtime_type_coach,hr.overtime.type.coach,model_hr_overtime_type,general_hr.group_employee_coach,1,1,1,0

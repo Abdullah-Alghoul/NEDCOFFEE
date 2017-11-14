@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!-- Thanh: Add group tax to menu reporting -->
+    	<menuitem id="account.menu_finance_reports" 
+    		parent="account.menu_finance" 
+    		name="Reporting"
+    		groups="group_account_tax_report"/>
+    		
+    	<menuitem
+      		id="menu_vas_taxes_reports" 
+      		parent="account.menu_finance_reports" 
+      		name="Taxes Reports"
+      		groups="group_account_tax_report"
+      		sequence="80"/>
+      		
+      		 <menuitem
+		        id="menu_action_report_vat_in"
+		        parent="menu_vas_taxes_reports"
+		        action="action_report_vat_in"
+		        name="Print VAT IN"
+		        sequence="5"
+		       />
+	       
+	       <menuitem
+		        id="menu_action_report_vat_out"
+		        parent="menu_vas_taxes_reports"
+		        action="action_report_vat_out"
+		        name="Print VAT OUT"
+		        sequence="10"
+		       />
+	       
+	       <menuitem
+		        id="menu_action_view_print_tax_summary_form"
+		        parent="menu_vas_taxes_reports"
+		        action="action_view_print_tax_summary_form"
+		        name="Print Taxes Summary"
+		        sequence="15"
+		       />
+    </data>
+</openerp>

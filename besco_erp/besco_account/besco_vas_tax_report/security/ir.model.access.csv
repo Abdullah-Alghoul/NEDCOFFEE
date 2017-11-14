@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_aged_partner_balance_invuser,aged.partner.balance.invuser,model_aged_partner_balance,account.group_account_invoice,1,1,1,1
+access_aged_partner_invoice_invuser,aged.partner.invoice.invuser,model_aged_partner_invoice,account.group_account_invoice,1,1,1,1
+access_aged_partner_line_invuser,aged.partner.line.invuser,model_aged_partner_line,account.group_account_invoice,1,1,1,1
+access_aged_partner_his_invoice_invuser,aged_partner_his_invoice_invuser,model_aged_partner_his_invoice,account.group_account_invoice,1,1,1,1
+access_aged_partner_his_invoice_line_invuser,aged_partner_his_invoice_line_invuser,model_aged_partner_his_invoice_line,account.group_account_invoice,1,1,1,1
+access_partner_balance_invuser,partner_balance_invuser,model_partner_balance,account.group_account_invoice,1,1,1,1

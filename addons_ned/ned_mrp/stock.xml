@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="stock_picking_tree_add_real_weight_modify" model="ir.ui.view">
+	        <field name="name">stock.picking.tree.general.add.real.weight.modify</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="stock.vpicktree"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='state']" position="after">
+	        		<field name="real_weight" string="real_weight"/>
+	        		<field name="real_mc" string="real_mc"/>
+                </xpath>
+	        </field>
+        </record>
+        
+
+		<record id="view_request_materials_conu_tree" model="ir.ui.view">
+            <field name="name">request.materials.consu.tree</field>
+            <field name="model">request.materials</field>
+            <field eval="100" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Request Materials List" decoration-info="state == 'draft'" decoration-muted="state in ('done')" decoration-danger="state in ('approved')">
+                	<field name="name"/>
+                	<field name="origin"/>
+                	<field name="warehouse_id" invisible="1"/>
+                    <field name="request_date"/>
+                    <field name="production_id" invisible="1"/>
+                    <field name="total_qty"/>
+                    <field name="state"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_request_materials_consu_form" model="ir.ui.view">
+            <field name="name">request.materials.consu.form</field>
+            <field name="model">request.materials</field>
+            <field eval="100" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Request Materials">
+                	<header>
+	                    <button name="button_approve_consum" type="object" states='draft,approved' string="Approve" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,done"/>
+	                </header>
+	                <sheet>
+		                <div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="1"/>
+	                        </h1>
+	                    </div>
+	                    <group col="4">
+	                    	<field name="origin"/>
+		                    <field name="request_date"/>
+		                    <field name="warehouse_id" invisible="1"/>
+		                    <field name="type" invisible="1	"/>
+		                    <field name="production_id" invisible="1"/>
+	                    </group>
+	                     <notebook>
+	                    	<page string="Products" name="product">
+	                    		<field name="request_line">
+	                    			<tree editable="top">
+	                    				<field name="product_id" required="1" domain="[('type','=','consu')]"/>
+	                    				<field name="product_uom" required="1"/>
+	                    				<field name="product_qty" string="Request qty" sum="product_qty"/>
+	                    				<field name="basis_qty" string="Issue Qty" sum="basis_qty"/>
+	                    				<button name="%(action_view_wizard_stock_picking_consumable)d" string="MTP" type ="action"/>
+             							<button name="btt_cancel" string="Cancel" type="object"/>
+	                    			</tree>
+	                    			<form>
+	                    				<header>
+	                    					<field name="state" widget="statusbar" statusbar_visible="draft,cancel"/>
+	                    				</header>
+	                    				<sheet>
+	                    					<group col="4">
+		                    					<field name="request_id"/>
+		                    					<field name="product_id" required="1"/>
+			                    				<field name="product_uom" required="1"/>
+			                    				<field name="product_qty"/>
+		                    				</group>
+		                    				<newline/>
+		                    				<field name="picking_ids"/>
+	                    				</sheet>
+	                    			</form>
+	                    		</field>
+	                    		 <field name="notes" class="oe_inline" placeholder="Description"/>
+	                    	</page>
+                    	</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="action_request_materials_consu" model="ir.actions.act_window">
+            <field name="name">Request Consumable</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">request.materials</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','consu')]</field>
+            <field name="context">{'default_type':'consu'}</field>
+            <field name="search_view_id"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Request Materials, the first step of a new Request Materials.
+              </p>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_request_materials_consu_tree">
+            <field name="sequence" eval="50"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_request_materials_conu_tree"/>
+            <field name="act_window_id" ref="action_request_materials_consu"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_request_materials_consu_form">
+            <field name="sequence" eval="51"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_request_materials_consu_form"/>
+            <field name="act_window_id" ref="action_request_materials_consu"/>
+        </record>
+        
+        
+		<menuitem action="action_request_materials_consu" id="menu_action_request_mrp_materials_consu" 
+        	parent="mrp.menu_mrp_manufacturing" sequence="1200"/>
+		
+		
+		<menuitem id="menu_action_request_materials_consu" 
+			parent="ned_stock.menu_stock_warehouse_request_consumable" sequence="120" 
+			action="action_request_materials_consu"/>
+			
+			
+	</data>
+</openerp>
+			

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<!-- Straight Loan Demands -->
+	    	<record id="report_loan" model="ir.actions.report.xml">
+		        <field name="name">Straight Loan Demands</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">report.account.cash.operation</field>
+		        <field name="report_name">report_loan</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">account_cashflow_operations/report/report_account_cash_operation.py</field>
+		        <field name="report_rml">account_cashflow_operations/report/loans.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="False" 
+				menu="False"
+				id="report_loan" 
+				model="report.account.cash.operation" 
+				name="report_loan"
+		        string="Straight Loan Demands"
+		        rml="account_cashflow_operations/report/loans.ods"/>  
+	    
+	    <!-- Straight Loan Balances -->
+	    	<record id="report_loan_balance" model="ir.actions.report.xml">
+		        <field name="name">Straight Loan Balances</field>
+		        <field name="type">ir.actions.report.xml</field>
+		        <field name="model">report.account.cash.operation</field>
+		        <field name="report_name">report_loan_balance</field>
+		        <field name="report_type">aeroo</field>
+		        <field name="in_format">oo-ods</field>
+		        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+		        <field name="parser_loc">account_cashflow_operations/report/report_cash_operation_balances.py</field>
+		        <field name="report_rml">account_cashflow_operations/report/loan_balances.ods</field>
+		        <field name="parser_state">loc</field>
+		        <field name="tml_source">file</field>
+		        <field name="attachment_use" eval="0"/>
+	    	</record>		    
+			
+			<report 
+				auto="False" 
+				menu="False"
+				id="report_loan_balance" 
+				model="report.account.cash.operation" 
+				name="report_loan_balance"
+		        string="Straight Loan Balances"
+		        rml="account_cashflow_operations/report/loan_balances.ods"/>  
+	      
+	</data>
+</openerp>

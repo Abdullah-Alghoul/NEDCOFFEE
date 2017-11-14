@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_change_sales_price" model="ir.ui.view">
+            <field name="name">Change Sales Price</field>
+            <field name="model">change.sales.price</field>
+            <field name="arch" type="xml">
+                <form string="Change Sales Price" version="7.0">
+                    <group>
+                        <field name="price_unit"/>
+                    </group>
+                    <footer>
+                    	<button name="change_price_unit" type="object" string="_Apply" icon='gtk-execute'/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_change_sales_price" model="ir.actions.act_window">
+            <field name="name">Change Sales Price</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">change.sales.price</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_change_sales_price"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>
+

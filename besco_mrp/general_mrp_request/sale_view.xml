@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<record id="view_order_form_general_mrp_inherit_mrp_request" model="ir.ui.view">
+	        <field name="name">view.order.form.general.mrp.inherit.mrp.request</field>
+	        <field name="model">sale.order</field>
+	        <field name="inherit_id" ref="general_sale.view_order_form_general_modify"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//field[@name='picking_ids']" position="before">
+		        	<field name="mrp_request_ids" invisible="1"/>
+		        	<button class="oe_stat_button" name="action_view_mrp_request" type="object" 
+		        		attrs="{'invisible':[('request_count', '=', 0)]}" icon="fa-list-alt">
+						<field string="Requirements" name="request_count" widget="statinfo"/>
+					</button>
+				</xpath>	        
+				
+				<xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+					<field name="mrp_request_id" invisible="1"/>
+                	<button name="button_create_mrp_request" string="Create Request" type="object" icon="STOCK_NEW"
+                		attrs="{'invisible':[('state','!=','sale')]}"/>
+                </xpath>
+	        </field>
+	    </record>
+    
+    </data>
+</openerp>

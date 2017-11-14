@@ -1,0 +1,44 @@
+CREATE OR REPLACE VIEW v_grn_matching AS
+Select row_number() OVER (ORDER BY F.backorder_id) AS row_num, B.id, B.name as GRN_Branch, B.date_kcs as Branch_Date_Received, 
+F.backorder_id, F.name as GRN_Factory, F.date_kcs as Factory_Date_Received, 
+B.Deduction_branch, F.Deduction_factory, B.Deduction_branch-F.Deduction_factory as BRN_FAC,
+B.product_qty as net_weight_branch, F.product_qty as net_weight_factory,
+B.basis_weight as basis_weight_branch, F.basis_weight as basis_weight_factory,
+B.MC as MC_Branch, F.MC as MC_Factory, B.FM as FM_Branch, F.FM as FM_Factory, B.black as Black_Branch, F.Black as Black_Factory, 
+B.broken as Broken_Branch, F.broken as Broken_Factory, B.brown as Brown_Branch, F.brown as Brown_Factory,
+B.cherry as Cherry_Branch, F.cherry as Cherry_Factory, B.screen18 as Screen18_Branch, F.screen18 as Screen18_Factory,
+B.screen16 as Screen16_Branch, F.screen16 as Screen16_Factory, B.screen13 as Screen13_Branch, F.screen13 as Screen13_Factory,
+B.belowsc12 as Belowsc12_Branch, F.belowsc12 as Belowsc12_Factory
+From (SELECT sp_B.id, sp_B.name, sp_B.date_kcs, rkl_B.deduction as Deduction_branch, 
+      rkl_B.product_qty, rkl_B.basis_weight, rkl_B.MC, rkl_B.FM, rkl_B.black, rkl_B.broken, rkl_B.brown, rkl_B.cherry,
+      rkl_B.screen18, rkl_B.screen16, rkl_B.screen13, rkl_B.belowsc12 
+      FROM stock_picking sp_B join request_kcs_line rkl_B on sp_B.id=rkl_B.picking_id where sp_B.picking_type_code='incoming') B
+join (SELECT sp_F.backorder_id, sp_F.name, sp_F.date_kcs, rkl_F.deduction as Deduction_factory, 
+      rkl_F.product_qty, rkl_F.basis_weight, rkl_F.MC, rkl_F.FM, rkl_F.black, rkl_F.broken, rkl_F.brown, rkl_F.cherry,
+      rkl_F.screen18, rkl_F.screen16, rkl_F.screen13, rkl_F.belowsc12 
+      FROM stock_picking sp_F join request_kcs_line rkl_F on sp_F.id=rkl_F.picking_id where sp_F.picking_type_code='incoming') F 
+on B.id=F.backorder_id
+--order by F.backorder_id
+
+Ned Stock GRN Matching
+
+Select B.id, B.name as GRN_Branch, B.date_kcs as Branch_Date_Received, 
+F.backorder_id, F.name as GRN_Factory, F.date_kcs as Factory_Date_Received, 
+B.Deduction_branch, F.Deduction_factory, B.Deduction_branch-F.Deduction_factory as BRN_FAC,
+B.product_qty as net_weight_branch, F.product_qty as net_weight_factory,
+B.basis_weight as basis_weight_branch, F.basis_weight as basis_weight_factory,
+B.MC as MC_Branch, F.MC as MC_Factory, B.FM as FM_Branch, F.FM as FM_Factory, B.black as Black_Branch, F.Black as Black_Factory, 
+B.broken as Broken_Branch, F.broken as Broken_Factory, B.brown as Brown_Branch, F.brown as Brown_Factory,
+B.cherry as Cherry_Branch, F.cherry as Cherry_Factory, B.screen18 as Screen18_Branch, F.screen18 as Screen18_Factory,
+B.screen16 as Screen16_Branch, F.screen16 as Screen16_Factory, B.screen13 as Screen13_Branch, F.screen13 as Screen13_Factory,
+B.belowsc12 as Belowsc12_Branch, F.belowsc12 as Belowsc12_Factory
+From (SELECT sp_B.id, sp_B.name, sp_B.date_kcs, rkl_B.deduction as Deduction_branch, 
+      rkl_B.product_qty, rkl_B.basis_weight, rkl_B.MC, rkl_B.FM, rkl_B.black, rkl_B.broken, rkl_B.brown, rkl_B.cherry,
+      rkl_B.screen18, rkl_B.screen16, rkl_B.screen13, rkl_B.belowsc12 
+      FROM stock_picking sp_B join request_kcs_line rkl_B on sp_B.id=rkl_B.picking_id where sp_B.picking_type_code='incoming') B
+join (SELECT sp_F.backorder_id, sp_F.name, sp_F.date_kcs, rkl_F.deduction as Deduction_factory, 
+      rkl_F.product_qty, rkl_F.basis_weight, rkl_F.MC, rkl_F.FM, rkl_F.black, rkl_F.broken, rkl_F.brown, rkl_F.cherry,
+      rkl_F.screen18, rkl_F.screen16, rkl_F.screen13, rkl_F.belowsc12 
+      FROM stock_picking sp_F join request_kcs_line rkl_F on sp_F.id=rkl_F.picking_id where sp_F.picking_type_code='incoming') F 
+on B.id=F.backorder_id
+order by F.backorder_id

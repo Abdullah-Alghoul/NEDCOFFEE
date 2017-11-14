@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    		
+    		
+    		<record id="view_ned_production_analysis_form" model="ir.ui.view">
+            <field name="name">view.ned.production.analysis.form</field>
+            <field name="model">production.analysis</field>
+            <field name="arch" type="xml">
+                <form string="Batch Report">
+                	<header>
+                   		<button name="load_data" string="Load Data" type="object"/>
+                   		<button name="export_data" string="Export Data" type="object"/>
+                   	</header>
+                    <sheet>
+                        <group col="4">
+                            <field name="production_id" required="1"/>
+                            <field name="cost_of_purchases"/>
+                            <field name="prod_pl" readonly="1"/>
+                            <field name="input_basis_qty"/>
+                            <field name="output_product_received"/>
+                        </group >
+                        <group string="Input">
+                       	<field name="input_ids" nolabel="1" readonly="1">
+                       		<tree>
+                       			<field name="categ_code"/>
+                       			<field name="product_id"/>
+                       			<field name="premium"/>
+                       			<field name="bom"/>
+                       			<field name="net_qty" sum="net_qty"/>
+                       			<field name="basis_qty" sum="basis_qty"/>
+                       			<field name="actual" widget="percentpie" sum="actual"/>
+                       			<field name="var" widget="percentpie"/>
+                       			<field name="var_usd" sum="var_usd"/>
+                       			<field name="mc" avg="mc"/>
+			                    <field name="fm" avg="fm"/>
+			                    <field name="black" avg="black"/>
+			                    <field name="broken" avg="broken"/>
+			                    <field name="brown" avg="brown"/>
+			                    <field name="screen18" avg="screen18"/>
+			                    <field name="screen16" avg="screen16"/>
+			                    <field name="screen13" avg="screen13"/>
+			                    <field name="screen12" avg="screen12"/>
+                       		</tree>
+                       	</field>
+                       	</group>
+                       	<newline/>
+                       	<group string="Output">
+                       	<field name="output_ids" nolabel="1" readonly="1">
+                       		<tree>
+                       			<field name="categ_code"/>
+                       			<field name="product_id"/>
+                       			<field name="premium"/>
+                       			<field name="bom"/>
+                       			<field name="net_qty" sum="net_qty"/>
+                       			<field name="basis_qty" sum="basis_qty"/>
+                       			<field name="actual" widget="percentpie" sum="actual"/>
+                       			<field name="var" widget="percentpie" sum="var"/>
+                       			<field name="var_usd" sum="var_usd"/>
+                       			<field name="mc" avg="mc"/>
+			                    <field name="fm" avg="fm"/>
+			                    <field name="black" avg="black"/>
+			                    <field name="broken" avg="broken"/>
+			                    <field name="brown" avg="brown"/>
+			                    <field name="screen18" avg="screen18"/>
+			                    <field name="screen16" avg="screen16"/>
+			                    <field name="screen13" avg="screen13"/>
+			                    <field name="screen12" avg="screen12"/>
+                       		</tree>
+                       	</field>
+	                    </group>
+	                    <newline/>
+	                    <group>
+	                    	<field name="summary_ids" readonly="1">
+	                    		<tree>
+	                    			<field name="name"/>
+	                    			<field name="bom"/>
+	                    			<field name="basis"/>
+	                    			<field name="actual"/>
+	                    			<field name="var"/>
+	                    		</tree>
+	                    	</field>
+	                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    	
+    	
+    	<record id="action_ned_production_analysis" model="ir.actions.act_window">
+            <field name="name">Production Analysis</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">production.analysis</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+        
+       <menuitem id="menu_action_ned_production_mrp_analysis" 
+         	action="action_ned_production_analysis" 
+         	sequence="950" 
+        	parent="mrp_operations.menu_report_mrp_workorders_tree"/>
+       
+       <menuitem id="menu_action_ned_production_analysis" 
+         	action="action_ned_production_analysis" 
+         	sequence="200" 
+        	parent="general_kcs.menu_report_kcs" 
+        	groups="mrp.group_mrp_user,mrp.group_mrp_manager"/>
+       
+        
+        	<record id="view_ned_batch_report_form" model="ir.ui.view">
+            <field name="name">view.ned.batch.report.form</field>
+            <field name="model">batch.report</field>
+            <field name="arch" type="xml">
+                <form string="Batch Report">
+                	<header>
+                   		<button name="load_data" string="Load Data" type="object"/>
+                   		<button name="export_data" string="Export Data" type="object"/>
+                   	</header>
+                    <sheet>
+                        <group col="4">
+                            <field name="production_id" required="1"/>
+                            <newline/>
+                            <field name="stack_id"/>
+                            <field name="product_id"/>
+                        </group>
+                        <notebook>
+                        	<page string="INPUT">
+	                        	<field name="input_ids" nolabel="1" readonly="1">
+	                        		<tree>
+                          			<field name="picking_id"/>
+                          			<field name="stack_id"/>
+                          			<field name="product_id"/>
+                          			<field name="net_qty" sum="net_qty"/>
+                          			<field name="basis_qty" sum="basis_qty"/>
+                          			<field name="mc" avg="mc"/>
+  					                    <field name="fm" avg="fm"/>
+  					                    <field name="black" avg="black"/>
+  					                    <field name="broken" avg="broken"/>
+  					                    <field name="brown" avg="brown"/>
+  					                    <field name="mold" avg="mold"/>
+  					                    <field name="cherry" avg="cherry"/>
+  					                    <field name="screen18" avg="screen18"/>
+  					                    <field name="screen16" avg="screen16"/>
+  					                    <field name="screen13" avg="screen13"/>
+  					                    <field name="screen12" avg="screen12"/>
+	                        		</tree>
+	                        	</field>
+	                        </page>
+	                        <page string="OUTPUT">
+	                        	<field name="outputs_ids" nolabel="1" readonly="1">
+	                        		<tree>
+	                        			<field name="picking_id"/>
+	                        			<field name="stack_id"/>
+	                        			<field name="product_id"/>
+	                        			<field name="net_qty" sum="net_qty"/>
+	                        			<field name="basis_qty" sum="basis_qty"/>
+	                        			<field name="mc" avg="mc"/>
+					                    <field name="fm" avg="fm"/>
+					                    <field name="black" avg="black"/>
+					                    <field name="broken" avg="broken"/>
+					                    <field name="brown" avg="brown"/>
+					                    <field name="mold" avg="mold"/>
+					                    <field name="cherry" avg="cherry"/>
+					                    <field name="screen18" avg="screen18"/>
+					                    <field name="screen16" avg="screen16"/>
+					                    <field name="screen13" avg="screen13"/>
+					                    <field name="screen12" avg="screen12"/>
+	                        		</tree>
+	                        	</field>
+	                        </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+		 <record id="action_ned_batch_report" model="ir.actions.act_window">
+            <field name="name">Batch Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">batch.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+        
+       <menuitem id="menu_action_ned_batch_report" 
+         	action="action_ned_batch_report" 
+         	sequence="900" 
+        	parent="mrp_operations.menu_report_mrp_workorders_tree" 
+        	groups="mrp.group_mrp_user,mrp.group_mrp_manager"/>
+        
+        
+        <menuitem id="menu_action_ned_batch_kcs_report" 
+         	action="action_ned_batch_report" 
+         	sequence="100" 
+        	parent="general_kcs.menu_report_kcs" 
+        	groups="mrp.group_mrp_user,mrp.group_mrp_manager"/>
+        
+    
+    
+    </data>
+</openerp>

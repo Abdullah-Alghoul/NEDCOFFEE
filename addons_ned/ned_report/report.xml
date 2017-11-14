@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+ 
+ 		<menuitem id="menu_root_ned_report_manager" name="Management Report"  
+ 			groups="bes_purchase_contract.group_purchase_contract_manager,bes_sale_contract.group_sales_contract_manager,stock.group_stock_manager,general_kcs.group_kcs_manager,mrp.group_mrp_manager"
+ 			sequence="50"/>
+ 			
+ 			<menuitem id="menu_purchase_report_master" name="Purchase" 
+ 				parent="menu_root_ned_report_manager"  sequence="10"/>
+ 			
+ 			<menuitem id="menu_action_ned_master_report_gain_loss" 
+	         	action="ned_contract.action_ned_gain_loss" 
+	         	sequence="10" 
+        	parent="menu_purchase_report_master"/>
+        	
+        	<menuitem id="menu_action_ned_master_report_supplier_management" 
+	         	action="ned_contract.action_ned_supplier_management" 
+	         	sequence="20" 
+	        	parent="menu_purchase_report_master"
+	        	/>
+        	
+        	<menuitem id="menu_action_report_ned_master_report_purchase_movemont" 
+        		action="ned_kcs.action_report_ned_stock_stack_tree" sequence="100" 
+	        	parent="menu_purchase_report_master" name="Stock Movement"
+	        	/>
+	       	
+	       	
+	       	<menuitem id="menu_sale_report_master" name="Sale" 
+ 				parent="menu_root_ned_report_manager"  sequence="20"/>
+ 				
+ 				
+	        	
+	        	<menuitem id="menu_action_report_ned_master_report_sale_movemont" 
+	        		action="ned_kcs.action_report_ned_stock_stack_tree" sequence="100" 
+		        	parent="menu_sale_report_master" name="Stock Movement"
+	        	/>
+	        	
+	        	
+	        	
+	        	
+	        	<record id="action_sale_contract_report_ned_master_export" model="ir.actions.act_window">
+		            <field name="name">Sale Contract</field>
+		            <field name="type">ir.actions.act_window</field>
+		            <field name="res_model">sale.contract</field>
+		            <field name="view_type">form</field>
+		            <field name="view_mode">graph</field>
+		            <field name="domain">[('type','=','export')]</field>
+		            <field name="context">{'default_type':'export','search_by_field_date': ['date']}</field>
+		            <field name="search_view_id" ref="bes_sale_contract.sale_contract_search"/>
+		            <field name="help" type="html">
+		              <p class="oe_view_nocontent_create">
+		              		Create a sale contract, the first step of a new contract.
+		              </p>
+		            </field>
+		        </record>
+		        
+		        <menuitem id="menu_action_sale_contract_report_ned_master_export" 
+	        		action="action_sale_contract_report_ned_master_export" sequence="150" 
+		        	parent="menu_sale_report_master" 
+	        	/>
+	        	
+	        <menuitem id="menu_warehouse_report_master" name="Warehouse" 
+ 				parent="menu_root_ned_report_manager"  sequence="30"/>
+ 				
+ 			<menuitem id="menu_action_report_ned_master_report_warehouse_movemont" 
+        		action="ned_kcs.action_report_ned_stock_stack_tree" sequence="100" 
+	        	parent="menu_warehouse_report_master" name="Stock Movement"
+	        	/>
+	        
+	        <menuitem id="menu_warehouse_qc_master" name="Quality Control" 
+ 				parent="menu_root_ned_report_manager"  sequence="50"/>
+ 				
+ 			
+ 			
+ 			<menuitem id="menu_action_report_ned_master_report_qc_movemont" 
+        		action="ned_kcs.action_report_ned_stock_stack_tree" sequence="100" 
+	        	parent="menu_warehouse_qc_master" name="Stock Movement"
+	        	/>
+	        
+	         <menuitem id="menu_action_ned_qc_master_batch_report" 
+	         	action="ned_mrp.action_ned_batch_report" 
+	         	sequence="150" 
+	        	parent="menu_warehouse_qc_master" 
+	        	/>
+	        	
+	        <menuitem id="menu_action_ned_qc_master_report_production_analysis" 
+	         	action="ned_mrp.action_ned_production_analysis" 
+	         	sequence="200"
+	        	parent="menu_warehouse_qc_master"/>
+	       
+	        <menuitem id="menu_report_ned_mrp_master" name="MRP" 
+ 				parent="menu_root_ned_report_manager"  sequence="70"/>
+ 			
+ 			
+ 			<menuitem id="menu_action_report_ned_master_report_mrp_dash_action" action="ned_mrp.open_board_mrp_dash_action" 
+	        	parent="menu_report_ned_mrp_master"
+	        	sequence="10"/>
+	        	
+ 			<menuitem id="menu_action_report_ned_master_report_mrp_movemont" 
+        		action="ned_kcs.action_report_ned_stock_stack_tree" sequence="100" 
+	        	parent="menu_report_ned_mrp_master" name="Stock Movement"
+	        	/>
+	        
+	        
+	         <menuitem id="menu_action_ned_mrp_master_batch_report" 
+	         	action="ned_mrp.action_ned_batch_report" 
+	         	sequence="150" 
+	        	parent="menu_report_ned_mrp_master" 
+	        	/>
+	        	
+	        <menuitem id="menu_action_ned_mrp_master_report_production_analysis" 
+	         	action="ned_mrp.action_ned_production_analysis" 
+	         	sequence="200"
+	        	parent="menu_report_ned_mrp_master"/>
+ </data>
+ </openerp>

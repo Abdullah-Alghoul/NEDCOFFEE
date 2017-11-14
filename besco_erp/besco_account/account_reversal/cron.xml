@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+    
+    	<record id="cron_reversed_for_account_move" model="ir.cron">
+            <field name="name">cron_reversed_for_account_move</field>
+            <field name="interval_number">3</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'account.move'" name="model"/>
+            <field eval="'cron_reversed_for_account_move'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+    </data>
+</openerp>

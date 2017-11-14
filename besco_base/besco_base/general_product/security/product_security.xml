@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate='0'>
+		
+		<record id="group_product_creation" model="res.groups">
+	        <field name="name">Product Creation</field>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+	    
+	    <record id="group_product_finished_good" model="res.groups">
+	        <field name="name">Product Finished Goods</field>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+    	
+    	<record id="group_product_materials" model="res.groups">
+	        <field name="name">Product Materials</field>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+	    
+	    <record id="group_product_semi_product" model="res.groups">
+	        <field name="name">Product Semi Products</field>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+	    
+	    <record id="group_product_consumables" model="res.groups">
+	        <field name="name">Product Consumables</field>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+	    
+	    <record id="group_product_tools" model="res.groups">
+	        <field name="name">Product Tools</field>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	    </record>
+	    
+    <!-- Profiles -->
+    	<record id="profile_master_item" model="profile">
+        	<field name="name">Master Items / Dữ liệu chính sản phẩm</field>
+	        <field name="groups_ids" eval="[(6, 0, [ref('group_product_creation'),
+	        										ref('group_product_finished_good'),
+	        										ref('group_product_materials'),
+	        										ref('group_product_semi_product'),
+	        										ref('group_product_consumables'),
+	        										ref('group_product_tools')])]"/>
+	        <field name="description">- Có quyền tạo mới, chỉnh sửa thông tin hàng hóa, dịch vụ
+- Có quyền tạo mới, chỉnh sửa thông tin nguyên vật liệu, công cụ dụng cụ
+- Có quyền tạo mới, chỉnh sửa thông tin bán thành phẩm, thành phẩm
+- Có quyền sinh mã Barcode EAN cho các nhóm dữ liệu trên
+- Có quyền nhập 2 Items giống nhau thành 1 Item (Do nhập liệu sai)</field>
+	    </record>
+	    
+    </data>
+</openerp>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- general.hr.timesheet.lines -->
+		<record id="view_calendar_hr_holidays_new_inherited" model="ir.ui.view">
+			 <field name="name">view.calendar.hr.holidays.new.inherited</field>
+			 <field name="model">hr.holidays</field>
+			 <field name="inherit_id" ref="hr_holidays.view_holiday_new_calendar"/>
+			 <field name="arch" type="xml">
+				<xpath expr="//calendar" position="replace">
+					<calendar string="Leave Request" color="employee_id" date_start="date_from" date_stop="date_to" mode="month" quick_add="False" avatar_model="hr.employee">
+	                    <field name="employee_id"/>
+	                    <field name="holiday_status_id"/>
+	                </calendar>
+				</xpath>
+			 </field>
+		</record>
+		
+		<record id="view_holiday_status_form_general_modify_inherit" model="ir.ui.view">
+			 <field name="name">view.holiday.status.form.general.modify.inherited</field>
+			 <field name="model">hr.holidays.status</field>
+			 <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+			 <field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="leave_type_code"/> 			
+				</xpath>
+				<xpath expr="//field[@name='reason_ids']" position="replace">
+					<field name="reason_ids" nolabel="1" colspan='4'>
+						<tree editable="1">
+	          					<field name="name"/>
+	          					<field name="reason_code"/>
+	          				</tree>
+	          				<form>
+	          					<field name="name"/>
+	          					<field name="reason_code"/>
+	          				</form>
+					</field>	
+				</xpath>
+			 </field>
+		</record>
+		
+		<record id="edit_holiday_new_general_modify_ned" model="ir.ui.view">
+            <field name="name">edit_holiday_new_general_modify_ned</field>
+            <field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='name']" position="replace">
+					<field name="name" attrs="{'invisible': [('type', '=', 'remove')]}" /> 			
+				</xpath>
+				<xpath expr="//field[@name='employee_id']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='holiday_status_id']" position="before">
+					<field name="employee_id" attrs="{'required':[('holiday_type','=','employee')],'invisible':[('holiday_type','=','category')]}" on_change="onchange_employee(employee_id)" groups="general_hr.group_employee_coach,base.group_hr_manager"/>			
+				</xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

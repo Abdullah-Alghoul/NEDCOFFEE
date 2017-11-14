@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Sequences for production.request --> 
+        <record id="seq_production_request" model="ir.sequence">
+            <field name="name">Production Request</field>
+            <field name="code">mrp.request</field>
+            <field name="prefix">PR</field>
+            <field name="padding">5</field>
+            <field name="suffix">/%(month)s/%(y)s</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</openerp>

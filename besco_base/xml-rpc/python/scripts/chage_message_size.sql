@@ -1,0 +1,1 @@
+ALTER TABLE mrp_procurement ALTER COLUMN message TYPE character varying(1024);

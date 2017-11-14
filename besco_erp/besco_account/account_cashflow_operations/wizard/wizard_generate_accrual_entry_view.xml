@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_generate_accrual_entry_form" model="ir.ui.view">
+        <field name="name">wizard_generate_accrual_entry_form</field>
+        <field name="model">wizard.generate.accrual.entry</field>
+        <field name="arch" type="xml">
+            <form string="Generate Accrual Entries">
+                <div>
+                    <p>
+                        This wizard will generate Accrual Entry for the selected period or Revert Accrual Entry for the first day of next period.<br/>
+                    </p> 
+                </div>
+                <group>
+                	<group>
+                		<field name="entry_type"/>
+                    	<field name="period_id"/>
+                	</group>
+                    <group>
+                    	<field name="company_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Generate Entries" name="generate_entry" type="object" class="btn-primary"/>
+                    or
+                    <button string="View Entries" name="open_accrual_entries" type="object" class="btn-primary"/>
+                    or
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+         </field>
+    </record>
+
+    <record id="action_generate_accrual_entry" model="ir.actions.act_window">
+        <field name="name">Generate Accrual Entries</field>
+        <field name="res_model">wizard.generate.accrual.entry</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="wizard_generate_accrual_entry_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="Generate Accrual Entries" 
+    	action="action_generate_accrual_entry"
+        id="menu_action_generate_accrual_entry"
+        parent="menu_account_cash_operation"  
+        sequence="99"/>
+
+</odoo>

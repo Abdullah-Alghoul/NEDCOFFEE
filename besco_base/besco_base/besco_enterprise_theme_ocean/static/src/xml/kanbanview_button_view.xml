@@ -1,0 +1,18 @@
+<templates>
+    <t t-extend="KanbanView.buttons">
+        <t t-jquery="button.o-kanban-button-new" t-operation="before">
+            <button name="select_columns" type="button" id="select_columns" class="oe_select_columns oe_button btn-primary oe_form_button_create btn btn-default btn-sm oe_dropdown_toggle" data-toggle="dropdown">
+            Select Column(s) <span class="caret" style = "margin:3px"></span>
+        </button>
+
+      <ul id="showcb" class="oe_dropdown_menu" data-toggle="dropdown" style="max-height:250px; width:180px; overflow:auto; ">
+          <li>
+              <button name="apply" id="apply" class="oe_dropdown_btn">
+            Apply
+             </button>
+        </li>
+      </ul>
+
+        </t>
+    </t>
+</templates>

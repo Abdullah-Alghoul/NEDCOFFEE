@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+base_calendar.access_crm_meeting_all,crm.meeting_allll,base_calendar.model_crm_meeting,base.group_user,1,1,1,1

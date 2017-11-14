@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<!-- Modify Product Category -->
+        <record id="product_category_form_view_mrp_add_congdoan" model="ir.ui.view">
+            <field name="name">product.category.form.view.mrp.add.congdoan</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="stock_account.view_category_property_form"/>
+            <field name="arch" type="xml">
+            	<field name="property_stock_journal" position="after">
+            		<field name="production_stage_id"/>
+            	</field>
+            </field>
+        </record>
+		
+    </data>
+</openerp>

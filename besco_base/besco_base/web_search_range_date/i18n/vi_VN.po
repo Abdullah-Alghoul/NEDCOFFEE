@@ -1,0 +1,116 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* web_search_range_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-16 14:23+0000\n"
+"PO-Revision-Date: 2017-02-16 14:23+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: web_search_range_date
+#: model:ir.ui.view,arch_db:web_search_range_date.assets_backend
+msgid "<?xml version=\"1.0\"?>\n"
+"<data inherit_id=\"web.assets_backend\" name=\"web_search_date_range\">\n"
+"            <xpath expr=\".\" position=\"inside\">\n"
+"                <script type=\"text/javascript\" src=\"/web_search_range_date/static/src/js/web_search_range_date.js\"/>\n"
+"                <link rel=\"stylesheet\" href=\"/web_search_range_date/static/src/css/web_search_range_date.css\"/>\n"
+"            </xpath>\n"
+"        </data>\n"
+"        \n"
+"    "
+msgstr "<?xml version=\"1.0\"?>\n"
+"<data inherit_id=\"web.assets_backend\" name=\"web_search_date_range\">\n"
+"            <xpath expr=\".\" position=\"inside\">\n"
+"                <script type=\"text/javascript\" src=\"/web_search_range_date/static/src/js/web_search_range_date.js\"/>\n"
+"                <link rel=\"stylesheet\" href=\"/web_search_range_date/static/src/css/web_search_range_date.css\"/>\n"
+"            </xpath>\n"
+"        </data>\n"
+"        \n"
+"    "
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/xml/web_search_range_date.xml:25
+#, python-format
+msgid "Clear"
+msgstr "Làm sạch"
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/xml/web_search_range_date.xml:34
+#, python-format
+msgid "Day"
+msgstr "Ngày"
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/js/web_search_range_date.js:27
+#: code:addons/web_search_range_date/static/src/js/web_search_range_date.js:34
+#, python-format
+msgid "Error"
+msgstr "Lỗi"
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/js/web_search_range_date.js:27
+#, python-format
+msgid "Filter name is required."
+msgstr "Tên bộ lọc là bắt buộc."
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/js/web_search_range_date.js:34
+#, python-format
+msgid "Filter with same name already exists."
+msgstr "Đã tồn tại bộ lọc cùng tên."
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/xml/web_search_range_date.xml:36
+#, python-format
+msgid "Month"
+msgstr "Tháng"
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/xml/web_search_range_date.xml:24
+#, python-format
+msgid "Search"
+msgstr "Tìm kiếm"
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/xml/web_search_range_date.xml:30
+#, python-format
+msgid "Today"
+msgstr "Hôm nay"
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/xml/web_search_range_date.xml:35
+#, python-format
+msgid "Week"
+msgstr "Tuần"
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/xml/web_search_range_date.xml:15
+#, python-format
+msgid "From"
+msgstr " Từ "
+
+#. module: web_search_range_date
+#. openerp-web
+#: code:addons/web_search_range_date/static/src/xml/web_search_range_date.xml:19
+#, python-format
+msgid "To"
+msgstr " Đến "
+

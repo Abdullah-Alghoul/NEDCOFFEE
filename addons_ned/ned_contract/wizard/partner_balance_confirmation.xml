@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+	    <record id="view_wizard_report_partner_balance_confirmation" model="ir.ui.view">
+	        <field name="name">wizard.report.partner.balance.confirmation.form</field>
+	        <field name="model">wizard.report.partner.balance.confirmation</field>
+	        <field name="arch" type="xml">
+		        <form string="Transfer">
+		        	<sheet>
+			            <group col="4">
+		            		<field name="partner_id" required="1"/>
+		            		<field name="date"/>
+		                </group>
+		                <footer>
+		                	<button string="In Report" name="printf_report" type="object" class="oe_highlight"/>
+		                    <button string="_Cancel" class="btn-default" special="cancel"/>
+		                </footer>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    	
+    	<record id="action_wizard_report_partner_balance_confirmation" model="ir.actions.act_window">
+            <field name="name">Partner Confirmation</field>
+            <field name="res_model">wizard.report.partner.balance.confirmation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+	    
+        
+        <menuitem
+		        id="menu_action_wizard_report_partner_balance_confirmation"
+		        parent="general_aged_partner_balance.menu_vas_partner_reports"
+		        action="action_wizard_report_partner_balance_confirmation"
+		        sequence="50"
+		       />
+       	
+       	
+    
+      </data>
+</openerp>

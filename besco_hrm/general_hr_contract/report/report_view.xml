@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate='0'>
+		
+	 <!-- Template Wage up Contract -->
+	 	<record id="report_wageup_contract_history" model="ir.actions.report.xml">
+	        <field name="name">report_wageup_contract_history</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.contract.history</field>
+	        <field name="report_name">report_wageup_contract_history</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">general_hr_contract/report/wageup_contract.py</field>
+	        <field name="report_rml">general_hr_contract/report/wageup_contract.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="True" 
+			menu="True"
+			id="report_wageup_contract_history"
+			model="hr.contract.history"
+			name="report_wageup_contract_history"
+	        string="Wageup Contract"
+        	rml="general_hr_contract/report/wageup_contract.odt"/>
+	 
+	</data>
+</openerp>
+

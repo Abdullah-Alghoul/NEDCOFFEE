@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+		<record id="view_quick_create_entry_form" model="ir.ui.view">
+            <field name="name">view_quick_create_entry_form</field>
+            <field name="model">quick.create.entry</field>
+            <field name="arch" type="xml">
+                <form string="Register Payment" version="7">
+                    <group>
+                    	<group>
+                    		<field name="partner_id"/>
+                    		<field name="label"/>
+                    		<field name="analytic_account_id"/>
+                    		<field name="dr_account_id"/>
+                    		<field name="cr_account_id"/>
+                    		<field name="amount"/>
+                    	</group>
+                    	<group>
+                    		<field name="currency_rate"/>
+                    		<field name="amount_currency"/>
+                    		<field name="currency_id"/>
+                    		<field name="rate_type"/>
+                    		
+                    		<field name="company_currency_id" invisible='1'/>
+                    	</group>
+                    </group>
+                    <footer>
+                        <button string='Update' name="update" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_quick_create_entry_form" model="ir.actions.act_window">
+            <field name="name">Quick create entry</field>
+            <field name="res_model">quick.create.entry</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_quick_create_entry_form"/>
+            <field name="target">new</field>
+        </record>
+        
+</data>
+</openerp>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<!-- 
+		<record id="qa_gdn_report" model="ir.actions.report.xml">
+	        <field name="name">qa_gdn_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">qa_gdn_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_kcs/report/qa_gdn.py</field>
+	        <field name="report_rml">ned_kcs/report/qa-gdn.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="qa_gdn_report" 
+			model="stock.picking" 
+			name="qa_gdn_report"
+	        string="QA-GDN"
+	        rml="ned_kcs/report/QA-GDN.odt"/>
+	     -->
+	    <!-- 
+	    <record id="qa_production_report" model="ir.actions.report.xml">
+	        <field name="name">qa_production_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">qa_production_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_kcs/report/qa_gdn.py</field>
+	        <field name="report_rml">ned_kcs/report/QA-prodution.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="qa_gdn_report"
+			model="stock.picking" 
+			name="qa_gdn_report"
+	        string="QA-PRODUCTION"
+	        rml="ned_kcs/report/QA-prodution.odt"/>
+	        
+	    
+	    <record id="qa_grn_report" model="ir.actions.report.xml">
+	        <field name="name">qa_grn_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">qa_grn_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_kcs/report/qa_gdn.py</field>
+	        <field name="report_rml">ned_kcs/report/QA-GRN.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="qa_grn_report"
+			model="stock.picking" 
+			name="	"
+	        string="QA-GRN"
+	        rml="ned_kcs/report/QA-GRN.odt"/>
+	    -->
+	    
+	    <record id="report_stock_with_kcs_quality_details" model="ir.actions.report.xml">
+	        <field name="name">report_stock_with_kcs_quality_details</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">report_stock_with_kcs_quality_details</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_kcs/report/stock_with_kcs_quality_details.py</field>
+	        <field name="report_rml">ned_kcs/report/stock_with_kcs_quality_details.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="report_stock_with_kcs_quality_details"
+			model="stock.picking" 
+			name="report_stock_with_kcs_quality_details"
+	        string="kcs_quality"
+	        rml="ned_kcs/report/stock_with_kcs_quality_details.ods"/>
+	    
+	    
+	    
+	    <record id="report_stock_kcs_qa_gdn" model="ir.actions.report.xml">
+	        <field name="name">report_stock_kcs_qa_gdn</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">lot.kcs</field>
+	        <field name="report_name">report_stock_kcs_qa_gdn</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-pdf'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">ned_kcs/report/qa_gdn.py</field>
+	        <field name="report_rml">ned_kcs/report/qa-gdns.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="True"
+			id="report_stock_kcs_qa_gdn"
+			model="lot.kcs" 
+			name="report_stock_kcs_qa_gdn"
+	        string="QA-GDN"
+	        rml="ned_kcs/report/qa-gdns.odt"/>
+	        
+	</data>
+</openerp>

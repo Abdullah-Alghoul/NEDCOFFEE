@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	     <menuitem
+	            action="action_cost_history"
+	            id="menu_action_cost_history"
+	            parent="general_account.menu_stock_account"
+	            groups="account.group_account_user"
+	            sequence="1"/>
+	      
+    </data>
+</openerp>

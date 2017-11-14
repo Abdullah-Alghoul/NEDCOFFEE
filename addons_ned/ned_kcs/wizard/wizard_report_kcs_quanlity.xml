@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+	    <record id="view_wizard_report_kcs_quanlity" model="ir.ui.view">
+	        <field name="name">wizard.report.kcs.quanlity.form</field>
+	        <field name="model">wizard.report.kcs.quanlity</field>
+	        <field name="arch" type="xml">
+		        <form string="Transfer">
+		        	<sheet>
+			            <group col="4">
+		            		<field name="s_contract"/>
+		                </group>
+		                <footer>
+		                	<button string="In Report" name="printf_report" type="object" class="oe_highlight"/>
+		                    <button string="_Cancel" class="btn-default" special="cancel"/>
+		                </footer>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    	
+    	<record id="action_wizard_report_kcs_quanlity" model="ir.actions.act_window">
+            <field name="name">Report KCs Quanlity</field>
+            <field name="res_model">wizard.report.kcs.quanlity</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+	    
+        <!--  
+        <menuitem id="menu_action_wizard_report_kcs_quanlity" action="action_wizard_report_kcs_quanlity" 
+        	parent="general_kcs.menu_request_kcs"
+        	groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="500"/>
+       	-->
+       	
+       	
+       	  <record id="view_wizard_in_out_stack" model="ir.ui.view">
+	        <field name="name">wizard.wizard.in.out.stack.form</field>
+	        <field name="model">wizard.in.out.stack</field>
+	        <field name="arch" type="xml">
+		        <form string="Transfer">
+		        	<sheet>
+			            <group col="4">
+		            		<field name="date"/>
+		            		<field name="qty_stack"/>
+							<field name="zone_id"/>		            		
+		                </group>
+		                <newline/>
+						<group>	
+							<field name="stack_ids" readonly="1">
+								<tree>
+									<field name="zone_id"/>
+									<field name="name"/>
+									<field name="init_qty" sum="init_qty"/>									
+								</tree>
+							</field>                
+						</group>
+						<footer>
+		                	<button string="Stack" name="stack" type="object" class="oe_highlight"/>
+							<button string="Merg Stack" name="merg_stack" type="object" class="oe_highlight"/>		                	
+									                	
+		                    <button string="_Cancel" class="btn-default" special="cancel"/>
+		                </footer>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    	
+    	<record id="action_wizard_in_out_stack" model="ir.actions.act_window">
+            <field name="name">Stack</field>
+            <field name="res_model">wizard.in.out.stack</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+	    
+        <record model="ir.values" id="stack_wizard_in_out_stack">
+            <field name="model_id" ref="ned_stock.model_stock_stack" />
+            <field name="name">Stack</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_wizard_in_out_stack'))" />
+            <field name="key">action</field>
+            <field name="model">stock.stack</field>
+        </record>
+        
+    
+      </data>
+</openerp>

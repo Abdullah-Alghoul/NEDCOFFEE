@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_general_hr_timesheet_lines_coach,general_hr_timesheet_lines_coach,model_general_hr_timesheet_lines,general_hr.group_employee_coach,1,1,1,1
+access_hr_team_coach,hr_team_coach,model_hr_team,general_hr.group_employee_coach,1,1,1,1
+access_hr_team_officer,hr_team_officier,model_hr_team,base.group_hr_user,1,1,1,1
+access_general_hr_timesheet_officier,general_hr_timesheet_officier,model_general_hr_timesheet,base.group_hr_user,1,1,1,1
+access_general_hr_timesheet_lines_officier,general_hr_timesheet_lines_officier,model_general_hr_timesheet_lines,base.group_hr_user,1,1,1,1

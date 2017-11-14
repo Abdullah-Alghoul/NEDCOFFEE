@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+     
+	    <!-- Promotion Line -->
+	    <record id="view_sale_promo_lines_form" model="ir.ui.view">
+	        <field name="name">sale.promo.lines.form</field>
+	        <field name="model">sale.promo.lines</field>
+	        <field name="type">form</field>
+	        <field name="arch" type="xml">
+	            <form string="Sale Promotion Line">
+	            	<group>
+	            		<group>
+	            			<field name="active"/>
+	            			<label for="start_date_active"/>
+                            <div>
+                                <field name="start_date_active" class="oe_inline"/> - 
+		                    	<field name="end_date_active" class="oe_inline"/>
+                            </div>
+                            
+                            <field name="product_attribute"  />
+			                <field name="product_id" attrs="{'invisible':[('product_attribute','!=','product')], 'required':[('product_attribute','=','product')]}"/>
+			                <field name="categ_id" attrs="{'invisible':[('product_attribute','!=','cat')], 'required':[('product_attribute','=','cat')]}"/>
+			                
+			                <field name="product_uom" attrs="{'invisible':[('product_attribute','!=','product')], 'required':[('product_attribute','=','product')]}"/>
+			                <field name="company_id" invisible ='1'/>
+			                <field name="promotion_id" invisible ='1'/>
+			                <field name="line_no" invisible="1"/>
+			                <field name="product_ean" invisible="1"   attrs="{'invisible':[('product_attribute','!=','product')]}"/>
+	            		</group>
+	            		<group>
+			                <field name="break_type"/>
+			                <field name="level_type"/>
+			                <field name="modify_type" string ="Modify Type" invisible ='1'/>	
+		                	<field name="volume_type"  />
+		                	<field name="operator"  /> 
+			                <field name="value_from" required='1'/>
+			                <field name="value_to" 
+			                	required='1'
+			                	attrs="{'invisible':[('operator','!=','between')]}"/>
+		                </group>
+	                </group>
+	                <newline/>
+	                <group string='Promotion Information' col="6"  colspan="2">
+		                <field name="benefit_product_id" required='1'/>
+		                <field name="benefit_uom" required='1'/>
+		                <field name="benefit_qty" required='1'/>
+		            </group>
+	                <newline/>
+	                <group string='Condition Attributes' colspan="4">
+	                	<field context="{'default_modify_type': modify_type}" name="promo_line_ids" nolabel='1' colspan="8">
+	                 		 <tree string="Details" editable='top'>
+	                 		 	<field name="logical"/>
+	                 		 	<field name="line_no" invisible ='1'/>
+			                    <field name="start_date_active" invisible ='1'/>
+				                <field name="end_date_active" invisible ='1'/>
+				                <field name="level_type" invisible ='1'/>
+				                <field name="modify_type" invisible ='1'/>				                
+				                <field name="product_attribute" on_change="onchange_leave2(level_type,modify_type,product_attribute,volume_type)"/>
+				                <field name="product_ean" invisible="1"   attrs="{'invisible':[('product_attribute','!=','product')]}"/>
+				                <field name="product_id"   attrs="{'invisible':[('product_attribute','!=','product')], 'required':[('product_attribute','=','product')]}"/>
+			                    <field name="product_uom" attrs="{'invisible':[('product_attribute','!=','product')], 'required':[('product_attribute','=','product')]}"/>
+				                <field name="categ_id" attrs="{'invisible':[('product_attribute','!=','cat')], 'required':[('product_attribute','=','cat')]}"/>
+				             
+				                <field name="volume_type"/>           
+				                <field name="break_type" invisible ='1'/>                
+				                <field name="operator"/>
+				                <field name="value_from"/>
+				                <field name="value_to" attrs="{'readonly':[('operator','!=','between')]}"/>
+				                <field name="active" invisible ='1'/>
+				                <field name="company_id" invisible ='1'/>
+				                <field name="parent_line_id" invisible ='1'/>
+	                 		 </tree>
+	             		 </field>
+	                </group>
+	                <footer>
+	                	<button string="Apply" name="create_line" type="object" default_focus="1"/>
+						or
+	            		<button special="cancel" string="_Cancel" icon='gtk-cancel'/>
+	                </footer>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <record id="action_create_promotion_line" model="ir.actions.act_window">
+	        <field name="name">Create Promotion Line</field>
+	        <field name="res_model">sale.promo.lines</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field name="target">new</field>
+	        <field name="context">{'default_list_type':'PRO', 
+	        	'default_modify_type': 'pro_goods',
+	        	'default_volume_type': 'qty'}</field>
+	        <field name="view_id" ref="view_sale_promo_lines_form"/>
+	    </record>
+		
+		<!--  =============== VIEWS: sale_promo_header ================= -->   
+	     <record model="ir.ui.view" id="view_sale_promo_header_search">
+	        <field name="name">sale.promo.header.search</field>
+	        <field name="type">search</field>
+	        <field name="model">sale.promo.header</field>
+	        <field name="arch" type="xml">
+	            <search  string="Sale Promotion Header">
+	                <field name="name"/>
+	                <field name="order_type" />
+	                <newline/>
+	                <field name="start_date_active"/>                    
+	                <field name="end_date_active"/>
+	                <newline/>
+	                <field name="start_hour" widget='float_time'/>
+	                <field name="end_hour" widget='float_time'/>
+	            </search>
+	        </field>
+	    </record>
+	    
+	     <record model="ir.ui.view" id="view_sale_promo_header_tree">
+	        <field name="name">sale.promo.header.tree</field>
+	        <field name="type">tree</field>
+	        <field name="model">sale.promo.header</field>
+	        <field name="arch" type="xml">
+	            <tree  string="Sale Promotion Header">
+	                <field name="name"/>
+	                <field name="list_type" invisible='1'/>
+	                <field name="order_type" />
+	                <field name="start_date_active"/>                    
+	                <field name="end_date_active"/>
+	                <field name="start_hour" widget='float_time'/>
+	                <field name="end_hour" widget='float_time'/>
+	            </tree>
+	        </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_sale_promo_header_form">
+	        <field name="name">sale.promo.header.form</field>
+	        <field name="type">form</field>
+	        <field name="model">sale.promo.header</field>
+	        <field name="arch" type="xml">
+	        	<form string="Sale Promotion Header" version="7.0">
+	        	<header>
+	        		<button name="action_approve" states="draft" string="Approve" type="object" icon="gtk-jump-to"/>
+	         		<button name="action_cancel" states="draft,approved" string="Cancel" type="object" icon="gtk-cancel" />
+	         		<button name="action_reset" states="cancel" string="Reset to Draft" type="object" icon="gtk-convert" />
+	        		<field name="state" select="1" readonly ="1" widget="statusbar" statusbar_visible="draft,approved,cancel" statusbar_colors='{"confirm":"blue"}'/>
+	        	</header>
+	       	  	<sheet>
+	        	    <div class="oe_title">
+	                     <div class="oe_edit_only">
+	                         <label for="name" string="Promotion Name"/>
+	                     </div>
+	                     <h1>
+	                         <field name="name"/>
+	                     </h1>
+	                </div>
+	                <group>
+	                	<group>
+							<!-- 
+		                    <field name="repeating_flag"/>
+		                     -->
+		                    <label for="start_date_active"/>
+                            <div>
+                                <field name="start_date_active" class="oe_inline"/> - 
+		                    	<field name="end_date_active" class="oe_inline"/>
+                            </div>
+		                    
+		                    <label for="start_hour"/>
+                            <div>
+		                    	<field name="start_hour" widget='float_time' class="oe_inline"/> - 
+			                    <field name="end_hour" nolabel='1' widget='float_time' class="oe_inline"/>
+                            </div>
+	                    </group>
+	                    <group>
+	                    	<field name="list_type" invisible='1'/>
+		                    <field name="compile_flag" invisible='1'/>
+		                    <field name="order_type"/>
+		                    <field name="active"/>
+	                    </group>
+	                </group>
+	                <label for="description"/>	
+		            <field name="description" colspan="4"/>	
+	                <notebook colspan="4">
+	                    <page string="Lines">
+	                    	<group colspan="4" col="4">
+		                    	<field name="search_product_ean"/>	
+		                    	<button name="%(action_create_promotion_line)d" string="Create Promotion Line" type="action"/>
+	                 		</group>
+	                 		<newline/>
+	                 		<field name="promo_line" nolabel='1' readonly='1'>
+	                     		 <tree editable='top'>
+					                <field readonly='1' name="product_attribute" invisible ='0'/>
+					                <field readonly='1' name="categ_id" invisible ='0'/>
+					                <field readonly='1' name="product_id" invisible ='0'/>
+					                <field readonly='1' name="product_ean" string='EAN13'/>
+					                <field readonly='1' name="product_uom" invisible ='0'/>
+					                
+					                <field readonly='1' name="volume_type"/>           
+					                <field readonly='1' name="break_type"/>                
+					                <field readonly='1' name="operator"/>
+					                <field readonly='1' name="value_from"/>
+					                <field readonly='1' name="value_to"/>
+					                
+					                <field name="benefit_product_id" string='Pro Item'/>
+					                <field name="benefit_uom" string='Pro UoM'/>
+					                <field name="benefit_qty" string='Pro Qty'/>
+					                
+					                <field name="active"/>
+					                <field name="company_id" invisible ='1'/>
+					                <button name="%(action_create_promotion_line)d" colspan="2" string="Update" type="action" icon="gtk-execute" context="{'load_grand_child':True}"/>
+						         </tree>
+	                 		 </field>	                     
+	                    </page>
+	                    <page string="Additional Info">
+	                    	<group col="8" >
+	                    		<group col="4">
+	                    			<field name="company_id"/>
+				                    <field name="currency_id"/>
+				                    <field name="requested_by"/>
+									<field name="approved_by"/>
+	                    		</group>
+	                    		<newline/>
+	                    		<group col="4">
+			                    	<group string='Shops'>
+				                    	<field name="warehouse_ids" nolabel='1'>
+				                    		<tree>
+				                    			<field name="name"/>
+				                    		</tree>
+				                    	</field>
+			                    	</group>
+			                    	<group  string='Customer Categories'>
+			                    		<field name="member_category" nolabel='1'>
+			                    			<tree>
+				                    			<field name="name"/>
+				                    		</tree>
+				                    	</field>
+			                    	</group>
+		                    	</group>
+	                    	</group>
+	                    </page>
+		             </notebook>
+		             </sheet>
+		             <div class="oe_chatter">
+		                 <field name="message_follower_ids" widget="mail_followers"/>
+		                 <field name="message_ids" widget="mail_thread"/>
+		             </div>   
+		         </form>  
+	     	</field>
+	     	</record>
+	    
+	     <record model="ir.actions.act_window" id="action_sale_promotion">
+	        <field name="name">Sale Promotions</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">sale.promo.header</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>	  
+	        <field name="domain">[('list_type', '=', 'PRO')]</field>
+	        <field name="context">{'default_list_type':'PRO'}</field>
+	        <field name="search_view_id" ref="view_sale_promo_header_search"/>
+	    </record>	
+		
+		<record model="ir.actions.act_window.view" id="action_view_sale_promo_header_tree">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="view_sale_promo_header_tree"/>
+	        <field name="act_window_id" ref="action_sale_promotion"/>
+	    </record>
+	    
+		<record model="ir.actions.act_window.view" id="action_view_sale_promo_header_form">
+	        <field name="sequence" eval="2"/>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="view_sale_promo_header_form"/>
+	        <field name="act_window_id" ref="action_sale_promotion"/>
+	    </record>
+	    
+    </data>
+</openerp>

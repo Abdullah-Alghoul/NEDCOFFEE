@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+ 
+		<record id="general_trial_balance_form" model="ir.ui.view">
+            <field name="name">general.trial.balance.form</field>
+            <field name="model">general.trial.balance</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Trial Balance">
+                	<group col="4" colspan="2">
+                		<field name="times"/>
+                		<field name="company_id" groups="base.group_multi_company"/>
+                		<newline/>
+                		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','periods'])],'required':[('times', 'not in', ['dates','years','periods'])]}"/>
+                		<field name="period_id_start" domain="[('company_id','=',company_id)]" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years'])],'required':[('times', 'not in', ['dates','years'])]}"/>
+                		<field name="period_id_end" domain="[('company_id','=',company_id)]" context="{'report_type':'1'}"  attrs="{'invisible':[('times', 'in', ['dates','years'])],'required':[('times', 'not in', ['dates','years'])]}"/>
+                		<field name="fiscalyear_start" domain="[('company_id','=',company_id)]" attrs="{'invisible':[('times', 'in', ['dates','periods'])],'required':[('times','not in', ['dates','periods'])]}"/>
+                		<field name="fiscalyear_stop" domain="[('company_id','=',company_id)]" attrs="{'invisible':[('times', 'in', ['dates','periods'])], 'required':[('times','not in', ['dates','periods'])]}"/>
+                		<field name="date_start" attrs="{'invisible':[('times', 'in', ['periods','years'])],'required':[('times','not in', ['periods','years'])]}"/>
+                		<field name="date_end" attrs="{'invisible':[('times', 'in', ['periods','years'])],'required':[('times','not in', ['periods','years'])] }"/>
+                    </group>
+	                <footer>
+                        <button string="Print" type="object" name="print_report" icon='gtk-execute'/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_report_trial_balance" model="ir.actions.act_window">
+            <field name="name">Trial Balance</field>
+            <field name="res_model">general.trial.balance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="general_trial_balance_form"/>
+        </record>
+        		
+               
+   </data>
+</openerp>
+        
+        

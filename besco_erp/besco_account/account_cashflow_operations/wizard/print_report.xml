@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record id="report_account_cash_operation_form" model="ir.ui.view">
+            <field name="name">report_account_cash_operation_form</field>
+            <field name="model">report.account.cash.operation</field>
+            <field name="arch" type="xml">
+                <form string="Report Cash Operations">
+                    <notebook>
+		            	<page string="Filters">
+		                	<group>
+		                		<group>
+		                			<field name="times" attrs="{'invisible': [('date_type', '=', 'balance')]}"/>
+		                			<field name="date_type"/>
+		                			<field name="operation_type"/>
+		                			<field name="state" attrs="{'invisible': [('date_type', '=', 'balance')]}"/>
+		                		</group>
+		                		<group>
+			                		<field name="fiscalyear_id" attrs="{'invisible':['|', ('date_type', '=', 'balance'), ('times', 'in', ['dates'])],'required':[('times','not in', ['dates'])]}"/>
+					        		<field name="quarter" attrs="{'invisible':['|', ('date_type', '=', 'balance'), ('times', 'in', ['dates','years','month'])],'required':[('times', 'not in', ['dates','years','month'])]}"/>
+					        		<field name="month" context="{'report_type':'1'}" attrs="{'invisible':['|', ('date_type', '=', 'balance'), ('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+					        		<field name="date_start"  attrs="{'invisible':['|', ('date_type', '=', 'balance'), ('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+					        		<field name="date_end"  attrs="{'invisible':['|', ('date_type', '=', 'balance'), ('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+		                    		<field name="company_id"/>
+		                    	</group>
+		                    </group>
+	                    </page>
+		            </notebook>
+			            
+	                <footer>
+                        <button string="Print list of cash operations" attrs="{'invisible': [('date_type', '=', 'balance')]}"
+                        	type="object" name="print_cash_operation" icon='gtk-execute' class="oe_highlight"/>
+                        <button string="Print cash operation balances" attrs="{'invisible': [('date_type', '!=', 'balance')]}"
+                        	type="object" name="print_cash_operation_balance" icon='gtk-execute' class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_report_account_cash_operation_form" model="ir.actions.act_window">
+            <field name="name">Cash Operation Reports</field>
+            <field name="res_model">report.account.cash.operation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="report_account_cash_operation_form"/>
+        </record>
+        
+        <menuitem 
+        	name="Cash Operation Reports"
+        	parent="menu_account_cash_operation" 
+        	id="menu_action_report_account_cash_operation_form" 
+        	action="action_report_account_cash_operation_form"  
+        	sequence="100"/>
+        
+   </data>
+</openerp>
+        
+        

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+    
+    	<record id="ir_cron_validate_inventory" model="ir.cron">
+            <field name="name">Validate Inventory</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">1</field>
+            <field eval="False" name="active"/>
+            <field eval="True" name="doall"/>
+            <field eval="'stock.inventory'" name="model"/>
+            <field eval="'cron_validate_inventory'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_watch_validate_inventory" model="ir.cron">
+            <field name="name">Watch Cron Validate Inventory</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="active"/>
+            <field eval="True" name="doall"/>
+            <field eval="'stock.inventory'" name="model"/>
+            <field eval="'cron_watch_cron_validate_inventory'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+    </data>
+</openerp>

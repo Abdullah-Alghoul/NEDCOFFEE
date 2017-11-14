@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		<record id="view_ned_account_payment_contract_return_form" model="ir.ui.view">
+            <field name="name">view.ned.account.payment.contract.return.form</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <form string="Payment" version="7">
+                    <sheet>
+                        <group>
+                            <field name="payment_type" invisible="1"/>
+                            <field name="partner_type" invisible="1"/>
+                            <field name="invoice_ids" invisible="1"/>
+                            <field name="partner_id" invisible="1"/>
+                            <field name="state" invisible="1"/>
+                            <group>
+                            	<field name="partner_bank_id" attrs="{'invisible': [('payment_type', 'not in', ('inbound', 'outbound'))]}"
+		        					context="{'default_partner_id': partner_id}" domain="[('partner_id','=',partner_id)]"/>
+                                <field name="journal_id" context="{'no_create': True}"/>
+                                <field name="hide_payment_method" invisible="1"/>
+                                <field name="payment_method_id" widget="radio" attrs="{'invisible': [('hide_payment_method', '=', True)]}"/>
+                                <field name="payment_method_code" invisible="1"/>
+                                <label for="amount"/>
+                                <div name="amount_div" class="o_row">
+                                    <field name="amount"/>
+                                    <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="payment_date"/>
+                                <field name="communication"/>
+                                <field name="responsible"/>
+                                <field name="extend_payment"/>
+                            </group>
+                            <group attrs="{'invisible': [('payment_difference', '=', 0.0)]}">
+                                <label for="payment_difference"/>
+                                <div>
+                                    <field name="payment_difference"/>
+                                    <field name="payment_difference_handling" widget="radio" nolabel="1"/>
+                                </div>
+                                <field name="writeoff_account_id" string="Post Difference In"
+                                    attrs="{'invisible': [('payment_difference_handling','=','open')], 'required': [('payment_difference_handling', '=', 'reconcile')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string='Validate' name="post" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+		 <record id="action_request_account_contract_return_payment" model="ir.actions.act_window">
+            <field name="name">Register Payment</field>
+            <field name="res_model">account.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ned_account_payment_contract_return_form"/>
+            <field name="target">new</field>
+        </record>
+		
+		<!-- Contract Return -->
+		<record id="view_contract_return_tree" model="ir.ui.view">
+            <field name="name">contract.return.tree</field>
+            <field name="model">contract.return</field>
+            <field name="arch" type="xml">
+                <tree string="Contract Return List" decoration-info="state == 'draft'" decoration-muted="state in ('cancel','done')" decoration-danger="state in ('approved','validate')">
+                    <field name="name" string="Name"/>
+                    <field name="date_return"/>
+					<field name="npe_contract"/>                    
+                    <field name="partner_id"/>
+                    <field name="company_representative" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="origin" invisible="1"/>
+                    <field name="total_qty" sum="total_qty"/>
+					<field name="total_price" sum="total_price"/> 
+					<field name="total_payment" sum="total_payment" /> 
+					<field name="total_remain" sum="total_remain" />    
+					<field name="amount_total" sum="amount_total"/>           
+                    <field name="state" string="Status" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_contract_return_form" model="ir.ui.view">
+            <field name="name">contract.return.form</field>
+            <field name="model">contract.return</field>
+            <field name="arch" type="xml">
+                <form string="Contract Return">
+	                <header>
+	                    <button name="button_approve" type="object" states='draft' string="Confirm" class="oe_highlight"/>
+	                    <button name="button_draft" states="cancel" string="Set to Draft" type="object" />
+						<button attrs="{'invisible': [('state', 'not in', 'approved')]}" 
+										name="%(action_request_account_contract_return_payment)d"
+										type ="action" groups="account.group_account_user"  string="Payment"/>	
+						<button name="print_contract_return" states="approved" string="Print" type="object" 
+	                    	 class="oe_highlight"/>                    
+	                    <button name="button_cancel" states="approved" string="Cancel" type="object" 
+	                    	confirm="Are you sure want to cancel contract?" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,done"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state','=','draft')]}">
+							<field name="picking_ids" invisible="1"/>
+							<button type="object" name="action_view_picking" class="oe_stat_button" icon="fa-truck" 
+									attrs="{'invisible': [('picking_count','=',0)]}">
+								<field name="picking_count" widget="statinfo" string="Shipping"/>
+							</button>
+						</div>
+					
+	                    <div class="oe_title">
+	                        <h1>
+	                            <field name="name"/>
+	                        </h1>
+	                    </div>
+	                    <group>
+	                    	<group>
+	                    		<field name="partner_id" domain="[('supplier','=',True),('company_type','=','company')]"/>
+	                    		<field name="currency_id" invisible="1"/>
+            					<field name="npe_contract"/>
+								<!-- <field name="picking_type_id"/>
+								<field name="picking_id"/> 
+								 -->          					
+	                    	</group>
+	                    	<group>
+	                    		<field name="date_return"/>
+	                    		<field name="warehouse_id" required="1" readonly ="1"/>
+	                    		<field name="company_representative" invisible="1" context="{'default_conpany_type': 'person', 'default_parent_id': company_id}"/>
+                    			<field name="origin"/>
+	                    	</group>
+	                    </group>
+	                    <notebook>
+	                    	<page string="Products" name="product">
+	                    		<field name="contract_return_line">
+	                    			<tree editable="top">
+										<field name="product_id"/>
+										<field name="name"/>
+										<field name="product_qty" sum="product_qty"/>
+										<field name="product_uom"/>
+										<field name="price_unit"/>
+										<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use', '=', 'purchase')]"/>
+										<field name="price_subtotal"/>
+	                    			</tree>
+	                    		</field>
+	                    		<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+	                                <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+	                                    <label for="amount_total" />
+	                                </div>
+	                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                               	<field name="total_payment" widget='monetary' options="{'currency_field': 'currency_id'}"/> 
+	                                <field name="total_remain" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                            </group>
+	                            <field name="note" class="oe_inline" placeholder="Description"/>
+	                            <div class="oe_clear"/>
+	                            <group col="4" invisible="1">
+	                            	<field name="create_uid"/>
+	                    			<field name="create_date"/>
+	                    			<field name="user_approve"/>
+	                    			<field name="date_approve"/>
+	                    		</group>
+	                    	</page>
+	                    	<page string="Payment" name="payment">
+	                    		<field name="payment_ids">
+	                    			<tree editable="top">
+										<field name="name"/>
+										<field name="payment_date"/>
+										<field name="partner_id"/>
+										<field name="amount" sum="amount"/>
+	                    			</tree>
+	                    		</field>
+	                    	</page>
+	                    	
+	                    	
+	                    </notebook>
+	                </sheet>
+	   <!--             <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div> -->
+                </form>
+            </field>
+        </record>
+        
+        <record id="contract_return_search" model="ir.ui.view">
+            <field name="name">contract.return.search</field>
+            <field name="model">contract.return</field>
+            <field name="arch" type="xml">
+                <search string="Search Contract Return">
+                    <field name="name" string="Contract Return"/>
+                    <field name="origin"/>
+                    <field name="partner_id"/> 
+                    <field name="product_id" domain="[('product_id.name','ilike',self)]"/>
+                    <field name="name"/> 
+                    <field name="npe_contract" domain="[('npe_contract.name','ilike',self)]"></field>             
+                    <separator/>
+                    <filter domain="[('create_uid','=',uid)]" help="My Contract"/>
+                    <group expand="1" string="Group By">
+                    	<filter string="Supplier" context="{'group_by':'partner_id'}"/>
+                	</group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_contract_return" model="ir.actions.act_window">
+            <field name="name">Contract Return</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">contract.return</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="contract_return_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Contract Ruturn, the first step of a new Contract Ruturn.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_contract_return" action="action_contract_return" sequence="10" 
+        	parent="bes_purchase_contract.menu_purchase_contract" name="Contract Return"/>
+        
+
+        		
+      	<!-- Contract Return Line -->
+      	 
+      	<record id="view_contract_return_line_tree" model="ir.ui.view">
+            <field name="name">contract.return.line.tree</field>
+            <field name="model">contract.return.line</field>
+            <field name="arch" type="xml">
+                <tree string="Contract Return Line" editable="top">
+    				<field name="sequence" widget="handle"/>
+    				<field name="product_id"/>
+    				<field name="name"/>
+    				<field name="product_qty"/>
+    				<field name="product_uom"/>
+    				<field name="price_unit"/>
+    				<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]"/>
+    				<field name="price_subtotal" widget="monetary"/>
+    			</tree>
+            </field>
+        </record>
+        
+        <record id="view_contract_return_line_form" model="ir.ui.view">
+            <field name="name">contract.return.line.form</field>
+            <field name="model">contract.return.line</field>
+            <field name="arch" type="xml">
+                <form string="Contract Return Line">
+	                <sheet>
+	                	<group col="4">
+	                		<field name="product_id"/>
+	                		<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+	                		<label for="product_qty"/>
+                            <div>
+                               <field name="product_qty" class="oe_inline"/>
+                               <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button"/>
+                            </div>
+                            <field name="price_unit"/>
+	                	</group>
+	                	<label for="name"/>
+                        <field name="name"/>
+                        <field name="state" invisible="1"/>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+      	
+        
+        <record id="view_purchase_contract_form_ned_contract_inherit" model="ir.ui.view">
+	        <field name="name">view.purchase.contract.form.general.modify.inherit</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="inherit_id" ref="bes_purchase_contract.view_purchase_contract_form"/>
+	        <field name="arch" type="xml">	
+	        	<xpath expr="//button[@name='button_cancel']" position="before">
+	            	<button name="button_contract_return" string="Return" type="object" 
+	                    	confirm="Are you sure want to return contract?" 
+	            			attrs="{'invisible': [('type','=','purchase')]}" />
+	            </xpath>
+      		</field>
+      	</record>
+      	
+      	<record id="view_purchase_order_form_general_modify" model="ir.ui.view">
+            <field name="name">view.purchase.order.form.general.modify</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//button[@name='button_cancel']" position="before">
+	            	<button name="print_quotation" string="Print" type="object"
+                			class="oe_highlight" groups="purchase.group_purchase_manager,purchase.group_purchase_user"/>
+				</xpath>	            	
+            </field>
+      	</record>
+      		
+      		
+      		       
+	</data>
+</openerp>

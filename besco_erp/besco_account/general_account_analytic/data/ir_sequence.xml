@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    
+        <record id="seq_analytic_distribution" model="ir.sequence">
+            <field name="name">Account Analytic Distribution</field>
+            <field name="code">account.analytic.distribution</field>
+            <field name="prefix">AAD%(y)s%(month)s</field>
+            <field name="date_get">2</field>
+            <field name="rollback_rule">Monthly</field>
+            <field name="padding">6</field>
+            <field name="suffix"></field>
+        </record>
+        
+    </data>
+</openerp>

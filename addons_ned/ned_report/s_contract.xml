@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+    	<record id="view_s_contract_summary_v2_ned" model="ir.ui.view">
+            <field name="name">view.v.scontract.summary.v2.ned</field>
+            <field name="model">v.scontract.summary.v2</field>
+            <field name="arch" type="xml">
+    			<tree editable = 'False' readonly = '1'>
+                    <field name = 'contract_no' readonly = '1'/>
+                    <field name = 'customer' readonly = '1'/>
+                    <field name = "ship_by" readonly = '1'/>
+                    <field name = 's_date' readonly = '1'/>
+                    
+                    <field name = 'weight_condition' readonly = '1'/>
+                    <field name = 'buyer_ref' readonly = '1'/>
+                    <field name = 'shipment_date' readonly = '1'/>
+                    <field name = 'pss' readonly = '1'/>
+                    <field name = 'check_by_cont' readonly = '1'/>
+                    <field name = 'product' readonly = '1'/>
+
+                    <field name = 'certificate' readonly = '1'/>
+                    <field name = 'quantity' readonly = '1' sum='Total SI'/>
+                    <field name = 'si_quantity' readonly = '1' sum='Total SI'/>
+                </tree>
+	         </field>
+         </record>
+
+        <!-- The block of code bellow determines a list of search parameters appear once user type in the searchbar -->
+        <!-- <record id="v_qc_details_ned_search" model="ir.ui.view">
+            <field name="name">view.v.qc.details.ned.search</field>
+            <field name="model">v.qc.details</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "zone"/>
+                    <field name = 'stack'/>
+                    <field name = 'receipt_note'/>
+                    <group expand="1" string="Group By">
+                        <filter string="Zone" domain="[]" context="{'group_by':'zone'}"/>
+                        <filter string="Stack" domain="[]" context="{'group_by':'stack'}"/>
+                        <filter string="Product" domain="[]" context="{'group_by':'product'}"/>
+                        <filter domain="[('balance_basis','!=',0)]" string="Real Stock" name='status'/>
+                    </group>
+                </search>
+             </field>
+         </record> -->
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_v_s_contract_summary_v2_ned" model="ir.actions.act_window">
+            <field name="name">S-Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">v.scontract.summary.v2</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="priority">210</field>
+            <field name="search_view_id"/>
+            <!-- <field name="context">{"search_default_status":True}</field> -->
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_v_scontract_summary_v2_qc_ned" 
+            action="action_v_s_contract_summary_v2_ned" parent="general_kcs.menu_report_kcs" name="S Contract Summary"
+            sequence="202" />
+        <menuitem id="menu_v_scontract_summary_v2_manufacturing_ned" 
+            action="action_v_s_contract_summary_v2_ned" parent="mrp.menu_mrp_planning" name="S Contract Summary"
+            sequence="220" />
+    </data>
+</openerp>

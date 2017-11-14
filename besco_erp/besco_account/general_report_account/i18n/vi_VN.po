@@ -1,0 +1,379 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * general_report_account
+# 
+# Translators:
+# Le Truong Thanh, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-10 14:09+0000\n"
+"PO-Revision-Date: 2016-09-10 10:43+0000\n"
+"Last-Translator: Le Truong Thanh\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: general_report_account
+#: model:ir.ui.menu,name:general_report_account.menu_action_besco_account_ledger_report
+msgid "General Ledger"
+msgstr "Sổ cái, Nhật ký chung"
+
+#. module: general_report_account
+#: model:ir.ui.menu,name:general_report_account.menu_action_fin_trial_balance_report
+msgid "Trial Balance"
+msgstr "Bảng cân đối phát sinh"
+
+#. module: general_report_account
+#: model:ir.ui.menu,name:general_report_account.menu_action_report_account_financial_pl
+#: model:ir.actions.act_window,name:general_report_account.action_report_account_financial_pl
+msgid "Profit and Loss"
+msgstr "Kết quả kinh doanh"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_ledger_times
+msgid "Periods Type"
+msgstr "Thời gian xem"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_ledger_quarter
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_ledger_month
+msgid "Month"
+msgstr "Tháng"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_detail_acc_code
+msgid "Acc"
+msgstr "TK"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_detail_cp_acc_code
+msgid "CP Acc"
+msgstr "TK đối ứng"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_detail_debit
+msgid "Dr"
+msgstr "Nợ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_detail_credit
+msgid "Cr"
+msgstr "Có"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_detail_gl_date
+msgid "GL Date"
+msgstr "Ngày hạch toán"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_detail_doc_date
+msgid "Doc Date"
+msgstr "Ngày chứng từ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_detail_date_due
+msgid "Due Date"
+msgstr "Ngày đến hạn"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_detail_doc_no
+msgid "Doc No"
+msgstr "Số chứng từ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_description
+msgid "Description"
+msgstr "Mô tả"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_debit
+msgid "Dr"
+msgstr "Nợ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_credit
+msgid "Cr"
+msgstr "Có"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_general_account_ledger_detail_description
+msgid "Description"
+msgstr "Mô tả"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_ledger_fiscalyear_id
+msgid "Fiscalyear"
+msgstr "Năm"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_ledger_date_start
+msgid "Date start"
+msgstr "Từ ngày"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_ledger_date_end
+msgid "Date end"
+msgstr "Đến ngày"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_besco_report_account_ledger_report_form
+msgid "Journals"
+msgstr "Nhật ký kế toán"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_besco_report_account_ledger_report_form
+msgid "Balance"
+msgstr "Số phát sinh"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_besco_report_account_ledger_report_form
+msgid "Transaction Details"
+msgstr "Chi tiết phát sinh"
+
+#. module: general_report_account
+#: selection:report.account.ledger,extend_payment:payment
+msgid "Payment"
+msgstr "Thanh toán trực tiếp"
+
+#. module: general_report_account
+#: selection:report.account.ledger,extend_payment:advance
+msgid "Advance"
+msgstr "Ứng tiền"
+
+#. module: general_report_account
+#: selection:report.account.ledger,extend_payment:none
+msgid "All"
+msgstr "Tất cả"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_besco_report_account_ledger_report_form
+msgid "Partners"
+msgstr "Đối tác"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_besco_report_account_ledger_report_form
+msgid "Accounts"
+msgstr "Tài khoản"
+
+#. module: general_report_account
+#: selection:report.account.ledger,times:0
+msgid "Date"
+msgstr "Ngày"
+
+#. module: general_report_account
+#: selection:report.account.ledger,times:1
+msgid "Month"
+msgstr "Tháng"
+
+#. module: general_report_account
+#: selection:report.account.ledger,times:2
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: general_report_account
+#: selection:report.account.ledger,times:3
+msgid "Years"
+msgstr "Năm"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_fin_trial_balance_report_times
+msgid "Periods Type"
+msgstr "Thời gian xem"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_fin_trial_balance_report_quarter
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_fin_trial_balance_report_month
+msgid "Month"
+msgstr "Tháng"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_fin_trial_balance_report_fiscalyear_id
+msgid "Fiscalyear"
+msgstr "Năm"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_fin_trial_balance_report_date_start
+msgid "Date start"
+msgstr "Từ ngày"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_fin_trial_balance_report_date_end
+msgid "Date end"
+msgstr "Đến ngày"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_fin_trial_balance_report_ac_date
+msgid "AC Date"
+msgstr "Ngày lũy kế"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_fin_trial_balance_report_show_parent
+msgid "Show Parent"
+msgstr "Hiển thị TK cha"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_begin_dr
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_begin_dr_2rd
+msgid "Begin Dr"
+msgstr "Nợ đầu kỳ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_begin_cr
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_begin_cr_2rd
+msgid "Begin Dr"
+msgstr "Có đầu kỳ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_period_dr
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_period_dr_2rd
+msgid "Period Dr"
+msgstr "Nợ trong kỳ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_period_cr
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_period_cr_2rd
+msgid "Period Dr"
+msgstr "Có trong kỳ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_end_dr
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_end_dr_2rd
+msgid "End Dr"
+msgstr "Nợ cuối kỳ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_end_cr
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_end_cr_2rd
+msgid "End Dr"
+msgstr "Có cuối kỳ"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_ac_dr
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_ac_dr_2rd
+msgid "AC Dr"
+msgstr "Nợ lũy kế"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_ac_cr
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_ac_cr_2rd
+msgid "AC Dr"
+msgstr "Có lũy kế"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_description
+msgid "Description"
+msgstr "Mô tả"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_trial_balance_detail_coa_code
+msgid "Acc Code"
+msgstr "TK"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_fin_trial_balance_report_form
+msgid "Details"
+msgstr "Chi tiết phát sinh"
+
+#. module: general_report_account
+#: selection:fin.trial.balance.report,times:0
+msgid "Date"
+msgstr "Ngày"
+
+#. module: general_report_account
+#: selection:fin.trial.balance.report,times:1
+msgid "Month"
+msgstr "Tháng"
+
+#. module: general_report_account
+#: selection:fin.trial.balance.report,times:2
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: general_report_account
+#: selection:fin.trial.balance.report,times:3
+msgid "Years"
+msgstr "Năm"
+
+#. module: general_report_account
+#: selection:report.account.financial,times:0
+msgid "Date"
+msgstr "Ngày"
+
+#. module: general_report_account
+#: selection:report.account.financial,times:1
+msgid "Month"
+msgstr "Tháng"
+
+#. module: general_report_account
+#: selection:report.account.financial,times:2
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: general_report_account
+#: selection:report.account.financial,times:3
+msgid "Years"
+msgstr "Năm"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_financial_times
+msgid "Periods Type"
+msgstr "Thời gian xem"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_financial_quarter
+msgid "Quarter"
+msgstr "Quý"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_financial_month
+msgid "Month"
+msgstr "Tháng"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_financial_fiscalyear_id
+msgid "To Fiscalyear"
+msgstr "Năm"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_financial_date_start
+msgid "Date start"
+msgstr "Từ ngày"
+
+#. module: general_report_account
+#: model:ir.model.fields,field_description:general_report_account.field_report_account_financial_date_end
+msgid "Date end"
+msgstr "Đến ngày"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_report_account_financial_bs_form
+msgid "Company Currency"
+msgstr "Chi tiết báo cáo"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_report_account_financial_pl_form
+msgid "Company Currency"
+msgstr "Chi tiết báo cáo"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_fin_trial_balance_report_form
+#: model:ir.ui.view,arch_db:general_report_account.view_besco_report_account_ledger_report_form
+msgid "Load Data"
+msgstr "Xem báo cáo"
+
+#. module: general_report_account
+#: model:ir.ui.view,arch_db:general_report_account.view_fin_trial_balance_report_form
+msgid "Print"
+msgstr "In báo cáo"

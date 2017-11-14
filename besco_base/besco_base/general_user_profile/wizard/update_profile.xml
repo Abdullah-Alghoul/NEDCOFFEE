@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <record id="view_update_profile_form" model="ir.ui.view">
+            <field name="name">Print Appointments Report</field>
+            <field name="model">update.profile</field>
+            <field name="arch" type="xml">
+                <form string="Update User Profile" version="7.0">
+                    <footer>
+                        <button name="update_profile" string="Update" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+
+        <record id="action_view_update_profile_form" model="ir.actions.act_window">
+            <field name="name">Update User Profile</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">update.profile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_update_profile_form"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem action="action_view_update_profile_form" id="menu_action_view_update_profile_form" parent="base.menu_users"/>
+        
+    </data>
+</openerp>
+

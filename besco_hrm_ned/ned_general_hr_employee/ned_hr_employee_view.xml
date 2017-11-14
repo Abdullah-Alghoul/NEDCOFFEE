@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<menuitem name="Employees" id="hr.menu_hr_root"
+			groups="base.group_hr_manager,base.group_hr_user,general_hr.group_employee_manager"
+			icon="fa-user" web_icon="hr,static/description/icon.png" sequence="75" />
+
+		<menuitem action="hr.open_view_employee_list_my" id="hr.menu_open_view_employee_list_my"
+			sequence="3" parent="hr.menu_hr_root"
+			groups="base.group_hr_manager,base.group_hr_user,general_hr.group_employee_manager" />
+
+		<record forcecreate="True" id="ir_cron_calculator_worked_year_ned_action"
+			model="ir.cron">
+			<field name="name">Calculator Worked Year NED Employees</field>
+			<field eval="True" name="active" />
+			<field name="user_id" ref="base.user_root" />
+			<field name="interval_number">1</field>
+			<field name="interval_type">months</field>
+			<field name="numbercall">-1</field>
+			<field eval="False" name="doall" />
+			<field eval="'hr.employee'" name="model" />
+			<field eval="'cal_worked_year_ned'" name="function" />
+			<field eval="'(True,)'" name="args" />
+		</record>
+
+		<record id="view_hr_job_tree_ned" model="ir.ui.view">
+			<field name="name">view.hr.job.tree.ned</field>
+			<field name="model">hr.job</field>
+			<field name="inherit_id" ref="hr.view_hr_job_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="name_vn" />
+				</xpath>
+			</field>
+		</record>
+
+		<record id="view_hr_job_filter_ned" model="ir.ui.view">
+			<field name="name">view.hr.job.filter.ned</field>
+			<field name="model">hr.job</field>
+			<field name="inherit_id" ref="hr.view_job_filter" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="name_vn" string="Job VN" />
+				</xpath>
+			</field>
+		</record>
+		<!-- add field to employee dependent -->
+		<record model="ir.ui.view" id="hr_employee_dependent_form_inherit">
+			<field name="name">hr.employee.dependent.form.inherit</field>
+			<field name="model">hr.employee.dependent</field>
+			<field name="inherit_id" ref="general_hr.hr_employee_dependent_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='employed']" position="after">
+					<field name="is_household_head" />
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_employee_dependent_tree_inherit">
+			<field name="name">hr.employee.dependent.tree.inherit</field>
+			<field name="model">hr.employee.dependent</field>
+			<field name="inherit_id" ref="general_hr.hr_employee_dependent_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="social_insurance_code" />
+				</xpath>
+				<xpath expr="//field[@name='is_dependent']" position="after">
+					<field name="is_household_head" />
+				</xpath>
+			</field>
+		</record>
+
+		<!-- add social insurance number into employee -->
+		<record id="view_employee_form_inherit_ned_hr_employee" model="ir.ui.view">
+			<field name="name">view.employee.form.inherit.ned.hr.employee</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id"
+				ref="general_l10n_vn_hr_payroll.view_employee_form_general_modify_insurance" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='insurance_ids']" position="before">
+					<group col="4">
+						<field name="insurance_number" />
+						<field name="insurance_code_id" />
+					</group>
+				</xpath>
+				<xpath expr="//field[@name='degree_id']" position="after">
+					<field name="technique_id" />
+				</xpath>
+				<xpath expr="//field[@name='insurance_code_id']" position="after">
+					<field name="family_code" />
+				</xpath>
+				<xpath expr="//field[@name='coach_id']" position="after">
+					<field name="admin_hr" groups="base.group_no_one" />
+				</xpath>
+				<xpath expr="//field[@name='dependant_of_taxpayer']" position="after">
+					<field name="registration_book_number" />
+				</xpath>
+				<xpath expr="//field[@name='is_dependent']" position="after">
+					<field name="is_household_head" />
+				</xpath>
+			</field>
+		</record>
+
+		<record id="view_employee_tree_inherit_ned_hr_employee" model="ir.ui.view">
+			<field name="name">view.employee.tree.inherit.ned.hr.employee</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='work_location_id']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='work_phone']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='work_email']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='company_id']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='scanner_code']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='department_id']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='parent_id']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='identification_id']" position="replace">
+				</xpath>
+				<xpath expr="//field[@name='job_id']" position="after">
+					<!-- <field name="joining_date"/> -->
+					<field name="department_id" />
+					<field name="birthday" />
+				</xpath>
+			</field>
+		</record>
+
+		<!-- Insurance code -->
+
+		<record id="view_insurance_code_form" model="ir.ui.view">
+			<field name="name">view.insurance.code.form</field>
+			<field name="model">insurance.code</field>
+			<field name="arch" type="xml">
+				<tree string="Insurance Code" editable="bottom">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_insurance_code" model="ir.actions.act_window">
+			<field name="name">Insurance Code</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">insurance.code</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="action_insurance_code_menu" action="action_insurance_code"
+			parent="hr.menu_human_resources_configuration" sequence="102"
+			groups="base.group_hr_user" />
+		<!-- Edit menu -->
+		<record id="hr.open_module_tree_department" model="ir.actions.act_window">
+			<field name="name">Departments</field>
+			<field name="res_model">hr.department</field>
+			<field name="view_type">tree</field>
+			<field name="view_mode">tree,form,kanban</field>
+			<field name="search_view_id" ref="hr.view_department_filter" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to create a department.
+				</p>
+				<p>
+					Odoo's department structure is used to manage all documents
+					related to employees by departments: expenses, timesheets,
+					leaves
+					and holidays, recruitments, etc.
+				</p>
+			</field>
+		</record>
+
+		<menuitem action="hr.open_module_tree_department" id="hr.menu_hr_department_tree"
+			parent="hr.menu_hr_root" sequence="4" groups="base.group_hr_user" />
+
+		<record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+			<field name="name">Employees</field>
+			<field name="res_model">hr.employee</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form,kanban</field>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+			<field name="view_id" eval="False" />
+			<field name="search_view_id" ref="hr.view_employee_filter" />
+			<field name="help" type="html">
+				<p class="oe_view_nocontent_create">
+					Click to add a new employee.
+				</p>
+				<p>
+					With just a quick glance on the Odoo employee screen, you
+					can
+					easily find all the information you need for each person;
+					contact
+					data, job position, availability, etc.
+				</p>
+			</field>
+		</record>
+
+		<!-- Menu Danh Ba -->
+		<!--<record model="ir.ui.view" id="short_information_tree"> <field name="name">short.information.tree</field> 
+			<field name="model">hr.employee</field> <field name="arch" type="xml"> <tree 
+			string="Short Information"> <field name="code"/> <field name="name"/> <field 
+			name="job_id" /> <field name="mobile_phone"/> <field name="work_phone"/> 
+			<field name="work_email"/> </tree> </field> </record> <record id="short_information_action" 
+			model="ir.actions.act_window"> <field name="name">Short Information</field> 
+			<field name="res_model">hr.employee</field> <field name="view_type">form</field> 
+			<field name="view_id" ref="short_information_tree"/> </record> <menuitem 
+			id="menu_short_information" parent="menu_report_hr" action="short_information_action" 
+			groups="base.group_hr_manager" sequence="5"/> -->
+
+
+	</data>
+</openerp>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="admin_property_normal_form_view" model="ir.ui.view">
+            <field name="name">admin.property.normal.form.view</field>
+            <field name="model">admin.property</field>
+            <field name="arch" type="xml">
+                <form string="Property" version="7.0">
+	                 <group colspan="4" col="4">
+	                    <field name="name"/>
+	                    <field name="value" widget='text'/>
+	                    <newline/>
+	                    <field name="ref_record"/>
+	                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="admin_property_normal_tree_view" model="ir.ui.view">
+            <field name="name">admin.property.normal.tree.view</field>
+            <field name="model">admin.property</field>
+            <field name="arch" type="xml">
+                <tree string="Project Properties">
+                    <field name="name"/>
+                    <field name="value"/>
+                    <field name="ref_record"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_model_admin_properties">
+            <field name="name">Project Properties</field>
+            <field name="res_model">admin.property</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_model_admin_properties" id="menu_admin_properties" parent="base.menu_custom"/>
+        
+    </data>
+</openerp>

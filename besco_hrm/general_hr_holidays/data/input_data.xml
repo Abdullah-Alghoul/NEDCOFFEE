@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	
+    <data noupdate="0">
+	    <record id="hr_salary_rule_TTPT" model="hr.salary.rule">
+	            <field name="code">TTPT</field>
+	            <field name="name">Thanh toán Phép Tồn</field>
+	            <field name="category_id" ref="hr_payroll.ALW"/>
+	            <field name="condition_select">none</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">inputs.TTPT.amount</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_python_compute">result=0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="390"/>
+	            <field name="note"></field>
+	    </record>
+    </data>
+</openerp>

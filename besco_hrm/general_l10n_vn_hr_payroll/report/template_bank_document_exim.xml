@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        	
+        <!-- Template Quit Contract -->
+	    <record id="report_bank_document_exim" model="ir.actions.report.xml">
+	        <field name="name">report_bank_document_exim</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.payslip</field>
+	        <field name="report_name">report_bank_document_exim</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_l10n_vn_hr_payroll/report/template_bank_document_exim.py</field>
+	        <field name="report_rml">general_l10n_vn_hr_payroll/report/template_bank_document_exim.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_bank_document_exim"
+			model="hr.payslip"
+			name="report_bank_document_exim"
+	        string="Report Bank Document Eximbank"
+        	rml="general_l10n_vn_hr_payroll/report/template_bank_document_exim.ods"/>	
+        
+  	</data>
+</openerp>

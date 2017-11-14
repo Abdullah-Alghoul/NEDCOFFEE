@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="edit_overtime_new_inherit">
+            <field name="name">Overtime Request Inherit</field>
+            <field name="model">hr.overtime</field>
+            <field name="inherit_id" ref="hr_overtime.edit_overtime_new"></field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//button[@name='refuse']" position="replace">
+               		<button string="Refuse" name="refuse" type="workflow" icon="gtk-no" groups="base.group_hr_user,base.group_hr_manager,general_hr.group_employee_coach" attrs="{'invisible':['|',('state_timesheet','=','approve'),('state','not in',('confirm','validate','validate1'))]}"/>
+               	</xpath>
+               	<xpath expr="//field[@name='name']" position="before">
+					<field name='state_timesheet' invisible ='1'/>               	
+				</xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_overtime_simple_inherit">
+            <field name="name">hr.overtime.report_tree_inherit</field>
+            <field name="model">hr.overtime</field>
+            <field name="inherit_id" ref="hr_overtime.view_overtime_simple"></field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//button[@name='refuse']" position="replace">
+               		<button string="Refuse" name="refuse" type="workflow" icon="gtk-no" groups="base.group_hr_user,base.group_hr_manager,general_hr.group_employee_coach" attrs="{'invisible':['|',('state_timesheet','=','approve'),('state','not in',('confirm','validate','validate1'))]}"/>
+               	</xpath>
+               	<xpath expr="//field[@name='name']" position="before">
+					<field name='state_timesheet' invisible ='1'/>               	
+				</xpath>
+            </field>
+        </record>
+         <record model="ir.ui.view" id="view_overtime_inherit">
+            <field name="name">hr.overtime.tree.inherit</field>
+            <field name="model">hr.overtime</field>
+            <field name="inherit_id" ref="hr_overtime.view_overtime"></field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+            	<xpath expr="//button[@name='refuse']" position="replace">
+               		<button string="Refuse" name="refuse" type="workflow" icon="gtk-no" groups="base.group_hr_user,base.group_hr_manager,general_hr.group_employee_coach" attrs="{'invisible':['|',('state_timesheet','=','approve'),('state','not in',('confirm','validate','validate1'))]}"/>
+               	</xpath>
+               	<xpath expr="//field[@name='name']" position="before">
+					<field name='state_timesheet' invisible ='1'/>               	
+				</xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

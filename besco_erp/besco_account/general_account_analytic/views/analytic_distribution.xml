@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+			<record id="view_account_analytic_distribution_form" model="ir.ui.view">
+	            <field name="name">view_account_analytic_distribution_form</field>
+	            <field name="model">account.analytic.distribution</field>
+	            <field name="arch" type="xml">
+	                <form string="Analytic Distribution">
+		                <sheet>
+		                    <group>
+		                        <group>
+		                            <field name="name"/>
+		                            <field name="distribution_date"/>
+		                            <field name="amount"/>
+		                        </group>
+		                        <group>
+		                            <field name="distribution_type"/>
+		                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                                	<field name="currency_id" invisible='1'/>
+		                        </group>
+		                    </group>
+		                    <notebook>
+		                        <page string="Details">
+		                        	<field name="distribution_lines">
+		                                <tree editable="bottom">
+		                                    <field name="analytic_id"/>
+		                                    <field name="fixed_amount"/>
+		                                    <field name="percentage"/>
+		                                </tree>
+		                            </field>
+		                        </page>
+		                        <page string="Move lines">
+		                        	<field name="move_lines" widget="many2many"/>
+		                        </page>
+		                        <page string="Analytic lines">
+		                        	<field name="analytic_lines" widget="many2many"/>
+		                        </page>
+		                    </notebook>
+		            	</sheet>
+		            	<footer>
+                			<button name="action_distribute" type="object" states="draft" string="Distribute" class="oe_highlight"/>
+                			<button name="action_remove_distribution" type="object" states="done" string="Remove Distribution"/>
+                			<button name="dummy" type="object" string="Save" class="oe_highlight"/>
+                			<button string="Cancel" class="btn-default" special="cancel"/>
+                			<field name="state" widget="statusbar" statusbar_visible="draft,done" statusbar_colors='{"draft":"blue","done":"blue"}'/>
+                		</footer>
+	            	</form>
+	           	</field>
+	           </record>
+	
+	        <record id="action_view_account_analytic_distribution_form" model="ir.actions.act_window">
+	            <field name="name">Analytic Distribution</field>
+	            <field name="res_model">account.analytic.distribution</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">form</field>
+	            <field name="view_id" ref="view_account_analytic_distribution_form"/>
+	            <field name="target">new</field>
+	        </record>
+        	
+        <!-- add button distribution -->
+        	<record model="ir.ui.view" id="view_move_line_tree_distribution_inherit">
+		        <field name="name">view_move_line_tree_distribution_inherit</field>
+		        <field name="model">account.move.line</field>
+		        <field name="inherit_id" ref="account.view_move_line_tree"/>
+		        <field name="arch" type="xml">
+		        	<xpath expr="//field[@name='analytic_account_id']" position="replace">
+		        		<button name="action_distribution" type="object" string="Distribute" icon="STOCK_CUT"/>
+		        		<field name="analytic_account_id" groups="analytic.group_analytic_accounting" invisible='1'/>
+		        		<field name="distribution_id" invisible='1'/>
+			        </xpath>
+		        </field>
+	        </record>
+        
+	</data>
+</openerp>

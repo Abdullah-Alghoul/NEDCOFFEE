@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_insurance_book,hr.insurance.book.user,model_hr_insurance_book,base.group_hr_user,1,1,1,1
+access_hr_insurance_book_coach,hr.insurance.book.coach,model_hr_insurance_book,general_hr.group_employee_coach,1,1,1,1
+access_hr_advance_payment,hr.advance.payment.user,model_hr_advance_payment,base.group_hr_user,1,1,1,1
+access_hr_contract_salary_rule,hr.contract.salary.rule.user,model_hr_contract_salary_rule,base.group_hr_user,1,1,1,1
+access_hr_payslip_timesheet_user,hr_payslip_timesheet_user,model_hr_payslip_timesheet,base.group_hr_user,1,1,1,1
+access_hr_advance_payment_history_officier,hr_advance_payment_history_officier,model_hr_advance_payment_history,base.group_hr_user,1,1,1,1
+access_hr_advance_payment_line_officier,hr_advance_payment_line_officier,model_hr_advance_payment_line,base.group_hr_user,1,1,1,1

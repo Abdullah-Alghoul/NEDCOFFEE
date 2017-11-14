@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+    	
+    	<record id="view_overtime_add_onchange_rate" model="ir.ui.view">
+            <field name="name">view.overtime.add.onchange.rate</field>
+            <field name="model">hr.overtime</field>
+            <field name="inherit_id" ref="hr_overtime.view_overtime"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='overtime_type_id']" position="after">
+                    <field name="rate" required="1"/>
+                </xpath>
+                <xpath expr="//field[@name='number_of_hours']" position="after">
+                    <field name="calculated_hours" sum="Total Hours" widget='float_time'/>
+                </xpath>
+            </field>
+        </record>
+        
+		<record id="edit_overtime_add_onchange_rate" model="ir.ui.view">
+            <field name="name">edit.overtime.add.onchange.rate</field>
+            <field name="model">hr.overtime</field>
+            <field name="inherit_id" ref="hr_overtime.edit_overtime_new"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='overtime_type_id']" position="replace">
+            		<field name="overtime_type_id" widget="selection" on_change="onchange_overtime_type_id(overtime_type_id)"/>
+                    <field name="rate" required='1'/>
+                </xpath>
+                <xpath expr="//div[@name='duration']" position="after">
+                    <field name="calculated_hours" widget='float_time'/>
+                </xpath>
+            </field>
+        </record>
+        		
+    </data>
+</openerp>

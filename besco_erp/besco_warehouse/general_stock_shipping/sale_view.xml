@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    <!--Sales order form -->
+		<record model="ir.ui.view" id="view_picking_form_shipping_inherit">
+			<field name="name">view_picking_form_shipping_inherit</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='min_date']" position="before">
+					<field name="receive_address" invisible='1'/>
+				</xpath>
+				<xpath expr="//field[@name='date_done']" position="after">
+					<field name="receive_date" invisible='1'/>
+					<field name="shipping_status" invisible='1'/>
+				</xpath>	
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_picking_tree_shipping_inherit">
+			<field name="name">view_picking_tree_shipping_inherit</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.vpicktree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='min_date']" position="before">
+					<field name="receive_address" invisible='1'/>
+				</xpath>
+				<xpath expr="//field[@name='min_date']" position="after">
+					<field name="receive_date" invisible='1'/>
+					<field name="shipping_status" invisible='1'/>
+				</xpath>	
+			</field>
+		</record>
+		
+	<!--Sales order form -->
+		<record model="ir.ui.view" id="view_sale_order_form_shipping_inherit">
+			<field name="name">view_sale_order_form_shipping_inherit</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_shipping_id']" position="after">
+					<field name="receive_address"/>
+					<field name="receive_date"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_quotation_tree_shipping_inherit">
+			<field name="name">view_quotation_tree_shipping_inherit</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_quotation_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='state']" position="after">
+					<field name="receive_address"/>
+					<field name="receive_date"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_order_tree_shipping_inherit">
+			<field name="name">view_order_tree_shipping_inherit</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='state']" position="after">
+					<field name="receive_address"/>
+					<field name="receive_date"/>
+				</xpath>
+			</field>
+		</record>
+    
+    <!-- Shipping Batch -->
+    	<record id="view_stock_shipping_batch_filter" model="ir.ui.view">
+            <field name="name">view_stock_shipping_batch_filter</field>
+            <field name="model">stock.shipping.batch</field>
+            <field name="arch" type="xml">
+                <search string="Shipping Batchs">
+                	<field name="name"/>
+                	<field name="picking_type_id"/>
+                    <field name="fleet_vehicle_id"/>
+                    <field name="emp_driver_id"/>
+                    <field name="state"/>
+                    <separator/>
+                    <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                    <filter string="Shipping" name="shipping" domain="[('state','=','shipping')]"/>
+                    <filter string="Done" name="done" domain="[('state','=','Done')]"/>
+                    <filter string="Cancelled" name="cancel" domain="[('state','=','cancel')]"/>
+                    <group expand="0" string="Group By">
+                    	<filter string="Vehicle" domain="[]" context="{'group_by':'fleet_vehicle_id'}"/>
+                    	<filter string="Driver" domain="[]" context="{'group_by':'emp_driver_id'}"/>
+                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        
+    	<record id="view_stock_shipping_batch_tree" model="ir.ui.view">
+            <field name="name">view_stock_shipping_batch_tree</field>
+            <field name="model">stock.shipping.batch</field>
+            <field name="arch" type="xml">
+                <tree string="Shipping Batchs">
+                	<field name="name"/>
+                	<field name="picking_type_id"/>
+                    <field name="fleet_vehicle_id"/>
+                    <field name="emp_driver_id"/>
+                    <field name="depart_at"/>
+                    <field name="finished_at"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_stock_shipping_batch_form" model="ir.ui.view">
+            <field name="name">view_stock_shipping_batch_form</field>
+            <field name="model">stock.shipping.batch</field>
+            <field name="arch" type="xml">
+                <form string="Shipping Batch">
+                    <header>
+                    	<button name="action_load_orders" states="draft" string="Load Orders" type="object"/>
+	                    <button name="action_shipping" states="draft" string="Ship" type="object"/>
+	                    <button name="action_cancel" states="draft,shipping" type="object" string="Cancel"/>
+	                    <button name="action_done" type="object" string="Set to Done" states="shipping"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,shipping,done,cancel"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="picking_type_id"/>
+		                    <field name="fleet_vehicle_id"/>
+		                    <field name="emp_driver_id"/>
+                        </group>
+                        <group>
+                            <field name="depart_at"/>
+                    		<field name="finished_at"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Delivery Orders">
+                        	<field name="delivery_order_ids" nolabel="1"
+							  		 context="{'context_is_outgoing':True,
+							  		 		   'tree_view_ref':'stock.view_picking_tree',
+	                                     	   'form_view_ref':'stock.view_picking_form'}"/>
+                        </page>
+                    </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+    	
+    	<record id="action_stock_shipping_batch" model="ir.actions.act_window">
+            <field name="name">Shipping Batches</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.shipping.batch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_stock_shipping_batch_filter"/>
+            <field name="context">{'context_is_outgoing': True, 'search_default_shipping': True}</field>
+        </record>
+
+        <menuitem action="action_stock_shipping_batch"
+            id="menu_action_stock_shipping_batch" 
+            parent="stock.menu_stock_warehouse_mgmt"
+            sequence="100"/>
+            
+    </data>
+</openerp>

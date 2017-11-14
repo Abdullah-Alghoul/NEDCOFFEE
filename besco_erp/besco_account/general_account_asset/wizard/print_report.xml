@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+        <!--   List OF ASSES Report -->
+        <record id="report_list_of_asset_form" model="ir.ui.view">
+            <field name="name">list.of.asset.form</field>
+            <field name="model">list.of.asset</field>
+            <field name="arch" type="xml">
+                <form string="List of Assets">
+                    <notebook>
+		            	<page string="Filters">
+		                	<group>
+		                		<group>
+		                			<field name="date_type"/>
+		                			<field name="date_start"/>
+		                			<field name="date_end"/>
+		                		</group>
+		                		<group>
+		                    		<field name="company_id"/>
+		                    	</group>
+		                    </group>
+		                    
+		                    <group string="Asset Types">
+		                    	<field name="asset_category_ids" nolabel="1"/>
+		                    </group>
+	                    </page>
+		            </notebook>
+			            
+	                <footer>
+                        <button string="Print" type="object" name="print_report" class="oe_highlight" icon='gtk-execute'/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_report_list_of_asset_form" model="ir.actions.act_window">
+            <field name="name">List of Assets</field>
+            <field name="res_model">list.of.asset</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="report_list_of_asset_form"/>
+        </record>
+        
+        <record id="view_asset_depreciation_allocation_form" model="ir.ui.view">
+            <field name="name">view_asset_depreciation_allocation_form</field>
+            <field name="model">asset.depreciation.allocation</field>
+            <field name="arch" type="xml">
+                <form string="Depreciation and Allocation">
+                	<notebook>
+		            	<page string="Filters">
+		                	<group>
+		                		<group>
+		                			<field name="date_type"/>
+		                			<field name="times"/>
+		                			<field name="show_all" attrs="{'invisible':[('date_type', '!=', 'depreciation_date')]}"/>
+		                		</group>
+		                		<group>
+			                		<field name="fiscalyear_id"  attrs="{'invisible':[('times', 'in', ['dates'])],'required':[('times','not in', ['dates'])]}"/>
+					        		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','month'])],'required':[('times', 'not in', ['dates','years','month'])]}"/>
+					        		<field name="month" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+					        		<field name="date_start"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+					        		<field name="date_end"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+		                    		<field name="company_id"/>
+		                    	</group>
+		                    </group>
+		                    <group string="Asset Types">
+		                    	<field name="asset_category_ids" nolabel="1"/>
+		                    </group>
+	                    </page>
+		            </notebook>
+	                <footer>
+                        <button string="Print Asset Template" type="object" name="print_report_asset" class="oe_highlight" icon='gtk-execute'/>
+                        or
+                        <button string="Print Expense Template" type="object" name="print_report_expense" class="oe_highlight" icon='gtk-execute'/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_asset_depreciation_allocation" model="ir.actions.act_window">
+            <field name="name">Depreciation and Allocation</field>
+            <field name="res_model">asset.depreciation.allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_asset_depreciation_allocation_form"/>
+        </record>
+        
+   </data>
+</openerp>
+        
+        

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+    	<record id="view_pss_management" model="ir.ui.view">
+            <field name="name">view.pss.management</field>
+            <field name="model">pss.management</field>
+            <field name="arch" type="xml">
+    			<tree string="PSS List" decoration-info="pss_status == 'pending'" decoration-muted="pss_status in ('approved','done')" decoration-danger="pss_status == ('rejected')">
+                    <field name = 'name'/>
+                    <field name = 'shipping_id'/>
+                    <field name = 'created_date'/>
+                    <field name = 'partner_id'/>
+                    <field name = 'product_id'/>
+                    
+                    <field name = 'date_sent'/>
+                    <field name = 'pss_status'/>
+                    <field name = 'date_result'/>
+                    <field name = 'buyer_ref'/>
+                    <field name = 'lot_quantity'/>
+                    <field name = 'cont_quantity'/>
+
+                    <field name = 'mc'/>
+                    <field name = 'fm'/>
+                    <field name = 'black'/>
+                    <field name = 'broken'/>
+                    <field name = 'brown'/>
+
+                    <field name = 'moldy'/>
+                    <field name = 'burned'/>
+                    <field name = 'scr18'/>
+
+                    <field name = 'scr16'/>
+                    <field name = 'scr13'/>
+                    <!-- <field name = 'scr12'/> -->
+                    <field name = 'blscr12'/>
+
+                    <field name = 'stack'/>
+                    <field name = 'ref_no' invisible='1' />
+                    <field name = 'note' string = 'Cuptaste'/>
+                    <field name = 'inspector'/>
+                    <field name = 'buyer_comment'/>
+                    <field name = 'our_comment'/>
+                    <field name = 'qc_staff'/>
+                </tree>
+	         </field>
+         </record>
+
+         <record id="view_form_pss_management" model="ir.ui.view">
+            <field name="name">PSS Management</field>
+            <field name="model">pss.management</field>
+            <field name="arch" type="xml">
+                <form string="PSS Entry">
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name = 'name'/>
+                            <field name = 'shipping_id'/>
+                            <label for="shipping_id"/>
+                            <div name="shipping_id" class="o_row">
+                                <!-- <field name="shipping_id"
+                                    options="{'no_write': True, 'no_create': True}" required="1"/> -->
+                                    <button name="load_si_info" string="Load" type="object" 
+                                        icon="terp-gtk-jump-to-ltr" class="btn-default"/>  
+                            </div>
+                            <!-- <button string="Load" type="object" name="load_si" class="oe_highlight"/> -->
+                            <field name = 'created_date'/>
+                            <field name = 'partner_id'/>
+                            <field name = 'product_id'/>
+                        </group>
+                        <group name="group_right">
+                            <field name = 'date_sent'/>
+                            <field name = 'pss_status'/>
+                            <field name = 'date_result'/>
+                            <field name = 'buyer_ref'/>
+                            <field name = 'lot_quantity'/>
+                            <field name = 'cont_quantity'/>
+                        </group>
+                    </group>
+                    <group name="group_bottom">
+                        <group name="group_left">
+                            <field name = 'mc'/>
+                            <field name = 'fm'/>
+                            <field name = 'black'/>
+                            <field name = 'broken'/>
+                            <field name = 'brown'/>
+
+                            <field name = 'moldy'/>
+                            <field name = 'burned'/>
+                            <field name = 'scr18'/>
+
+                            <field name = 'scr16'/>
+                            <field name = 'scr13'/>
+                            <!-- <field name = 'scr12'/> -->
+                            <field name = 'blscr12'/>
+                        </group>
+                        <group name="group_right">
+                            <field name = 'stack'/>
+                            <field name = 'ref_no' invisible = '1'/>
+                            <field name = 'inspector'/>
+                            <field name = 'buyer_comment'/>
+                            <field name = 'our_comment'/>
+                            <field name = 'note'/>
+                            <field name = 'qc_staff'/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- The block of code bellow determines a list of search parameters appear once user type in the searchbar -->
+        <record id="pss_management_search" model="ir.ui.view">
+            <field name="name">view.pss.management.search</field>
+            <field name="model">pss.management</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "shipping_id"/>
+                    <field name = 'name'/>
+                    <!-- <field name = 'receipt_note'/> -->
+                    <group expand="1" string="Group By">
+                        <filter string="SI" domain="[]" context="{'group_by':'shipping_id'}"/>
+                        <filter string="PSS Status" domain="[]" context="{'group_by':'pss_status'}"/>
+                        <filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                        <!-- <filter domain="[('balance_basis','!=',0)]" string="Real Stock" name='status'/> -->
+                        <filter domain="[('pss_status','=','rejected')]" string="PSS rejected" name='pssrejected'/>
+                    </group>
+                </search>
+             </field>
+         </record>
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_pss_management" model="ir.actions.act_window">
+            <field name="name">PSS Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pss.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="priority">220</field>
+            <field name="search_view_id"/>
+            <!-- <field name="context">{"search_default_status":True}</field> -->
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_pss_management" 
+            action="action_pss_management" parent="general_kcs.menu_request_kcs" name="PSS Management"
+            sequence="201" />
+        <!-- <menuitem id="menu_v_qc_details_ned_manufacturing" 
+            action="action_pss_management" parent="mrp.menu_mrp_planning" name="Stock Intake Quality"
+            sequence="210" /> -->
+    </data>
+</openerp>

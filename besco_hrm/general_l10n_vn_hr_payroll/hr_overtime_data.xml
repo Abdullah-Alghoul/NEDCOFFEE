@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data noupdate='1'>
+		
+		<!-- Ban Ngay -->
+        <record model="hr.overtime.type" id="holiday_status_ot_nt">
+            <field name="name">Làm thêm giờ ngày thường</field>
+            <field name="rate">150</field>
+            <field name="double_validation" eval="False"/>
+            <field name="active">True</field>
+        </record>
+        
+        <record model="hr.overtime.type" id="holiday_status_ot_nnht">
+            <field name="name">Làm thêm ngày nghỉ hàng tuần</field>
+            <field name="rate">200</field>
+            <field name="double_validation" eval="False"/>
+            <field name="active">True</field>
+        </record>
+        
+        <record model="hr.overtime.type" id="holiday_status_ot_nl">
+            <field name="name">Làm thêm ngày lễ</field>
+            <field name="rate">400</field>
+            <field name="double_validation" eval="False"/>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Ban Dem -->
+        <record model="hr.overtime.type" id="holiday_status_ot_dem_nt">
+            <field name="name">Làm thêm đêm ngày bình thường</field>
+            <field name="rate">400</field>
+            <field name="double_validation" eval="False"/>
+            <field name="active">True</field>
+        </record>
+        
+        <record model="hr.overtime.type" id="holiday_status_ot_dem_nnht">
+            <field name="name">Làm thêm đêm ngày nghỉ</field>
+            <field name="rate">400</field>
+            <field name="double_validation" eval="False"/>
+            <field name="active">True</field>
+        </record>
+        
+        <record model="hr.overtime.type" id="holiday_status_ot_dem_nl">
+            <field name="name">Làm thêm đêm ngày lễ</field>
+            <field name="rate">400</field>
+            <field name="double_validation" eval="False"/>
+            <field name="active">True</field>
+        </record>
+
+
+	</data>
+</openerp>

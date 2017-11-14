@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+average_cost_history_accountant,average_cost_history_accountant,model_average_cost_history,account.group_account_user,1,1,1,1
+average_cost_detail_history_accountant,average_cost_detail_history_accountant,model_average_cost_detail_history,account.group_account_user,1,1,1,1

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Date Report  
+	    <record id="date_report" model="ir.actions.report.xml">
+	        <field name="name">date_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.date.report</field>
+	        <field name="report_name">date_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_mrp_operations/report/date_report.py</field>
+	        <field name="report_rml">general_mrp_operations/report/date_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="date_report"
+			model="wizard.date.report"
+			name="date_report"
+	        string="Date Report"
+        rml="general_mrp_operations/report/date_report.ods"/>
+        
+        
+	    <record id="production_plan_report" model="ir.actions.report.xml">
+	        <field name="name">production_plan_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">wizard.production.plan.report</field>
+	        <field name="report_name">production_plan_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_mrp_operations/report/production_plan_report.py</field>
+	        <field name="report_rml">general_mrp_operations/report/production_plan_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="production_plan_report"
+			model="wizard.production.plan.report"
+			name="production_plan_report"
+	        string="Production Plan Report"
+        rml="general_mrp_operations/report/production_plan_report.ods"/>
+	-->
+	</data>
+</openerp>

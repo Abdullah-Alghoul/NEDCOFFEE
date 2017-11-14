@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cost_distribution_account_user,purchase.cost.distribution.account.user,model_purchase_cost_distribution,account.group_account_user,1,1,1,1
+access_cost_distribution_line_account_user,purchase.cost.distribution.line.account.user,model_purchase_cost_distribution_line,account.group_account_user,1,1,1,1
+access_cost_distribution_expense_account_user,purchase.cost.distribution.expense.account.user,model_purchase_cost_distribution_expense,account.group_account_user,1,1,1,1
+access_cost_distribution_line_expense_account_user,purchase.cost.distribution.line.expense.account.user,model_purchase_cost_distribution_line_expense,account.group_account_user,1,1,1,1
+access_expense_type_account_user,purchase.expense.type.account.user,model_purchase_expense_type,account.group_account_user,1,1,1,1

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="view_ned_supplier_management_line_search" model="ir.ui.view">
+            <field name="name">view.ned.supplier.management.line.search</field>
+            <field name="model">supplier.management.line</field>
+            <field name="arch" type="xml">
+                <search string="Management search">
+                	<field name="partner_id" string="Partner"/>
+                    <field name="district_id"/>
+                    <group expand="1" string="Group By">
+                    	<filter string="District" domain="[]" context="{'group_by':'district_id'}"/>
+                    	<filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                	</group>
+                </search>
+            </field>
+        </record>
+        
+         <record id="view_ned_supplier_management_line_pivot" model="ir.ui.view">
+         <field name="name">view.view.ned.supplier.management.line.pivot</field>
+         <field name="model">supplier.management.line</field>
+            <field name="arch" type="xml">
+               <pivot string="Stack">
+               	    <field name="district_id" group="True"/>
+           			<field name="partner_code" operator="*"/>
+           			<field name="partner_name" operator="*"/>
+           			<field name="goods" operator="*"/>
+           			<field name="delivery_at" operator="*"/>
+           			<field name="repperson1" operator="*"/>
+           			<field name="repperson2" operator="*"/>
+           			<field name="total_booked" operator="*"/>
+           			<field name="estimated_annual_volume" operator="*"/>
+           			<field name="ppkg" operator="*"/>
+           			<field name="realizable" operator="*"/>
+           			<field name="remain_qty" operator="*"/>
+           			<field name="marked_to_marke" operator="*"/>
+           			<field name="npe_qty" operator="*"/>
+           			<field name="npe_value" operator="*"/>
+           			<field name="deposited" operator="*"/>
+           			<field name="ttl_m2m" operator="*"/>
+           			<field name="negative_m2m" operator="*"/>
+           			<field name="purchase_undelivered_limit" operator="*"/>
+           			<field name="m2mlimit" operator="*"/>
+           			<field name="property_evaluation" operator="*"/>
+           			<field name="limit_qty" operator="*"/>
+           			<field name="limit_value" operator="*"/>
+               </pivot>
+            </field>
+        </record>
+		
+		
+		<record id="view_ned_supplier_management_line_tree" model="ir.ui.view">
+            <field name="name">view.ned.supplier.management.line.tree</field>
+            <field name="model">supplier.management.line</field>
+            <field name="arch" type="xml">
+            	<tree editable="false" decoration-bf ="partner_code == False" decoration-info="partner_code == False" create="false" edit="false" delete="false">
+            		<field name="district_id" invisible="1"/>
+           			<field name="partner_id" invisible="1"/>
+           			<field name="partner_code" string="Code"/>
+           			<field name="partner_name"/>
+           			<field name="goods"/>
+           			<field name="delivery_at"/>
+           			<field name="repperson1"/>
+           			<field name="repperson2"/>
+           			<field name="total_booked"/>
+           			<field name="estimated_annual_volume"/>
+           			<field name="ppkg" />
+           			<field name="realizable"/>
+           			<field name="remain_qty"/>
+           			<field name="marked_to_marke"/>
+           			<field name="npe_qty"/>
+           			<field name="npe_value"/>
+           			<field name="deposited"/>
+           			<field name="ttl_m2m"/>
+           			<field name="negative_m2m"/>
+           			<field name="purchase_undelivered_limit"/>
+           			<field name="m2mlimit"/>
+           			<field name="property_evaluation"/>
+           			<field name="limit_qty"/>
+           			<field name="limit_value"/>
+           		</tree>
+            </field>
+            
+        </record>
+        
+        <record id="action_ned_supplier_management_line" model="ir.actions.act_window">
+            <field name="name">Risk Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">supplier.management.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,pivot</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+            <field name="search_view_id" ref="view_ned_supplier_management_line_search"/>
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+        
+		
+		<record id="view_ned_supplier_management_form" model="ir.ui.view">
+            <field name="name">view.ned.supplier.management.form</field>
+            <field name="model">supplier.management</field>
+            <field name="arch" type="xml">
+                <form string="Payment">
+                	<header>
+                   		<button name="load_data" string="Load Data" type="object"/>
+                   	</header>
+                    <sheet>
+                        <group col="4">
+                            <field name="from_date" required="1"/>
+                            <field name="to_date" required="1"/>
+                        </group>
+                        <newline/>
+                        <field name="distris_ids"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+		 <record id="action_ned_supplier_management" model="ir.actions.act_window">
+            <field name="name">Risk Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">supplier.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+        
+		
+		
+		
+		<record id="view_ned_gain_loss_form" model="ir.ui.view">
+            <field name="name">view.ned.gain.loss.form</field>
+            <field name="model">gain.loss</field>
+            <field name="arch" type="xml">
+                <form string="Payment" version="7">
+                	<header>
+                   		<button name="load_data" string="Load Data" type="object"/>
+                   		<button name="export_data" string="Report Data" type="object"/>
+                   	</header>
+                    <sheet>
+                    	<!-- <field name="abc" widget="html"  class="oe_view_only"/>  -->
+                        <group col="4">
+                            <field name="from_date" required="1"/>
+                            <field name="to_date" required="1"/>
+                            <field name="picking_type_id" required="1"/>
+                        </group>
+                        <group col="4">
+                        	<field name="loss_line" nolabel="1" readonly="1">
+                        		<tree>
+                        			<field name="date_station"/>
+                        			<field name="date_factory"/>
+                        			<field name="grn_station_id"/>
+                        			<field name="grn_factory"/>
+                        			<field name="net_station" sum="net_station"/>
+                        			<field name="Net_factory" sum="Net_factory"/>
+                        			<field name="basic_station" sum="basic_station"/>
+                        			<field name="basic_factory" sum="basic_factory"/>
+                        			<field name="loss_station" sum="loss_station"/>
+                        			<field name="loss_factory" sum="loss_factory"/>
+                        			<field name="total_factory" sum="total_factory"/> 
+                        		</tree>
+                        	</field>
+                        </group>
+                        <group col="4">
+                        	<group>
+                        		<label string =" "/>
+                        	</group>
+                        	<group>
+                        		<field name="loss_summary" readonly="1">
+                        			<tree>
+                        				<field name="name"/>
+                        				<field name="value" string=" "/>
+                        			</tree>
+                        		</field>
+                        	</group>
+                        </group>
+                    </sheet>
+                     
+                </form>
+            </field>
+        </record>
+        
+		 <record id="action_ned_gain_loss" model="ir.actions.act_window">
+            <field name="name">Gain Loss</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">gain.loss</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+        
+       <menuitem id="menu_action_ned_gain_loss" 
+         	action="action_ned_gain_loss" 
+         	sequence="900" 
+        	parent="bes_purchase_contract.menu_purchase_contract"
+        	groups="bes_purchase_contract.group_purchase_contract_user"/>
+		
+	</data>
+</openerp>

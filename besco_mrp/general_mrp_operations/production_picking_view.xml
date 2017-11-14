@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<menuitem id="menu_production_picking"
+	            name="Production Picking"
+	            parent="base.menu_mrp_root"
+	            sequence="3"/>
+	    
+	    <!-- Stock Picking -->
+	    <record id="view_picking_form_general_inherit_production" model="ir.ui.view">
+            <field name="name">view.picking.form.general.inherit.production</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+	            <!-- Add fields Production vs Operation -->
+	            <xpath expr="//field[@name='origin']" position="after">
+		        	<label for="production_id"/>
+					<div name="production" class="o_row">
+						<field name="production_id" options="{'no_write': True, 'no_create': True}"/>
+						<button name="button_loading" string="Loading" type="object" icon="terp-gtk-jump-to-ltr" states="draft" class="btn-default"/> 
+					</div>
+		        	<field name="operation_id" domain="[('production_id','=',production_id),('operation_finished','=',True)]" options="{'no_write': True, 'no_create': True}"/>
+		        </xpath>
+		    </field>
+        </record>
+	    
+	    <record id="view_production_picking_batch_search" model="ir.ui.view">
+	        <field name="name">production.picking.batch.search</field>
+	        <field name="model">production.picking.batch</field>
+	        <field name="arch" type="xml">
+	        	<search string="Production Picking Batch">
+	                <field name="name"/>
+	                <filter icon="terp-check" name="available" string="Draft" domain="[('state','=','draft')]"/>
+	                <filter icon="terp-dialog-close" name="done" string="Done" domain="[('state','=','done')]"/>
+	                <field name="warehouse_id"/>
+	                <field name="date"/>
+	                <field name="date_done"/>
+	                <group expand="0" string="Group By...">
+	                    <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+	                    <filter string="Date" icon="terp-go-month" domain="[]" context="{'group_by':'date'}"/>
+	                    <filter string="Warehouse" icon="terp-go-month" domain="[]" context="{'group_by':'warehouse_id'}"/>
+	                </group>
+	            </search>
+	        </field>
+	    </record>
+    
+    	<record id="view_production_picking_batch_tree" model="ir.ui.view">
+            <field name="name">production.picking.batch.tree</field>
+            <field name="model">production.picking.batch</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft';grey:state == 'cancel'" string="Production Picking Batch">
+                	<field name="name"/>
+                	<field name="picking_type_id"/>
+            	  	<field name="location_id"/>
+                    <field name="location_dest_id"/>
+                    <field name="receipt_user"/>
+                    <field name="date"/>
+                    <field name="date_done"/>
+                    <field name="warehouse_id" invisible='1'/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_production_picking_batch_form" model="ir.ui.view">
+            <field name="name">production.picking.batch.form</field>
+            <field name="model">production.picking.batch</field>
+            <field name="arch" type="xml">
+                <form string="Production Picking Batch">
+	                <header>
+	                    <button name="reset_to_draft" states="cancel" string="Reset to draft" type="object" class="oe_highlight" groups="stock.group_stock_manager"/>
+	                    <button name="button_confirm" states="draft" string="Confirm" type="object" class="oe_highlight" groups="stock.group_stock_user,stock.group_stock_manager"/>
+	                    <button name="button_cancel" states="draft,done" string="Cancel" type="object" groups="stock.group_stock_user,stock.group_stock_manager"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+	                </header>
+	                <sheet>
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+	                    <group>
+	                        <group>
+	                        	<field name="picking_type_id" domain="[('code','in',('production_in','production_out'))]"
+	                        		on_change="onchange_picking_type(picking_type_id)" widget="selection"/>
+	                            <field name="location_id" widget="selection"/>
+	                        	<field name="location_dest_id" widget="selection"/>
+	                        </group>
+	                        <group>
+	                        	<field name="date"/>
+	                            <field name="date_done"/>
+	                        	<field name="receipt_user"/>
+	                        </group>
+	                    </group>
+	                    <notebook>
+	                        <page string="Picking List">
+	                            <field name="material_picking_list" mode="tree,kanban"
+	                            	context="{'form_view_ref':'general_stock.view_picking_form_general_inherit','tree_view_ref':'stock.vpicktree',
+	                            			'default_picking_type_id': picking_type_id,'default_min_date': date,'default_date_done': date,
+                        					'default_location_id': location_id,'default_location_dest_id': location_dest_id,}"/>
+	                        </page>
+	                        <page string="Additional Info">
+	                            <group>
+	                                <group>
+					                    <field name="create_uid" readonly="1"/>
+					                    <field name="create_date" readonly="1"/>
+					                    <field name="write_uid" readonly="1"/>
+					                    <field name="write_date" readonly="1"/>
+	                                </group>
+	                                <group>
+    	                            	<field name="warehouse_id" widget="selection"/>
+	                                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+	                                </group>
+	                            </group>
+	                        </page>
+	                    </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+       	
+       	
+       	<record id="action_production_picking_batch" model="ir.actions.act_window">
+            <field name="name">Production Picking Batch</field>
+            <field name="res_model">production.picking.batch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="view_production_picking_batch_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a production picking batch.
+              </p>
+            </field>
+        </record>
+       	
+    	<menuitem name="Production Picking Batch" parent="menu_production_picking"
+		        id="menu_action_production_picking_batch"
+		        action="action_production_picking_batch"
+		        sequence="1"/>
+		        
+    </data>
+</openerp>

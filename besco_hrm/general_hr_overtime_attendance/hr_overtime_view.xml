@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+    
+		<record id="view_edit_overtime_new_add_attedance" model="ir.ui.view">
+            <field name="name">view.edit.overtime.new.add.attedance</field>
+            <field name="model">hr.overtime</field>
+            <field name="inherit_id" ref="hr_overtime.edit_overtime_new"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='notes']" position="after">
+                    <separator string="Attendances" colspan="4"/>
+                    <field name="attendances_ids" nolabel="1" colspan="4" context="{'tree_view_ref':'hr_attendance_analysis.view_attendance_analysis'}"/>
+                </xpath>
+            </field>
+        </record>
+				
+    </data>
+</openerp>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+	    <record id="shipping_batch" model="ir.actions.report.xml">
+	        <field name="name">Shipping Batch</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.shipping.batch</field>
+	        <field name="report_name">shipping_batch</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_stock_shipping/report/shipping_batch.py</field>
+	        <field name="report_rml">general_stock_shipping/report/shipping_batch.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+    	
+		<report 
+			auto="True" 
+			menu="True"
+			id="shipping_batch"
+			model="stock.shipping.batch"
+			name="shipping_batch"
+	        string="Shipping Batch"
+	        rml="general_stock_shipping/report/shipping_batch.ods"/>
+	     
+	</data>
+</openerp>

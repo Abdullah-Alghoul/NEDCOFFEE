@@ -1,0 +1,41 @@
+<openerp>
+	<data>
+		<record id="view_action_wizard_benefit_information" model="ir.ui.view">
+	      <field name="name">Benefit Insurance</field>
+	      <field name="model">wizard.benefit.information</field>
+	      <field name="arch" type="xml">
+	        <form>
+        		<group >
+		        	<label for="start_date" string="Period"/>
+	        		<div>
+						<field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+                    </div>
+                    <field name="type" widget="radio"/>
+                    <field name="code_type"/>
+				</group>
+                <newline />
+                <separator colspan="4"/>
+                <footer>
+	                <button name="report_wizard_benefit_information" string="Print" type="object" icon="gtk-print"/>
+	                <button special="cancel"  string="Cancel" icon='gtk-cancel'/>
+                </footer>
+    		</form>
+	      </field>
+	    </record>
+	    
+		<record id="action_wizard_benefit_information" model="ir.actions.act_window">
+	        <field name="name">Benefit Insurance</field>
+	        <field name="res_model">wizard.benefit.information</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field eval="False" name="view_id"/>
+			<field name="target">new</field>	        
+	    </record>
+	    
+	    <menuitem action="action_wizard_benefit_information" 
+	    id="menu_action_wizard_benefit_information" 
+	    parent="menu_report_hr" 
+	    name="Benefit Insurance" 
+	    sequence="4" groups="base.group_hr_manager"/>
+	</data>
+</openerp>

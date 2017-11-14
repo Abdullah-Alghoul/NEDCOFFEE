@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sales_fiscalyear_manager,sales.fiscalyear manager,model_sales_fiscalyear,base.group_sale_manager,1,1,1,1
+access_sales_period_manager,sales.period manager,model_sales_period,base.group_sale_manager,1,1,1,1
+access_sales_period_line_manager,sales.period.line manager,model_sales_period_line,base.group_sale_manager,1,1,1,1
+access_opportunity_action_history_manager,opportunity.action.history manager,model_opportunity_action_history,base.group_sale_manager,1,0,1,0
+access_opportunity_customer_issue_manager,opportunity.customer.issue manager,model_opportunity_customer_issue,base.group_sale_manager,1,1,1,1
+
+access_opportunity_action_history_salesman,opportunity.action.history salesman,model_opportunity_action_history,base.group_sale_salesman,1,0,1,0
+access_opportunity_customer_issue_salesman,opportunity.customer.issue salesman,model_opportunity_customer_issue,base.group_sale_salesman,1,1,1,1
+access_sales_fiscalyear_salesman,sales.fiscalyear salesman,model_sales_fiscalyear,base.group_sale_salesman,1,0,0,0
+access_sales_period_salesman,sales.period salesman,model_sales_period,base.group_sale_salesman,1,0,0,0
+access_sales_period_line_salesman,sales.period.line salesman,model_sales_period_line,base.group_sale_salesman,1,0,0,0
+access_report_mimetypes_salesman,report.mimetypes.salesman,report_aeroo.model_report_mimetypes,base.group_sale_salesman,1,0,0,0
+
+access_sales_period_all_leads,sales.period all_leads,model_sales_period,base.group_sale_salesman_all_leads,1,1,0,0
+access_sales_period_line_all_leads,sales.period.line all_leads,model_sales_period_line,base.group_sale_salesman_all_leads,1,1,0,0

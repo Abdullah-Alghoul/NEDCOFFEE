@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="action_import_employee" model="ir.actions.act_window">
+	        <field name="name">Import Employee</field>
+	        <field name="res_model">employee.import</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field eval="False" name="view_id"/>
+	    </record>
+	    
+	    <record id="view_form_hr_employee_import" model="ir.ui.view">
+	      <field name="name">View Form hr Employee Import</field>
+	      <field name="model">employee.import</field>
+	      <field name="arch" type="xml">
+	        <form>
+	        	<button string="Import" type="object" name="read_file" class="oe_highlight" attrs="{'invisible': [('file', '=', False)]}"/>
+	        	<sheet>
+	        		<group>
+	        			<field name="file" />
+		          		<field name="file_name" invisible="1"/>
+	        		</group>
+	        	</sheet>
+    		</form>
+	      </field>
+	    </record>
+	
+		<!--<menuitem action="action_import_employee" id="menu_action_employee_import" parent="hr.menu_hr_root" name="Import Employee" sequence="3" />-->
+	</data>
+</openerp>

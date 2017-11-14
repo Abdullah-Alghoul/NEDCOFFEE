@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+       <menuitem id="menu_sale_return_management" name="Customer Returns" 
+       	parent="base.menu_base_partner" sequence="5"/>
+    	
+    	<record id="view_sale_return_tree" model="ir.ui.view">
+            <field name="name">sale.return.tree</field>
+            <field name="model">sale.return</field>
+            <field name="arch" type="xml">
+                <tree string="Return Order" decoration-bf="message_needaction==True" decoration-muted="state=='cancel'">
+                    <field name="message_needaction" invisible="1"/>
+                    <field name="name" string="Order Number"/>
+                    <field name="create_date"/>
+                    <field name="partner_id"/>
+                    <field name="pricelist_id"/>
+                    <field name="amount_total" sum="Total Tax Included" widget="monetary"/>
+                    <field name="total_qty"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_sale_return_order_form" model="ir.ui.view">
+            <field name="name">sale.return.form</field>
+            <field name="model">sale.return</field>
+            <field name="arch" type="xml">
+                <form string="Returns Order">
+                <header>
+                	<button name="action_rfr_send" states="draft" string="Send RFR by Email" type="object" context="{'send_rfr':True}" class="oe_highlight"/>
+                    <button name="action_rfr_send" states="sent" string="Re-Send RFR by Email" type="object" context="{'send_rfr':True}"/>
+                	<button name="button_confirm" type="object" states="draft" string="Confirm Order" id="draft_confirm"/>
+                    <button name="button_confirm" type="object" states="sent" string="Confirm Order" class="oe_highlight" id="bid_confirm"/>
+                    <button name="button_approve" type="object" states='approve' string="Approve Order" class="oe_highlight" groups="purchase.group_purchase_manager"/>
+                    <button name="action_rfr_send" states="approved" string="Send RO by Email" type="object" context="{'send_rfr':False}"/>
+                    <button name="button_draft" states="cancel" string="Set to Draft" type="object" />
+                    <button name="button_cancel" states="draft,approve,return" string="Cancel" type="object"/>
+                    <button name="button_done" type="object" string="Set to Done" states="return"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,return"/>
+                </header>
+                <sheet>
+                	<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state', 'not in', ('return', 'done', 'cancel'))]}">
+                        <button type="object"
+                            name="action_view_picking"
+                            class="oe_stat_button"
+                            icon="fa-truck">
+                            <field name="picking_count" widget="statinfo" string="Shipment" help="Incoming Shipments"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" domain="[('customer','=',True)]" context="{'search_default_customer':1, 'show_address': 1}" options='{"always_reload": True}'/>
+                            <field name="project_id" context="{'default_name':name}"/>
+                            <field name="pricelist_id" groups="product.group_sale_pricelist"/>
+                            <field name="currency_rate"/>
+                            <field name="currency_id" invisible="1"/>
+						    <field name="claim_id" domain="[('partner_id','=',partner_id)]"/>
+                        </group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="validity_date"/>
+                            <field groups="base.group_no_one" name="origin"/>
+						    <label for="order_id"/>
+							<div class="o_row">
+								<field name="order_id" domain="[('partner_id','=',partner_id)]"/>
+								<button name="button_loading" string="Loading" type="object" icon="terp-gtk-jump-to-ltr" 
+						    	states="draft" attrs="{'invisible': [('order_id','=',False)]}" class="btn-default"/>
+							</div>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="order_line" mode="tree,kanban"
+                                attrs="{'readonly': [('state', 'in', ('done','cancel'))]}">
+                                <form string="Order Lines">
+                                    <group>
+                                        <group>
+                                            <field name="product_id"
+                                                context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"/>
+                                               
+                                            <label for="product_uom_qty" string="Ordered Quantity"/>
+                                            <div>
+                                                <field
+                                                    context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'uom_qty_change':True, 'company_id': parent.company_id}"
+                                                    name="product_uom_qty" class="oe_inline"/>
+                                                <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button"
+                                                    attrs="{'readonly': [('state', 'in', ('return','done', 'cancel'))]}"/>
+                                            </div>
+                                            <div>
+                                            </div>
+                                            <field name="price_unit"/>
+                                            <label for="discount" groups="sale.group_discount_per_so_line"/>
+                                            <div name="discount" groups="sale.group_discount_per_so_line">
+                                                <field name="discount" class="oe_inline"/> %%
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+                                                
+                                        </group>
+                                    </group>
+                                    <label for="name"/>
+                                    <field name="name"/>
+                                    <field name="state" invisible="1"/>
+                                </form>
+                                <tree string="Sales Order Lines" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"
+                                        context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                                       />
+                                    <field name="name"/>
+                                    <field name="product_uom_qty"
+                                        string="Ordered Qty"
+                                        context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                                    />
+                                    <field name="product_uom"
+                                        attrs="{'readonly': [('state', 'in', ('sale','done', 'cancel'))]}"
+                                        context="{'company_id': parent.company_id}"
+                                        groups="product.group_uom" options='{"no_open": True}'/>
+                                    <field name="price_unit"/>
+                                       
+                                    <field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+                                    <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                    <field name="price_subtotal" widget="monetary"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                                <kanban class="o_kanban_mobile">
+                                    <field name="product_id"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="product_uom" groups="product.group_uom"/>
+                                    <field name="price_subtotal"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <strong><span><t t-esc="record.product_id.value"/></span></strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-8 text-muted">
+                                                        <span><t t-esc="record.product_uom_qty.value"/> <t t-esc="record.product_uom.value"/></span>
+                                                    </div>
+                                                    <div class="col-xs-4 text-muted">
+                                                        <span class="pull-right text-right"><t t-esc="record.price_subtotal.value"/></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="amount_total" />
+                                    <button name="button_dummy"
+                                        states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                </div>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            <field name="note" class="oe_inline" placeholder="Setup default terms and conditions in your company settings."/>
+                            <div class="oe_clear"/>
+                        </page>
+                        <page string="Currency Conversion">
+		                	<field name="currency_order_line" colspan="4" nolabel="1"  widget="one2many_list" readonly="1">
+		                		<tree>
+		                			<field name="name"/>
+		             				<field name="product_uom_qty"/>
+		             				<field name="currency_price_unit"/>
+		             				<field name="currency_price_unit_include"/>
+		             				<field name="currency_price_subtotal"/>
+		                		</tree>
+		             		</field>
+		             		<group class="oe_subtotal_footer oe_right">
+								<field name="currency_currency_id" invisible="1"/>
+								<field name="currency_amount_untaxed" widget="monetary" options="{'currency_field': 'currency_currency_id'}"/>
+								<field name="currency_amount_tax" widget="monetary" options="{'currency_field': 'currency_currency_id'}"/>
+								<div class="oe_subtotal_footer_separator oe_inline">
+								    <label for="currency_amount_total"/>
+								    <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+								</div>
+								<field name="currency_amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_currency_id'}"/>
+		                    </group>
+		                   <div class="oe_clear"/>
+	             		</page>
+                        <page string="Other Information">
+                            <group>
+                                <group string="Information">
+                                	<field name="picking_type_id" domain="[('code','=','return_customer')]"/>
+                                    <field name="client_order_ref"/>
+                                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                                </group>
+                                <group string="Invoicing">
+	                            	<field name="fiscal_position_id" options="{'no_create': True}"/>
+                                    <field name="payment_term_id" options="{'no_create': True}"/>
+                                </group>
+                                <group>
+                                    <field name="user_confirm"/>
+                                    <field name="user_approve"/>
+                                    <field name="date_approve"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+    	
+    	<record id="action_sale_return_rfr" model="ir.actions.act_window">
+            <field name="name">Requests for Returned</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.return</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('state','in',('draft','sent','cancel'))]</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a requests for returned, the first step of a new sale returns.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem action="action_sale_return_rfr"
+            id="menu_action_sale_return_rfr" parent="menu_sale_return_management"
+            sequence="1"/>
+    	
+    	<record id="action_sale_return_orders" model="ir.actions.act_window">
+            <field name="name">Returns Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.return</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'show_sale': True}</field>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                	Create a requests for returned, the first step of a new sale returns.
+                </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_sale_return_orders"
+                action="action_sale_return_orders" parent="menu_sale_return_management"
+                sequence="2" groups="base.group_sale_salesman,base.group_sale_manager"/>
+    </data>
+</openerp>

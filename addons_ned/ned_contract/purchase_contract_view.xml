@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	
+        
+        <!-- Ned Stock Allocation -->
+    	<record id="view_stock_allocation_tree_tree" model="ir.ui.view">
+            <field name="name">stock.allocation.tree</field>
+            <field name="model">stock.allocation</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Allocation">
+                	<field name="date_allocation"/>
+                	<field name="partner_id"/>
+                	<field name="picking_id"/>
+                	<field name="contract_id"/>
+                	<field name="date_picking"/>
+                	<field name="qty_grn" sum="qty_grn"/>
+                	<field name="qty_allocation" sum="qty_allocation"/>
+                	<field name="allocation_picking_id"/>
+                	<field name="warehouse_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_stock_allocation_filter" model="ir.ui.view">
+            <field name="name">stock.allocation.filter</field>
+            <field name="model">stock.allocation</field>
+            <field name="arch" type="xml">
+                <search string="Search Allocation">
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="picking_id" string="GRN"/>
+                    <field name="contract_id" string="Contract"/>
+                    <field name="type_contract"/>
+                    <field name="warehouse_id"/>
+                    <group expand="0" string="Group By...">
+                    	<filter string="Qty Allocation 0" icon="terp-accessories-archiver" domain="['|',('qty_allocation','=',0),('qty_allocation','=',False)]" context="{}" />
+                    	<filter string="Supplier" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'partner_id'}"/>
+                    	<filter string="Contract" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'contract_id'}"/>
+                        <filter string="GRN" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'picking_id'}"/>
+                        <filter string="Type Contract" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'type_contract'}"/>
+                        <filter string="Warehouse" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'warehouse_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_stock_allocation" model="ir.actions.act_window">
+            <field name="name">Stock allocation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="context" eval="{'search_by_field_date': ['date_picking']}"/>
+        </record>
+        
+        <menuitem id="menu_action_stock_allocation" action="action_stock_allocation" sequence="45" 
+        	parent="bes_purchase_contract.menu_purchase_contract"
+        	groups="bes_purchase_contract.group_purchase_contract_user"/>
+        	
+        
+    	<!-- Ned Delivery Fee -->
+    	<record id="view_npe_nvp_relation_tree" model="ir.ui.view">
+            <field name="name">npe.nvp.relation.tree</field>
+            <field name="model">npe.nvp.relation</field>
+            <field name="arch" type="xml">
+                <tree string="Npe Nvp Relation">
+                	<field name="type" invisible="0"/>
+                	<field name="date_fixed"/>
+                	<field name="partner_id"/>
+                	<field name="npe_contract_id" string="From NPE"/>
+                	<field name="contract_id" string="To NVP"/>
+                	<field name="product_qty" string="Qty" sum="total_qty_fixed"/>
+                	<field name="total_qty_fixed" />
+                	<field name="date_tz" invisible="1"/>
+                	<field name="day_tz" invisible="1"/>
+                	
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record id="view_npe_nvp_relation_filter" model="ir.ui.view">
+            <field name="name">npe.nvp.relation.select</field>
+            <field name="model">npe.nvp.relation</field>
+            <field name="arch" type="xml">
+                <search string="Search Fixation">
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="npe_contract_id" string="From NPE"/>
+                    <field name="contract_id" string="To NVP"/>
+                    <group expand="0" string="Filter...">
+                    	<filter string="Fixed" domain="[('type','=','fixed')]"/>
+                    	<filter string="Temporary" domain="[('type','=','temporary')]"/>
+                    </group>
+                    <group expand="0" string="Group By...">
+                    	<filter string="Type" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'type'}"/>
+                    	<filter string="Supplier" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="NPE" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'npe_contract_id'}"/>
+                        <filter string="NVP" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'contract_id'}"/>
+                        <filter string="Day" context="{'group_by':'day_tz'}"/>
+                        <filter string="Month" context="{'group_by':'date_tz'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_npe_nvp_relation" model="ir.actions.act_window">
+            <field name="name">Fixation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">npe.nvp.relation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="context" eval="{'search_by_field_date': ['date_fixed']}"/>
+        </record>
+        
+        <menuitem id="menu_action_npe_nvp_relation" action="action_npe_nvp_relation" sequence="50" 
+        	parent="bes_purchase_contract.menu_purchase_contract"
+        	groups="bes_purchase_contract.group_purchase_contract_user"/>
+        
+        
+        <menuitem action="base.action_partner_supplier_form" 
+        		id="menu_purchase_contract_master_customer"
+        		name="Supplier" 
+        		parent="bes_purchase_contract.menu_purchase_contract" sequence="100"
+        		groups="bes_purchase_contract.group_purchase_contract_user"/>
+        	
+        
+        
+        <record id="view_payment_allocation_filter" model="ir.ui.view">
+            <field name="name">payment.allocation.select</field>
+            <field name="model">payment.allocation</field>
+            <field name="arch" type="xml">
+                <search string="Search Payment Allocation">
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="relation_contract_id" string="From NPE"/>
+                    <field name="contract_id" string="To NVP"/>
+                    
+                    <group expand="0" string="Group By...">
+                    	<filter string="Supplier" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="NPE" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'relation_contract_id'}"/>
+                        <filter string="NVP" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'contract_id'}"/>
+                        <filter string="Day" context="{'group_by':'day_tz'}"/>
+                        <filter string="Month" context="{'group_by':'date_tz'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_payment_allocation_tree" model="ir.ui.view">
+            <field name="name">payment.allocation.tree</field>
+            <field name="model">payment.allocation</field>
+            <field name="arch" type="xml">
+                <tree string="Payment Allocation">
+                	<field name="relation_contract_id" string="From NPE"/>
+                	<field name="partner_id"/>
+                	<field name="request_id"/>
+                	<field name="pay_id"/>
+                	<field name="contract_id" string="To NVP"/>
+                	<field name="nvp_date"/>
+                	<field name="payment_amount" sum="payment_amount" invisible="0"/>
+                	<field name="allocation_amount" sum="allocation_amount"/>
+                	<field name="payment_received" sum="payment_received"/>
+                	<field name="payment_remain" sum="payment_remain"/>
+                	<field name="date_tz" invisible="1"/>
+                	<field name="day_tz" invisible="1"/>
+                	<field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_payment_allocation" model="ir.actions.act_window">
+            <field name="name">Payment Allocation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payment.allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="context" eval="{'search_by_field_date': ['nvp_date']}"/>
+        </record>
+        
+        
+        <menuitem id="menu_action_payment_allocation" action="action_payment_allocation" sequence="100" 
+        	parent="bes_purchase_contract.menu_purchase_contract"
+        	groups="bes_purchase_contract.group_purchase_contract_user"/>
+    	
+    	
+    	<!-- Kiet: Search Stock -->
+    	<record id="view_picking_internal_search_add_allocated_modify" model="ir.ui.view">
+            <field name="name">view.picking.internal.search.add.unallocated.general.modify</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='group_id']" position="after">
+                	<filter domain="[('allocated','!=',0)]" string="Allocated"/>
+                	<filter domain="[('allocated','=',0)]" string="Unallocated"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="purchase_contract_search_add_ned_modify" model="ir.ui.view">
+            <field name="name">purchase.contract.add.ned.modify.search</field>
+            <field name="model">purchase.contract</field>
+            <field name="inherit_id" ref="bes_purchase_contract.purchase_contract_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                	<filter domain="[('nvp_relation_type','=','fixed')]" string="Fixed"/>
+                	<filter domain="[('nvp_relation_type','=','temporary')]" string="Temporary"/>
+                	<filter string="Contract type" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'nvp_relation_type'}"/>
+                </xpath>
+            </field>
+        </record>
+        
+         <record id="view_nvp_contract_tree" model="ir.ui.view">
+            <field name="name">view.nvp.contract.tree</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Contract List"  decoration-info="state == 'draft'" decoration-muted="state in ('cancel','done')" decoration-danger="state in ('approved','validate')">
+                    <field name="name" string="NVP"/>
+                    
+                    <field name="date_order"/>
+                    <field name="partner_id"/>
+                    <field name="delivery_place_id" invisible="0"/>
+                    <field name="contract_type" invisible="0"/>
+                    <field name="certificate_id" invisible="0"/>
+                    <field name="product_id"/>
+                    <field name="total_qty" sum="total_qty" string="Quantity"/>
+                    <field name="relation_price_unit"/>
+                    <field name="amount_sub_total" sum="amount_sub_total" string="Total Value"/>
+                    <field name="amount_deposit" sum="amount_deposit" string="Paid"/>
+                    <field name="total_interest_pay" sum="total_interest_pay"/>
+                    <field name="amount_total" sum="amount_total" />
+                    <field name="qty_received" sum="qty_received"/>
+	            	<field name="qty_unreceived" sum="qty_unreceived" string="To receive"/>
+	            	<field name="nvp_relation_type" invisible="1"/>
+	            	<field name="origin" invisible="0"/>
+                    <field name="state" string="Status"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="years_tz" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+    	
+    	<record model="ir.ui.view" id="view_nvp_contract_graph">
+            <field name="name">view.nvp.contract.graph</field>
+            <field name="model">purchase.contract</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <graph  type="bar" string="Purchase ">
+                    <field name="date_tz" type="row"/>
+               		<field name="total_qty" type="measure"/>
+                </graph>
+            </field>
+         </record>
+    	
+    	<record id="bes_purchase_contract.action_consignment_agreement" model="ir.actions.act_window">
+            <field name="name">NPE</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="domain">[('type','=','consign')]</field>
+            <field name="context">{'default_type':'consign', 'search_by_field_date': ['date_order']}</field>
+            <field name="search_view_id" ref="bes_purchase_contract.purchase_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Consignment Agreement, the first step of a new Consignment Agreement.
+              </p>
+            </field>
+        </record>
+    
+    	<menuitem id="bes_purchase_contract.menu_action_consignment_agreement" action="bes_purchase_contract.action_consignment_agreement" sequence="2" 
+        	parent="bes_purchase_contract.menu_purchase_contract" name="NPE"
+        	groups="bes_purchase_contract.group_purchase_contract_user"/>
+        	
+   		<record id="bes_purchase_contract.action_purchase_contract" model="ir.actions.act_window">
+            <field name="name">NVP</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="domain">[('type','=','purchase')]</field>
+            <field name="context">{'default_type':'purchase', 'search_by_field_date': ['date_order']}</field>  
+            <field name="search_view_id" ref="bes_purchase_contract.purchase_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a purchase contract, the first step of a new contract.
+              </p>
+            </field>
+        </record>
+        
+        
+        <record id="view_nvp_contract_graph" model="ir.ui.view">
+            <field name="name">>view.nvp.contract.graph</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <graph string="NVP">
+                    <field name="date_tz" type="row"/>
+               		<field name="total_qty" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+          <record id="action_view_nvp_contract_graph" model="ir.actions.act_window.view">
+            <field eval="140" name="sequence"/>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="view_nvp_contract_graph"/>
+            <field name="act_window_id" ref="bes_purchase_contract.action_purchase_contract"/>
+        </record>
+        
+        
+        <record id="action_nvp_contract_pivot" model="ir.actions.act_window.view">
+            <field eval="120" name="sequence"/>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="view_nvp_contract_pivot"/>
+            <field name="act_window_id" ref="bes_purchase_contract.action_purchase_contract"/>
+        </record>
+        
+        <record id="view_nvp_contract_pivot" model="ir.ui.view">
+            <field name="name">view.nvp.contract.pivot</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <pivot string="nvp">
+               		<field name="date_tz" type="row"/>
+               		<field name="total_qty" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <record id="action_nvp_contract_pivot" model="ir.actions.act_window.view">
+            <field eval="120" name="sequence"/>
+            <field name="view_mode">pivot</field>
+            <field name="view_id" ref="view_nvp_contract_pivot"/>
+            <field name="act_window_id" ref="bes_purchase_contract.action_purchase_contract"/>
+        </record>
+        
+        <record id="action_view_nvp_contract_tree" model="ir.actions.act_window.view">
+            <field eval="100" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_nvp_contract_tree"/>
+            <field name="act_window_id" ref="bes_purchase_contract.action_purchase_contract"/>
+        </record>
+   
+    	<menuitem id="bes_purchase_contract.menu_action_purchase_contract" action="bes_purchase_contract.action_purchase_contract" sequence="1" 
+        	parent="bes_purchase_contract.menu_purchase_contract" name="NVP"
+        	groups="bes_purchase_contract.group_purchase_contract_user"/>
+    
+     	
+     	<record id="view_stock_allocation_tree" model="ir.ui.view">
+            <field name="name">stock.allocation.tree</field>
+            <field name="model">stock.allocation</field>
+            <field name="arch" type="xml">
+	            <tree editable="top">
+	            	<field name="type_contract" invisible="1"/>
+	            	<field name="date_picking" readonly="1"/>
+	            	<field name="partner_id"/>
+	            	<field name="contract_id" readonly="1"/>
+	            	<field name="picking_id" readonly="1"/>
+	            	<field name="qty_allocation" sum="qty_allocation"/>
+	           		<field name="qty_contract" sum="qty_contract"/>
+	           		<field name="qty_received" sum="qty_received"/>
+	            	<field name="qty_unreceived" sum="qty_unreceived"/>
+	            	<field name="compare_qty" invisible="1"/>
+	            	<field name="state" invisible="1"/>
+	            	<button name="approve_allocation" string="Approve" type ="object" states='draft' />
+	            	<button name="cancel_allocation" string="Cancel" type = "object" states='approved'/>
+	            	
+	          	</tree>
+        	</field>
+       	</record>
+       	
+		<record id="action_view_stock_allocation_tree" model="ir.actions.act_window">
+            <field name="name">GRN Allocation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="priority">10</field>
+            
+        </record>       
+         
+	<record id="view_stock_grn_contract_allocation_tree" model="ir.ui.view">
+            <field name="name">stock.grn.contract.allocation.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <tree string="GRN - Contract Allocation" decoration-info="allocated != 0" decoration-muted="allocated == 0">
+                	<field name="name"/>
+                	<field name="date_done"/>
+                	<field name="partner_id"/>
+                	<field name="product_id"/>
+                	<field name="total_qty"/>
+                	<field name="allocated_qty" sum="allocated_qty"/>
+                	<field name="qty_available" sum="qty_available"/>
+                	<field name="allocated" invisible="0"/>
+                	<field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_stock_grn_contract_allocation_form" model="ir.ui.view">
+            <field name="name">stock.grn.contract.allocation.form</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <form string="GRN - Contract Allocation">
+	                <header>
+	                	<button name="btt_allocation" string="Alllocation" type="object"/>
+	                	<field name="state" invisible="1"/>
+	                </header>
+	                <sheet>
+	                    <div class="oe_title">
+	                        <h1>
+	                            <field name="name"/>
+	                        </h1>
+	                    </div>
+                    	<group col="4">
+                    		<field name="partner_id"/>
+                    		<field name="product_id" readonly="1"/>
+                    		<field name="allocated_qty"/>
+                    		<field name="picking_type_code" invisible="1"/>
+                    		<field name="date_done"/>
+                    		<field name="total_qty"/>
+                    		<field name="qty_available"/>	
+                    		<field name="allocated" options="{'reload_on_button': True}"/>	
+                    	</group>
+                    	<field name="allocation_ids">
+                    		<tree editable="top">
+			                	<field name="contract_id" readonly="1"/>
+			                	<field name="qty_contract" sum="qty_contract"/>
+			                	<field name="qty_received" sum="qty_received"/>
+			                 	<field name="qty_unreceived" sum="qty_unreceived"/>
+			                 	<field name="qty_allocation" sum="qty_allocation"/>
+			                 	<field name="compare_qty" invisible="1"/>
+			                 	<field name="state" invisible="1"/>
+			                 	<button name="approve_allocation" string="Approve" type ="object" states='draft' />
+			                 	<button name="cancel_allocation" string="Cancel" type = "object" states='approved'/>
+		                	</tree>
+                    	</field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_stock_grn_contract_allocation" model="ir.actions.act_window">
+            <field name="name">GRN - Contract Allocation</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="priority">100</field>
+            <field name="domain">[('picking_type_code','=','incoming'),('state','=','done')]</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_stock_grn_contract_allocation_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_stock_grn_contract_allocation_tree"/>
+            <field name="act_window_id" ref="action_stock_grn_contract_allocation"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="stock_grn_contract_allocation_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_stock_grn_contract_allocation_form"/>
+            <field name="act_window_id" ref="action_stock_grn_contract_allocation"/>
+        </record>
+        
+       <!-- 
+        <menuitem id="menu_action_stock_grn_contract_allocation" 
+        	action="action_stock_grn_contract_allocation" sequence="2" 
+        	parent="bes_purchase_contract.menu_purchase_contract"
+        	groups="bes_purchase_contract.group_purchase_contract_user"/>
+        -->
+       
+       <!-- Ned Delivery Fee 
+    	<record id="view_stock_allocation_report_tree" model="ir.ui.view">
+            <field name="name">stock.allocation.report.tree</field>
+            <field name="model">stock.allocation</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Allocation">
+                	<field name="picking_id"/>
+                	<field name="partner_id"/>
+                	<field name="qty_grn"/>
+                	<field name="contract_id" readonly="1"/>
+                	<field name="qty_contract" sum="qty_contract"/>
+                	<field name="qty_received" sum="qty_received"/>
+                	<field name="price_contract"/>
+                 	<field name="qty_unreceived" sum="qty_unreceived"/>
+                 	<field name="date_tz" invisible="1"/>
+                 	<field name="day_tz" invisible="1"/>
+                 	<field name="compare_qty" invisible="1"/>
+                 	<field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record id="view_stock_allocation_filter" model="ir.ui.view">
+            <field name="name">stock.allocation.filter</field>
+            <field name="model">stock.allocation</field>
+            <field name="arch" type="xml">
+                <search string="Search Stock Allocation">
+                    <field name="picking_id" string="GRN"/>
+                    <field name="contract_id" string="From NPE"/>
+                    <field name="partner_id"/>
+                    <group expand="0" string="Group By...">
+                    	<filter string="Picking" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'picking_id'}"/>
+                    	<filter string="Contract" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'contract_id'}"/>
+                    	<filter string="Partner" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'partner_id'}"/>
+                    	<filter string="Month" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date_tz'}"/>
+                    	<filter string="Day" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'day_tz'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_stock_allocation_report_tree" model="ir.actions.act_window">
+            <field name="name">GRN Allocation Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="priority">100</field>
+            <field name="context" eval="{'search_by_field_date': ['date_contract']}"/>
+        </record>
+        
+        <menuitem id="menu_action_stock_allocation_report_tree" 
+        	action="action_stock_allocation_report_tree" sequence="3" 
+        	parent="bes_purchase_contract.menu_purchase_contract"
+        	groups="bes_purchase_contract.group_purchase_contract_user"/>
+		-->
+		
+        
+        <record id="view_purchase_contract_tree_ned_contract" model="ir.ui.view">
+	        <field name="name">purchase.contract.tree.ned.contract</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="inherit_id" ref="bes_purchase_contract.view_purchase_contract_tree"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='total_qty']" position="replace">
+	        		<field name="total_qty" string ="Qty Contract" sum="total_qty" attrs="{'invisible': [('type','=','purchase')]}"/>
+	        		
+	            	<field name="qty_received" sum="qty_received"/>
+	            	<field name="qty_unreceived" sum="qty_unreceived" string="To receive"/>
+	            	<field name="total_qty_fixed"/>
+	            	<field name="qty_unfixed" sum="qty_unfixed"/>
+	            	
+	            	<field name="total_advance" sum="total_advance"/>
+	            	<field name="total_payment_received" sum="total_payment_received"/>
+	            	<field name="total_payment_remain" sum="total_payment_remain"/>
+	            	<field name="type" invisible="1"/>
+	            	<field name="currency_id" invisible="1"/>
+	            </xpath>
+	           
+	            <xpath expr="//field[@name='currency_id']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='product_id']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='partner_id']" position="after">
+	            	<field name="certificate_id"/>
+	            	<field name="delivery_place_id"/>
+	            </xpath>
+	            
+            </field>
+        </record>
+        
+		<record id="view_purchase_contract_form_ned_contract" model="ir.ui.view">
+	        <field name="name">view.purchase.contract.form.general.modify</field>
+	        <field name="model">purchase.contract</field>
+	        <field name="inherit_id" ref="bes_purchase_contract.view_purchase_contract_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='date_order']" position="after">
+	            	<field name="crop_id"/>
+	            </xpath>
+	             <xpath expr="//field[@name='origin']" position="after">
+	            	<field name="songay"/>
+	            </xpath>
+	            <xpath expr="//field[@name='exchange_rate']" position="after">
+	            	<field name="delivery_place_id" required="1"/>
+                    <field name="contract_type" invisible="0"/>
+	            	<field name="certificate_id"/>
+	            	<field name="premium"/>
+	            	<field name="g2diff"/>
+	            	<field name="packing_terms_id"/>
+	            	<field name="qty_received" readonly="1" attrs="{'invisible': [('type','=','purchase')]}" />
+	            	<field name="total_qty_fixed" attrs="{'invisible': [('type','=','purchase')]}" />
+	            </xpath>
+	            
+	            <xpath expr="//button[@name='button_draft']" position="after">
+	            	<button name="printf_npe" string="Print NPE" type="object" attrs="{'invisible': [('type','=','purchase')]}" />
+	            	<button name="printf_nvp" string="Print NVP" type="object" attrs="{'invisible': [('type','!=','purchase')]}" />
+	            	<button name="%(action_view_wizard_invoice_purchase)d" type ="action" string="Create Invoice" class="oe_inline" />
+	            </xpath>
+	            
+	            <xpath expr="//field[@name='amount_tax']" position="after">
+	            	<field name="amount_sub_total" class="oe_subtotal_footer_separator"/>
+	            	<field name="amount_sub_rel_total" attrs="{'invisible': [('type','!=','purchase'),('state','!=','draft')]}"/>
+	            	<field name="amount_deposit" attrs="{'invisible': [('type','!=','purchase')]}" class="oe_subtotal_footer_separator"/>
+	            	<field name="total_interest_pay" attrs="{'invisible': [('type','!=','purchase'),('state','!=','draft')]}"/>
+	            </xpath>
+	            
+                <xpath expr="//field[@name='nvp_ids']/tree/field[@name='product_qty']" position="replace">
+                	 <field name="origin_qty" sum="origin_qty" string="Contract Qty"/>
+                	 <field name="qty_received" sum="qty_received"/>
+                	 <field name="total_qty_fixed" sum="total_qty_fixed"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='currency_id']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='currency_id']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//field[@name='warehouse_id']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            
+	            <xpath expr="//field[@name='payment_description']" position="after">
+	            	<field name="interest_move_id" readonly="1"/>
+	            	<field name="interest_move_entries_id" readonly="1"/>
+	            </xpath>
+            	
+            	
+	            <xpath expr="//page[@name='information']" position="before">
+            		<page string="Invoice">
+            			<group string="Invoice NVP">
+	                   		<field name="invoice_ids" nolabel="1" options='{"no_create": True}'>
+	                   			<tree>
+	                   				<field name="supplier_inv_date"/>
+	                   				<field name="partner_id"/>
+	                   				<field name="total_qty" sum="total_qty"/>
+	                   				<field name="amount_total" sum="amount_total"/>
+	                   				<field name="residual" sum="residual"/>
+	                   				<field name="state"/>
+	                   				<field name="currency_id" nolabel="1"/>
+	                   			</tree>
+	                   		</field>	
+                   		</group>
+                   		<newline/>
+                   		<group string="Invoice Fix">
+                   			<field name="npe_nvp_invoice_ids" options='{"no_create": True}' nolabel="1">
+                   				<tree editable="top">
+                   					<field name="npe_id" domain="[('partner_id','=',parent.partner_id),('type','=','consign')]"  options='{"no_create": True}'/>
+                   					<field name="invoice_id" domain="[('partner_id','=',parent.partner_id)]"  options='{"no_create": True}'/>
+                   					<field name="product_qty" sum="product_qty"/>
+                   					<field name="amount_total" sum="amount_total"/>
+                   					<field name="currency_id" invisible="1"/>
+                   				</tree>
+                   			</field>
+                   		</group>
+                   		
+                   	</page>
+	            <page string="Request Payment">
+		            	<field name="request_payment_ids" attrs="{'readonly': [('state','=','done')]}" context="{'type':type,'partner_id':partner_id,'contract_line':contract_line}">
+		            		<tree>
+		            			<field name="partner_id" invisible="0"/>
+		            			<field name="name"/>
+		            			<field name="date"/>
+		            			<field name="users_request_id"/>
+		            			<field name="partner_bank_id"/>
+		            			<field name="request_amount"/>
+		            			<field name="total_payment" sum="total_payment"/>
+		            			<field name="total_remain" sum="total_remain"/>
+		            			<field name="type" invisible="1"/>
+		            			<button name="print_advance_payment" type="object" string="Print Advance Payment" attrs="{'invisible': [('type','=','purchase')]}" icon="STOCK_PRINT"/>
+			                    <button name="print_printout_payment_npv" type="object" string="Print Printout Payment NPV" attrs="{'invisible': [('type','!=','purchase')]}" icon="STOCK_PRINT"/>
+					            <button name="print_payment_request" type="object" string="Print Payment Request" attrs="{'invisible': [('type','=','purchase')]}" icon="STOCK_PRINT"/>
+		            		</tree>
+		            		<form>
+			                    <group>
+			                        <group col="4">
+			                        	<field name="partner_id" invisible="0"/>
+			                            <field name="name"/>
+			                            <field name="users_request_id" required="1"/>
+			                            <field name="date"/>
+			                            <field name="advance_price"/>
+			                            <field name="advance_payment_quantity"/>
+			                            <field name="request_amount"/>
+			                            <field name="partner_bank_id" domain="[('partner_id','=',partner_id)]"/>
+			                            <field name="songay"/>
+			                            <field name="chinhanh"/>
+			                            <field name="type" invisible="1"/>
+			                        </group>
+			                        <newline/>
+			                         <notebook attrs="{'invisible': [('type','=','purchase')]}">
+			                        	<page string="Rate">
+			                        		<field name="rate_ids" readonly="0" >
+			                        			<tree editable="top">
+			                        				<field name="month"/>
+			                        				<field name="rate"/>
+			                        				<field name="provisional_rate" sum="provisional_rate"/>
+			                        			</tree>
+			                        		</field>
+			                        	</page>
+			                        	<page string="Payment">
+			                        		<field name="request_payment_ids" readonly="1" nolabel="1">
+			                        			<tree editable="top">
+				                    				<field name="payment_date"/>
+				                    				<field name="name"/>
+				                    				<field name="partner_id" string="Supplier" invisible="1"/>
+				                    				<field name="journal_id"/>
+				                    				<field name="amount" sum="amount"/>
+				                    				<field name="payment_refunded" sum="payment_refunded"/>
+				                    				<field name="open_advance" sum="open_advance"/>
+				                    				<field name="state" invisible="1"/>
+				                    			</tree>
+				                        	</field>
+			                        	</page>
+			                        </notebook>
+			                    </group>
+		            		</form>
+		            	</field>
+		            	<newline/>
+		            	<field name="payment_ids" domain="[('extend_payment','!=','payment')]" readonly="1">
+		            		<tree>
+		            			<field name="name"/>
+		            			<field name="payment_date"/>
+		            			<field name="partner_id"/>
+		            			<field name="amount" sum="amount"/>
+		            			<field name="extend_payment" invisible="1"/>
+		            			<field name="state" invisible="1"/>
+		            		</tree>
+		            	</field>
+		            							  
+		            </page>
+		             
+		            <page string="Payment Allocation" attrs="{'invisible': [('type','!=','purchase')]}">
+		            	<group>
+		            		<button name="btt_load_payment" string="Load Payment" type="object"/>
+		            		<button name="button_lai" string="Refresh Lãi xuất" type="object" class="oe_highlight"/>
+		            	</group>
+	             		<field name="pay_allocation_ids">
+	             			<tree>
+	             				<field name="allocation_amount" sum="allocation_amount"/>
+	             				<field name="pay_id"/>
+	             				<field name="relation_contract_id"/>
+	             				<field name="payment_date"/>
+	             				<field name="payment_amount" sum="payment_amount"/>
+	             				<field name="payment_received" sum="payment_received"/>
+	             				<field name="payment_remain" sum="payment_remain"/>
+	             				<field name="total_interest_pay" sum="total_interest_pay"/>
+	             				<field name="currency_id" invisible="1"/>
+	             			</tree>
+	             			<form>
+	             				<header>
+	             					<button name="btt_load_interest" string="Load Interest" type="object"/>
+	             				</header>
+	             				<group col="4">
+		             				<field name="pay_id" readonly="1"/>
+		             				<field name="relation_contract_id"/>
+		             				<field name="payment_date"/>
+		             				<field name="payment_amount"/>
+		             				<field name="payment_received" sum="payment_received"/>
+		             				<field name="allocation_amount" sum="allocation_amount"/>
+		             				<field name="payment_remain" sum="payment_remain"/>
+		             				<field name="total_interest_pay" sum="total_interest_pay"/>
+		             				<field name="move_id" readonly="1"/>
+		             				<field name="currency_id" invisible="1"/>
+	             				</group>
+	             				<newline/>
+	             				<page string="Interest Rate">
+	             					<field name="allocation_line_ids">	
+	             						<tree editable="1">
+	             							<field name="month"/>
+	             							<field name="from_date"/>
+	             							<field name="to_date"/>
+	             							<field name="total_date" sum="total_date"/>
+	             							<field name="rate"/>
+	             							<field name="interest_pay" sum="interest_pay"/>
+	             							<field name="actual_interest_pay" sum="actual_interest_pay"/>
+	             						</tree>
+	             					</field>
+	             				</page>
+	             			</form>
+	             		</field>
+		             </page>
+	            </xpath>
+	            
+	            <xpath expr="//page[@name='information']" position="inside">
+	            	<field name="move_ids" invisible="1"/>
+	            </xpath>
+	            
+	            
+	        </field>
+	    </record>
+      </data>
+</openerp>

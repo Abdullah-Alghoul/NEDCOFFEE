@@ -1,0 +1,36 @@
+<openerp>
+	<data>
+		<record id="view_action_wizard_unoffical_contract" model="ir.ui.view">
+	      <field name="name">Unoffical Contract</field>
+	      <field name="model">wizard.unoffical.contract</field>
+	      <field name="arch" type="xml">
+	        <form>
+        		<group>
+		        	<field name="employee_ids" widget="many2many_tags"/>
+				</group>	                
+                <newline />
+                <separator colspan="4"/>
+                <footer>
+	                <button special="cancel"  string="Cancel" icon='gtk-cancel'/>
+	                <button name="report_wizard_unoffical_contract" string="Print" type="object" icon="gtk-print"/>
+                </footer>
+    		</form>
+	      </field>
+	    </record>
+	    
+		<record id="action_wizard_unoffical_contract" model="ir.actions.act_window">
+	        <field name="name">Unoffical Contract</field>
+	        <field name="res_model">wizard.unoffical.contract</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field eval="False" name="view_id"/>
+			<field name="target">new</field>	        
+	    </record>
+	    
+	    <menuitem action="action_wizard_unoffical_contract" 
+	    id="menu_action_wizard_unoffical_contract" 
+	    parent="menu_action_ned_hr_contract_report" 
+	    name="Unofficial Contracts" 
+	    sequence="1" />
+	</data>
+</openerp>

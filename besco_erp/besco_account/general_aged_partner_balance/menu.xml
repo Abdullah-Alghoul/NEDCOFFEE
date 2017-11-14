@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<!-- Thanh: Add group partner to menu reporting -->
+    	<menuitem id="account.menu_finance_reports"
+    		name="Reporting"
+    		parent="account.menu_finance" 
+    		groups="group_account_partner_report"/>
+    	
+    	<menuitem
+      		id="menu_vas_partner_reports" 
+      		parent="account.menu_finance_reports" 
+      		name="Partner Reports"
+      		sequence="90"
+      		groups="group_account_partner_report"/>
+      		
+      		<menuitem
+		        id="menu_action_view_report_partner_balance"
+		        parent="menu_vas_partner_reports"
+		        action="action_view_report_partner_balance"
+		        name="Partner Balances"
+		        sequence="4"
+		       />
+      		
+    </data>
+</openerp>

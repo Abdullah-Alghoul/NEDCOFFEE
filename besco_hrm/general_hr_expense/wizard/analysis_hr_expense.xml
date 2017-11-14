@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+		<record id="view_analysis_hr_expense_tree" model="ir.ui.view">
+            <field name="name">analysis.hr.expense.tree</field>
+            <field name="model">analysis.hr.expense</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Analysis Hr Expense" version="7.0">
+                	<field name="days" invisible="1"/>
+                	<field name="months" invisible="1"/>
+                	<field name="years" invisible="1"/>
+                	<field name="type" invisible="1"/>
+                	<field name="date_value"/>
+                	<field name="department_id"/>
+                	<field name="employee_id"/>
+                	<field name="description"/>
+                	<field name="ref" invisible="1"/>
+                	<field name="product_id"/>
+                	<field name="amount" invisible="0"/>
+                	<field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>  
+        
+     <record id="view_analysis_hr_expense_search" model="ir.ui.view">
+        <field name="name">analysis.hr.expense.search</field>
+        <field name="model">analysis.hr.expense</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">product_id
+            <search string="Expense Analysis" version="7.0">
+            	<group>
+                    <field name="type" invisible="1"/>
+                	<field name="department_id"/>
+                	<field name="employee_id"/>
+                	<field name="product_id"/>
+                </group>
+                <group expand="0" string="Filter">
+                	<filter icon="terp-check" name="fi_advance" string="Ứng công tác" domain="[('type','=','advance')]"/>
+                	<filter icon="terp-check" name="fi_expense" string="Phí công tác" domain="[('type','=','expense')]"/>
+                </group>
+                <group expand="0" string="Group by">
+                 	<filter icon="terp-check" name="g_type" string="Loại công tác" context="{'group_by':'type'}"/>
+                 	<filter icon="terp-check" name="g_department" string="Phòng ban" context="{'group_by':'department_id'}"/>
+                 	<filter icon="terp-check" name="g_employee" string="Nhân viên" context="{'group_by':'employee_id'}"/>
+                 	<filter icon="terp-check" name="g_day" string="Ngày" context="{'group_by':'days'}"/>
+                 	<filter icon="terp-check" name="g_months" string="Tháng" context="{'group_by':'months'}"/>
+                 	<filter icon="terp-check" name="g_years" string="Năm" context="{'group_by':'years'}"/>
+                 	<filter icon="terp-check" name="g_product" string="Loại chi phí" context="{'group_by':'product_id'}"/>
+                </group>
+            </search>
+        </field>  
+    </record>
+        
+        <record model="ir.actions.act_window" id="action_analysis_hr_expense">
+	        <field name="name">Expense Analysis</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">analysis.hr.expense</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field name="context">{'search_default_g_department': 1,'search_default_g_employee': 1,
+	        						'search_by_field_date': ['date_value']}</field>  
+	        <field name="search_view_id" ref="view_analysis_hr_expense_search"/>
+	    </record>	
+		
+		<menuitem action="action_analysis_hr_expense" id="menu_action_analysis_hr_expense"
+	      		parent="general_hr_account.menu_account_hrm" sequence="20"/>
+        
+    </data>
+</openerp>

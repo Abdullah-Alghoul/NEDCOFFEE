@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	
+		<record id="view_wizard_invoice" model="ir.ui.view">
+	        <field name="name">view.wizard.invoice.form</field>
+	        <field name="model">wizard.invoice</field>
+	        <field name="arch" type="xml">
+		        <form string="Invoice">
+		        	<sheet>
+			            <group>
+			            	<group>
+			            		<field name="name"/>
+			            		<field name="journal_id" domain="[('type','=','sale')]"/>
+			            	</group>
+			            	<group>	
+			            		<field name="date"/>
+			            		<field name="currency_id"/>
+			            	</group>
+		                </group>
+		            	<field name="wizard_ids" options="{'no_write': True, 'no_create': True}">
+		            		<tree editable="top">
+		                        <field name="product_id"/>
+		                        <field name="product_qty" readonly="0"/>
+		                        <field name="price_unit" readonly="0"/>
+		            		</tree>
+		            	</field>
+		                <footer>
+		                    <button string="Create Invoice" name="create_invoice" type="object" class="oe_highlight"/>
+		                    <button string="_Cancel" class="btn-default" special="cancel" />
+		                </footer>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <record id="action_wizard_invoice" model="ir.actions.act_window">
+            <field name="name">Wizard Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.invoice</field>
+            <field name="view_id" ref="view_wizard_invoice"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    
+      </data>
+</openerp>

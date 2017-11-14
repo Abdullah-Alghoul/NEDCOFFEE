@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+stock_warehouse_purchase_user,stock.warehouse.purchase.user,stock.model_stock_warehouse,purchase.group_purchase_user,1,0,0,0
+access_purchase_report_group_user,purchase_report_group_user,purchase.model_purchase_report,base.group_user,1,1,1,0
+access_ir_property_purchase,ir.property.purchase,base.model_ir_property,purchase.group_purchase_user,1,1,1,1

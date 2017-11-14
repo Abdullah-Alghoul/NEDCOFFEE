@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<openerp> 
+  	<data> 
+		
+		<!--  		Inherit Country State origin -->
+  		<record id="view_form_country_state_origin_inherited" model="ir.ui.view">
+		    <field name="name">view.form.country.state.origin.inherited</field>
+		    <field name="model">res.country.state</field>
+		    <field name="inherit_id" ref="base.view_country_state_form"/>
+		    <field name="arch" type="xml">
+		    	<xpath expr="//field[@name='code']" position="after">
+		    		<field name="short_name" />
+		    	</xpath>
+				
+		    </field>
+		</record>
+		<record id="view_tree_country_state_origin_inherited" model="ir.ui.view">
+		    <field name="name">view.tree.country.state.origin.inherited</field>
+		    <field name="model">res.country.state</field>
+		    <field name="inherit_id" ref="base.view_country_state_tree"/>
+		    <field name="arch" type="xml">
+		    	<xpath expr="//field[@name='code']" position="after">
+		    		<field name="short_name"/>
+		    	</xpath>
+				
+		    </field>
+		</record>
+		
+		
+		<!--		Edit master data Country-->
+		<record id="view_form_master_data_country_inherited" model="ir.ui.view">
+		    <field name="name">view.form.master.data.country.inherited</field>
+		    <field name="model">res.country</field>
+		    <field name="inherit_id" ref="base.view_country_form"/>
+		    <field name="arch" type="xml">
+		    	<xpath expr="//field[@name='state_ids']" position="replace">
+		    		<field name="state_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="short_name"/>
+                        </tree>
+                    </field>
+		    	</xpath>
+		    </field>
+		</record>
+		
+	</data>
+</openerp>

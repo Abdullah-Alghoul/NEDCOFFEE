@@ -1,0 +1,101 @@
+<openerp>
+	<data>
+	    <record id="action_hr_attendance_import" model="ir.actions.act_window">
+	        <field name="name">HR Attendance Import</field>
+	        <field name="res_model">hr.attendance.import</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field eval="False" name="view_id"/>
+	    </record>
+	    
+	    <menuitem
+            name="Attendances Data"
+            parent="hr_attendance.menu_hr_attendance_root"
+            id="menu_open_ask_attendace" groups = "base.group_hr_manager,base.group_hr_user"
+            sequence="4"/>
+        <menuitem action="hr_attendance.open_view_attendance" id="hr_attendance.menu_open_view_attendance" parent="menu_open_ask_attendace" sequence="20" groups="base.group_hr_attendance"/>
+        
+	    <menuitem id="menu_action_hr_attendance_import"
+	      	name="Attendance Import"
+	      	parent="menu_open_ask_attendace"
+			action="action_hr_attendance_import"
+			groups="base.group_hr_user"
+			sequence="5"/> 
+	    
+	    <record id="view_tree_hr_attendance_import" model="ir.ui.view">   
+	      <field name="name">HR Attendance Import</field>
+	      <field name="model">hr.attendance.import</field>
+	      <field name="arch" type="xml">        
+	         <tree>
+	         	<field name="import_date"/>
+	         	<field name="user_import_id"/>
+	         	<field name="state"/>
+	         	<field name="start_date"/>
+       			<field name="end_date"/>
+	        </tree>
+	      </field>
+	    </record>
+	    
+	    <record id="view_form_hr_attendance_import" model="ir.ui.view">
+	      <field name="name">HR Attendance Import</field>
+	      <field name="model">hr.attendance.import</field>
+	      <field name="arch" type="xml">
+	        <form>
+		        <header>
+		        	<button string="Read File" type="object" states="draft" name="add_line" attrs="{'invisible': ['|', ('file', '=', False), ('state', '!=', 'draft')]}"/>
+		        	<button string="Process" type="object" states="read" name="read_file" class="oe_highlight" attrs="{'invisible': ['|', '|', ('file', '=', False), ('state', '=', 'draft'), ('state', '=', 'done')]}" confirm="Are you sure with your data?"/>
+		        	<button string="Reset to Draft" type="object" name="reset_to_draft" class="oe_highlight" attrs="{'invisible': [('state', 'in', ('draft','done'))]}"/>
+		        	<button string="Edit Error" type="object" name="edit_error" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+		        	<field name="state" widget="statusbar" statusbar_visible="draft,read,waiting,done" readonly="1" />
+	        	</header>
+	        	<sheet>
+	        		<group>
+	        			<group>
+		        			<field name="file" />
+			          		<field name="file_name" invisible="1"/>
+			          		<field name="company_id" groups="base.group_multi_company"/>
+			          		<!--  
+			          		<label for="start_date" string="Period"/>
+	                        <div>
+	                            <field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+	                        </div>
+	                        -->
+                        </group>
+                        <group>
+			          		<field name="user_import_id" />
+			          		<field name="import_date" />
+		          		</group>
+		          	</group> 
+		          	<group>
+		          		<field name="hr_attendance_import_line_ids" nolabel="1">
+		          			<tree editable="1" decoration-danger="status == 'fail'">
+		          				<field name="code"/>
+		          				<field name="employee_id" invisible="1"/>
+		          				<field name="employee_name" />
+		          				<field name="time_in" />
+		          				<field name="time_out" />
+		          				<field name="schedule_name"/>
+		          				<field name="status" />
+		          				<field name="error_log" />
+		          			</tree>
+		          			<form>
+		          				<group>
+			          				<field name="code"/>
+			          				<field name="employee_id" invisible="1"/>
+			          				<field name="employee_name" />
+			          				<field name="time_in" />
+			          				<field name="time_out" />
+			          				<field name="schedule_name"/>
+			          				<field name="status" />
+			          				<field name="is_error" />
+			          				<field name="error_log" />
+			          			</group>
+		          			</form>
+		          		</field>
+		          	</group>
+	        	</sheet>
+    		</form>
+	      </field>
+	    </record>
+	</data>
+</openerp>

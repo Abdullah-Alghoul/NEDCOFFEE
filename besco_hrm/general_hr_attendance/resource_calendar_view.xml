@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    <record id="resource_calendar_form_view_add_fields" model="ir.ui.view">
+	        <field name="name">resource.calendar.form.view.add.fields</field>
+	        <field name="model">resource.calendar</field>
+	        <field name="priority">20</field>
+	        <field name="inherit_id" ref="resource.resource_calendar_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='manager']" position="after">
+	        		
+	            </xpath>
+	        </field>
+	    </record>
+    
+    </data>
+</openerp>

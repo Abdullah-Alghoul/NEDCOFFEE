@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data noupdate="0">
+    
+        <record id="ir_cron_cron_stock_fifo_action" model="ir.cron">
+            <field name="name">STOCK FIFO</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'stock.move.allocation'" name="model"/>
+            <field eval="'cron_stock_fifo'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_create_entries_fifo_action" model="ir.cron">
+            <field name="name">Create Entries FAQ</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'stock.move'" name="model"/>
+            <field eval="'cron_create_entries_fifo'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_create_invoice_fifo_action" model="ir.cron">
+            <field name="name">Create Invoice FIFO</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'invoice.allocation'" name="model"/>
+            <field eval="'cron_invoice_fifo'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_entries_cogs_fifo_action" model="ir.cron">
+            <field name="name">Entries Invoice Cogs Fifo</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'invoice.allocation'" name="model"/>
+            <field eval="'cron_entries_cogs_fifo'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="ir_cron_create_stock_kcs_action" model="ir.cron">
+            <field name="name">Cron Create Stock Kcs</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'stock.picking'" name="model"/>
+            <field eval="'cron_create_stock_kcs'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,423 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* hr_attendance_analysis
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20140412-231254\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-22 02:02+0000\n"
+"PO-Revision-Date: 2014-04-22 02:02+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_analysis
+#: field:attendance_analysis.wizard.calendar_report,employee_ids:0
+msgid "unknown"
+msgstr "unknown"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar.attendance,tolerance_from:0
+msgid "Tolerance from"
+msgstr "Về sớm"
+
+#. module: hr_attendance_analysis
+#: model:ir.model,name:hr_attendance_analysis.model_hr_attendance
+msgid "Attendance"
+msgstr "Điểm danh"
+
+#. module: hr_attendance_analysis
+#: view:resource.calendar:0
+#: field:resource.calendar,overtime_type_ids:0
+msgid "Overtime types"
+msgstr "Loại tăng ca"
+
+#. module: hr_attendance_analysis
+#: view:hr.attendance:0
+msgid "Total Schedule"
+msgstr "Giờ công chuẩn"
+
+#. module: hr_attendance_analysis
+#: view:hr.attendance:0
+msgid "Start date time"
+msgstr "Giờ vào"
+
+#. module: hr_attendance_analysis
+#: model:ir.actions.act_window,name:hr_attendance_analysis.open_view_attendance
+#: model:ir.ui.menu,name:hr_attendance_analysis.menu_open_view_attendance
+msgid "Attendances analysis"
+msgstr "Chi tiết chấm công"
+
+#. module: hr_attendance_analysis
+#: model:ir.ui.menu,name:hr_attendance_analysis.menu_view_resource_calendar
+msgid "Working Time"
+msgstr "Thời gian làm việc"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar,overtime_rounding:0
+msgid "Overtime rounding"
+msgstr "Làm tròn tăng ca"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar,overtime_rounding_tolerance:0
+msgid "Overtime rounding tolerance"
+msgstr "Overtime rounding tolerance"
+
+#. module: hr_attendance_analysis
+#: selection:resource.calendar,attendance_rounding:0
+#: selection:resource.calendar,leave_rounding:0
+#: selection:resource.calendar,overtime_rounding:0
+msgid "60"
+msgstr "60"
+
+#. module: hr_attendance_analysis
+#: view:attendance_analysis.wizard.calendar_report:0
+msgid "Print"
+msgstr "In"
+
+#. module: hr_attendance_analysis
+#: view:hr.attendance:0
+msgid "Calendar View"
+msgstr "Calendar View"
+
+#. module: hr_attendance_analysis
+#: field:hr.attendance,end_datetime:0
+msgid "End date time"
+msgstr "Giờ ra"
+
+#. module: hr_attendance_analysis
+#: model:ir.model,name:hr_attendance_analysis.model_attendance_analysis_wizard_calendar_report
+msgid "attendance_analysis.wizard.calendar_report"
+msgstr "attendance_analysis.wizard.calendar_report"
+
+#. module: hr_attendance_analysis
+#: field:hr.attendance,leave_soon:0
+msgid "Lv Soon"
+msgstr "Về sớm"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar.attendance,tolerance_to:0
+msgid "Tolerance to"
+msgstr "Đi trễ"
+
+#. module: hr_attendance_analysis
+#: help:resource.calendar.attendance,tolerance_to:0
+msgid "Sign in done in the interval \"Work from + Tolerance to\" will be considered done at \"Work from\""
+msgstr "Sign in done in the interval \"Work from + Tolerance to\" will be considered done at \"Work from\""
+
+#. module: hr_attendance_analysis
+#: view:hr.attendance:0
+msgid "Within working schedule"
+msgstr "Within working schedule"
+
+#. module: hr_attendance_analysis
+#: help:resource.calendar.attendance,tolerance_from:0
+msgid "Sign out done in the interval \"Work to - Tolerance from\" will be considered done at \"Work to\""
+msgstr "Sign out done in the interval \"Work to - Tolerance from\" will be considered done at \"Work to\""
+
+#. module: hr_attendance_analysis
+#: selection:resource.calendar,attendance_rounding:0
+#: selection:resource.calendar,leave_rounding:0
+#: selection:resource.calendar,overtime_rounding:0
+msgid "20"
+msgstr "20"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "August"
+msgstr "August"
+
+#. module: hr_attendance_analysis
+#: model:ir.model,name:hr_attendance_analysis.model_resource_calendar
+msgid "Resource Calendar"
+msgstr "Resource Calendar"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "May"
+msgstr "May"
+
+#. module: hr_attendance_analysis
+#: view:resource.calendar:0
+msgid "Type"
+msgstr "Loại"
+
+#. module: hr_attendance_analysis
+#: view:resource.calendar:0
+msgid "Roundings"
+msgstr "Roundings"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "June"
+msgstr "June"
+
+#. module: hr_attendance_analysis
+#: view:attendance_analysis.wizard.calendar_report:0
+#: model:ir.actions.act_window,name:hr_attendance_analysis.action_wizard_calendar_report
+#: model:ir.ui.menu,name:hr_attendance_analysis.menu_action_wizard_calendar_report
+msgid "Attendances Analysis Calendar"
+msgstr "Attendances Analysis Calendar"
+
+#. module: hr_attendance_analysis
+#: help:resource.calendar,overtime_rounding:0
+msgid "Setting rounding = 30 minutes, an overtime of 29 minutes will be considered as 0 minutes, 31 minutes as 30 minutes, 61 minutes as 1 hour and so on"
+msgstr "Setting rounding = 30 minutes, an overtime of 29 minutes will be considered as 0 minutes, 31 minutes as 30 minutes, 61 minutes as 1 hour and so on"
+
+#. module: hr_attendance_analysis
+#: help:resource.calendar,leave_rounding:0
+msgid "On the contrary of overtime rounding, using rounding = 15 minutes, a leave of 1 minute will be considered as 15 minutes, 16 minutes as 30 minutes and so on"
+msgstr "On the contrary of overtime rounding, using rounding = 15 minutes, a leave of 1 minute will be considered as 15 minutes, 16 minutes as 30 minutes and so on"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar,attendance_rounding:0
+msgid "Attendance rounding"
+msgstr "Attendance rounding"
+
+#. module: hr_attendance_analysis
+#: field:attendance_analysis.wizard.calendar_report,to_date:0
+msgid "To date"
+msgstr "To date"
+
+#. module: hr_attendance_analysis
+#: field:attendance_analysis.wizard.calendar_report,year:0
+msgid "Year"
+msgstr "Năm"
+
+#. module: hr_attendance_analysis
+#: view:hr.attendance:0
+#: field:hr.attendance,calendar_attendance_id:0
+msgid "Shift"
+msgstr "Ca"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "July"
+msgstr "July"
+
+#. module: hr_attendance_analysis
+#: view:res.company:0
+msgid "Configuration"
+msgstr "Cấu hình"
+
+#. module: hr_attendance_analysis
+#: view:hr.attendance:0
+msgid "Day"
+msgstr "Ngày"
+
+#. module: hr_attendance_analysis
+#: view:resource.calendar:0
+msgid "Types"
+msgstr "Types"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "February"
+msgstr "February"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "October"
+msgstr "10"
+
+#. module: hr_attendance_analysis
+#: field:hr.attendance,available_late:0
+msgid "Av Late"
+msgstr "Đi trễ"
+
+#. module: hr_attendance_analysis
+#: field:hr.attendance,duration:0
+msgid "Duration"
+msgstr "Giờ công"
+
+#. module: hr_attendance_analysis
+#: help:res.company,working_time_precision:0
+msgid "The precision used to analyse working times over working schedule (hh:mm)"
+msgstr "The precision used to analyse working times over working schedule (hh:mm)"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "January"
+msgstr "January"
+
+#. module: hr_attendance_analysis
+#: view:attendance_analysis.wizard.calendar_report:0
+msgid "Employees"
+msgstr "Employees"
+
+#. module: hr_attendance_analysis
+#: help:resource.calendar.overtime.type,limit:0
+msgid "Limit, in hours, of overtime that can be imputed to this type of overtime in a day. The surplus is imputed to the subsequent type"
+msgstr "Limit, in hours, of overtime that can be imputed to this type of overtime in a day. The surplus is imputed to the subsequent type"
+
+#. module: hr_attendance_analysis
+#: model:ir.model,name:hr_attendance_analysis.model_res_company
+msgid "Companies"
+msgstr "Các công ty"
+
+#. module: hr_attendance_analysis
+#: model:ir.model,name:hr_attendance_analysis.model_hr_contract
+msgid "Contract"
+msgstr "Hợp đồng"
+
+#. module: hr_attendance_analysis
+#: model:ir.model,name:hr_attendance_analysis.model_resource_calendar_attendance
+msgid "Work Detail"
+msgstr "Work Detail"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "April"
+msgstr "April"
+
+#. module: hr_attendance_analysis
+#: field:res.company,working_time_precision:0
+msgid "Working time precision"
+msgstr "Working time precision"
+
+#. module: hr_attendance_analysis
+#: view:hr.attendance:0
+msgid "Employee attendances analysis"
+msgstr "Employee attendances analysis"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar.overtime.type,limit:0
+msgid "Limit"
+msgstr "Limit"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar.overtime.type,name:0
+msgid "Type Description"
+msgstr "Type Description"
+
+#. module: hr_attendance_analysis
+#: help:resource.calendar,overtime_rounding_tolerance:0
+msgid "Overtime can be rounded using a tolerance. Using tolerance = 3 minutes and rounding = 15 minutes, if employee does overtime of 12 minutes, it will be considered as 15 minutes."
+msgstr "Overtime can be rounded using a tolerance. Using tolerance = 3 minutes and rounding = 15 minutes, if employee does overtime of 12 minutes, it will be considered as 15 minutes."
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "March"
+msgstr "March"
+
+#. module: hr_attendance_analysis
+#: help:resource.calendar,attendance_rounding:0
+msgid "For instance, using rounding = 15 minutes, every sign in will be rounded to the following quarter hour and every sign out to the previous quarter hour"
+msgstr "For instance, using rounding = 15 minutes, every sign in will be rounded to the following quarter hour and every sign out to the previous quarter hour"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "November"
+msgstr "November"
+
+#. module: hr_attendance_analysis
+#: view:hr.attendance:0
+msgid "Total OT"
+msgstr "Tăng ca"
+
+#. module: hr_attendance_analysis
+#: selection:resource.calendar,attendance_rounding:0
+#: selection:resource.calendar,leave_rounding:0
+#: selection:resource.calendar,overtime_rounding:0
+msgid "10"
+msgstr "10"
+
+#. module: hr_attendance_analysis
+#: selection:resource.calendar,attendance_rounding:0
+#: selection:resource.calendar,leave_rounding:0
+#: selection:resource.calendar,overtime_rounding:0
+msgid "12"
+msgstr "12"
+
+#. module: hr_attendance_analysis
+#: selection:resource.calendar,attendance_rounding:0
+#: selection:resource.calendar,leave_rounding:0
+#: selection:resource.calendar,overtime_rounding:0
+msgid "15"
+msgstr "15"
+
+#. module: hr_attendance_analysis
+#: view:res.company:0
+msgid "Attendance analysis"
+msgstr "Chi tiết chấm công"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar.overtime.type,sequence:0
+msgid "Sequence"
+msgstr "Thứ tự"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "September"
+msgstr "September"
+
+#. module: hr_attendance_analysis
+#: selection:attendance_analysis.wizard.calendar_report,month:0
+msgid "December"
+msgstr "December"
+
+#. module: hr_attendance_analysis
+#: model:ir.actions.report.xml,name:hr_attendance_analysis.attendance_analysis_report_id
+msgid "Attendances Analysis"
+msgstr "Chi tiết chấm công"
+
+#. module: hr_attendance_analysis
+#: selection:resource.calendar,attendance_rounding:0
+#: selection:resource.calendar,leave_rounding:0
+#: selection:resource.calendar,overtime_rounding:0
+msgid "30"
+msgstr "30"
+
+#. module: hr_attendance_analysis
+#: model:ir.model,name:hr_attendance_analysis.model_resource_calendar_overtime_type
+msgid "Overtime type"
+msgstr "Loại tăng ca"
+
+#. module: hr_attendance_analysis
+#: field:attendance_analysis.wizard.calendar_report,month:0
+msgid "Month"
+msgstr "Month"
+
+#. module: hr_attendance_analysis
+#: view:hr.attendance:0
+msgid "Total Duration"
+msgstr "Giờ công"
+
+#. module: hr_attendance_analysis
+#: field:hr.attendance,calendar_duration:0
+msgid "Schedule"
+msgstr "Giờ công chuẩn"
+
+#. module: hr_attendance_analysis
+#: field:attendance_analysis.wizard.calendar_report,from_date:0
+msgid "From date"
+msgstr "Giờ vào"
+
+#. module: hr_attendance_analysis
+#: field:hr.attendance,inside_calendar_duration:0
+msgid "Duration within working schedule"
+msgstr "Thời gian làm việc trong lịch"
+
+#. module: hr_attendance_analysis
+#: view:attendance_analysis.wizard.calendar_report:0
+msgid "Cancel"
+msgstr "Hủy"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar,leave_rounding:0
+msgid "Leave rounding"
+msgstr "Leave rounding"
+
+#. module: hr_attendance_analysis
+#: field:resource.calendar.overtime.type,calendar_id:0
+msgid "Calendar"
+msgstr "Calendar"
+
+#. module: hr_attendance_analysis
+#: field:hr.attendance,outside_calendar_duration:0
+msgid "OT"
+msgstr "Tăng ca"

@@ -1,0 +1,33 @@
+<openerp>
+	<data>
+	
+		<record id="hr_contract_view_form_inherit_vn_hr_payroll" model="ir.ui.view">
+            <field name="name">view.contract.form.inherit.vn.hr.payroll</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+					<xpath expr="//group[@name='duration_group']" position="after">
+                        <group name="salary_rule_group" string="Salary Rules">
+                			<field name="contract_salary_rule_ids" nolabel='1' attrs="{'readonly': [('state','not in','draft')]}">
+            					<tree string="Rules" editable='top'>
+            						<field name="sequence"/>
+		                            <field name="salary_rule_id"/>
+		                            <field name="amount"/>
+            					</tree>	
+            				</field>
+                        </group>
+                        <group name="overtime_group" string="Overtime">
+                			<field name="days_by_month" attrs="{'readonly': [('state','not in','draft')]}"/>
+                            <field name="hours_by_day" widget="float_time" attrs="{'readonly': [('state','not in','draft')]}"/>
+                            <field name="overtime_rate" attrs="{'readonly': [('state','not in','draft')]}"/>
+                        </group>
+                    </xpath>
+                    <xpath expr="//field[@name='schedule_pay']" position="replace">
+                    	<field name="schedule_pay" attrs="{'readonly': [('state','not in','draft')]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

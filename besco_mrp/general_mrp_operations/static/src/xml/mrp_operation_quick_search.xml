@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    
+    <t t-name="MRPOperationQuickSearch">
+        <div class="oe_mrp_operation_quick_search ui-toolbar" style="margin-bottom:0px;">
+            <div class="oe_form_dropdown_stage">
+                <h4>Công đoạn :</h4> 
+                <select class="oe_operation_select_stage">
+                    
+                </select>
+            </div>
+            <div class="oe_form_dropdown_workcenter">
+                <h4>Trung tâm làm việc :</h4> 
+                <select class="oe_operation_select_workcenter" >
+                    
+                </select>
+            </div>
+        </div>
+    </t>
+
+</templates>

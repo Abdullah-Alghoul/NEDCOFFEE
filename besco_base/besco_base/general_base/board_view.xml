@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- THANH: Put group User Dashboard to this menu, who belogin to this group will see Dashboard -->
+		<menuitem id="base.menu_board_root" 
+			name="Dashboards" sequence="2" web_icon="base,static/description/board.png" 
+			groups="group_user_dashboard"/>
+    	
+	    	<menuitem id="sub_menu_dashboard" name="Dashboard Items"
+	        	parent="base.menu_board_root" sequence="5"/>
+</odoo>

@@ -1,0 +1,543 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* hr_overtime
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20140227-001259\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-05 11:01+0000\n"
+"PO-Revision-Date: 2014-07-05 11:01+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+msgid "Waiting Second Approval"
+msgstr "Chờ duyệt lần hai"
+
+#. module: hr_overtime
+#: sql_constraint:hr.overtime:0
+#: sql_constraint:hr.overtime.batch:0
+msgid "The number of hours must be greater than 0 !"
+msgstr "Số giờ tăng ca phải lớn hơn 0 !"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Group By..."
+msgstr "Nhóm theo..."
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Overtime Summary"
+msgstr "Thống kế tăng ca"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,department_id:0
+msgid "Department"
+msgstr "Phòng ban"
+
+#. module: hr_overtime
+#: help:hr.overtime.type,active:0
+msgid "If the active field is set to false, it will allow you to hide the overtime type without removing it."
+msgstr "If the active field is set to false, it will allow you to hide the overtime type without removing it."
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "March"
+msgstr "Tháng 3"
+
+#. module: hr_overtime
+#: field:hr.overtime,message_unread:0
+#: field:hr.overtime.batch,message_unread:0
+msgid "Unread Messages"
+msgstr "Unread Messages"
+
+#. module: hr_overtime
+#: field:hr.overtime.batch,manager_id:0
+msgid "Approver"
+msgstr "Người duyệt"
+
+#. module: hr_overtime
+#: model:mail.message.subtype,description:hr_overtime.mt_overtime_refused
+msgid "Request refused"
+msgstr "Yêu cầu bị từ chối"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Set to Draft"
+msgstr "Duyệt lại"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Overtime Request"
+msgstr "Yêu cầu tăng ca"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: selection:hr.overtime,state:0
+#: model:mail.message.subtype,name:hr_overtime.mt_overtime_approved
+msgid "Approved"
+msgstr "Đã được duyệt"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Refuse"
+msgstr "Từ chối"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "My Department Overtime"
+msgstr "My Department Overtime"
+
+#. module: hr_overtime
+#: field:hr.overtime,manager_id2:0
+msgid "Second Approval"
+msgstr "Duyệt lần hai"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "My overtime"
+msgstr "Của tôi"
+
+#. module: hr_overtime
+#: field:hr.overtime,batch_id:0
+msgid "Batch"
+msgstr "Batch"
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+msgid "Cancelled"
+msgstr "Bị hủy"
+
+#. module: hr_overtime
+#: help:hr.overtime,message_unread:0
+#: help:hr.overtime.batch,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "If checked new messages require your attention."
+
+#. module: hr_overtime
+#: field:hr.overtime.batch,create_uid:0
+msgid "Creator"
+msgstr "Người tạo"
+
+#. module: hr_overtime
+#: view:hr.overtime.wizard_odt.month:0
+msgid "Print Overtime Report Monthly"
+msgstr "Print Overtime Report Monthly"
+
+#. module: hr_overtime
+#: view:hr.overtime.batch:0
+msgid "Confirmed"
+msgstr "Đã duyệt"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+#: model:ir.actions.act_window,name:hr_overtime.open_ask_overtime
+#: model:ir.ui.menu,name:hr_overtime.menu_open_ask_overtime_new
+msgid "Overtime Requests"
+msgstr "Phiếu yêu cầu tăng ca"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Confirm"
+msgstr "Xác nhận"
+
+#. module: hr_overtime
+#: sql_constraint:hr.overtime:0
+#: sql_constraint:hr.overtime.batch:0
+msgid "The start date must be before the end date !"
+msgstr "Ngày bắt đầu phải nhỏ hơn ngày kết thúc"
+
+#. module: hr_overtime
+#: view:hr.overtime.type:0
+msgid "Leave Types"
+msgstr "Loại tăng ca"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,state:0
+#: view:hr.overtime.batch:0
+#: field:hr.overtime.batch,state:0
+msgid "State"
+msgstr "Trạng thái"
+
+#. module: hr_overtime
+#: model:mail.message.subtype,description:hr_overtime.mt_overtime_confirmed
+msgid "Request created and waiting confirmation"
+msgstr "Yêu cầu đã được tạo và đang chờ xác nhận"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,employee_id:0
+msgid "Employee"
+msgstr "Nhân viên"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Type"
+msgstr "Loại tăng ca"
+
+#. module: hr_overtime
+#: view:hr.overtime.batch:0
+msgid "Search Overtime Batches"
+msgstr "Tìm kiếm tăng ca nhóm"
+
+#. module: hr_overtime
+#: field:hr.overtime.batch,rate:0
+#: field:hr.overtime.type,rate:0
+msgid "Rate (%)"
+msgstr "Tỷ lệ (%)"
+
+#. module: hr_overtime
+#: help:hr.overtime,message_summary:0
+#: help:hr.overtime.batch,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Hours"
+msgstr "Giờ"
+
+#. module: hr_overtime
+#: help:hr.overtime.type,double_validation:0
+msgid "If its True then its overtime type have to be validated by second validator"
+msgstr "If its True then its overtime type have to be validated by second validator"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "July"
+msgstr "July"
+
+#. module: hr_overtime
+#: view:hr.overtime.batch:0
+#: field:hr.overtime.batch,employee_ids:0
+msgid "Employees"
+msgstr "Nhân viên"
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+msgid "Waiting Approval"
+msgstr "Chờ xét duyệt"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,number_of_hours:0
+#: field:hr.overtime,number_of_hours_temp:0
+#: field:hr.overtime.batch,number_of_hours:0
+#: field:hr.overtime.batch,number_of_hours_temp:0
+msgid "Number of Hours"
+msgstr "Số giờ tăng ca"
+
+#. module: hr_overtime
+#: model:ir.actions.act_window,help:hr_overtime.open_ask_overtime
+msgid "Overtime requests can be recorded by employees and validated by their managers. Once a leave request is validated, it appears automatically in the agenda of the employee."
+msgstr "Overtime requests can be recorded by employees and validated by their managers. Once a leave request is validated, it appears automatically in the agenda of the employee."
+
+#. module: hr_overtime
+#: help:hr.overtime,manager_id2:0
+msgid "This area is automaticly filled by the user who validate the leave with second level (If Leave type need second validation)"
+msgstr "This area is automaticly filled by the user who validate the leave with second level (If Leave type need second validation)"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "September"
+msgstr "September"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "December"
+msgstr "December"
+
+#. module: hr_overtime
+#: field:hr.overtime.wizard_odt.month,month:0
+msgid "Month"
+msgstr "Month"
+
+#. module: hr_overtime
+#: help:hr.overtime,state:0
+msgid "When the overtim request is created the state is 'Draft'.\n"
+" It is confirmed by the user and request is sent to admin, the state is 'Waiting Approval'.            If the admin accepts it, the state is 'Approved'. If it is refused, the state is 'Refused'."
+msgstr "When the overtim request is created the state is 'Draft'.\n"
+" It is confirmed by the user and request is sent to admin, the state is 'Waiting Approval'.            If the admin accepts it, the state is 'Approved'. If it is refused, the state is 'Refused'."
+
+#. module: hr_overtime
+#: view:hr.overtime.type:0
+#: model:ir.actions.act_window,name:hr_overtime.action_hr_overtime_type
+#: model:ir.ui.menu,name:hr_overtime.menu_action_hr_overtime_type
+msgid "Overtime Types"
+msgstr "Loại tăng ca"
+
+#. module: hr_overtime
+#: field:hr.overtime,date_from:0
+#: field:hr.overtime.batch,date_from:0
+msgid "Start Date"
+msgstr "Ngày bắt đầu"
+
+#. module: hr_overtime
+#: view:hr.overtime.type:0
+msgid "Search Overtime Type"
+msgstr "Tìm kiếm Loại tăng ca"
+
+#. module: hr_overtime
+#: model:ir.actions.act_window,name:hr_overtime.action_hr_overtime_odt_month
+msgid "Employee Overtimes Monthly odt"
+msgstr "Employee Overtimes Monthly odt"
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+#: selection:hr.overtime.batch,state:0
+msgid "Draft"
+msgstr "Mới tạo"
+
+#. module: hr_overtime
+#: field:hr.overtime.batch,overtime_requests:0
+msgid "Overtime requests"
+msgstr "Yêu cầu tăng ca của Nhân viên"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "August"
+msgstr "August"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "June"
+msgstr "June"
+
+#. module: hr_overtime
+#: field:hr.overtime,message_is_follower:0
+#: field:hr.overtime.batch,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Is a Follower"
+
+#. module: hr_overtime
+#: field:hr.overtime,user_id:0
+msgid "User"
+msgstr "User"
+
+#. module: hr_overtime
+#: field:hr.overtime.type,active:0
+msgid "Active"
+msgstr "Kích họat"
+
+#. module: hr_overtime
+#: selection:hr.overtime.batch,state:0
+msgid "Approval"
+msgstr "Đã duyệt"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "November"
+msgstr "November"
+
+#. module: hr_overtime
+#: model:ir.actions.report.xml,name:hr_overtime.aeroo_report_overtime_odt_id
+msgid "Employees Overtimes odt"
+msgstr "Employees Overtimes odt"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "October"
+msgstr "October"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "January"
+msgstr "January"
+
+#. module: hr_overtime
+#: field:hr.overtime,manager_id:0
+msgid "First Approval"
+msgstr "Duyệt lần đầu"
+
+#. module: hr_overtime
+#: field:hr.overtime,overtime_type_id:0
+#: field:hr.overtime.batch,overtime_type_id:0
+#: view:hr.overtime.type:0
+#: model:ir.model,name:hr_overtime.model_hr_overtime_type
+msgid "Overtime Type"
+msgstr "Loại tăng ca"
+
+#. module: hr_overtime
+#: field:hr.overtime,message_summary:0
+#: field:hr.overtime.batch,message_summary:0
+msgid "Summary"
+msgstr "Summary"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Extended Filters..."
+msgstr "Tìm kiếm mở rộng..."
+
+#. module: hr_overtime
+#: model:ir.model,name:hr_overtime.model_hr_overtime
+#: model:ir.ui.menu,name:hr_overtime.menu_open_ask_overtime
+msgid "Overtime"
+msgstr "Tăng ca"
+
+#. module: hr_overtime
+#: view:hr.overtime.wizard_odt.month:0
+msgid "Cancel"
+msgstr "Hủy"
+
+#. module: hr_overtime
+#: field:hr.overtime,message_follower_ids:0
+#: field:hr.overtime.batch,message_follower_ids:0
+msgid "Followers"
+msgstr "Followers"
+
+#. module: hr_overtime
+#: model:ir.model,name:hr_overtime.model_hr_overtime_wizard_odt_month
+msgid "Print Monthly Overtime Report"
+msgstr "Print Monthly Overtime Report"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Validated"
+msgstr "Được xác nhận"
+
+#. module: hr_overtime
+#: field:hr.overtime,double_validation:0
+#: field:hr.overtime.type,double_validation:0
+msgid "Apply Double Validation"
+msgstr "Xét duyệt 2 lần"
+
+#. module: hr_overtime
+#: view:hr.overtime.wizard_odt.month:0
+msgid "Print"
+msgstr "Print"
+
+#. module: hr_overtime
+#: view:hr.overtime.batch:0
+#: model:ir.actions.act_window,name:hr_overtime.action_overtime_batch
+#: model:ir.model,name:hr_overtime.model_hr_overtime_batch
+#: model:ir.ui.menu,name:hr_overtime.menu_action_overtime_batch
+msgid "Overtime Batches"
+msgstr "Yêu cầu tăng ca Nhóm"
+
+#. module: hr_overtime
+#: field:hr.overtime,name:0
+#: field:hr.overtime.batch,name:0
+#: field:hr.overtime.type,name:0
+msgid "Description"
+msgstr "Mô tả"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "May"
+msgstr "May"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Number of hours"
+msgstr "Số giờ tăng ca"
+
+#. module: hr_overtime
+#: selection:hr.overtime,state:0
+#: selection:hr.overtime.batch,state:0
+#: model:mail.message.subtype,name:hr_overtime.mt_overtime_refused
+msgid "Refused"
+msgstr "Bị từ chối"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "This Month"
+msgstr "Tháng này"
+
+#. module: hr_overtime
+#: field:hr.overtime,date_to:0
+#: field:hr.overtime.batch,date_to:0
+msgid "End Date"
+msgstr "Ngày kết thúc"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "February"
+msgstr "February"
+
+#. module: hr_overtime
+#: field:hr.overtime,message_ids:0
+#: field:hr.overtime.batch,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Search Overtime"
+msgstr "Tìm kiếm Tăng ca"
+
+#. module: hr_overtime
+#: selection:hr.overtime.wizard_odt.month,month:0
+msgid "April"
+msgstr "April"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+msgid "Approve"
+msgstr "Duyệt"
+
+#. module: hr_overtime
+#: help:hr.overtime,message_ids:0
+#: help:hr.overtime.batch,message_ids:0
+msgid "Messages and communication history"
+msgstr "Lịch sử thông báo và trao đổi"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: field:hr.overtime,notes:0
+#: view:hr.overtime.batch:0
+#: field:hr.overtime.batch,notes:0
+msgid "Reasons"
+msgstr "Lý do"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Manager"
+msgstr "Người duyệt"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "To Confirm"
+msgstr "Chờ xác nhận"
+
+#. module: hr_overtime
+#: field:hr.overtime.wizard_odt.month,year:0
+msgid "Year"
+msgstr "Year"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: view:hr.overtime.batch:0
+msgid "Duration"
+msgstr "Thời gian"
+
+#. module: hr_overtime
+#: view:hr.overtime:0
+#: model:mail.message.subtype,name:hr_overtime.mt_overtime_confirmed
+msgid "To Approve"
+msgstr "Chờ xét duyệt"
+
+#. module: hr_overtime
+#: model:mail.message.subtype,description:hr_overtime.mt_overtime_approved
+msgid "Request approved"
+msgstr "Yêu cầu được phê duyệt"
+

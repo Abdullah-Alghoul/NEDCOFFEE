@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		
+		
+		<record id="production_analysis_report" model="ir.actions.report.xml">
+	        <field name="name">production_analysis_report</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">production.analysis</field>
+	        <field name="report_name">production_analysis_report</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_mrp/report/batch_report.py</field>
+	        <field name="report_rml">ned_mrp/report/production_analysis_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="batch_reprot" 
+			model="production.analysis" 
+			name="production_analysis_report"
+	        string="Production Analysis"
+	        rml="ned_mrp/report/production_analysis_report.ods"/>
+		
+		
+		<record id="batch_reprot" model="ir.actions.report.xml">
+	        <field name="name">batch_reprot</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">batch.report</field>
+	        <field name="report_name">batch_reprot</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_mrp/report/batch_report.py</field>
+	        <field name="report_rml">ned_mrp/report/batch_report.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="batch_reprot" 
+			model="batch.report" 
+			name="batch_reprot"
+	        string="Batch Report"
+	        rml="ned_mrp/report/batch_report.ods"/>
+		
+		
+		<record id="report_stock_with_quality_details" model="ir.actions.report.xml">
+	        <field name="name">report_stock_with_quality_details</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.picking</field>
+	        <field name="report_name">report_stock_with_quality_details</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_mrp/report/stock_with_quality_details.py</field>
+	        <field name="report_rml">ned_mrp/report/stock_with_quality_details.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="True" 
+			menu="False"
+			id="report_stock_with_quality_details" 
+			model="stock.picking" 
+			name="report_stock_with_quality_details"
+	        string="Stock quality"
+	        rml="ned_mrp/report/stock_with_quality_details.ods"/>
+	        
+	    <!--
+	    <record id="report_check_stack" model="ir.actions.report.xml">
+	        <field name="name">report_check_stack</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">stock.stack</field>
+	        <field name="report_name">report_check_stack</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_mrp/report/check_stack.py</field>
+	        <field name="report_rml">ned_mrp/report/check_stack.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False"
+			menu="False"
+			id="report_check_stack"
+			model="stock.stack" 
+			name="report_check_stack"
+	        string="Stock quality"
+	        rml="ned_mrp/report/check_stack.ods"/>
+	    
+	      -->
+	    <record id="report_caketquasanxuat" model="ir.actions.report.xml">
+	        <field name="name">report_caketquasanxuat</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">mrp.operation.result</field>
+	        <field name="report_name">report_caketquasanxuat</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_mrp/report/report_casanxuat.py</field>
+	        <field name="report_rml">ned_mrp/report/report_casanxuat.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False"
+			menu="False"
+			id="report_caketquasanxuat"
+			model="mrp.operation.result" 
+			name="report_caketquasanxuat"
+	        string="ketquasanxuat"
+	        rml="ned_mrp/report/report_casanxuat.ods"/>
+	    
+	    
+	    <record id="report_summary_production" model="ir.actions.report.xml">
+	        <field name="name">report_summary_production</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">mrp.operation.result</field>
+	        <field name="report_name">report_summary_production</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">ned_mrp/report/summary.py</field>
+	        <field name="report_rml">ned_mrp/report/summary.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>		    
+		
+		<report 
+			auto="False"
+			menu="False"
+			id="report_summary_production"
+			model="mrp.operation.result" 
+			name="report_summary_production"
+	        string="Summary Production"
+	        rml="ned_mrp/report/summary.ods"/>
+	    
+	    
+	    
+
+	
+	</data>
+</openerp>

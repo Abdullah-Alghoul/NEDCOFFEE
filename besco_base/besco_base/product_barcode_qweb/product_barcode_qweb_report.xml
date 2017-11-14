@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<openerp>
+    <data>
+	
+	<menuitem id="menu_print_barcode" 
+        parent="general_base.menu_master_data"
+        name='Print Barcode'
+        sequence="400"/>
+                
+        <report
+            id="product_barcode_qweb"
+            string="Product Barcode"
+            model="product.product"
+            report_type="qweb-pdf"
+            name="product_barcode_qweb.report_product_barcode"
+            file="product_barcode_qweb.report_product_barcode"
+            menu="False"
+         />
+
+
+        <record id="product_barcode_qweb" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="product_barcode_qweb.paperformat_barcode_label"/>
+        </record>
+		
+        <menuitem action="action_report_product_barcode_print"
+            id="menu_product_barcode_print" 
+            parent="menu_print_barcode" 
+            sequence="6"/>
+                 
+         <report
+            id="product_label_qweb"
+            string="Product Label"
+            model="product.product"
+            report_type="qweb-pdf"
+            name="product_barcode_qweb.report_product_label"
+            file="product_barcode_qweb.report_product_barcode"
+            menu="False"
+         />
+        
+        
+        <record id="product_label_qweb" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="product_barcode_qweb.paperformat_barcode_label"/>
+        </record>
+        
+        <menuitem action="action_report_product_label_print"
+             id="menu_product_label_print" 
+             parent="menu_print_barcode" 
+             sequence="10"/>
+		
+		
+    </data>
+</openerp>

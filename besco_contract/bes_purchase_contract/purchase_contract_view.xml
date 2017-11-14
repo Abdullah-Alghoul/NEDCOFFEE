@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<menuitem id= "menu_purchase_contract" 
+    		parent= "bes_contract_base.menu_base_contracts" 
+    		sequence= "2" name= "Purchase Contract" 
+    		groups="bes_purchase_contract.group_purchase_contract_user"/>
+    	
+    	<menuitem id= "menu_report_purchase_contract" 
+    		parent= "bes_contract_base.menu_base_contracts" 
+    		sequence= "10" name= "Report Purchase Contract" 
+    		groups="bes_purchase_contract.group_purchase_contract_user"/>
+    	
+    	       
+    	<record id="view_purchase_contract_tree" model="ir.ui.view">
+            <field name="name">purchase.contract.tree</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Contract List" decoration-info="state == 'draft'" decoration-muted="state in ('cancel','done')" decoration-danger="state in ('approved','validate')">
+                    <field name="name" string="NPE"/>
+                    <field name="date_order"/>
+                    <field name="validity_date" invisible="1"/>
+                    <field name="partner_id"/>
+                    <field name="company_representative" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="currency_id"/>
+                    <field name="origin" invisible="1"/>
+                    <field name="total_qty" sum="total_qty"/>
+                    <field name="state" string="Status"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        
+        <record id="view_purchase_contract_form" model="ir.ui.view">
+            <field name="name">purchase.contract.form</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Contract">
+	                <header>
+	                    <button name="button_approve" type="object" states='draft' string="Confirm" class="oe_highlight"/>
+	                    <button name="%(action_view_wizard_purchase_contract)d" attrs="{'invisible': ['|',('state','!=','approved'),('type','=','purchase')]}" string="Convert NVP" type="action"/>
+	                    
+	                    <button name="button_draft" states="cancel" string="Set to Draft" type="object" />
+	                    <button name="button_cancel" states="approved" string="Cancel" type="object" 
+	                    	confirm="Are you sure want to cancel contract?" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,done"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state','=','draft')]}">
+							<field name="picking_ids" invisible="1"/>
+							<button type="object" name="action_view_picking" class="oe_stat_button" icon="fa-truck" 
+									attrs="{'invisible': [('picking_count','=',0)]}">
+								<field name="picking_count" widget="statinfo" string="Shipping"/>
+							</button>
+						</div>
+					
+	                    <div class="oe_title">
+	                        <h1>
+	                            <field name="name"/>
+	                        </h1>
+	                    </div>
+	                    <group>
+	                    	<group>
+	                    		<field name="partner_id" domain="[('supplier','=',True),('company_type','=','company')]"/>
+	                    		<field name="supplier_representative" domain="[('parent_id','=',partner_id)]" invisible="0"/>
+	                    		<field name="currency_id" invisible="1"/>
+            					<field name="exchange_rate" invisible="1"/> 
+	                    	</group>
+	                    	<group>
+	                    		<field name="date_order"/>
+	                    		<field name="warehouse_id" required="1"/>
+	                    		<field name="company_representative" invisible="1" context="{'default_conpany_type': 'person', 'default_parent_id': company_id}"/>
+                    			<field name="deadline_date" readonly="0"/>
+                    			<field name="origin"/>
+	                    	</group>
+	                    </group>
+	                    <notebook>
+	                    	<page string="Products" name="product">
+	                    		<field name="contract_line">
+	                    			<tree editable="top">
+										<field name="product_id"/>
+										<field name="name"/>
+										<field name="product_qty" sum="product_qty"/>
+										<field name="product_uom"/>
+										<field name="price_unit"/>
+										<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use', '=', 'purchase')]"/>
+										<field name="price_subtotal"/>
+	                    			</tree>
+	                    		</field>
+	                    		<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+	                                <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+	                                    <label for="amount_total" />
+	                                    <button name="button_dummy"
+	                                        states="draft" string="(update)" 
+	                                        type="object" class="oe_edit_only oe_link"/>
+	                                </div>
+	                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                            </group>
+	                            <field name="note" class="oe_inline" placeholder="Description"/>
+	                            <div class="oe_clear"/>
+	                            <group col="4">
+	                            	<field name="create_uid"/>
+	                    			<field name="create_date"/>
+	                    			<field name="user_approve"/>
+	                    			<field name="date_approve"/>
+	                    		</group>
+	                    	</page>
+	                    	
+	                    	<page string="NVP Allocation" attrs="{'invisible': [('type','=','purchase')]}">
+	                    		<field name="npe_ids" readonly="1">
+		                    		<tree>
+		                    			<field name="contract_id"/>
+		                    			<field name="product_qty" sum="product_qty" string="Fixed"/>
+	                    			</tree>
+	                    		</field>
+	                    	</page>
+	                    	
+	                    	<page string="NPE Allocation" attrs="{'invisible': [('type','!=','purchase')]}">
+	                    		<field name="nvp_ids">
+		                    		<tree>
+		                    			<field name="npe_contract_id"/>
+		                    			<field name="product_qty" sum="product_qty" string="Fixed"/>
+	                    			</tree>
+	                    		</field>
+	                    	</page>
+	                    	
+	                    	<page string="Other Information" name="information" >
+	                    		<group>
+	                    			<group>
+	                    				<field name="company_id"/>
+	                    				<label for="delivery_from" string="Shipping"/>
+	                    				<div name="delivery_from" class="o_row">
+	                    					From <field name="delivery_from"/> To <field name="delivery_to"/>
+										</div>
+			                    		<field name="transportation_charges"/>
+			                    		
+	                    			</group>
+	                    			<group>
+	                    				<field name="validity_date"/>
+	                    				<field name="expiration_date"/>
+			                    		<field name="price_estimation_date"/>
+			                    		<field name="date_done" attrs="{'invisible': [('state','!=','done')]}"/>
+			                    		<field name="npe_contract_id" attrs="{'invisible': [('type','=','consign')]}"/>
+	                    			</group>
+	                    			<group>
+	                    				<field name="payment_term_id"/>
+			                    		<field name="payment_description"/>
+	                    			</group>
+	                    			<group>
+	                    				<field name="check_qty"/>
+	                    				<field name="check_price_unit"/>
+	                    				<field name="type" invisible="context.get('type',True)"/>
+	                    			</group>
+	                    		</group>
+	                    	</page>
+	                    </notebook>
+	                </sheet>
+	                <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+        <record id="view_purchase_contract_form" model="ir.ui.view">
+            <field name="name">purchase.contract.form</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Contract">
+	               <header>
+	                    <button name="button_approve" type="object" states='draft' string="Confirm" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,done"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state','=','draft')]}">
+							<field name="picking_ids" invisible="1"/>
+							<button type="object" name="action_view_picking" class="oe_stat_button" icon="fa-truck" 
+									attrs="{'invisible': [('picking_count','=',0)]}">
+								<field name="picking_count" widget="statinfo" string="Shipping"/>
+							</button>
+						</div>
+					
+	                    <div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="1" required='1'/>
+	                        </h1>
+	                    </div>
+	                    <group col="4">
+	                    	
+	                    </group>
+	                    
+	                    <notebook>
+	                    	<page string="Products" name="product">
+	                    		<field name="contract_line">
+	                    			<tree editable="top">
+										<field name="product_id"/>
+										<field name="name"/>
+										<field name="product_qty" sum="product_qty"/>
+										<field name="product_uom"/>
+										<field name="price_unit"/>
+										<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use', '=', 'purchase')]"/>
+										<field name="price_subtotal"/>
+	                    			</tree>
+	                    		</field>
+	                    		<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+	                                <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+	                                    <label for="amount_total" />
+	                                    <button name="button_dummy"
+	                                        states="draft" string="(update)" 
+	                                        type="object" class="oe_edit_only oe_link"/>
+	                                </div>
+	                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                            </group>
+	                            <field name="note" class="oe_inline" placeholder="Description"/>
+	                            <div class="oe_clear"/>
+	                            <group col="4">
+	                            	<field name="create_uid"/>
+	                    			<field name="create_date"/>
+	                    			<field name="user_approve"/>
+	                    			<field name="date_approve"/>
+	                    		</group>
+	                    	</page>
+	                    	</notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+        
+        <record id="purchase_contract_search" model="ir.ui.view">
+            <field name="name">purchase.contract.search</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <search string="Search Consignment Agreement">
+                    <field name="name" string="Consignment Agreement"/>
+                    <field name="origin"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter name="approve" string="Approved" domain="[('state','=','approved')]"/>
+                    <filter name="done" string="Done" domain="[('state','=','done')]"/>
+                    <separator/>
+                    <filter name="validity_date" string="Validity Date" domain="[('validity_date', '&lt;', time.strftime('%%Y-%%m-%%d'))]"/>
+                    <separator/>
+                    <field name="partner_id"/>
+                    <field name="npe_contract_id"/>
+                    <separator/>
+                    <filter domain="[('create_uid','=',uid)]" help="My Contract"/>
+                    
+                    <group expand="1" string="Group By">
+                    	<filter string="Province" context="{'group_by':'state'}"/>
+                    	<filter string="Partner" context="{'group_by':'partner_id'}"/>
+                	</group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_consignment_agreement" model="ir.actions.act_window">
+            <field name="name">NPE</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','consign')]</field>
+            <field name="context">{'default_type':'consign'}</field>
+            <field name="search_view_id" ref="purchase_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Consignment Agreement, the first step of a new Consignment Agreement.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_consignment_agreement" action="action_consignment_agreement" sequence="3" 
+        	parent="menu_purchase_contract" name="Consignment Contract"/>
+        
+        <record id="action_purchase_contract" model="ir.actions.act_window">
+            <field name="name">Purchase Contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','purchase')]</field>
+            <field name="context">{'default_type':'purchase'}</field>
+            <field name="search_view_id" ref="purchase_contract_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a purchase contract, the first step of a new contract.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_purchase_contract" action="action_purchase_contract" sequence="2" 
+        	parent="menu_purchase_contract" name="Purchase Contract"/>
+    
+    
+    	<!-- Contract Line -->
+    	<record id="view_purchase_contract_line_tree" model="ir.ui.view">
+            <field name="name">purchase.contract.line.tree</field>
+            <field name="model">purchase.contract.line</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Contract Line" editable="top">
+    				<field name="sequence" widget="handle"/>
+    				<field name="product_id"/>
+    				<field name="name"/>
+    				<field name="product_qty"/>
+    				<field name="product_uom"/>
+    				<field name="price_unit"/>
+    				<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]"/>
+    				<field name="price_subtotal" widget="monetary"/>
+    			</tree>
+            </field>
+        </record>
+        
+        <record id="view_purchase_contract_line_form" model="ir.ui.view">
+            <field name="name">purchase.contract.line.form</field>
+            <field name="model">purchase.contract.line</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Contract Line">
+	                <sheet>
+	                	<group col="4">
+	                		<field name="product_id"/>
+	                		<field name="tax_id" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+	                		<label for="product_qty"/>
+                            <div>
+                               <field name="product_qty" class="oe_inline"/>
+                                <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button"/>
+                            </div>
+                            <field name="price_unit"/>
+	                	</group>
+	                	<label for="name"/>
+                        <field name="name"/>
+                        <field name="state" invisible="1"/>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

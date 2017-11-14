@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data noupdate="1">
+    
+    	<record id="cron_update_rate_for_stock_move" model="ir.cron">
+            <field name="name">Update Rate Currency for Stock Move</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'res.currency'" name="model"/>
+            <field eval="'cron_update_rate_for_stock_move'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   		
+   		<record id="long_short_v2_ned_pivot" model="ir.ui.view">
+            <field name="name">view.long.short.v2.ned.pivot</field>
+            <field name="model">v.long.short.v2</field>
+            <field name="arch" type="xml">
+    			<pivot  >
+                    <field name = 'product' type="row"/>
+                    <field name = 'sitting_stock'  type="measure"/>
+                    <field name = 'npe_received_unfixed' type="measure"/>
+                    <field name = 'gross_ls' type="measure" />
+
+                    <field name = 'nvp_receivable' type="measure"/>
+                    <field name = 'unshipped_qty' type="measure"/>
+                    <field name = 'net_ls' type="measure"/>
+
+                    <field name = 'nvp_next1_receivable' type="measure" />
+                    <field name = 'sale_next1_unshipped' type="measure" />
+                    <field name = 'next1_net_ls' type="measure"/>
+
+                    <field name = 'nvp_next2_receivable' type="measure" />
+                    <field name = 'sale_next2_unshipped' type="measure"/>
+                    <field name = 'next2_net_ls' type="measure" />
+
+                    <field name = 'nvp_next3_receivable' type="measure" />
+                    <field name = 'sale_next3_unshipped' type="measure" />
+                    <field name = 'next3_net_ls' type="measure"  />
+
+                    <field name = 'nvp_next4_receivable' type="measure" />
+                    <field name = 'sale_next4_unshipped' type="measure" />
+                    <field name = 'next4_net_ls' sum="Next4 LS" type="measure"/>
+
+                    <field name = 'nvp_next5_receivable' type="measure"/>
+                    <field name = 'sale_next5_unshipped' type="measure" />
+                    <field name = 'next5_net_ls' type="measure"/>
+
+                    <field name = 'nvp_next6_receivable' type="measure"/>
+                    <field name = 'sale_next6_unshipped' type="measure"/>
+                    <field name = 'next6_net_ls' type="measure"/>
+                </pivot>
+	         </field>
+         </record>
+         
+    	<record id="long_short_v2_ned" model="ir.ui.view">
+            <field name="name">view.long.short.v2.ned</field>
+            <field name="model">v.long.short.v2</field>
+            <field name="arch" type="xml">
+    			<tree editable = 'False' readonly = 'True'>
+                    <field name = "prod_group"/>
+                    <field name = 'product'/>
+
+                    <field name = 'sitting_stock' sum="Sitting Stock"/>
+                    <field name = 'npe_received_unfixed' sum="NPE Unfixed"/>
+                    <field name = 'gross_ls' sum="Gross LS"/>
+
+                    <field name = 'nvp_receivable' sum="NVP Receivable"/>
+                    <field name = 'unshipped_qty' sum="Sales Unshipped"/>
+                    <field name = 'net_ls' sum="Net LS"/>
+
+                    <field name = 'nvp_next1_receivable' sum="Next1 NVP"/>
+                    <field name = 'sale_next1_unshipped' sum="Next1 S"/>
+                    <field name = 'next1_net_ls' sum="Next1 LS"/>
+
+                    <field name = 'nvp_next2_receivable' sum="Next2 NVP"/>
+                    <field name = 'sale_next2_unshipped' sum="Next2 S"/>
+                    <field name = 'next2_net_ls' sum="Next2 LS"/>
+
+                    <field name = 'nvp_next3_receivable' sum="Next3 NVP"/>
+                    <field name = 'sale_next3_unshipped' sum="Next3 S"/>
+                    <field name = 'next3_net_ls' sum="Next3 LS"/>
+
+                    <field name = 'nvp_next4_receivable' sum="Next4 NVP"/>
+                    <field name = 'sale_next4_unshipped' sum="Next4 S"/>
+                    <field name = 'next4_net_ls' sum="Next4 LS"/>
+
+                    <field name = 'nvp_next5_receivable' sum="Next5 NVP"/>
+                    <field name = 'sale_next5_unshipped' sum="Next5 S"/>
+                    <field name = 'next5_net_ls' sum="Next5 LS"/>
+
+                    <field name = 'nvp_next6_receivable' sum="Next6 NVP"/>
+                    <field name = 'sale_next6_unshipped' sum="Next6 S"/>
+                    <field name = 'next6_net_ls' sum="Next6 LS"/>
+                </tree>
+	         </field>
+         </record>
+
+        <!-- The block of code bellow determines a list of search parameters appear once user type in the searchbar -->
+        <record id="long_short_v2_ned_search" model="ir.ui.view">
+            <field name="name">view.long.short.v2.ned.search</field>
+            <field name="model">v.long.short.v2</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "prod_group"/>
+                    <field name = 'product'/>
+                    <group expand="1" string="Group By">
+                        <filter string="Product Group" domain="[]" context="{'group_by':'prod_group'}"/>
+                        <!-- <filter string="Product" domain="[]" context="{'group_by':'partner_id'}"/> -->
+                    </group>
+                </search>
+             </field>
+         </record>
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_v_long_short_v2_ned" model="ir.actions.act_window">
+            <field name="name">Long Short Position</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">v.long.short.v2</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,pivot</field>
+            <field name="priority">210</field>
+            <field name="search_view_id"/>
+            
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_long_short_v2_ned" 
+            action="action_v_long_short_v2_ned" parent="menu_report_ned_mrp_master" name="Long/Short"
+            sequence="51" />
+    </data>
+</openerp>

@@ -1,0 +1,1 @@
+import wageup_contract

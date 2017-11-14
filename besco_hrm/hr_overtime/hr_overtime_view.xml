@@ -1,0 +1,244 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+       <record id="view_hr_overtime_filter" model="ir.ui.view">
+            <field name="name">hr.overtime.filter</field>
+            <field name="model">hr.overtime</field>
+            <field name="arch" type="xml">
+                <search string="Search Overtime">
+                    <group col='8' colspan='4'>
+                        <filter icon="terp-camera_test" domain="[('state','=','validate')]" string="Validated"/>
+                        <separator orientation="vertical"/>
+                        <filter icon="terp-check" domain="[('state','=','draft')]" string="To Confirm"/>
+                        <filter icon="terp-camera_test" domain="[('state','=','confirm')]" string="To Approve"/>
+                        <separator orientation="vertical"/>
+                        <filter string="This Month" icon="terp-go-month" name="This Month"
+                                domain="[('date_from','&lt;=', datetime.datetime(datetime.date.today().year, datetime.date.today().month, calendar.mdays[datetime.date.today().month]).strftime('%%Y-%%m-%%s')),
+                                ('date_from','&gt;=',time.strftime('%%Y-%%m-01'))]"/>
+                        <separator orientation="vertical"/>
+                        <field name="employee_id">
+                            <filter icon="terp-personal"
+                                name="my_overtime"
+                                domain="[('employee_id.user_id','=', uid)]"
+                                help="My overtime" />
+                        </field>
+                        <field name="department_id" widget="selection">
+                            <filter icon="terp-personal+" help="My Department Overtime"
+                                domain="[('department_id.manager_id','=',uid)]" />
+                        </field>
+                        <field name="overtime_type_id" widget="selection"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Extended Filters...">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter name="group_employee" string="Employee" icon="terp-personal" domain="[]" context="{'group_by':'employee_id'}"/>
+                        <filter string="Manager" icon="terp-personal" domain="[]" context="{'group_by':'manager_id'}"/>
+                        <filter string="Department" icon="terp-personal+" domain="[]" context="{'group_by':'department_id','set_visible':True}"/>
+                        <separator orientation="vertical"/>
+                        <filter name="group_type" string="Type" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'overtime_type_id'}"/>
+                        <separator orientation="vertical"/>
+                        <filter string="State" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="edit_overtime_new">
+            <field name="name">Overtime Request</field>
+            <field name="model">hr.overtime</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form string="Overtime Request">
+                	<header>
+                		<button string="Refuse" name="refuse" states="confirm,validate,validate1" type="workflow" icon="gtk-no" groups="base.group_hr_user,base.group_hr_manager,general_hr.group_employee_coach"/>
+                        <button string="Confirm" name="confirm" states="draft" type="workflow" icon="gtk-yes"/>
+                        <button string="Approve" name="validate" states="confirm" type="workflow" icon="gtk-apply" groups="base.group_hr_user,general_hr.group_employee_coach"/>
+                        <button string="Approved" name="second_validate" states="validate1" type="workflow" icon="gtk-apply" groups="base.group_hr_user,general_hr.group_employee_coach"/>
+                        <button string="Set to Draft" name="set_to_draft" states="refuse" type="object" icon="gtk-refresh" groups="base.group_hr_user"/>
+						<button string="Import All" name="show_wizard_import_overtime" type="object" groups="base.group_hr_user"/>                        
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate" statusbar_colors='{"confirm":"blue","validate1":"blue","refuse":"red"}'/>
+                	</header>
+                	<sheet string="Overtime Request">
+	                    <group>
+                        	<group>
+                        		<field name="name" attrs="{'readonly':[('state','!=','draft'),('state','!=','confirm')]}"/>
+                        		<field name="overtime_type_id" widget='selection'/>
+	                            <label for="number_of_hours_temp" string="Duration"/>
+	                            <div name="duration">
+	                                <group col="3">
+	                                    <field name="date_from" nolabel="1" on_change="onchange_date_from(date_to, date_from)" required="1" class="oe_inline"/><label string="-" class="oe_inline"/>
+	                                    <field name="date_to" nolabel="1" on_change="onchange_date_to(date_to, date_from)" required="1" class="oe_inline"/>
+	                                </group>
+	                                <div>
+	                                    <field name="number_of_hours_temp" widget='float_time' class="oe_inline"/> Hours
+	                                </div>
+	                            </div>
+                        	</group>
+                        	<group>
+                        		<field name="employee_id" required="1"/>
+	                            <field name="department_id"/>
+	                            <field name="manager_id"/>
+                            	<field name="manager_id2"/>
+                        	</group>
+                        	<separator string="Reasons" colspan="4"/>
+                            <field name="notes" nolabel="1" colspan="4"/>
+                    	</group>
+                    </sheet>
+                    <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_overtime_simple">
+            <field name="name">hr.overtime.report_tree</field>
+            <field name="model">hr.overtime</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree colors="red:state in ('refuse');blue:state in (' draft');black:state in ('confirm','validate','validate1')" string="Overtime Summary">
+                    <field name="employee_id"/>
+                    <field name="department_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="overtime_type_id"/>
+                    <field name="number_of_hours" string="Number of hours" sum='Number of hours' widget='float_time'/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="manager_id" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+                    <field name="state"/>
+                    <button string="Confirm" name="confirm" states="draft" type="workflow" icon="gtk-yes"/>
+                    <button string="Approve" name="validate" states="confirm" type="workflow" icon="gtk-apply" groups="base.group_hr_user,general_hr.group_employee_coach"/>
+                    <button string="Refuse" name="refuse" states="confirm" type="workflow" icon="gtk-no" groups="base.group_hr_user,general_hr.group_employee_coach"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_overtime">
+            <field name="name">hr.overtime.tree</field>
+            <field name="model">hr.overtime</field>
+            <field name="arch" type="xml">
+                <tree string='Overtime Requests' colors="red:state in ('refuse');blue:state in (' draft');black:state in ('confirm','validate','validate1')">
+                    <field name="employee_id"/>
+                    <field name="department_id" invisible="not context.get('set_visible',False)"/>
+                    <field name="name"/>
+                    <field name="overtime_type_id"/>
+                    <field name="number_of_hours" string="Number of Hours" sum='Number of Hours' widget='float_time'/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="manager_id" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+                    <field name="state"/>
+                    <button string="Refuse" name="refuse" states="confirm,validate,validate1" type="workflow" icon="gtk-no" groups="base.group_hr_user,base.group_hr_manager,general_hr.group_employee_coach"/>
+                        <button string="Confirm" name="confirm" states="draft" type="workflow" icon="gtk-yes"/>
+                        <button string="Approve" name="validate" states="confirm" type="workflow" icon="gtk-apply" groups="base.group_hr_user,general_hr.group_employee_coach"/>
+                        <button string="Approved" name="second_validate" states="validate1" type="workflow" icon="gtk-apply" groups="base.group_hr_user,general_hr.group_employee_coach"/>
+                        <button string="Set to Draft" name="set_to_draft" states="refuse" type="object" icon="gtk-refresh" groups="base.group_hr_user"/>
+                </tree>
+            </field>
+        </record>
+        
+        <menuitem
+            name="Overtime"
+            parent="hr_attendance.menu_hr_attendance_root"
+            id="menu_open_ask_overtime" groups = "base.group_hr_manager,base.group_hr_user"
+            sequence="40"/>
+            
+        <record model="ir.actions.act_window" id="open_ask_overtime">
+            <field name="name">Overtime Requests</field>
+            <field name="res_model">hr.overtime</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="edit_overtime_new"/>
+            <field name="context">{"search_default_my_leaves": 1}</field>
+            <field name="search_view_id" ref="view_hr_overtime_filter"/>
+            <field name="help">Overtime requests can be recorded by employees and validated by their managers. Once a leave request is validated, it appears automatically in the agenda of the employee.</field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_open_ask_overtime_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_overtime"/>
+            <field name="act_window_id" ref="open_ask_overtime"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_open_ask_overtime_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="edit_overtime_new"/>
+            <field name="act_window_id" ref="open_ask_overtime"/>
+        </record>
+        
+        <menuitem name="Overtime Requests" 
+        	parent="menu_open_ask_overtime" 
+        	id="menu_open_ask_overtime_new"
+            action="open_ask_overtime" 
+            groups = "base.group_hr_manager,base.group_hr_user" sequence="12"/>
+        
+        <!-- OT Types -->
+        <record id="view_hr_overtime_type_filter" model="ir.ui.view">
+            <field name="name">hr.overtime.type.filter</field>
+            <field name="model">hr.overtime.type</field>
+            <field name="arch" type="xml">
+                <search string="Search Overtime Type">
+                    <field name="name" string="Leave Types"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_overtime_type_form">
+            <field name="name">hr.overtime.type.form</field>
+            <field name="model">hr.overtime.type</field>
+            <field name="arch" type="xml">
+                <form string="Overtime Type" version="7.0">
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="rate"/>
+                        <field name="double_validation"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_overtime_type_tree">
+            <field name="name">hr.overtime.type.tree</field>
+            <field name="model">hr.overtime.type</field>
+            <field name="arch" type="xml">
+                <tree string="Overtime Types">
+                    <field name="name"/>
+                    <field name="rate"/>
+                    <field name="double_validation"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!--<act_window
+            id="action_import_hr_overtime"
+            name="Import Overtime"
+            res_model="hr.overtime"
+            src_model="wizard.import.overtime"
+            view_mode="form"
+            multi="True"
+            target="new"/>-->
+
+        <record id="action_hr_overtime_type" model="ir.actions.act_window">
+            <field name="name">Overtime Types</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.overtime.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="view_hr_overtime_type_tree"/>
+            <field name="search_view_id" ref="view_hr_overtime_type_filter"/>
+        </record>
+
+        <menuitem name="Overtime Types" action="action_hr_overtime_type" 
+        	id="menu_action_hr_overtime_type" 
+        	parent="hr_attendance.menu_hr_attendance_config" sequence="100" groups = "base.group_hr_user"/>
+		
+    </data>
+</openerp>

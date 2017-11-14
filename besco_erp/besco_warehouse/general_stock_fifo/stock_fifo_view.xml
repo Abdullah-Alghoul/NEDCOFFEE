@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+		<!-- Thanh: Modify Invoice Form
+		<record model="ir.ui.view" id="view_invoice_form_add_entries_cogs">
+	        <field name="name">view.invoice.form.add.entries.cogs</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.invoice_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='date_due']" position="after">
+		            <field name="entries_cogs_id"/>
+		        </xpath>
+	        </field>
+        </record>
+         -->
+		<record id="view_invoice_allocation_filter" model="ir.ui.view">
+            <field name="name">view.invoice.allocation.filter</field>
+            <field name="model">invoice.allocation</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Costing History">
+                	<field name="type"/>
+                	<field name="invoice_id"/>
+                    <field name="product_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_invoice_allocation_tree">
+            <field name="name">view.invoice.allocation.tree</field>
+            <field name="model">invoice.allocation</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Costing Histories">
+                	<field name="type" invisible='1'/>
+                	<field name="invoice_id"/>
+					<field name="in_date"/>
+					<field name="picking_id"/>
+                    <field name="from_move_id" invisible='1'/>
+                    <field name="product_id"/>
+                    <field name="uom_id" invisible='1'/>
+                    <field name="allocated_qty" sum="allocated_qty"/>
+                    <field name="allocated_value" sum="allocated_value"/>
+                    <field name="com_currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+       
+        
+        <record id="action_invoice_allocation" model="ir.actions.act_window">
+            <field name="name">Allocation Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">invoice.allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_invoice_allocation_filter"/>
+        </record>
+		
+        <record id="view_stock_move_allocation_filter" model="ir.ui.view">
+            <field name="name">view.stock.move.allocation.filter</field>
+            <field name="model">stock.move.allocation</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Costing History">
+                	<field name="type"/>
+                	<field name="warehouse_id"/>
+                	<field name="location_id"/>
+                    <field name="product_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_stock_move_allocation_tree">
+            <field name="name">view.stock.move.allocation.tree</field>
+            <field name="model">stock.move.allocation</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Costing Histories">
+                	<field name="type"/>
+                	<field name="warehouse_id" invisible='1'/>
+                	<field name="location_id"/>
+					<field name="in_date"/>
+					<field name="allocated_date"/>
+					<field name="picking_id"/>
+                    <field name="from_move_id" invisible='1'/>
+                    <field name="to_move_id" invisible='1'/>
+                    <field name="product_id"/>
+                    <field name="uom_id"/>
+                    <field name="allocated_qty" sum="allocated_qty"/>
+                    <field name="allocated_value" sum="allocated_value"/>
+                </tree>
+            </field>
+        </record>
+        
+       
+        
+        <record id="action_stock_move_allocation" model="ir.actions.act_window">
+            <field name="name">Allocation Histories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.move.allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_stock_move_allocation_filter"/>
+        </record>
+        
+        
+        <!-- Ned Delivery Fee -->
+    	<record id="view_stock_move_allocation_relation_tree" model="ir.ui.view">
+            <field name="name">stock.move.allocation.relation.tree</field>
+            <field name="model">stock.move</field>
+            <field name="arch" type="xml">
+                <tree string="History Move" options="{'no_create': True}">
+                	<field name="trans_type"/>
+                	<field name="date" string="Date"/>
+                	<field name="production_id"/>
+                	<field name="product_id"/>
+                	<field name="product_uom" string="UoM"/>
+                	<field name="product_qty" sum="product_qty"/>
+                	<field name="product_allocation" sum="product_allocation"/>
+                	<field name="values"/>
+                	<field name="state" invisible="1"/>
+                	<field name="date_tz" invisible="1"/>
+                	<field name="day_tz" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_stock_move_allocation_relation_form" model="ir.ui.view">
+            <field name="name">stock.move.allocation.relation.form</field>
+            <field name="model">stock.move</field>
+            <field name="arch" type="xml">
+                <form string="History Move" options="{'no_create': True}">
+                <sheet>
+	                	<group col="4">
+		                	<field name="trans_type"/>
+		                	<field name="date"/>
+		                	<field name="production_id"/>
+		                	<field name="product_id"/>
+		                	<field name="product_uom" string="UoM"/>
+		                	
+		                	<field name="product_qty" sum="product_qty"/>
+		                	<field name="product_allocation"/>
+		                	<field name="values" sum="product_qty"/>
+		                	<field name="state" invisible="1"/>
+	                	</group>
+	                	<field name="split_from_moves"/>
+                	</sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_stock_move_allocation_relation_filter" model="ir.ui.view">
+            <field name="name">stock.move.allocation.relation.filter</field>
+            <field name="model">stock.move</field>
+            <field name="arch" type="xml">
+                <search string="Search History">
+                	<group>
+                		<field name="product_id"/>
+                		<field name="date_tz"/>
+                		<field name="production_id"/>
+                	</group>
+                    <group expand="0" string="Group By...">
+                    	<filter string="Picking Type" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'picking_type_id'}"/>
+                    	<filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="From Location" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'location_id'}"/>
+                        <filter string="To Location" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'location_dest_id'}"/>
+                        <filter string="Day" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date_tz'}"/>
+                        <filter string="Month" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'day_tz'}"/>
+                        <filter string="Trans Type" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'trans_type'}"/>
+                        <filter string="Production" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'production_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="action_stock_move_allocation_relation" model="ir.actions.act_window">
+            <field name="name">History Move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.move</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context" eval="{'search_by_field_date': ['date_tz']}"/>
+            <field name="search_view_id" ref="view_stock_move_allocation_relation_filter"/>
+            <field name="domain">['|', '&amp;',('location_id.usage', '!=', 'internal'),('location_dest_id.usage', '=', 'internal'), 
+            '&amp;',('location_id.usage', '=', 'internal'),('location_dest_id.usage', '!=', 'internal')]</field>
+        </record>
+        
+        
+        
+        <record model="ir.actions.act_window.view" id="action_stock_move_allocation_relation_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_stock_move_allocation_relation_tree"/>
+            <field name="act_window_id" ref="action_stock_move_allocation_relation"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_stock_move_allocation_relation_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_stock_move_allocation_relation_form"/>
+            <field name="act_window_id" ref="action_stock_move_allocation_relation"/>
+        </record>
+        
+        
+    </data>
+</openerp>

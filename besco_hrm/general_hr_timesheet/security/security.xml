@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="general_hr_timesheet_comp_rule" model="ir.rule">
+	        <field name="name">general hr timesheet company rule</field>
+	        <field name="model_id" ref="model_general_hr_timesheet"/>
+	        <field eval="True" name="global"/>
+			<field name="domain_force">[('company_id','in',[company.id for company in user.company_ids])]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+        </record>
+
+		<record id="general_hr_timesheet_team_lead_rule" model="ir.rule">
+	        <field name="name">general hr timesheet for team lead rule</field>
+	        <field name="model_id" ref="model_general_hr_timesheet"/>
+	        <field eval="True" name="global"/>
+			<field name="domain_force">[('hr_team_id.employee_id','=',user.employee_id.id)]</field>
+            <field name="groups" eval="[(4, ref('general_hr.group_employee_coach'))]"/>
+        </record>
+
+		<record id="general_hr_timesheet_team_manager_rule" model="ir.rule">
+	        <field name="name">general hr timesheet for team lead rule</field>
+	        <field name="model_id" ref="model_general_hr_timesheet"/>
+	        <field eval="True" name="global"/>
+			<field name="domain_force">[('hr_team_id.employee_id','in',[employee.id for employee in user.employee_id.search([('coach_id','=',user.employee_id.id)])])]</field>
+            <field name="groups" eval="[(4, ref('general_hr.group_employee_manager'))]"/>
+        </record>
+
+        <record id="hr_team_comp_rule" model="ir.rule">
+	        <field name="name">hr team company rule</field>
+	        <field name="model_id" ref="model_hr_team"/>
+	        <field eval="True" name="global"/>
+			<field name="domain_force">[('company_id','in',[company.id for company in user.company_ids])]</field>
+            <field name="groups" eval="[(4, ref('base.group_multi_company'))]"/>
+    	</record>
+	<!-- Minh 
+		<record id="hr_employee_coach_rule" model="ir.rule">
+	        <field name="name">HR employee Coach</field>
+	        <field ref="model_hr_employee" name="model_id"/>
+	        <field name="domain_force">[(1,'=',1)]</field>
+	        <field name="groups" eval="[(4, ref('general_hr.group_employee_coach'))]"/>
+	        <field name="global" eval="True"/>
+			<field name="perm_unlink"/>
+	   </record>
+		
+		<record id="hr_employee_manager_rule" model="ir.rule">
+	        <field name="name">HR employee Manager</field>
+	        <field ref="model_hr_employee" name="model_id"/>
+	        <field name="domain_force">[(1,'=',1)]</field>
+	        <field name="groups" eval="[(4, ref('general_hr.group_employee_manager'))]"/>
+	        <field name="global" eval="True"/>
+	   </record>
+	    -->
+	</data>
+</openerp>

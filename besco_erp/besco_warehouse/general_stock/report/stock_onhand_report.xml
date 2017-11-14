@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+		<record id="view_stock_onhand_report_tree" model="ir.ui.view">
+            <field name="name">stock.onhand.report.tree</field>
+            <field name="model">stock.onhand.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Onhand Analysis" version="7.0">
+                	<field name="categ_id"/>
+                	<field name="location_name" invisible="0"/>
+                	<field name="product_id"/>
+                	<field name="uom_id"/>
+                	<field name="onhand"/>
+                	
+                </tree>
+            </field>
+        </record>  
+        
+     <record id="view_stock_onhand_report_search" model="ir.ui.view">
+        <field name="name">view.stock.onhand.report.search</field>
+        <field name="model">stock.onhand.report</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Stock Onhand Analys" version="7.0">
+            	<group>
+                    <field name="location_name"/>
+                    <field name="categ_id"/>
+                    <field name="product_id"/>
+                </group>
+                <newline/>
+                <group expand="0" string="Group By">
+                 	<filter icon="terp-check" name="location_name" string="Location Name" context="{'group_by':'location_name'}"/>
+                 	<separator/>
+                 	<filter icon="terp-check" name="category" string="Product Category" context="{'group_by':'categ_id'}"/>
+                 	<separator/>
+                 	<filter icon="terp-check" name="product" string="Product" context="{'group_by':'product_id'}"/>
+                 	<separator/>
+                </group>
+            </search>
+        </field>  
+    </record>
+        
+        <record model="ir.actions.act_window" id="action_stock_onhand_report">
+	        <field name="name">Stock Onhand Report</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">stock.onhand.report</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field name="context">{'search_default_category': 1,}</field>  
+	        <field name="search_view_id" ref="view_stock_onhand_report_search"/>
+	    </record>	
+		
+		<record model="ir.actions.act_window.view" id="action_view_stock_onhand_report_tree">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="view_stock_onhand_report_tree"/>
+	        <field name="act_window_id" ref="action_stock_onhand_report"/>
+	    </record>
+	    
+	    
+   		<menuitem
+            action="action_stock_onhand_report"
+            id="menu_action_stock_onhand_report"
+            parent="stock.menu_warehouse_report"
+            sequence="100"/>
+    </data>
+</openerp>

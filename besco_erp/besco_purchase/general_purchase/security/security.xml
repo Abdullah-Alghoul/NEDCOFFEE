@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	
+	<data noupdate="0">
+		<!-- Profiles -->
+    	<record id="profile_purchase_user" model="profile">
+        	<field name="name">Purchase/ Nhân viên</field>
+	        <field name="groups_ids" eval="[(6, 0, [ref('purchase.group_purchase_user')])]"/>
+	        <field name="description">- Nhân viên chịu trách nhiệm thu mua hàng hoá</field>
+	    </record>
+	    
+    	<record id="profile_purchase_manager" model="profile">
+        	<field name="name">Purchase/ Quản lý</field>
+	        <field name="groups_ids" eval="[(6, 0, [ref('purchase.group_purchase_manager'),ref('purchase.group_manage_vendor_price')])]"/>
+	        <field name="description">- Nhân viên quản lý</field>
+	    </record>
+	
+	</data>
+	    
+</openerp>

@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	
+    	<menuitem action="stock.action_move_form2" id="menu_action_move_form2" parent="general_account.menu_stock_account" sequence="130"/>
+    	
+    	
+    	<record id="view_report_fifo_management_tree" model="ir.ui.view">
+            <field name="name">view.report.fifo.management.tree</field>
+            <field name="model">report.fifo.management</field>
+            <field name="arch" type="xml">
+            	<tree>
+	                 <field name="name"/>
+	                 <field name="location_id"/>
+	                 <field name="location_dest_id" />
+                 </tree>
+            </field>
+       </record>
+       
+        <record id="view_report_fifo_management_form" model="ir.ui.view">
+            <field name="name">view.report.fifo.management.tree</field>
+            <field name="model">report.fifo.management</field>
+            <field name="arch" type="xml">
+            	<form>
+            		<header>
+            			<button name="load_fifo" type="object" string="Load Fifo"/>
+            			<button name="adj_fifo_qty" type="object" string="Adj Fifo"/>
+            			
+            			
+            		</header>
+            		<sheet>
+            			<div class="oe_title">
+	                        <h1>
+	                        	 <field name="name"/>
+	                        </h1>
+	                    </div>
+		                 <newline/>
+		                 <group col="4">
+			                 <field name="location_id"/>
+			                 <field name="location_dest_id" />
+		                 </group>
+		                 <notebook>
+		                 
+		                 	<page string="Bal">
+		                 	<group>
+		                 	<field name="fifo_ids" nolabel="1">
+		                 		<tree>
+		                 			<field name="product_id"/>
+		                 			<field name="onhand_qty" sum="onhand_qty"/>
+		                 			<field name="unfifo_qty" sum="unfifo_qty"/>
+		                 			<field name="adj_qty" sum="adj_qty"/>
+		                 			<field name="onhand_vaue" sum="onhand_vaue"/>
+		                 		</tree>
+		                 	</field>
+		                 	</group>
+		                 </page>
+		                 <page string="Adj">
+		                 	<field name="fifo_management_ids"/>
+		                 </page>
+		                 </notebook>
+	                 </sheet>
+                 </form>
+            </field>
+       </record>
+    	 <record id="action_view_report_fifo_management" model="ir.actions.act_window">
+            <field name="name">Report FIFO</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.fifo.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id"/>
+        </record>
+        
+        
+    	<menuitem action="action_view_report_fifo_management" 
+           	id="menu_action_view_report_fifo_management"
+           	parent="general_account.menu_stock_account" sequence="500"/>
+    	
+    	
+    	
+    	
+    	 <record id="view_fifo_management_tree" model="ir.ui.view">
+            <field name="name">view.fifo.management.tree</field>
+            <field name="model">fifo.management</field>
+            <field name="arch" type="xml">
+            	<tree>
+	                 <field name="name"/>
+	                 <field name="location_id"/>
+	                 <field name="location_dest_id" />
+                 </tree>
+            </field>
+       </record>
+       
+        <record id="view_fifo_management_form" model="ir.ui.view">
+            <field name="name">view.fifo.management.tree</field>
+            <field name="model">fifo.management</field>
+            <field name="arch" type="xml">
+            	<form>
+            		<header>
+            			<button name="load_fifo" type="object" string="Load Fifo"/>
+            			<button name="button_fifo" type="object" string="FIFO"/>
+            			<button name="entries_create" string="Create entries" type="object"/>
+            			 <field name="state" widget="statusbar" statusbar_visible="draft,queue,entries,done"/>
+            		</header>
+            		<sheet>
+            			<div class="oe_title">
+	                        <h1>
+	                        	 <field name="name"/>
+	                        </h1>
+	                    </div>
+		                 <newline/>
+		                 <group col="4">
+			                 <field name="location_id"/>
+			                 <field name="location_dest_id" />
+			                 <field name="product_id"/>
+			                 <field name="in_perform"/>
+			                 <field name="debit_account_id"/>
+			                 <field name="credit_account_id"/>
+		                 </group>
+		                 <group>
+		                 	<field name="fifo_ids" nolabel="1">
+		                 		<tree>
+		                 			<field name="picking_id"/>
+		                 			<field name="date"/>
+		                 			<field name="product_id"/>
+		                 			<field name="product_uom" string="UoM"/>
+		                 			<field name="product_qty"  sum="product_qty"/>
+		                 			<field name="price_unit"/>
+		                 			<field name="price_subtotal" sum="price_subtotal"/>
+		                 			<field name="entries_id"/>
+		                 			<field name="fifo_qty" sum="fifo_qty"/>
+		                 			<field name="qty_out_fifo" sum="qty_out_fifo"/>
+		                 			<field name="price_out_fifo" sum="price_out_fifo"/>
+		                 			<field name="location_id" invisible="0"/>
+		                 			<field name="location_dest_id" invisible="0"/>
+		                 			<field name="queue"/>
+		                 			<field name="state" invisible="1"/>
+		                 		</tree>
+		                 	</field>
+		                 </group>
+	                 </sheet>
+                 </form>
+            </field>
+       </record>
+    	 <record id="action_view_fifo_management" model="ir.actions.act_window">
+            <field name="name">Fifo Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fifo.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id"/>
+        </record>
+        
+        
+    	<menuitem action="action_view_fifo_management" 
+           	id="menu_action_view_fifo_management"
+           	parent="general_account.menu_stock_account" sequence="400"/>
+    	
+	    <record id="view_ned_production_analysis_inherit_form" model="ir.ui.view">
+            <field name="name">view.ned.production.analysis.inherit</field>
+            <field name="model">production.analysis</field>
+            <field name="inherit_id" ref="ned_mrp.view_ned_production_analysis_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='production_id']" position="after">
+            		<newline/>
+                    <field name="premium_id" required="1"/>
+                    <field name="bom_id" required="1"/>
+	            </xpath>
+            </field>
+        </record>
+        
+    	
+    	<!-- Thanh: Add field price_unit on stock_move in Picking Form (Recieve) -->
+	    <record id="view_move_search_add_entries_inherit" model="ir.ui.view">
+            <field name="name">view.move.search.add.entries.inherit</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='product_id']" position="before">
+            		<separator/>
+	                    <filter string="Entries" domain="[('entries_id','!=',False)]"/>
+	                    <field name="warehouse_id"/>
+                    <separator/>
+	            </xpath>
+            </field>
+        </record>
+    	
+    	
+    	<record id="ned_accounting.view_adj_move_picking_tree" model="ir.ui.view">
+            <field name="name">adj.stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <tree decoration-muted="scrapped == True" string="Stock Moves" editable="bottom">
+                    <field name="product_id" on_change="onchange_product_id(product_id,location_id,location_dest_id, parent.partner_id)"/>
+                    <field name="name" invisible="1"/>
+                    <field name="product_uom_qty" string="Product qty" on_change="onchange_quantity(product_id, product_uom_qty, product_uom)"/>
+                    <field name="product_uom" string="UoM" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal" sum="price_subtotal" />
+                    <field name="location_id" invisible="0" string="Location"/>
+                    <field name="location_dest_id" invisible="0" string="Location dest"/>
+                    <field name="create_date" invisible="1" />
+                    <field name="date_expected" invisible="1" />
+                    <field name="picking_type_id" invisible="1"/>
+                    <field name="scrapped" invisible="1"/>
+                    <field name="availability" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+    	
+    	
+    	<record id="view_stock_move_fifo_tree" model="ir.ui.view">
+            <field name="name">stock.move.fifo.tree</field>
+            <field name="model">stock.move.fifo</field>
+            <field name="arch" type="xml">
+                <tree string="Fifo">
+                	<field name="fifo_id" string="From Fifo"/>
+                	<field name="fifo_colletion_id"/>
+                	<field name="product_qty" sum="product_qty"/>
+                	<field name="fifo_out_id" string="To Fifo"/>
+                	<field name="out_qty" sum="out_qty"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_view_stock_move_fifo_tree" model="ir.actions.act_window">
+            <field name="name">Fifo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.move.fifo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id"/>
+        </record>
+    	
+    	<menuitem action="action_view_stock_move_fifo_tree" 
+    		id="menu_action_view_stock_move_fifo_tree" parent="general_account.menu_stock_account" sequence="200"/>
+    	
+    	<record model="ir.ui.view" id="view_move_tree_inherit_sale_contract">
+	        <field name="name">view.move.tree.inherit.ned</field>
+	        <field name="model">stock.move</field>
+	        <field name="inherit_id" ref="stock.view_move_tree"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='name']" position="before">
+                	<field name="warehouse_id"/>
+          		</xpath>
+          		<xpath expr="//field[@name='picking_type_id']" position="attributes">
+                	<attribute name="invisible">1</attribute>
+          		</xpath>
+          		<xpath expr="//field[@name='name']" position="attributes">
+                	<attribute name="invisible">1</attribute>
+          		</xpath>
+          		<xpath expr="//field[@name='date_expected']" position="attributes">
+                	<attribute name="invisible">1</attribute>
+          		</xpath>
+          		<xpath expr="//field[@name='state']" position="attributes">
+                	<attribute name="invisible">1</attribute>
+          		</xpath>
+          		<xpath expr="//field[@name='primary_uom_id']" position="attributes">
+                	<attribute name="invisible">1</attribute>
+          		</xpath>
+          		<xpath expr="//field[@name='product_qty']" position="replace">
+          			<field name="price_unit"/>
+          			<field name="price_subtotal" sum="price_subtotal"/>
+                	<field name="qty_out_fifo" sum="qty_out_fifo"/>
+                	<field name="price_out_fifo" sum="price_out_fifo"/>
+                	<field name="entries_id"/>
+          		</xpath>
+                    
+          	</field>
+    	</record>
+    	
+    	
+    	<record id="view_mrp_bom_premium_tree" model="ir.ui.view">
+            <field name="name">mrp.bom.premium.tree</field>
+            <field name="model">mrp.bom.premium</field>
+            <field name="arch" type="xml">
+                <tree string="Bom Premium">
+                	<field name="name"/>
+                	<field name="crop_id"/>
+                	<field name="bom_id"/>
+                	<field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- 
+        <record id="view_move_picking_weighing_tree" model="ir.ui.view">
+            <field name="name">stock.move.weighing.tree</field>
+            <field name="model">stock.move</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="tare_weight"/>
+                    <field name="init_qty" string="Net Weight" />
+                    <field name="location_id" invisible="1"/>
+                    <field name="location_dest_id" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="scrapped" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+         -->
+        <record id="view_stock_move_add_entries_form" model="ir.ui.view">
+	        <field name="name">stock.move.add.entries.form</field>
+	        <field name="model">stock.move</field>
+	        <field name="inherit_id" ref="stock.view_move_picking_form" />
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='product_id']" position="before">
+	                <field name="entries_id" readonly="1"/>
+	            </xpath>
+	            <xpath expr="//field[@name='quant_ids']" position="after">
+	                <field name="fifo_out_ids" />
+	                <field name="fifo_ids" />
+	            </xpath>
+	        </field>
+	    </record>
+	    
+	    <record id="view_stock_move_add_fifo_form" model="ir.ui.view">
+	        <field name="name">stock.move.add.fifo.form</field>
+	        <field name="model">stock.move</field>
+	        <field name="inherit_id" ref="stock.view_move_form" />
+	        <field name="arch" type="xml">
+	        	
+	        	<xpath expr="//field[@name='state']" position="before">
+	                <button name="remove_fifo" string="Remove Fifo" type="object"/>
+	                <button name="create_entries" string="Create Entries" type="object"/>
+	            </xpath>
+	        	
+	            <xpath expr="//field[@name='product_id']" position="before">
+	                <field name="entries_id" readonly="1"/>
+	            </xpath>
+	            <xpath expr="//field[@name='date']" position="after">
+	            	<field name="fifo_qty" readonly="1"/>
+	            	<field name="unfifo_qty" readonly="1"/>
+	                <field name="qty_out_fifo" readonly="1" />
+	                <field name="qty_out_unfifo" readonly="1" />
+	                <field name="price_out_fifo" readonly="1"/>
+	            </xpath>
+	            <xpath expr="//field[@name='name']" position="before">
+	                <field name="price_unit" readonly="1"/>
+	            </xpath>
+	            <xpath expr="//field[@name='quant_ids']" position="after">
+	            	<newline/>
+	            	<group>
+	                	<group>
+	                		<field name="fifo_ids" readonly="0" string="FIFO OUT">
+	                			<tree>
+	                				<field name="fifo_id"/>
+	                				<field name="fifo_colletion_id"/>
+	                				<field name="product_qty"/>
+	                				<field name="price_unit" avg="price_unit"/>
+	                				<field name="fifo_out_id"/>
+	                				<field name="out_qty"/>
+	                			</tree>
+	                		</field>
+	                		
+	                	</group>
+	                	<newline/>
+	                	<group>
+	                		<field name="fifo_out_ids" string="FIFO IN">
+	                			<tree>
+	                				<field name="fifo_id"/>
+	                				<field name="fifo_colletion_id"/>
+	                				<field name="product_qty"/>
+	                				<field name="price_unit" avg="price_unit"/>
+	                				<field name="fifo_out_id"/>
+	                				<field name="out_qty"/>
+	                			</tree>
+	                		</field>
+	                	</group>
+	                </group>
+	            </xpath>
+	        </field>
+	    </record>
+	    
+        
+        <record id="view_mrp_bom_premium_form" model="ir.ui.view">
+            <field name="name">mrp.bom.premium.form</field>
+            <field name="model">mrp.bom.premium</field>
+            <field name="arch" type="xml">
+                <form string="Bom Premium">
+                    <header>
+	                	<button name="import_file" string="Import Data" type="object" />
+	                </header>
+	                <sheet>
+	                	<div class="oe_title">
+	                        <h1>
+	                            <field name="name" placeholder="Version ..."/>
+	                        </h1>
+	                    </div>
+	                    <group col="4">
+	                    	<field name="active"/>
+	                    	<field name="crop_id"/>
+	                    	<field name="standard_cost"/>
+	                    	<field name="file" filename="file_name"/>
+                			<field name="file_name" invisible="1"/>
+	                    </group>
+	                    <field name="prem_ids">
+	                    	<tree>
+	                    		<field name="product_id"/>
+	                    		<field name="product_uom"/>
+	                    		<field name="premium"/>
+                                <field name="mc"/>
+                                <field name="fm"/>
+                                <field name="black"/>
+                                <field name="broken"/>
+                                <field name="brown"/>
+                                <field name="mold"/>
+                                <field name="cherry"/>
+                                <field name="excelsa"/>
+                                <field name="screen18"/>
+                                <field name="screen16"/>
+                                <field name="screen13"/>
+                                <field name="belowsc12"/>
+                                <field name="burned"/>
+                                <field name="eaten"/>
+                                <field name="immature"/>
+	                    		<field name="flag"/>
+	                    	</tree>
+	                    </field>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_mrp_bom_premium" model="ir.actions.act_window">
+            <field name="name">Premium</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.bom.premium</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id"/>
+        </record>
+        
+        
+        <menuitem action="action_mrp_bom_premium" 
+        	id="menu_action_mrp_bom_premium"  
+        	parent="general_account.menu_account_mrp" 
+        	sequence="100"/>
+        
+        <menuitem action="action_mrp_bom_premium" 
+        	id="menu_action_mrp_bom_premium"  
+        	parent="mrp_operations.menu_report_mrp_workorders_tree" 
+        	sequence="500"/>
+        
+	                
+        
+  		<record id="view_mrp_periodical_production_costing_tree" model="ir.ui.view">
+            <field name="name">mrp.periodical.production.costing.tree</field>
+            <field name="model">mrp.periodical.production.costing</field>
+            <field name="arch" type="xml">
+                <tree string="Periodical Costing">
+                	<field name="name"/>
+                	<field name="notes" widget="char"/>
+                	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_mrp_periodical_production_costing_form" model="ir.ui.view">
+            <field name="name">mrp.periodical.production.costing.form</field>
+            <field name="model">mrp.periodical.production.costing</field>
+            <field name="arch" type="xml">
+                <form string="Periodical Costing">
+                    <header>
+	                	<button name="compute_cost" states="draft" string="Compute cost" type="object" class="oe_highlight"/>
+	                	<button name="printf_mo" string="Production reports" type="object"/>
+	                	<button name="import_price" string="Import Values" states="draft" type="object" class="oe_highlight" confirm="Are you sure want to Import" />
+	                	<button name="fifo_nvl" string="Fifo" type="object" states="draft" class="oe_highlight"/>
+	                	<button name="post" string="Post" states="draft"  type="object" confirm="Are you sure want to Post" />
+	                	<button name="post_done" string="Done" type="object" states="posted" confirm="Are you sure want to Post"/>
+	                	<button name="dieuchinh_values" string="Dieuchinh"  type="object" invisible="1"/>
+	                	<button name="cancel" string="Cancel" states="draft" type="object" />
+	                	<field name="state" widget="statusbar" statusbar_visible="draft,posted,done,cancel"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_title">
+	                        <h1>
+	                            <field name="name" placeholder="Period ..."/>
+	                        </h1>
+	                    </div>
+                    	<group col="4">
+                    		<field name="company_id"/>
+                    		<field name="company_currency_id"/>
+                        	<field name="premium_id"/>
+                        	<field name="total_cost"/>
+                        	<field name="notes" widget="char"/>
+                        	<field name="file" filename="file_name"/>
+                			<field name="file_name" invisible="1"/>
+	                    </group>
+	                    <notebook>	
+							<page string="Premium Line">
+								<field name="premium_ids">
+									<tree editable="top">
+	                    				<field name="product_id"/>
+	                    				<field name="product_uom"/>
+	                    				<field name="product_qty" sum="product_qty"/>
+	                    				<field name="premium"/>
+	                    				<field name="price"/>
+	                    				<field name="value" sum="value"/>
+	                    				<field name="company_currency_id" invisible="1"/>
+	                    			</tree>
+								</field>
+							</page>
+							<page string="Finished Good">
+								<field name="direct_cost_lines">
+									<tree string='Direct Cost Details'>
+                               			<field name="product_id"/>
+                               			<field name="init_qty" sum="init_qty"/>
+                               			<field name="produced_qty" sum="produced_qty"/>
+                               			<field name="product_uom_id"/>
+                               			<field name="price_unit" sum="Total" invisible="1"/>
+                               			<field name="price_subtotal" sum="Total" invisible="1"/>
+                               			<field name="company_currency_id" invisible="1"/>
+                               		</tree>
+                               		<form>
+		            					<sheet>
+		            						<group col="4">
+			            						<field name="product_id"/>
+					            				<field name="produced_qty"/>
+					            				<field name="price_unit"/>
+					            				<field name="price_subtotal"/>
+					            				<field name="price_subtotal" sum="Total"/>
+			            					</group>
+			            					<field name="fis_ids">
+			            						<tree>
+			            							<field name="picking_id"/>
+			            							<field name="product_id"/>
+			            							<field name="product_uom"/>
+			            							<field name="product_qty" sum="product_qty"/>
+			            							<field name="init_qty" sum="init_qty"/>
+			            						</tree>
+			            					</field>
+			            				</sheet>
+	            					</form>
+                               		
+								</field>
+								</page>
+								<page string="Direct Materials">
+									<field name="direct_materials_ids">
+										<tree>
+				            				<field name="product_id"/>
+				            				<field name="product_uom"/>
+				            				<field name="init_qty" sum="init_qty"/>
+				            				<field name="product_qty" sum="product_qty"/>
+				            				<field name="fifo_net_qty" sum="fifo_net_qty"/>
+					            			<field name="fifo_qty" sum="fifo_qty"/>
+				            				<field name="amount_fifo_qty" sum="amount_fifo_qty"/>
+				            				<field name="company_currency_id" invisible="1" />
+				            				<button name="fifo_nvl" string="Fifo" type="object"/>
+				            			</tree>
+				            			<form>
+		            					<sheet>
+		            						<group col="6">
+			            						<field name="product_id"/>
+					            				<field name="product_uom" string="UoM"/>
+					            				<newline/>
+					            				<field name="init_qty"/>
+					            				<field name="product_qty"/>
+					            				<newline/>
+					            				<field name="fifo_net_qty"/>
+					            				
+					            				<field name="fifo_qty"/>
+				            					<field name="amount_fifo_qty" />
+				            					<field name="company_currency_id" invisible="1"/>
+			            					</group>
+			            					<notebook>
+			            						<page string="NVL">
+					            					<field name="material_ids">
+					            						<tree>
+					            							<field name="notes"/>
+					            							<field name="origin"/>
+					            							<field name="product_id"/>
+					            							<field name="product_uom" string="UoM"/>
+					            							<field name="init_qty" sum="init_qty"/>
+					            							<field name="product_qty" sum="product_qty"/>
+					            						</tree>
+				            						</field>
+				            					</page>
+				            					<page string="FIFO">
+					            					<field name="allocation_ids">
+					            						<tree>
+					            							<field name="type"/>
+					            							<field name="in_date" string="Date"/>
+					            							<field name="from_origin"/>
+										                	<field name="warehouse_id" invisible='1'/>
+										                	<field name="location_id" invisible='1'/>
+															
+															<field name="allocated_date"/>
+															<field name="picking_id" invisible='1'/>
+										                    <field name="from_move_id" invisible='1'/>
+										                    <field name="to_move_id" invisible='1'/>
+										                    <field name="product_id"/>
+										                    <field name="uom_id"/>
+										                    <field name="net_qty" sum="net_qty" invisible="1"/>
+										                    <field name="allocated_qty" sum="allocated_qty"/>
+										                    <field name="allocated_value" sum="allocated_value"/>
+										                    <field name="price_vnd" sum="allocated_value" invisible="1"/>
+					            						</tree>
+					            					</field>
+				            					</page>
+			            					</notebook>
+			            				</sheet>
+	            					</form>
+									</field>
+								</page>
+								<!-- 
+								<page string="Direct costs">
+									<field name="direct_cost_ids">
+			            			<tree>
+			            				<field name="name"/>
+			            				<field name="product_qty" sum="product_qty"/>
+			            				<field name="valuesen" sum="valuesen"/>
+			            				<field name="total_consume" sum="total_consume"/>
+			            				<field name="company_currency_id" invisible="1"/>
+			            			</tree>
+			            			<form>
+		            					<sheet>
+		            						<group col="4">
+			            						<field name="name"/>
+					            				<field name="product_qty" sum="product_qty"/>
+					            				<field name="valuesen" sum="valuesen"/>
+					            				<field name="total_consume" sum="total_consume"/>
+			            					</group>
+			            					<field name="direct_line">
+			            						<tree>
+			            							<field name="picking_id"/>
+			            							<field name="product_qty"/>
+			            							<field name="cost"/>
+			            							<field name="valuesvn" sum="valuesvn"/>
+			            							<field name="valuesen" sum="valuesen"/>
+			            							<field name="second_currency_id" invisible="1"/>
+			            							<field name="com_currency_id" invisible="1"/>
+			            						</tree>
+			            					</field>
+			            				</sheet>
+	            					</form>
+			            		</field>
+							</page>
+								
+						 	 -->
+							<page string="Mo">
+                              	<field name="production_order_ids" nolabel='1'>
+                              		<tree string="MO Cost Collection">
+					                	<field name="name" string="Mo"/>
+										<field name="date_planned"/>
+										<field name="product_issued" string="NET Issue" sum="product_issued"/>
+										<field name="product_basis_issued" sum="product_basis_issued"/>
+										<field name="product_received" sum="product_received"/>
+					                	<field name="product_balance" sum="product_balance"/>
+					                	<field name="state" invisible=""/>
+					                </tree>
+				                </field>
+			                </page>
+			                <page string="In / Out">
+			                	<group string="In">
+			                		<field name="consumed_products_ids"  nolabel="1" context="{'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'stock.view_move_picking_tree'}">
+			                			<field name="product_id"/>
+			                		</field>
+			                	</group>
+			                	<group string="Out">
+			                		<field name="produced_products_ids" nolabel="1" context="{'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'stock.view_move_picking_tree'}"/>
+			                	</group>
+			                </page>
+							<!-- 
+	                    	<page string="Mo">
+                              	<field name="mo_cost_collection_lines" nolabel='1'>
+                              		<tree string="MO Cost Collection">
+				                	<field name="period_id"/>
+									<field name="warehouse_id"/>
+									<field name="name"/>
+									<field name="date_finished"/>
+									<field name="materials_cost" sum="materials_cost"/>
+				                	<field name="other_cost" sum="other_cost"/>
+									<field name="total_cost" sum="total_cost"/>
+									<field name="company_currency_id" invisible="1"/>
+				                </tree>
+			                </field>
+			                </page>
+			                 -->
+			            </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="action_periodical_production_costing" model="ir.actions.act_window">
+            <field name="name">Production Costing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.periodical.production.costing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id"/>
+        </record>
+        
+        
+	      		
+        <menuitem action="action_periodical_production_costing" id="menu_action_periodical_production_costing"
+        	parent="general_account.menu_account_mrp" 
+        	sequence="5"/>
+        
+        
+        <record id="view_mrp_production_order_cost_collection_tree" model="ir.ui.view">
+            <field name="name">mrp.production.order.cost.collection.tree</field>
+            <field name="model">mrp.production.order.cost.collection</field>
+            <field name="arch" type="xml">
+                <tree string="MO Cost Collection" decoration-info="state == 'draft'" decoration-muted="state in ('posted')">
+                	<field name="period_id"/>
+                	<field name="warehouse_id" invisible="1"/>
+                	<field name="standard_cost"/>
+                	<field name="name"/>
+                	<field name="date_finished"/>
+                	<field name="materials_cost" sum="materials_cost"/>
+                	<field name="other_cost" sum="other_cost"/>
+                	<field name="total_cost" sum="total_cost"/>
+                	<field name="company_currency_id" invisible="1"/>
+                	<field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record id="view_mrp_production_order_cost_collection_form" model="ir.ui.view">
+            <field name="name">mrp.production.order.cost.collection.form</field>
+            <field name="model">mrp.production.order.cost.collection</field>
+            <field name="arch" type="xml">
+                <form string="Cost Collection">
+                    <header>
+	                	<button name="compute_cost" string="Compute cost" type="object"/>
+	                	<button name="post" string="Post" type="object"/>
+	                	<field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_title">
+	                        <h1>
+	                        	<field name="name" readonly="1"/>
+	                        </h1>
+	                    </div>
+						<group col="4">
+							<field name="period_id"/>
+							<field name="date_approve"/>
+							<field name="standard_cost"/>
+							<field name="materials_cost" sum="materials_cost"/>
+                			<field name="other_cost" sum="other_cost"/>
+							<field name="total_cost"/>
+							<field name="company_currency_id" invisible="1"/>
+							<field name="warehouse_id" invisible="1"/>
+						</group>
+	                    <notebook>
+	                    	<page string="Premium Line">
+	                    		<field name="premium_ids"> 
+	                    			<tree editable="top">
+	                    				<field name="product_id"/>
+	                    				<field name="product_uom"/>
+	                    				<field name="product_qty" sum="product_qty"/>
+	                    				<field name="premium"/>
+	                    				<field name="price"/>
+	                    				<field name="value" sum="value"/>
+	                    				<field name="company_currency_id"/>
+	                    			</tree>
+	                    		</field>
+	                    	</page>
+	                        <page string="Finished goods" name="direct_costs">
+	                        	<group>
+                                	<field name="direct_cost_lines" nolabel='1'>
+                                		<tree string='Direct Cost Details'>
+                                			<field name="product_id"/>
+                                			<field name="produced_qty" sum="produced_qty"/>
+                                			<field name="product_uom_id"/>
+                                			<field name="price_unit" sum="Total"/>
+                                			<field name="price_subtotal" sum="Total"/>
+                                			<field name="company_currency_id" invisible="1"/>
+                                		</tree>
+                                	</field>
+                                </group>
+	                        </page>
+	                        <page string="Direct Materials">
+			            		<field name="direct_materials_ids">
+			            			<tree>
+			            				<field name="product_id"/>
+			            				<field name="product_uom"/>
+			            				<field name="product_qty" sum="product_qty"/>
+			            				<field name="value"/>
+			            				<field name="company_currency_id" invisible="1"/>
+			            			</tree>
+			            			<form>
+			            				<group col="4">
+			            					<field name="product_id"/>
+			            					<field name="product_uom"/>
+				            				<field name="product_qty" sum="product_qty"/>
+				            				<field name="value"/>
+			            				</group>
+			            				<field name="material_ids">
+			            					<tree>
+			            						<field name="date"/>
+			            						<field name="move_id"/>
+			            						<field name="product_id"/>
+					            				<field name="product_uom"/>
+					            				<field name="product_qty" sum="product_qty"/>
+					            				<field name="values" sum="values"/>
+					            				<field name="company_currency_id" invisible="1"/>
+			            					</tree>
+			            					<form>
+				            					<sheet>
+				            						<group col="4">
+					            						<field name="date"/>
+					            						<field name="move_id"/>
+					            						<field name="product_id"/>
+							            				<field name="product_uom"/>
+							            				<field name="product_qty" sum="product_qty"/>
+							            				<field name="values" sum="values"/>
+						            				</group>
+					            				</sheet>
+			            					</form>
+			            				</field>
+			            			</form>
+			            		</field>
+		            		</page>
+		            		<page string="Direct Cost">
+			            		<field name="direct_cost_ids">
+			            			<tree>
+			            				<field name="name"/>
+			            				<field name="product_qty" sum="product_qty"/>
+			            				<field name="valuesen" sum="valuesen"/>
+			            				<field name="total_consume" sum="total_consume"/>
+			            				<field name="company_currency_id" invisible="1"/>
+			            			</tree>
+			            			<form>
+		            					<sheet>
+		            						<group col="4">
+			            						<field name="name"/>
+					            				<field name="product_qty" sum="product_qty"/>
+					            				<field name="valuesen" sum="valuesen"/>
+					            				<field name="total_consume" sum="total_consume"/>
+			            					</group>
+			            					<field name="direct_line">
+			            						<tree>
+			            							<field name="picking_id"/>
+			            							<field name="product_qty"/>
+			            							<field name="cost"/>
+			            							<field name="valuesvn" sum="valuesvn"/>
+			            							<field name="valuesen" sum="valuesen"/>
+			            							<field name="second_currency_id" invisible="1"/>
+			            							<field name="com_currency_id" invisible="1"/>
+			            						</tree>
+			            					</field>
+			            				</sheet>
+	            					</form>
+			            		</field>
+		            		</page>
+	                    </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+        <record id="action_mo_cost_collection" model="ir.actions.act_window">
+            <field name="name">Cost Collection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production.order.cost.collection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id"/>
+        </record>
+        
+        <menuitem action="action_mo_cost_collection" id="menu_action_mo_cost_collection" 
+        	parent="general_account.menu_account_mrp" 
+        	sequence="10"/>
+        	
+        
+    </data>
+</openerp>

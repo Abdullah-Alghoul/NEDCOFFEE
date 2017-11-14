@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+		
+	    <record id="group_account_tax_report" model="res.groups">
+	        <field name="name">Account - Taxes Reports</field>
+	        <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+	        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+	        <field name="implied_ids" eval="[(6, 0, [ref('account.group_account_invoice')])]"/>
+	    </record>
+	    
+	    <!-- Profiles -->
+    	<record id="profile_group_account_tax_report" model="profile">
+        	<field name="name">Account - Taxes Reports / Kế toán xem bảng kê khai thuế</field>
+	        <field name="groups_ids" eval="[(6, 0, [ref('group_account_tax_report')])]"/>
+	        <field name="description">- Kế toán xem bảng kê khai thuế</field>
+	    </record>
+	    
+	    <!-- Add new group to Ke toan truong -->
+	    	<record id="account.group_account_manager" model="res.groups">
+		        <field name="name">Adviser</field>
+		        <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+		        <field name="implied_ids" eval="[(4, ref('group_account_tax_report'))]"/>
+		    </record>
+	</data>
+</openerp>

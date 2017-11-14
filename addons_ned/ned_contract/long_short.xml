@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<record id="view_long_short_report_form" model="ir.ui.view">
+            <field name="name">view.long.short.report.form</field>
+            <field name="model">long.short.report</field>
+            <field name="arch" type="xml">
+                <form string="Payment">
+                	<header>
+                   		<button name="load_data" string="Load Data" type="object"/>
+                   	</header>
+                    <sheet>
+                        <group col="4">
+                            <field name="from_date" required="1"/>
+                            <field name="to_date" required="1"/>
+                        </group>
+                        <newline/>
+                        <group>
+                        	<field name="long_ids" readonly="1" nolabel="1">
+                        		<tree>
+                        			<field name="product_id"/>
+                        			<field name="sitting_stock"/>
+                        			<field name="consignment"/>
+                        			<field name="gross_long_position"/>
+                        			
+                        			<field name="to_receive"/>
+                        			<field name="sales_unshipped"/>
+                        			<field name="net_position"/>
+                        			
+                        			<field name="to_receive1"/>
+                        			<field name="sales_unshipped1"/>
+                        			<field name="net_position1"/>
+                        			
+                        			<field name="to_receive2"/>
+                        			<field name="sales_unshipped2"/>
+                        			<field name="net_position2"/>
+                        			
+                        			<field name="to_receive3"/>
+                        			<field name="sales_unshipped3"/>
+                        			<field name="net_position3"/>
+                        			
+                        			<field name="to_receive4"/>
+                        			<field name="sales_unshipped4"/>
+                        			<field name="net_position4"/>
+                        			
+                        			<field name="to_receive5"/>
+                        			<field name="sales_unshipped5"/>
+                        			<field name="net_position5"/>
+                        			
+                        			<field name="to_receive6"/>
+                        			<field name="sales_unshipped6"/>
+                        			<field name="net_position6"/>
+                        			
+                        		</tree>
+                        	</field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- 
+		 <record id="action_long_short_report" model="ir.actions.act_window">
+            <field name="name">Long Short</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">long.short.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+        
+       <menuitem id="menu_action_long_short_report" 
+         	action="action_long_short_report" 
+         	sequence="770" 
+        	parent="bes_purchase_contract.menu_report_purchase_contract"
+        	/>
+	 -->
+	</data>
+</openerp>

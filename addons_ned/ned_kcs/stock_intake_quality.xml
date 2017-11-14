@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+    	<record id="view_supplier_risk_management" model="ir.ui.view">
+            <field name="name">view.v.qc.details.ned</field>
+            <field name="model">v.qc.details</field>
+            <field name="arch" type="xml">
+    			<tree editable = 'False' readonly = '1'>
+                    <field name = 'zone' readonly = '1'/>
+                    <field name = "stack" readonly = '1'/>
+                    <field name = 'balance_basis' readonly = '1'/>
+                    
+                    <field name = 'receipt_note' readonly = '1'/>
+                    <field name = 'product' readonly = '1'/>
+                    <field name = 'receipt_qty' readonly = '1'/>
+                    <field name = 'receiving_date' readonly = '1'/>
+                    <field name = 'packing' readonly = '1'/>
+                    <field name = 'mc'/>
+                    <field name = 'fm' readonly = '1'/>
+
+                    <field name = 'black' readonly = '1'/>
+                    <field name = 'broken' readonly = '1'/>
+                    <field name = 'brown' readonly = '1'/>
+
+                    <field name = 'mold' readonly = '1'/>
+                    <field name = 'cherry' readonly = '1'/>
+                    <field name = 'excelsa' readonly = '1'/>
+                    <field name = 'screen18' readonly = '1'/>
+
+                    <field name = 'screen16' readonly = '1'/>
+                    <field name = 'screen13' readonly = '1'/>
+                    <field name = 'belowsc12' readonly = '1'/>
+
+                    <field name = 'burned' readonly = '1'/>
+                    <field name = 'eaten' readonly = '1'/>
+                    <field name = 'immature' readonly = '1'/>
+                </tree>
+	         </field>
+         </record>
+
+        <!-- The block of code bellow determines a list of search parameters appear once user type in the searchbar -->
+        <record id="v_qc_details_ned_search" model="ir.ui.view">
+            <field name="name">view.v.qc.details.ned.search</field>
+            <field name="model">v.qc.details</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name = "zone"/>
+                    <field name = 'stack'/>
+                    <field name = 'receipt_note'/>
+                    <group expand="1" string="Group By">
+                        <filter string="Zone" domain="[]" context="{'group_by':'zone'}"/>
+                        <filter string="Stack" domain="[]" context="{'group_by':'stack'}"/>
+                        <filter string="Product" domain="[]" context="{'group_by':'product'}"/>
+                        <filter domain="[('balance_basis','!=',0)]" string="Real Stock" name='status'/>
+                        <!-- <filter domain="[('total_booked','!=',0)]" string="Purchased" name='total_booked'/> -->
+                    </group>
+                </search>
+             </field>
+         </record>
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_v_qc_details_ned" model="ir.actions.act_window">
+            <field name="name">Stock Intake Quality</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">v.qc.details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="priority">210</field>
+            <field name="search_view_id"/>
+            <!-- <field name="context">{"search_default_status":True}</field> -->
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_v_qc_details_ned" 
+            action="action_v_qc_details_ned" parent="general_kcs.menu_report_kcs" name="Intake Quality"
+            sequence="201" />
+        <menuitem id="menu_v_qc_details_ned_manufacturing" 
+            action="action_v_qc_details_ned" parent="mrp.menu_mrp_planning" name="Stock Intake Quality"
+            sequence="210" />
+    </data>
+</openerp>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<record model="ir.ui.view" id="view_account_payment_search_filter_by_contract">
+	        <field name="name">view_account_payment_search_filter_by_contract</field>
+	        <field name="model">account.payment</field>
+	        <field name="inherit_id" ref="account.view_account_payment_search"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//filter[@name='sales_purchase']" position="replace">
+	        		<filter name="sales_purchase" string="Sales/Purchase" 
+	        			domain="[('payment_type','!=','transfer'), 
+	        			'|', '|', ('request_payment_id','!=',False), ('purchase_contract_id','!=',False),
+	        				('invoice_ids.journal_id.type','in',['sale', 'purchase'])]"/>
+		        </xpath>
+		        <xpath expr="//filter[@name='general_operation']" position="replace">
+		        	<filter name="general_operation" string="General Operations" 
+		        	domain="['|', ('invoice_journal_id','!=',False), ('invoice_ids.journal_id.type','in',['general']), 
+		        	('request_payment_id','=',False),('purchase_contract_id','=',False)]"/>
+      			</xpath>
+	        </field>
+        </record>
+		
+     </data>
+</openerp>

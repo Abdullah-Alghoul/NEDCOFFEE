@@ -1,0 +1,184 @@
+<?xml version='1.0'?>
+<openerp>
+	<data>
+		
+		<!-- THANH: Model -->
+			<record id='view_account_regularization_model_search' model='ir.ui.view'>
+				<field name='name'>account.regularization.model.search</field>
+				<field name='model'>account.regularization.model</field>
+				<field name='arch' type='xml'>
+					<search string='Regularization Models'>
+						<filter icon="terp-check" name="active" string="Active" domain="[('active','=',True)]"/>
+						<field name="name"/>
+						<field name='account_ids'/>
+					</search>
+				</field>
+			</record>
+			
+			<record id='view_account_regularization_model_tree' model='ir.ui.view'>
+				<field name='name'>account.regularization.model.tree</field>
+				<field name='model'>account.regularization.model</field>
+				<field name='arch' type='xml'>
+					<tree string='Regularization Models'>
+						<field name='sequence'/>
+						<field name="name"/>
+						<field name='debit_account_id'/>
+						<field name='credit_account_id'/>
+						<field name="active"/>
+					</tree>
+				</field>
+			</record>
+			
+			<record id='view_account_regularization_model_form' model='ir.ui.view'>
+				<field name='name'>account.regularization.model.form</field>
+				<field name='model'>account.regularization.model</field>
+				<field name='arch' type='xml'>
+					<form string='Regularization Model'>
+						<sheet>
+							<notebook>
+								<page string="Main">
+									<group>
+										<group>
+											<field name='name'/>
+											<field name="sequence"/>
+											<field name="journal_id" domain="[('type', '=', 'general')]"/>
+										</group>
+										<group>
+											<field name='debit_account_id'/>
+											<field name='credit_account_id'/>
+											<field name="company_id"/>
+											<field name="active"/>
+										</group>
+									</group>
+									
+									<newline/>
+									<separator colspan="6" string="Accounts to balance"/>
+									<field colspan="6" name='account_ids' nolabel='1'/>
+								</page>
+								<page string="Journals">
+									<div>
+				                        <button string="Public Journals" name="load_journal" type="object" context="{'journal_type':'public'}"/>
+					        			<button string="Internal Journals" name="load_journal" type="object" context="{'journal_type':'internal'}"/>
+					        			<!-- 
+					        			<button string="All Journals" name="load_journal" type="object"/>
+					        			 -->
+				                    </div>
+					            	<field name="move_journal_ids" nolabel="1"/>
+					            </page>
+					            <page string="Moves">
+									<field name="move_ids" />
+								</page>
+							</notebook>
+						</sheet>
+					</form>
+				</field>
+			</record>
+			
+			<record id='action_account_regularization_model_form' model='ir.actions.act_window'>
+				<field name='name'>Regularization Models</field>
+				<field name='res_model'>account.regularization.model</field>
+				<field name='view_type'>form</field>
+				<field name='view_mode'>tree,form</field>
+				<field name="search_view_id" ref="view_account_regularization_model_search"/>
+				<field name="context">{"search_default_active":1}</field>
+			</record>
+		
+		<!-- THANH: Regularization -->
+		<record id='view_account_regularization_search' model='ir.ui.view'>
+			<field name='name'>account.regularization.search</field>
+			<field name='model'>account.regularization</field>
+			<field name='arch' type='xml'>
+				<search string='Regularizations'>
+					<field name='journal_id'/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="state"/>
+				</search>
+			</field>
+		</record>
+		
+		<record id='view_account_regularization_tree' model='ir.ui.view'>
+			<field name='name'>account.regularization.tree</field>
+			<field name='model'>account.regularization</field>
+			<field name='arch' type='xml'>
+				<tree string='Regularizations'>
+					<field name='model_ids' widget='many2many_tags'/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="company_id"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+		
+		
+		<record id='view_account_regularization_form' model='ir.ui.view'>
+			<field name='name'>account.regularization.form</field>
+			<field name='model'>account.regularization</field>
+			<field name='arch' type='xml'>
+				<form string='Regularization'>
+					<header>
+						<button name="load_data" states="draft" type="object" string="Load Data" class="oe_highlight"/>
+                        <button name="post" states="draft" string="Post" type="object" class="oe_highlight"/>
+                        <button name="set_to_draft" states="post" string="Set to Draft" type="object" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,post"/>
+	                    <div class="oe_button_box" name="button_box">
+	                        <button class="oe_stat_button" name="open_entries" type="object" icon="fa-pencil">
+	                            <label string="Entries"/>
+	                        </button> 
+	                    </div>
+	                </header>
+					<sheet>
+							<group>
+								<group>
+									<field name='journal_id' domain="[('type', '=', 'general')]" invisible='1'/>
+									<field name='re_account_id' domain="[('type', '=', 'other')]"/>
+									<field name='description' widget='char'/>
+								</group>
+								<group>
+									<field name="date_from"/>
+									<field name="date_to"/>
+									<field name="company_id"/>
+			           				<field name="second_currency_id" invisible="1"/>
+		           				</group>
+							</group>
+						<notebook>
+							<page string="Balance Lines">
+								<field name="balance_lines" readonly="1" nolabel="1">
+				            		<tree>
+				            			<field name="acc_code"/>
+				            			<field name="debit" sum="debit"/>
+				            			<field name="credit" sum="credit"/>
+				            			<field name="balance" sum="balance"/>
+				            			
+				            			<field name="debit_second" sum="debit_second"/>
+				            			<field name="credit_second" sum="credit_second"/>
+				            			<field name="balance_second" sum="balance_second"/>
+				            			<field name="com_currency_id" invisible="1"/>
+				            			<field name="second_currency_id" invisible="1"/>
+				            		</tree>
+				            	</field>
+							</page>
+							<page string="Moves">
+								<field name="move_ids" />
+							</page>
+							<page string="Regularization Models">
+				            	<field name="model_ids" nolabel="1"/>
+				            </page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id='action_account_regularization_form' model='ir.actions.act_window'>
+			<field name='name'>Account Regularizations</field>
+			<field name='res_model'>account.regularization</field>
+			<field name='view_type'>form</field>
+			<field name='view_mode'>tree,form</field>
+			<field name="search_view_id" ref="view_account_regularization_search"/>
+			<field name="context">{}</field>
+		</record>
+	
+	</data>
+</openerp>

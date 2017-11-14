@@ -1,0 +1,34 @@
+<openerp>
+	<data>
+		<record id="Wizard_export_data_hr" model="ir.ui.view">
+	      <field name="name">wizard_export_data_hr</field>
+	      <field name="model">wizard.export.data.hr</field>
+	      <field name="arch" type="xml">
+	        <form>
+	        	<field name="type"/>
+                <newline />
+                <separator colspan="4"/>
+                <footer>
+	                <button special="cancel"  string="Cancel" icon='gtk-cancel'/>
+	                <button name="print_report" string="Print" type="object" icon="gtk-print"/>
+                </footer>
+    		</form>
+	      </field>
+	    </record>
+	    
+		<record id="action_Wizard_export_data_hr" model="ir.actions.act_window">
+	        <field name="name">Export Main Data</field>
+	        <field name="res_model">wizard.export.data.hr</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field eval="False" name="view_id"/>
+			<field name="target">new</field>	        
+	    </record>
+	 
+	 <menuitem id="menu_report_hr" name="Reports" parent="hr.menu_hr_root" sequence="90" groups="base.group_hr_user"/>
+	 	
+	 <menuitem id="menu_action_Wizard_export_data_hr" action="action_Wizard_export_data_hr" 
+	 	parent="menu_report_hr" sequence="200" groups="base.group_hr_user"/>
+	    
+	</data>
+</openerp>

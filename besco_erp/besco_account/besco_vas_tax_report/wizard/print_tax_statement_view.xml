@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+ 
+			<record id="view_print_vat_in_form" model="ir.ui.view">
+	            <field name="name">view_print_vat_in_form</field>
+	            <field name="model">print.tax.statement</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="VAT IN">
+	                	<notebook>
+			            	<page string="Filters">
+			                	<group>
+			                		<group>
+			                			<field name="times"/>
+			                			<field name="tax_ids" widget="many2many_tags" domain="[('type_tax_use','=', 'purchase')]"/>
+			                			<field name="show_invoice" invisible="0"/>
+			                		</group>
+			                		<group>
+				                		<field name="fiscalyear_id"  attrs="{'invisible':[('times', 'in', ['dates'])],'required':[('times','not in', ['dates'])]}"/>
+						        		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','month'])],'required':[('times', 'not in', ['dates','years','month'])]}"/>
+						        		<field name="month" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+						        		<field name="date_start"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+						        		<field name="date_end"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+			                    		<field name="company_id"/>
+			                    	</group>
+			                    </group>
+		                    </page>
+	                    	<page string="Journals">
+				            	<field name="journal_ids" nolabel="1"/>
+				            </page>
+			            </notebook>
+		                <footer>
+	                        <button string="Print" type="object" name="print_report" icon='gtk-execute' class="oe_highlight"/>
+	                        or
+	                        <button string="Cancel" class="oe_link" special="cancel"/>
+	                    </footer>
+	                </form>
+	            </field>
+	        </record>
+        
+        <record id="action_report_vat_in" model="ir.actions.act_window">
+            <field name="name">VAT IN</field>
+            <field name="res_model">print.tax.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'type': 'vat_in'}</field>
+            <field name="view_id" ref="view_print_vat_in_form"/>
+        </record>
+        	
+        	<record id="view_print_vat_out_form" model="ir.ui.view">
+	            <field name="name">view_print_vat_out_form</field>
+	            <field name="model">print.tax.statement</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="VAT OUT">
+	                	<notebook>
+			            	<page string="Filters">
+			                	<group>
+			                		<group>
+			                			<field name="times"/>
+			                			<field name="tax_ids" widget="many2many_tags" domain="[('type_tax_use','=', 'sale')]"/>
+			                			<field name="show_invoice" invisible="0"/>
+			                		</group>
+			                		<group>
+				                		<field name="fiscalyear_id"  attrs="{'invisible':[('times', 'in', ['dates'])],'required':[('times','not in', ['dates'])]}"/>
+						        		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','month'])],'required':[('times', 'not in', ['dates','years','month'])]}"/>
+						        		<field name="month" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+						        		<field name="date_start"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+						        		<field name="date_end"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+			                    		<field name="company_id"/>
+			                    	</group>
+	                    		</group>
+                    		</page>
+                    		<page string="Journals">
+				            	<field name="journal_ids" nolabel="1"/>
+				            </page>
+                   		</notebook>
+		                <footer>
+	                        <button string="Print" type="object" name="print_report" icon='gtk-execute' class="oe_highlight"/>
+	                        or
+	                        <button string="Cancel" class="oe_link" special="cancel"/>
+	                    </footer>
+	                </form>
+	            </field>
+	        </record>
+	        
+        <record id="action_report_vat_out" model="ir.actions.act_window">
+            <field name="name">VAT OUT</field>
+            <field name="res_model">print.tax.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'type': 'vat_out'}</field>
+            <field name="view_id" ref="view_print_vat_out_form"/>
+        </record>
+        
+        
+        <!-- Tax Summary -->
+        	<record id="view_print_tax_summary_form" model="ir.ui.view">
+	            <field name="name">view_print_tax_summary_form</field>
+	            <field name="model">print.tax.statement</field>
+	            <field name="type">form</field>
+	            <field name="arch" type="xml">
+	                <form string="Taxes Summary">
+	                	<notebook>
+			            	<page string="Filters">
+			                	<group>
+			                		<group>
+			                			<field name="times"/>
+			                			<field name="ded_vat_account_ids" widget="many2many_tags" string='Deductible VAT Accounts' options="{'no_create': True}"/>
+			                		</group>
+			                		<group>
+				                		<field name="fiscalyear_id"  attrs="{'invisible':[('times', 'in', ['dates'])],'required':[('times','not in', ['dates'])]}"/>
+						        		<field name="quarter" attrs="{'invisible':[('times', 'in', ['dates','years','month'])],'required':[('times', 'not in', ['dates','years','month'])]}"/>
+						        		<field name="month" context="{'report_type':'1'}" attrs="{'invisible':[('times', 'in', ['dates','years','quarter'])],'required':[('times', 'not in', ['dates','years','quarter'])]}"/>
+						        		<field name="date_start"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+						        		<field name="date_end"  attrs="{'invisible':[('times', 'in', ['years','month','quarter'])],'required':[('times','not in', ['years','month'])]}"/>
+			                    		<field name="company_id"/>
+			                    	</group>
+			                    </group>
+		                    </page>
+	                    	<page string="Journals">
+				            	<field name="journal_ids" nolabel="1"/>
+				            </page>
+			            </notebook>
+		                <footer>
+	                        <button string="Print" type="object" name="print_report" icon='gtk-execute' class="oe_highlight"/>
+	                        or
+	                        <button string="Cancel" class="oe_link" special="cancel"/>
+	                    </footer>
+	                </form>
+	            </field>
+	        </record>
+        
+	        <record id="action_view_print_tax_summary_form" model="ir.actions.act_window">
+	            <field name="name">Taxes Summary</field>
+	            <field name="res_model">print.tax.statement</field>
+	            <field name="view_type">form</field>
+	            <field name="view_mode">form</field>
+	            <field name="target">new</field>
+	            <field name="context">{'type': 'summary'}</field>
+	            <field name="view_id" ref="view_print_tax_summary_form"/>
+	        </record>
+   </data>
+</openerp>
+        
+        

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+	
+    <!-- Create profile for CRM -->
+	    <record id="profile_salesman" model="profile">
+	        <field name="name">Sales Salesman / Nhân viên kinh doanh</field>
+	        <field name="groups_ids" eval="[(4, ref('base.group_sale_salesman'))]"/>
+	    </record>
+	    
+	    <record id="profile_sales_leader" model="profile">
+	        <field name="name">Sales Leader / Trưởng nhóm kinh doanh</field>
+	        <field name="groups_ids" eval="[(4, ref('base.group_sale_salesman_all_leads'))]"/>
+	    </record>
+    
+	    <record id="profile_sales_manager" model="profile">
+	        <field name="name">IT/ Nhân Viên IT</field>
+	        <field name="groups_ids" eval="[(4, ref('base.group_sale_manager'))]"/>
+	    </record>
+	    
+	    <!--  <record id="profile_sales_manager" model="profile">
+	        <field name="name">Sales Manager / Trưởng phòng kinh doanh</field>
+	        <field name="groups_ids" eval="[(4, ref('base.group_sale_manager'))]"/>
+	    </record>-->
+	    
+	    <!--  <record id="profile_It_Admin" model="profile">
+	        <field name="name">IT Admin / Nhân viên IT</field>
+	        <field name="groups_ids" eval="[(4, ref('base.group_sale_manager'))]"/>
+	    </record> -->
+    
+    <!-- Rules -->
+    	<!-- Salesman just see his Team-mates -->
+    	<record model="ir.rule" id="salesman_see_only_teammate">
+	        <field name="name">Salesman sees Team-mate only</field>
+	        <field name="model_id" ref="base.model_res_users"/>
+	        <field name="global" eval="False"/>
+	        <field name="domain_force">['|', ('id', 'in', [x.id for x in user.leader_team_ids.member_ids]), ('sale_team_id','=', user.sale_team_id.id)]</field>
+	        <field name="groups" eval="[(6, 0, [ref('base.group_sale_salesman')])]"/>
+	    </record>
+	    
+	    <record model="ir.rule" id="salesman_see_only_team">
+	        <field name="name">Salesman sees his team only</field>
+	        <field name="model_id" ref="sales_team.model_crm_team"/>
+	        <field name="global" eval="False"/>
+	        <field name="domain_force">[('id','=', user.sale_team_id.id)]</field>
+	        <field name="groups" eval="[(6, 0, [ref('base.group_sale_salesman')])]"/>
+	    </record>
+	    
+	    <!-- Sales Leader can see his team -->
+	    <record model="ir.rule" id="salesleader_see_only_teammate">
+	        <field name="name">Sales Leader sees Team-mate only</field>
+	        <field name="model_id" ref="base.model_res_users"/>
+	        <field name="global" eval="False"/>
+	        <field name="domain_force">['|', ('sale_team_id', 'child_of', [x.id for x in user.leader_team_ids]), ('sale_team_id','=', user.sale_team_id.id)]</field>
+	        <field name="groups" eval="[(6, 0, [ref('base.group_sale_salesman_all_leads')])]"/>
+	    </record>
+	    
+	    <record model="ir.rule" id="salesleader_see_only_team">
+	        <field name="name">Sales Leader sees his team only</field>
+	        <field name="model_id" ref="sales_team.model_crm_team"/>
+	        <field name="global" eval="False"/>
+	        <field name="domain_force">[('id','child_of',[x.id for x in user.leader_team_ids])]</field>
+	        <field name="groups" eval="[(6, 0, [ref('base.group_sale_salesman_all_leads')])]"/>
+	   </record>
+   
+	</data>
+</openerp>

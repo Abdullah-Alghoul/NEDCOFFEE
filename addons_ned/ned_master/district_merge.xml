@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model='ir.ui.view' id='wizard_district_merge_automatic_form'>
+            <field name='name'>wizard.district.merge.automatic.form</field>
+            <field name='model'>wizard.district.merge.automatic</field>
+            <field name='arch' type='xml'>
+                <form string='Automatic Merge Wizard'>
+                    <header>
+                        <button name='merge_cb'
+                            string='Merge Automatically'
+                            type='object' class='oe_highlight'
+                            confirm="Are you sure to execute the automatic merge of your accounts?"
+                            />
+                        <span class="or_cancel"  >
+                            <button name="close_cb" special="nosave" string="Cancel" type="object" class="oe_link oe_inline"/>
+                        </span>
+                        <span class="or_cancel">
+                            <button name="close_cb" special="nosave"
+                                string="Close"
+                                type="object"
+                                class="oe_link oe_inline"/>
+                        </span>
+                        <field name="state" invisible="1" />
+                    </header>
+                    <sheet>
+                    <notebook>
+                    	<page string="Replace District">
+                            <group string="Select the current account and District to replaced">
+                                <field name='district_from'/>
+                                <field name='district_to'/>
+                            </group>
+                        </page>
+                    </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_account_merge_automatic">
+            <field name="name">Duplicate District</field>
+            <field name="res_model">wizard.district.merge.automatic</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'active_test': False}</field>
+        </record>
+		
+		<act_window
+            id="act_wizard_district_merge_automatic"
+            name="Duplicate District"
+            res_model="wizard.district.merge.automatic"
+            src_model="res.district"
+            
+            view_mode="form"
+            multi="True"
+            target="new"/>
+            
+    </data>
+</openerp>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<openerp>
+<data noupdate="0">
+
+    <record id="aeroo_report_overtime_odt_id" model="ir.actions.report.xml">
+        <field name="name">Employees Overtimes odt</field>
+        <field name="type">ir.actions.report.xml</field>
+        <field name="model">hr.employee</field>
+        <field name="report_name">overtime_odt</field>
+        <field name="report_type">aeroo</field>
+        <field name="in_format">oo-odt</field>
+        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+        <field name="parser_loc">hr_overtime/report/parser_overtime.py</field>
+        <field name="report_rml">hr_overtime/report/template_overtime.odt</field>
+        <field name="parser_state">loc</field>
+        <field name="tml_source">file</field>
+    </record>
+    
+</data>
+</openerp>
+

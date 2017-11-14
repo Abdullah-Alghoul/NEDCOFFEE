@@ -1,0 +1,389 @@
+<openerp>
+	<data>
+		
+		<record id="view_hr_contract_history_relation_tree" model="ir.ui.view">
+            <field name="name">view.hr.contract.history.relation.tree</field>
+            <field name="model">hr.contract.history</field>
+            <field name="arch" type="xml">
+                <tree string="Salary Increase">
+                	<field name="name"/>
+                    <field name="date"/>
+                    <field name="wage"/>
+                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                    <field name="state"/>
+                    <button name="button_approve" states="draft" string="Approved" type="object" icon="gtk-apply"/>
+                    <button name="print_report" string="Print" type="object" icon="gtk-print"/>
+                    <button name="button_cancel" states="approve" type="object" string="Canceled" confirm="Are you sure want to cancel" icon="gtk-no"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_hr_contract_history_relation_form" model="ir.ui.view">
+            <field name="name">view.hr.contract.history.relation.form</field>
+            <field name="model">hr.contract.history</field>
+            <field name="arch" type="xml">
+                <form string="Salary Increase">
+	                <header>
+		                <button name="button_approve" states="draft" string="Approved" type="object" class="oe_highlight"/>
+		                <button name="print_report" states="draft,approve" string="Print" type="object"/>
+	                    <button name="button_cancel" states="approve" type="object" string="Canceled" confirm="Are you sure want to cancel"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approve"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_title">
+	                        <h1>
+	                        	<separator string="Salary Increase" attrs="{'invisible': [('state','!=','draft')]}"/>
+	                        	<field name="name" readonly="1" attrs="{'invisible': [('state','!=','draft')]}"/>
+	                        </h1>
+	                    </div>
+	                	<group col="4">
+	                		<field name="employee_id"/>
+	                		<field name="date"/>
+	                		<field name="contract_id" readonly="1"/>
+	                		<field name="wage" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                		<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+	                		<dield name="currency_id" invisible="1"/>
+	                	</group>
+                		<group col="4">
+                          	<field name="create_uid"/>
+                          	<field name="create_date"/>
+                  			<field name="user_approve"/>
+                  			<field name="date_approve"/>
+                  		</group>
+                	</sheet>
+                	<div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+                	</div> 
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_hr_contract_history_relation" model="ir.actions.act_window">
+            <field name="name">Salary Increase</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.contract.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a SALARY INCREASE, the first step of a new SALARY INCREASE.
+              </p>
+            </field>
+        </record>
+		
+        <!-- HR Contract -->
+        <!-- Function Auto -->
+    	<record forcecreate="True" id="ir_cron_update_hr_contract_expired_action" model="ir.cron">
+    		<field name="name">Updated HR Contract Expiration</field>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'hr.contract'" name="model"/>
+            <field eval="'run_check'" name="function"/>
+            <field eval="'(True,)'" name="args"/>
+        </record>
+        
+        <record id="hr_contract_view_tree_general_modify" model="ir.ui.view">
+            <field name="name">view.contract.tree.general.modify</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                	<xpath expr="//tree" position="replace">
+                		<tree string="Contracts" decoration-info="state == 'draft'" decoration-muted="state == 'close'" 
+                			decoration-danger="state == 'pending'" decoration-bf="message_needaction == True">
+		                    <field name="name"/>
+		                    <field name="employee_id"/>
+		                    <field name="type_id"/>
+		                    <field name="job_id"/>
+		                    <field name="working_hours"/>
+		                    <field name="date_start"/>
+		                    <field name="date_end"/>
+                       		<field name="state"/>
+		                    <field name="wage" invisible="1"/>
+		                    <field name="priority" invisible="1"/>
+		                    <field name="message_needaction" invisible="1"/>
+		                </tree>
+			        </xpath>
+                </data>
+            </field>
+        </record>
+        
+		<record id="hr_contract_view_form_add_page_history" model="ir.ui.view">
+            <field name="name">view.contract.form.page.history</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                	<xpath expr="//field[@name='state']" position="replace">
+                		<field name="state" widget="statusbar" statusbar_visible="draft,open,close"/>
+                	</xpath>
+                	<xpath expr="//field[@name='state']" position="before">
+	                   	<button name="%(action_wizard_hr_contract_expire)d" 
+		                   			string="To Expire" 
+		                   			type="action" 
+		                   			attrs="{'invisible': ['|',('expire_date', '!=', False),('state', 'in', ('draft','close'))]}" 
+		                   			context="{
+	                   					'default_employee_id': employee_id,
+	                   					'default_contract_id': active_id,
+	                   					'default_old_start_date': date_start}"/>
+						<button name="button_run_official" attrs="{'invisible': [('state', 'not in', ('draft'))]}" string="Run" type="object" class="oe_highlight"/>
+                   		<button name="renew_event" string="Renew" attrs="{'invisible': ['|',('state', 'not in', ('close')),('is_old_contract','=',True)]}" type="object" class="oe_highlight"/>
+               		    <button name="create_contract_history" string="Create Salary Increase" states="open" type="object"/>
+                    	<button name="button_set_to_draft" attrs="{'invisible': [('state', 'in', ('draft','close'))]}" string="Set To Draft" type="object" class="oe_highlight"/>
+                    </xpath>
+                    <xpath expr="//notebook" position="inside">
+                        <page string="Histories">
+                        	<field name="contract_history">
+                        		<tree string="Wageup Contract" editable="top">
+				                	<field name="name" string="Salary Increase"/>
+				                    <field name="date"/>
+				                    <field name="wage_old"/>
+				                    <field name="gross_salary_old"/>
+				                    <field name="wage"/>
+				                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+				                    <field name="state"/>
+				                    <button name="button_approve" states="draft" string="Approved" type="object" icon="gtk-apply"/>
+                                    <button name="print_report" string="Print" type="object" icon="gtk-print"/>
+				                    <button name="button_cancel" states="approve" type="object" string="Canceled" confirm="Are you sure want to cancel" icon="gtk-no"/>
+				                </tree>
+                        	</field>
+                        </page>
+                    </xpath>
+                    <xpath expr="//field[@name='employee_id']" position="replace">
+                    	<field name="employee_id" on_change="onchange_employee_id(employee_id)" attrs="{'readonly': [('state','not in','draft')]}"/>
+                    </xpath>
+                    <xpath expr="//field[@name='department_id']" position="replace">
+						<field name="is_old_contract" invisible="1"/>
+                    	<field name="department_id" attrs="{'readonly': [('state','not in','draft')]}"/>
+                    </xpath>
+                    <xpath expr="//field[@name='type_id']" position="replace">
+                    	<field name="type_id" attrs="{'readonly': [('state','not in','draft')]}"/>
+                    </xpath>
+                    <xpath expr="//field[@name='working_hours']" position="replace">
+                    	<field name="working_hours" attrs="{'readonly': [('state','not in','draft')]}"/>
+                    </xpath>
+                    <xpath expr="//field[@name='working_hours']" position="before">
+						<label for="expire_date" attrs="{'invisible': [('expire_date', '=', False)]}"/>
+	                    <div attrs="{'invisible': [('expire_date', '=', False)]}">
+	                        <field name="expire_date" class="oe_inline" readonly="1"/> - <field name="user_approve_id" class="oe_inline"/>
+	                    </div>
+                    </xpath>
+                    <xpath expr="//field[@name='working_hours']" position="after">
+                    	<field name="no_attendance" attrs="{'readonly': [('state','not in','draft')]}" />
+                    </xpath>
+                    <!-- 
+                    <xpath expr="//field[@name='employee_id']" position="after">
+                    	<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                    </xpath> -->
+                    <xpath expr="//field[@name='job_id']" position="replace">
+                    	<field name="job_id" required="1" attrs="{'readonly': [('state','not in','draft')]}"/>
+                    	<field name="old_id" invisible = "1" />
+                    	<field name="history_checked" invisible = "1"/>
+                    </xpath>
+                    <!-- 
+                   	<xpath expr="//field[@name='state']" position="before">
+                   		<button name="renew_event" string="Renew" states="pending,close" type="object" class="oe_highlight"/>
+               		    <button name="create_contract_history" string="Change Salary" states="open" type="object" groups="base.group_hr_manager"/>
+                    </xpath>-->
+					<xpath expr="//field[@name='wage']" position="replace">
+						<field name="currency_id" required="1" attrs="{'readonly': [('state','not in','draft')]}"/>
+						<field name="type_salary" attrs="{'readonly': [('state','not in','draft')]}"/>
+						<field name="wage" widget='monetary' options="{'currency_field': 'currency_id'}"
+							attrs="{'required': [('type_salary','=','net')],'readonly': [('state','not in','draft')]}"/>
+						<field name="gross_salary" widget='monetary' options="{'currency_field': 'currency_id'}"
+							attrs="{'required': [('type_salary','=','gross')],'readonly': [('state','not in','draft')]}"/>
+                        <field name="other_wage" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('state','not in','draft')]}"/>
+                    </xpath>
+					<xpath expr="//field[@name='date_start']" position="replace">
+						<field name="date_start" class="oe_inline" required="1" attrs="{'readonly': [('state','not in','draft')]}"/> -
+					</xpath>
+					<xpath expr="//field[@name='date_end']" position="replace">
+						<field name="date_end" class="oe_inline" attrs="{'readonly': [('state','not in','draft')]}"/>
+					</xpath>
+					<xpath expr="//field[@name='struct_id']" position="replace">
+						<field name="struct_id" required="1" attrs="{'readonly': [('state','not in','draft')]}"/>
+					</xpath>
+					<xpath expr="//field[@name='trial_date_start']" position="replace">
+						<field name="trial_date_start" class="oe_inline" readonly="1"/> - 
+					</xpath>
+					<xpath expr="//field[@name='trial_date_end']" position="replace">
+						<field name="trial_date_end" class="oe_inline" readonly="1"/>
+					</xpath>
+                </data>
+            </field>
+        </record>
+        
+        <record id="hr_contract.action_hr_contract" model="ir.actions.act_window">
+            <field name="name">Official Contracts</field>
+            <field name="res_model">hr.contract</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('trial','=',False)]</field>
+            <field name="context">{'search_default_current':1, 'default_trial': False, 'default_trial_date_start': False, 'search_default_is_open':1}</field>
+            <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
+        </record>
+        
+        <record id="view_hr_contract_filter_general_modify" model="ir.ui.view">
+            <field name="name">view.hr.contract.filter.general.modify</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='to_renew']" position="after">
+                	<filter name="is_open" string="Open Contracts" domain="[('state', 'in', ['trial','open'])]"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Hr Trial Contract -->
+        <record id="view_hr_trail_contract_tree" model="ir.ui.view">
+            <field name="name">hr.trail.contract.tree</field>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Trial Contracts" decoration-bf="message_needaction == True">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="type_id"/>
+                    <field name="job_id"/>
+                    <field name="working_hours"/>
+                    <field name="trial_date_start"/>
+                    <field name="trial_date_end"/>
+                    <field name="wage" invisible="1"/>
+                    <field name="message_needaction" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_hr_trail_contract_form" model="ir.ui.view">
+            <field name="name">hr.trail.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="arch" type="xml">
+                <form string="Trial Contract">
+                	<header>
+	                	<button name="%(action_wizard_hr_contract_expire)d" 
+	                   			string="To Expire" 
+	                   			type="action" 
+	                   			attrs="{'invisible': ['|',('expire_date', '!=', False),('state', 'in', ('draft','close'))]}" 
+	                   			context="{
+	                   					'default_employee_id': employee_id,
+	                   					'default_contract_id': active_id,
+	                   					'default_old_start_date': date_start}"/>
+                		<button name="button_offical_contract" attrs="{'invisible': [('state', 'not in', ('close'))]}" string="Official" type="object" class="oe_highlight"/>
+                		<button name="button_run_trial" attrs="{'invisible': [('state', 'not in', ('draft'))]}" string="Run" type="object" class="oe_highlight"/>
+						<button name="button_set_to_draft" attrs="{'invisible': [('state', 'in', ('draft','close'))]}" string="Set To Draft" type="object" class="oe_highlight"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,trial,close"/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only"/>
+							<h1>
+								<field name="name" placeholder="Contract Reference" attrs="{'readonly': [('state','not in','draft')]}"/>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="employee_id" on_change="onchange_employee_id(employee_id)" attrs="{'readonly': [('state','not in','draft')]}"/>
+								<field name="company_id" options="{'no_create': True}" invisible="1" attrs="{'readonly': [('state','not in','draft')]}"/>
+								<field name="job_id" required="1" attrs="{'readonly': [('state','not in','draft')]}"/>
+								<field name="old_id" invisible="1"/>
+								<field name="history_checked" invisible="1"/>
+							</group>
+							<group>
+								<field name="department_id" attrs="{'readonly': [('state','not in','draft')]}"/>
+								<field name="type_id" attrs="{'readonly': [('state','not in','draft')]}"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Information" name="information">
+								<group>
+									<group name="salary_and_advantages" string="Salary and Advantages">
+										<field name="currency_id" required="1" attrs="{'readonly': [('state','not in','draft')]}"/>
+										<field name="trial_salary" widget='monetary' options="{'currency_field': 'currency_id'}" string="Trial Salary" required="1" attrs="{'readonly': [('state','not in','draft')]}"/>
+										<field name="type_salary" attrs="{'invisible': [('state','not in',('trial','close'))],'readonly': [('state','not in','draft')]}"/>
+										<field name="wage" widget='monetary' options="{'currency_field': 'currency_id'}"
+											attrs="{'required': [('type_salary','=','net')], 'invisible': [('state','not in',('trial','close'))],'readonly': [('state','not in','draft')]}"/>
+										<field name="gross_salary" widget='monetary' options="{'currency_field': 'currency_id'}"
+											attrs="{'required': [('type_salary','=','gross')],'invisible': [('state','not in',('trial','close'))],'readonly': [('state','not in','draft')]}"/>
+										<field name="other_wage" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('state','not in','draft')]}"/>
+										<field name="struct_id" required="1" can_create="true" can_write="true" modifiers="{'required': true}" attrs="{'readonly': [('state','not in','draft')]}"/>
+										<field name="advantages" nolabel="1" placeholder="Advantages..." colspan="2" attrs="{'readonly': [('state','not in','draft')]}"/>
+									</group>
+									<group name="duration_group" string="Duration">
+										<label for="trial_date_start" string="Trial Period Duration"/>
+										<div>
+											<field name="trial_date_start" class="oe_inline" required="1" attrs="{'readonly': [('state','not in','draft')]}"/>
+											 - 
+											<field name="trial_date_end" class="oe_inline" required="1" attrs="{'readonly': [('state','not in','draft')]}"/>
+										</div>
+										<label for="expire_date" attrs="{'invisible': [('expire_date', '=', False)]}"/>
+					                    <div attrs="{'invisible': [('expire_date', '=', False)]}">
+					                        <field name="expire_date" class="oe_inline" readonly="1"/> - <field name="user_approve_id" class="oe_inline"/>
+					                    </div>
+										<label for="date_start" string="Duration" invisible="1"/>
+										<div invisible="1">
+											<field name="date_start" class="oe_inline" attrs="{'readonly': [('state','not in','draft')]}"/> - <field name="date_end" class="oe_inline" attrs="{'readonly': [('state','not in','draft')]}"/>
+										</div>
+										<field name="working_hours" attrs="{'readonly': [('state','not in','draft')]}"/>
+										<field name="no_attendance" attrs="{'readonly': [('state','not in','draft')]}"/>
+									</group>
+								</group>
+								<separator string="Notes"/>
+								<field name="notes"/>
+							</page>
+							<page string="Work Permit">
+								<group col="4">
+									<field name="visa_no"/>
+									<field name="permit_no"/>
+									<field name="visa_expire"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers" />
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+                </form>
+            </field>
+        </record>
+        
+        
+         <record id="action_hr_contract_trial" model="ir.actions.act_window">
+            <field name="name">Trial Contracts</field>
+            <field name="res_model">hr.contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="priority">200</field>
+            <field name="domain">[('trial','=',True)]</field>
+            <field name="context">{'search_default_current':1, 'default_date_start': False, 'default_trial': True, 'search_default_is_open':1}</field>
+            <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create an Trial Contract. 
+              </p>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_hr_contract_trial_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_hr_trail_contract_tree"/>
+            <field name="act_window_id" ref="action_hr_contract_trial"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_hr_contract_trial_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_hr_trail_contract_form"/>
+            <field name="act_window_id" ref="action_hr_contract_trial"/>
+        </record>
+        
+     	<menuitem id="hr_menu_contract_root" parent="hr.menu_hr_root" name="Contracts" sequence="4" groups="base.group_hr_manager"/>
+		<menuitem action="action_hr_contract_trial" id="menu_action_hr_contract_trial" parent="hr_menu_contract_root" name="Trial Contracts" sequence="1"/>
+        <menuitem action="hr_contract.action_hr_contract" id="hr_contract.hr_menu_contract" parent="hr_menu_contract_root" name="Official Contracts" sequence="2"/>
+    </data>
+</openerp>

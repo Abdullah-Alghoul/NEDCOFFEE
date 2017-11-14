@@ -1,0 +1,33 @@
+<openerp>
+	<data>
+	    <record id="action_state_import" model="ir.actions.act_window">
+	        <field name="name">Import State</field>
+	        <field name="res_model">state.import</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field eval="False" name="view_id"/>
+	    </record>
+	    
+	    <menuitem id="menu_action_state_import"
+	      	name="Import State"
+	      	parent="base.menu_country_state_partner"
+			action="action_state_import"
+			sequence="1"/> 
+	    
+	    <record id="view_form_hr_state_import" model="ir.ui.view">
+	      <field name="name">View From hr State Import</field>
+	      <field name="model">state.import</field>
+	      <field name="arch" type="xml">
+	        <form>
+	        	<button string="Import" type="object" name="read_file" class="oe_highlight" attrs="{'invisible': [('file', '=', False)]}"/>
+	        	<sheet>
+	        		<group>
+	        			<field name="file" />
+		          		<field name="file_name" invisible="1"/>
+	        		</group>
+	        	</sheet>
+    		</form>
+	      </field>
+	    </record>
+	</data>
+</openerp>

@@ -1,0 +1,41 @@
+<openerp>
+	<data>
+	
+		<record id="view_action_wizard_export_general_payslips" model="ir.ui.view">
+	      <field name="name">Export General Payslips</field>
+	      <field name="model">wizard.export.general.payslips</field>
+	      <field name="arch" type="xml">
+	        <form>
+        		<group col="2">
+        			<field name="type_report" />
+		        	<label for="date_from" string="Period"/>
+                    <div>
+                        <field name="date_from" class="oe_inline"/> - <field name="date_to" class="oe_inline"/>
+                    </div>
+				</group>	                
+                <newline />
+                <separator colspan="4"/>
+                <footer>
+	                <button special="cancel"  string="Cancel" icon='gtk-cancel'/>
+	                <button name="export_export_general_payslips" string="Print" type="object" icon="gtk-print"/>
+				</footer>                
+    		</form>
+	      </field>
+	    </record>
+	    
+		<record id="action_wizard_export_general_payslips" model="ir.actions.act_window">
+	        <field name="name">Report General Payment</field>
+	        <field name="res_model">wizard.export.general.payslips</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">form</field>
+	        <field eval="False" name="view_id"/>
+			<field name="target">new</field>	        
+	    </record>
+
+	    <menuitem id="menu_action_wizard_export_general_payslips"
+	      	parent="menu_report_payrolls" 
+			action="action_wizard_export_general_payslips"
+			sequence="4"/>
+
+	</data>
+</openerp>

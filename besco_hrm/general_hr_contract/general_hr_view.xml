@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_employee_history_tree_general_modify_ned" model="ir.ui.view">
+            <field name="name">view.employee.history.tree.general.modify.ned</field>
+            <field name="model">hr.employee.history</field>
+            <field name="inherit_id" ref="general_hr.hr_employee_history_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='worked_years']" position="after">
+                	<field name="resigned_date"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_employee_history_form_general_modify_ned" model="ir.ui.view">
+            <field name="name">view.employee.history.form.general.modify.ned</field>
+            <field name="model">hr.employee.history</field>
+            <field name="inherit_id" ref="general_hr.hr_employee_history_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='worked_years']" position="after">
+                	<field name="resigned_date"/>
+                </xpath>
+            </field>
+        </record>
+        
+        
+		<record id="view_employee_form_general_modify_ned" model="ir.ui.view">
+            <field name="name">view.employee.form.general.modify.ned</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='official_joining_date']" position="after">
+                	<field name="resigned_date"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>
+
+

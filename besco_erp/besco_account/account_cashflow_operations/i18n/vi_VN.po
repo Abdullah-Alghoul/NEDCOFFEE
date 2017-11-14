@@ -1,0 +1,1039 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * general_account
+# 
+# Translators:
+# Le Truong Thanh, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-10 14:09+0000\n"
+"PO-Revision-Date: 2016-09-10 10:43+0000\n"
+"Last-Translator: Le Truong Thanh\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: general_account
+#: model:ir.ui.menu,name:general_account.menu_stock_account
+msgid "Stock Accounting"
+msgstr "Kế toán kho"
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_finance_entries
+#: model:res.groups,name:account.group_account_manager
+msgid "Adviser"
+msgstr "Kế toán tổng hợp"
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_move_journal_line
+#: model:ir.model.fields,field_description:account.field_account_bank_statement_line_journal_entry_ids
+#: model:ir.ui.menu,name:account.menu_action_move_journal_line_form
+#: model:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+#: model:ir.ui.view,arch_db:account.view_account_journal_form
+#: model:ir.ui.view,arch_db:account.view_move_tree
+msgid "Journal Entries"
+msgstr "Sổ nhật ký"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_account_customer_payment_tree_general_modify
+#: model:ir.ui.view,arch_db:general_account.view_account_supplier_payment_tree_general_modify
+msgid "Payment Amount"
+msgstr "Tổng tiền"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_account_payment_general_modify_form
+msgid "Payment Fees"
+msgstr "Phí phát sinh"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_account_payment_general_modify_form
+msgid "Invoices"
+msgstr "Hóa đơn, chứng từ thanh toán"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_account_payment_general_modify_form
+msgid "Journal Items"
+msgstr "Bút toán"
+
+#. module: account
+#: model:ir.model,name:account.model_account_move_line
+#: model:ir.ui.view,arch_db:account.view_move_line_form
+#: model:ir.ui.view,arch_db:account.view_move_line_form2
+msgid "Journal Item"
+msgstr "Các bút toán đơn"
+
+#. module: account
+#: code:addons/account/models/account_bank_statement.py:259
+#: code:addons/account/models/account_payment.py:259
+#: model:ir.actions.act_window,name:account.act_account_journal_2_account_move_line
+#: model:ir.actions.act_window,name:account.act_account_move_to_account_move_line_open
+#: model:ir.actions.act_window,name:account.action_account_moves_all_a
+#: model:ir.actions.act_window,name:account.action_account_moves_all_tree
+#: model:ir.actions.act_window,name:account.action_move_line_graph
+#: model:ir.actions.act_window,name:account.action_move_line_graph_cash_basis
+#: model:ir.actions.act_window,name:account.action_move_line_graph_cash_basis_posted
+#: model:ir.actions.act_window,name:account.action_move_line_graph_posted
+#: model:ir.actions.act_window,name:account.action_move_line_select
+#: model:ir.actions.act_window,name:account.action_move_line_select_by_partner
+#: model:ir.actions.act_window,name:account.action_move_line_select_by_type
+#: model:ir.actions.act_window,name:account.action_move_line_select_posted
+#: model:ir.model.fields,field_description:account.field_account_move_line_ids
+#: model:ir.model.fields,field_description:account.field_res_partner_issued_total
+#: model:ir.model.fields,field_description:account.field_res_partner_journal_item_count
+#: model:ir.ui.menu,name:account.menu_action_account_moves_all
+#: model:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+#: model:ir.ui.view,arch_db:account.view_account_payment_form
+#: model:ir.ui.view,arch_db:account.view_bank_statement_form
+#: model:ir.ui.view,arch_db:account.view_move_form
+#: model:ir.ui.view,arch_db:account.view_move_line_tree
+#, python-format
+msgid "Journal Items"
+msgstr "Các bút toán đơn"
+
+#. module: account
+#: selection:account.tax,type_tax_use:0
+#: selection:account.tax.template,type_tax_use:0
+#: model:ir.ui.menu,name:account.menu_finance_payables
+#: model:ir.ui.view,arch_db:account.view_account_move_filter
+msgid "Purchases"
+msgstr "Kế toán phải trả"
+
+#. module: account
+#: code:addons/account/models/chart_template.py:156
+#: model:ir.actions.act_window,name:account.action_invoice_tree2
+#: model:ir.ui.menu,name:account.menu_action_invoice_tree2
+#: model:ir.ui.view,arch_db:account.account_planner
+#, python-format
+msgid "Vendor Bills"
+msgstr "Hóa đơn đầu vào"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+msgid "Draft Bill"
+msgstr "Hóa đơn nháp"
+
+#. module: account
+#: selection:account.abstract.payment,partner_type:0
+#: selection:account.payment,partner_type:0
+#: selection:account.register.payments,partner_type:0
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+#: model:ir.ui.view,arch_db:account.invoice_supplier_tree
+#: model:ir.ui.view,arch_db:account.view_account_invoice_report_search
+#: model:ir.ui.view,arch_db:account.view_account_supplier_payment_tree
+msgid "Vendor"
+msgstr "Nhà cung cấp"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_invoice_supplier_form_general_modify
+msgid "Entry Date"
+msgstr "Ngày hạch toán"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_invoice_supplier_form_general_modify
+#: model:ir.ui.view,arch_db:general_account.view_invoice_form_general_modify
+msgid "Invoice Number"
+msgstr "Số hóa đơn"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_invoice_form_general_modify
+msgid "Company Currency"
+msgstr "Theo tiền tệ công ty"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_invoice_supplier_form_general_modify
+msgid "Company Currency"
+msgstr "Theo tiền tệ công ty"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.invoice_tree
+msgid "Invoice Number"
+msgstr "Số hóa đơn"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.invoice_tree
+msgid "Validate"
+msgstr "Hạch toán hóa đơn"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.invoice_tree
+msgid "Receive"
+msgstr "Thu tiền"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.invoice_tree
+msgid "Receive"
+msgstr "Hẹn thanh toán"
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/xml/account_reconciliation.xml:145
+#: model:ir.model.fields,field_description:account.field_account_invoice_amount_total
+#: model:ir.model.fields,field_description:account.field_account_invoice_amount_total_company_signed
+#: model:ir.model.fields,field_description:account.field_account_invoice_amount_total_signed
+#: model:ir.ui.view,arch_db:account.report_agedpartnerbalance
+#: model:ir.ui.view,arch_db:account.view_account_bnk_stmt_cashbox
+#, python-format
+msgid "Total"
+msgstr "Tổng tiền"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_invoice_number
+#: model:ir.model.fields,field_description:account.field_account_move_name
+msgid "Number"
+msgstr "Số nội bộ"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.invoice_tree
+msgid "Amount Due"
+msgstr "Còn nợ"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_tree
+msgid "To Pay"
+msgstr "Còn nợ"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+#: model:ir.ui.view,arch_db:general_account.view_invoice_supplier_form_general_modify
+msgid "Vendor"
+msgstr "Nhà cung cấp"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_invoice_supplier_form_general_modify
+msgid "Cancel Bill"
+msgstr "Hủy hóa đơn"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+msgid "Bill"
+msgstr "Chi tiết hóa đơn"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_bank_statement_user_id
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+msgid "Responsible"
+msgstr "Người ghi nhận"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_form
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+msgid "Other Info"
+msgstr "Thông tin khác"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_form
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+msgid "Payments"
+msgstr "Thông tin thanh toán"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_invoice_tax_name
+msgid "Tax Description"
+msgstr "Mô tả thuế"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_invoice_tax_account_id
+#: model:ir.model.fields,field_description:account.field_account_tax_account_id
+#: model:ir.model.fields,field_description:account.field_account_tax_template_account_id
+msgid "Tax Account"
+msgstr "TK ghi nhận thuế"
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_account_customer
+msgid "Customers"
+msgstr "Khách hàng"
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_finance_receivables
+msgid "Sales"
+msgstr "Kế toán phải thu"
+
+#. module: general_account
+#: model:ir.ui.menu,name:general_account.menu_other_receives_payments
+msgid "Other Receipts & Payments"
+msgstr "Kế toán thu chi khác"
+
+#. module: general_account
+#: model:ir.ui.menu,name:general_account.menu_action_other_receives
+#: model:ir.actions.act_window,name:general_account.action_other_receives
+msgid "Other Receipts"
+msgstr "Thu khác"
+
+#. module: general_account
+#: model:ir.ui.menu,name:general_account.menu_action_other_payments
+#: model:ir.actions.act_window,name:general_account.action_other_payments
+msgid "Other Payments"
+msgstr "Chi khác"
+
+#. module: general_account
+#: model:ir.ui.menu,name:general_account.menu_action_invoice_other_receivables
+#: model:ir.actions.act_window,name:general_account.action_invoice_other_receivables
+msgid "Other Receivables"
+msgstr "Công nợ phải thu khác"
+
+#. module: general_account
+#: model:ir.ui.menu,name:general_account.menu_action_invoice_other_payables
+#: model:ir.actions.act_window,name:general_account.action_invoice_other_payables
+msgid "Other Payables"
+msgstr "Công nợ phải trả khác"
+
+#. module: account
+#: selection:account.invoice,type:0 selection:account.invoice.report,type:0
+msgid "Customer Invoice"
+msgstr "Hóa đơn đầu ra"
+
+#. module: account
+#: code:addons/account/models/chart_template.py:155
+#: model:ir.actions.act_window,name:account.action_invoice_tree1
+#: model:ir.ui.menu,name:account.menu_action_invoice_tree1
+#: model:ir.ui.view,arch_db:account.account_planner
+#, python-format
+msgid "Customer Invoices"
+msgstr "Hóa đơn đầu ra"
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/xml/account_reconciliation.xml:295
+#: model:ir.ui.menu,name:account.menu_account_supplier
+#, python-format
+msgid "Vendors"
+msgstr "Nhà cung cấp"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_invoice_name
+msgid "Reference/Description"
+msgstr "Mô tả hóa đơn"
+
+#. module: account
+#: selection:account.invoice,state:0 selection:account.invoice.report,state:0
+#: selection:account.payment,state:0
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+#: model:ir.ui.view,arch_db:account.view_bank_statement_search
+msgid "Draft"
+msgstr "Nháp"
+
+#. module: account
+#: selection:account.invoice,state:0 selection:account.invoice.report,state:0
+msgid "Open"
+msgstr "Chờ thanh toán"
+
+#. module: account
+#: selection:account.invoice,state:0
+#: model:ir.ui.view,arch_db:account.report_overdue_document
+#: model:mail.message.subtype,name:account.mt_invoice_paid
+msgid "Paid"
+msgstr "Đã thanh toán"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+msgid "Cancel Bill"
+msgstr "Hủy hóa đơn"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_invoice_reference
+msgid "Invoice Number"
+msgstr "Số hóa đơn"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_invoice_supplier_inv_date
+msgid "Vendor Invoice Date"
+msgstr "Ngày hóa đơn"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_invoice_date_invoice
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+msgid "Invoice Date"
+msgstr "Ngày hạch toán"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_tree
+msgid "Bill Date"
+msgstr "Ngày hạch toán"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_tree
+msgid "Pay"
+msgstr "Thanh toán"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_tree
+msgid "Receive"
+msgstr "Thu tiền	"
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_account_payments
+#: model:ir.actions.act_window,name:account.action_account_payments_payable
+#: model:ir.model,name:account.model_account_payment
+#: model:ir.model.fields,field_description:account.field_account_invoice_payment_ids
+#: model:ir.model.fields,field_description:account.field_account_invoice_payment_move_line_ids
+#: model:ir.ui.menu,name:account.menu_action_account_payments_payable
+#: model:ir.ui.menu,name:account.menu_action_account_payments_receivable
+#: model:ir.ui.view,arch_db:account.partner_view_buttons
+#: model:ir.ui.view,arch_db:account.view_account_config_settings
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Payments"
+msgstr "Thanh toán"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.invoice_supplier_tree
+msgid "Due Date"
+msgstr "Hẹn thanh toán"
+
+#. module: general_account
+#: model:ir.ui.menu,name:general_account.menu_action_invoice_good_return_note
+#: model:ir.actions.act_window,name:general_account.action_invoice_good_return_note
+msgid "Credit Notes"
+msgstr "Hóa đơn điều chỉnh, trả hàng"
+
+#. module: general_account
+#: model:ir.ui.menu,name:general_account.menu_action_invoice_good_issue_notes
+#: model:ir.actions.act_window,name:general_account.action_invoice_good_issue_notes
+msgid "Debit Notes"
+msgstr "Hóa đơn trả hàng"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_abstract_payment_amount
+#: model:ir.model.fields,field_description:account.field_account_payment_amount
+#: model:ir.model.fields,field_description:account.field_account_register_payments_amount
+msgid "Payment Amount"
+msgstr "Tổng tiền"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_total_payment
+msgid "Total Payment (Inc. Fees)"
+msgstr "Tổng tiền (bao gồm phí)"
+
+#. module: account
+#: selection:account.move,state:0 selection:account.payment,state:0
+#: model:ir.ui.view,arch_db:account.view_account_move_filter
+#: model:ir.ui.view,arch_db:account.view_account_move_line_filter
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Posted"
+msgstr "Đã hạch toán"
+
+#. module: account
+#: selection:account.payment,state:0
+#: model:ir.model.fields,field_description:account.field_account_move_line_reconciled
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Reconciled"
+msgstr "Đã đối soát"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_partner_bank_id
+#: model:ir.model.fields,field_description:general_account.field_account_register_payments_partner_bank_id
+msgid "Partner Bank"
+msgstr "Tài khoản ngân hàng"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_show_invoice
+msgid "Show Invoice"
+msgstr "Nhập hóa đơn"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_has_fee
+msgid "Has Fees"
+msgstr "Có phí thanh toán"
+
+#. module: general_account
+#: selection:account.payment,extend_payment:payment
+msgid "Payment"
+msgstr "Thanh toán trực tiếp"
+
+#. module: general_account
+#: selection:account.payment,extend_payment:advance
+msgid "Advance"
+msgstr "Ứng tiền"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_abstract_payment_communication
+#: model:ir.model.fields,field_description:account.field_account_bank_statement_line_name
+#: model:ir.model.fields,field_description:account.field_account_payment_communication
+#: model:ir.model.fields,field_description:account.field_account_register_payments_communication
+msgid "Memo"
+msgstr "Lý do"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_res_partner_property_payment_term_id
+msgid "Customer Payment Term"
+msgstr "Điều khoản thanh toán"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_res_partner_property_supplier_payment_term_id
+msgid "Vendor Payment Term"
+msgstr "Điều khoản thanh toán"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.view_partner_property_form
+msgid "Sale"
+msgstr "Bán hàng"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.view_partner_property_form
+msgid "Purchase"
+msgstr "Mua hàng"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_res_partner_debit
+msgid "Total Payable"
+msgstr "Tổng phải trả"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_res_partner_credit
+msgid "Total Receivable"
+msgstr "Tổng phải thu"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.view_partner_property_form
+msgid "Accounting Entries"
+msgstr "Cấu hình tài khoản"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_res_partner_property_account_receivable_id
+msgid "Account Receivable"
+msgstr "TK phải thu"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_res_partner_property_account_payable_id
+msgid "Account Payable"
+msgstr "TK phải trả"
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/xml/account_reconciliation.xml:264
+#: model:ir.model.fields,field_description:account.field_account_account_type_note
+#: model:ir.model.fields,field_description:account.field_account_invoice_line_name
+#: model:ir.ui.view,arch_db:account.report_invoice_document
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+#: model:ir.ui.view,arch_db:account.view_account_type_form
+#, python-format
+msgid "Description"
+msgstr "Mô tả"
+
+#. module: account
+#: selection:account.account.tag,applicability:0
+#: model:account.tax.group,name:account.tax_group_taxes
+#: model:ir.actions.act_window,name:account.action_tax_form
+#: model:ir.model.fields,field_description:account.field_account_invoice_line_invoice_line_tax_ids
+#: model:ir.model.fields,field_description:account.field_account_move_line_tax_ids
+#: model:ir.ui.menu,name:account.menu_action_tax_form
+#: model:ir.ui.view,arch_db:account.account_planner
+#: model:ir.ui.view,arch_db:account.invoice_form
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+#: model:ir.ui.view,arch_db:account.report_invoice_document
+#: model:ir.ui.view,arch_db:account.view_account_config_settings
+#: model:ir.ui.view,arch_db:account.view_move_line_form
+msgid "Taxes"
+msgstr "Thuế suất"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_analytic_line_product_id
+#: model:ir.model.fields,field_description:account.field_account_invoice_line_product_id
+#: model:ir.model.fields,field_description:account.field_account_invoice_report_product_id
+#: model:ir.model.fields,field_description:account.field_account_move_line_product_id
+#: model:ir.ui.view,arch_db:account.view_account_analytic_line_filter_inherit_account
+msgid "Product"
+msgstr "Hàng hóa, dịch vụ"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_move_date
+msgid "GL Date"
+msgstr "Ngày hạch toán"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_move_doc_date
+msgid "Document Date"
+msgstr "Ngày chứng từ"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_move_line_credit
+#: model:ir.ui.view,arch_db:account.report_financial
+#: model:ir.ui.view,arch_db:account.report_generalledger
+#: model:ir.ui.view,arch_db:account.report_trialbalance
+msgid "Credit"
+msgstr "Có"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_analytic_line_amount_currency
+#: model:ir.model.fields,field_description:account.field_account_bank_statement_line_amount_currency
+#: model:ir.model.fields,field_description:account.field_account_move_line_amount_currency
+msgid "Amount currency"
+msgstr "Giá trị ngoại tệ"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_invoice_move_id
+#: model:ir.model.fields,field_description:account.field_account_invoice_move_name
+#: model:ir.model.fields,field_description:account.field_account_move_line_move_id
+#: model:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+msgid "Journal Entry"
+msgstr "Số bút toán kép"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_move_line_ref
+msgid "Partner Reference"
+msgstr "Tham chiếu đối tác"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_reference
+msgid "Invoice Reference"
+msgstr "Ký hiệu hóa đơn"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_responsible
+msgid "Responsible"
+msgstr "Người chịu trách nhiệm"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_source_document
+msgid "Source Document"
+msgstr "Chứng từ kèm theo"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_number
+msgid "Invoice Number"
+msgstr "Số hóa đơn"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_sub_total
+msgid "Untaxed Total"
+msgstr "Giá trị trước thuế"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_tax_amount
+msgid "Tax Amount"
+msgstr "Thuế"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_tax_correction
+msgid "Tax Correction"
+msgstr "Đ/c thuế"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_account_payment_invoice_form
+msgid "Tax Correction"
+msgstr "Đ/c thuế"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_account_payment_invoice_tree
+msgid "Tax Correction"
+msgstr "Đ/c thuế"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_amount
+msgid "Total"
+msgstr "Tổng tiền"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:general_account.view_account_payment_invoice_form
+msgid "Vendor"
+msgstr "Nhà cung cấp"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_line_name
+msgid "Description"
+msgstr "Mô tả"
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_account_invoice_payment
+#: model:ir.actions.act_window,name:account.action_account_payment_from_invoices
+#: model:ir.ui.view,arch_db:account.invoice_form
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+#: model:ir.ui.view,arch_db:account.view_account_payment_form
+#: model:ir.ui.view,arch_db:account.view_account_payment_from_invoices
+#: model:ir.ui.view,arch_db:account.view_account_payment_invoice_form
+msgid "Register Payment"
+msgstr "Thanh toán"
+
+
+#. module: account
+#: code:addons/account/models/account_payment.py:297
+#, python-format
+msgid "You can not delete a payment that is already posted"
+msgstr "Bạn không thể xóa phiếu thanh toán khi nó đã được xác nhận!"
+
+#. module: account
+#: code:addons/account/models/account_payment.py:122
+#, python-format
+msgid "You can only register payments for open invoices"
+msgstr "Bạn chỉ có thể thanh toán khi hóa đơn đã được xác nhân!"
+
+#. module: account
+#: code:addons/account/models/account_payment.py:123
+#, python-format
+msgid "In order to pay multiple invoices at once, they must belong to the same commercial partner."
+msgstr "Các hóa đơn phải cùng đối tác!"
+
+#. module: account
+#: code:addons/account/models/account_payment.py:123
+#, python-format
+msgid "In order to pay multiple invoices at once, they must use the same currency."
+msgstr "Các hóa đơn phải cùng đơn vị tiền tệ!"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_payment_payment_difference_handling
+msgid "Payment Difference"
+msgstr "Giá trị còn lại"
+
+#. module: account
+#: selection:account.payment,payment_difference_handling:0
+msgid "Mark invoice as fully paid"
+msgstr ""
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/js/account_reconciliation_widgets.js:1866
+#: model:ir.ui.view,arch_db:account.invoice_form
+#: model:ir.ui.view,arch_db:account.invoice_supplier_form
+#: model:ir.ui.view,arch_db:account.view_account_payment_from_invoices
+#: model:ir.ui.view,arch_db:account.view_account_payment_invoice_form
+#: model:ir.ui.view,arch_db:account.view_bank_statement_form
+#, python-format
+msgid "Validate"
+msgstr "Hạch toán hóa đơn"
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_account_invoice_refund
+#: model:ir.ui.view,arch_db:account.invoice_form
+msgid "Refund Invoice"
+msgstr "Điều chỉnh hóa đơn"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_form
+msgid "Send by Email"
+msgstr "Gửi Email hóa đơn"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.account_aged_balance_view
+#: model:ir.ui.view,arch_db:account.account_common_report_view
+#: model:ir.ui.view,arch_db:account.invoice_form
+msgid "Print"
+msgstr "In hóa đơn"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.invoice_form
+msgid "Print Invoice"
+msgstr "In hóa đơn"
+
+#. module: general_account_uynhiemchi
+#: model:ir.ui.view,arch_db:general_account_uynhiemchi.view_account_payment_form_print_payment
+msgid "Print Payment"
+msgstr "In phiếu"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_abstract_payment_payment_method_id
+#: model:ir.model.fields,field_description:account.field_account_abstract_payment_payment_type
+#: model:ir.model.fields,field_description:account.field_account_payment_payment_method_id
+#: model:ir.model.fields,field_description:account.field_account_payment_payment_type
+#: model:ir.model.fields,field_description:account.field_account_register_payments_payment_method_id
+#: model:ir.model.fields,field_description:account.field_account_register_payments_payment_type
+msgid "Payment Type"
+msgstr "Loại thanh toán"
+
+#. module: account
+#: selection:account.abstract.payment,payment_type:0
+#: selection:account.payment,payment_type:0
+#: selection:account.register.payments,payment_type:0
+#: model:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+msgid "Receive Money"
+msgstr "Thu"
+
+#. module: account
+#: selection:account.abstract.payment,payment_type:0
+#: selection:account.payment,payment_type:0
+#: selection:account.register.payments,payment_type:0
+#: model:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+msgid "Send Money"
+msgstr "Chi"
+
+#. module: account
+#: selection:account.abstract.payment,payment_type:0
+#: selection:account.payment,payment_type:0
+#: selection:account.register.payments,payment_type:0
+#: model:ir.ui.view,arch_db:account.account_journal_dashboard_kanban_view
+msgid "Internal Transfer"
+msgstr "Chuyển tiền nội bộ"
+
+#. module: account
+#: code:addons/account/models/account_invoice.py:111
+#, python-format
+msgid "Outstanding debits"
+msgstr "Thanh toán chưa cấn trừ"
+
+#. module: account
+#: model:ir.actions.act_window,name:account.action_invoice_refund_out_tree
+#: model:ir.actions.act_window,name:account.action_invoice_tree
+#: model:ir.actions.report.xml,name:account.account_invoices
+#: model:ir.model.fields,field_description:account.field_account_payment_invoice_ids
+#: model:ir.model.fields,field_description:account.field_res_partner_invoice_ids
+#: model:ir.ui.menu,name:account.menu_action_account_invoice_report_all
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+#: model:ir.ui.view,arch_db:account.view_account_payment_form
+#: model:ir.ui.view,arch_db:account.view_account_payment_graph
+#: model:ir.ui.view,arch_db:account.view_invoice_graph
+#: model:ir.ui.view,arch_db:account.view_invoice_line_calendar
+#: model:ir.ui.view,arch_db:account.view_invoice_pivot
+msgid "Invoices"
+msgstr "HĐ đã duyệt, thanh toán"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+msgid "Not Paid"
+msgstr "Còn nợ"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+msgid "My Invoices"
+msgstr "HĐ của tôi"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+msgid "Refunds"
+msgstr "HĐ điều chỉnh, trả hàng"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_invoice_report_user_id
+#: model:ir.model.fields,field_description:account.field_account_invoice_user_id
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+#: model:ir.ui.view,arch_db:account.view_account_invoice_report_search
+msgid "Salesperson"
+msgstr "Nhân viên kinh doanh"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+msgid "Partner"
+msgstr "Đối tác"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+msgid "Status"
+msgstr "Trạng thái"
+
+#. module: account
+#: model:ir.ui.view,arch_db:account.view_account_invoice_filter
+msgid "Overdue"
+msgstr "Quá hạn thanh toán"
+
+#. module: account
+#: selection:account.journal,type:0
+msgid "Sale"
+msgstr "Bán hàng"
+
+#. module: account
+#: selection:account.journal,type:1
+msgid "Purchase"
+msgstr "Mua hàng"
+
+#. module: account
+#: selection:account.journal,type:5
+msgid "Miscellaneous"
+msgstr "Khác"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_journal_show_on_dashboard
+msgid "Show journal on dashboard"
+msgstr "Hiển thị trên dashboard"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_tax_name
+#: model:ir.model.fields,field_description:account.field_account_tax_template_name
+msgid "Tax Name"
+msgstr "Tên thuế"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_tax_template_type_tax_use
+#: model:ir.model.fields,field_description:account.field_account_tax_type_tax_use
+msgid "Tax Scope"
+msgstr "Phạm vi áp dụng"
+
+#. module: account
+#: selection:account.tax,type_tax_use:0
+#: selection:account.tax.template,type_tax_use:0
+msgid "Sales"
+msgstr "Bán hàng"
+
+#. module: account
+#: selection:account.tax,type_tax_use:1
+#: selection:account.tax.template,type_tax_use:1
+msgid "Purchases"
+msgstr "Mua hàng"
+
+#. module: account
+#: selection:account.tax,type_tax_use:1
+#: selection:account.tax.template,type_tax_use:1
+msgid "none"
+msgstr "Trống"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_tax_amount_type
+#: model:ir.model.fields,field_description:account.field_account_tax_template_amount_type
+msgid "Tax Computation"
+msgstr "Phương pháp tính"
+
+#. module: account
+#: selection:account.tax,amount_type:0
+#: selection:account.tax.template,amount_type:0
+msgid "Percentage of Price"
+msgstr "Phần trăm theo đơn giá"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_tax_refund_account_id
+#: model:ir.model.fields,field_description:account.field_account_tax_template_refund_account_id
+msgid "Tax Account on Refunds"
+msgstr "TK thuế trả lại"
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_finance_reports
+msgid "Reporting"
+msgstr "Báo cáo"
+
+#. module: general_account_asset
+#: model:ir.ui.menu,name:general_account_asset.menu_report_asset_reports
+msgid "Asset Reports"
+msgstr "Báo cáo tài sản"
+
+#. module: general_account
+#: model:ir.ui.menu,name:general_account.menu_configuration_periods
+msgid "Periods"
+msgstr "Kỳ kế toán"
+
+#. module: account
+#: model:ir.ui.menu,name:account.account_management_menu
+#: model:ir.ui.menu,name:account.account_reports_management_menu
+msgid "Management"
+msgstr "Quản trị"
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_config_multi_currency
+msgid "Multi-Currencies"
+msgstr "Đa tiền tệ"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_reference
+msgid "Invoice Number"
+msgstr "Ký hiệu hóa đơn"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_reference_9297
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_reference_9090
+msgid "Invoice Number"
+msgstr "Ký hiệu hóa đơn"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_journal_id_9296
+#: model:ir.model.fields,field_description:general_account.field_account_payment_invoice_journal_id_9089
+msgid "Journal"
+msgstr "Nhật ký"
+
+#. module: account
+#. openerp-web
+#: selection:account.report.general.ledger,sortby:0
+#: selection:accounting.report,filter_cmp:0
+#: code:addons/account/static/src/xml/account_reconciliation.xml:142
+#: code:addons/account/static/src/xml/account_reconciliation.xml:261
+#: model:ir.model.fields,field_description:account.field_account_bank_statement_date
+#: model:ir.model.fields,field_description:account.field_account_bank_statement_line_date
+#: model:ir.model.fields,field_description:account.field_account_invoice_report_date
+#: model:ir.model.fields,field_description:account.field_account_move_date
+#: model:ir.model.fields,field_description:account.field_account_move_line_date
+#: model:ir.model.fields,field_description:account.field_account_move_line_reconcile_writeoff_date_p
+#: model:ir.ui.view,arch_db:account.report_generalledger
+#: model:ir.ui.view,arch_db:account.report_overdue_document
+#: model:ir.ui.view,arch_db:account.view_account_invoice_report_search
+#: model:ir.ui.view,arch_db:account.view_account_move_filter
+#: model:ir.ui.view,arch_db:account.view_account_move_line_filter
+#: model:ir.ui.view,arch_db:account.view_bank_statement_search
+#, python-format
+msgid "Date"
+msgstr "Ngày hạch toán"
+
+#. module: account
+#. openerp-web
+#: code:addons/account/static/src/js/account_reconciliation_widgets.js:112
+#: code:addons/account/static/src/js/account_reconciliation_widgets.js:116
+#: model:ir.model.fields,field_description:account.field_account_move_line_name
+#, python-format
+msgid "Label"
+msgstr "Mô tả"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_move_line_ref
+msgid "Partner Reference"
+msgstr "Chứng từ gốc"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_invoice_line_account_analytic_id
+#: model:ir.model.fields,field_description:account.field_account_move_line_analytic_account_id
+#: model:ir.model.fields,field_description:account.field_account_move_line_reconcile_writeoff_analytic_id
+#: model:ir.model.fields,field_description:account.field_account_operation_template_analytic_account_id
+#: model:ir.model.fields,field_description:account.field_account_operation_template_second_analytic_account_id
+msgid "Analytic Account"
+msgstr "TK phân tích"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_fee_journal_id
+msgid "Journal"
+msgstr "Sổ nhật ký"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_fee_description
+msgid "Description"
+msgstr "Mô tả"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_fee_amount
+msgid "Amount"
+msgstr "Giá trị"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_fee_account_id
+msgid "Fee Account"
+msgstr "TK chi phí"
+
+#. module: general_account
+#: model:ir.model.fields,field_description:general_account.field_account_payment_fee_account_id
+msgid "Fee Account"
+msgstr "TK chi phí"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_abstract_payment_journal_id
+#: model:ir.model.fields,field_description:account.field_account_payment_journal_id
+#: model:ir.model.fields,field_description:account.field_account_register_payments_journal_id
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Payment Method"
+msgstr "Phương thức thanh toán"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_payment_destination_journal_id
+msgid "Transfer To"
+msgstr "Nhận tiền vào"
+
+#. module: account
+#: code:addons/account/models/account_payment.py:385
+#, python-format
+msgid "Transfer from %s"
+msgstr "Rút tiền từ "
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Payments"
+msgstr "Chi"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Receipts"
+msgstr "Thu"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Transfers"
+msgstr "Chuyển tiền nội bộ"
+
+#. module: general_account
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Sales/Purchase"
+msgstr "Nghiệp vụ mua bán"

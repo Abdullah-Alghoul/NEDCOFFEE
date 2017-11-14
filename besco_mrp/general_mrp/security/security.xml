@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+		
+	    <!-- Profiles -->
+    	<record id="profile_group_mrp_user" model="profile">
+        	<field name="name">MRP Users / Sản xuất Users</field>
+	        <field name="groups_ids" eval="[(6, 0, [ref('mrp.group_mrp_user')])]"/>
+	        <field name="description">- MRP Users</field>
+	    </record>
+	    
+	    <!-- Profiles -->
+    	<record id="profile_group_mrp_manager" model="profile">
+        	<field name="name">MRP Manager / Sản xuất Manager</field>
+	        <field name="groups_ids" eval="[(6, 0, [ref('mrp.group_mrp_user'),ref('mrp.group_mrp_manager')])]"/>
+	        <field name="description">- MRP Manager</field>
+	    </record>
+	    
+	</data>
+</openerp>

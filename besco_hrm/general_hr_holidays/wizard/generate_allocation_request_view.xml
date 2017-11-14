@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+		
+		<record model="ir.ui.view" id="view_generate_allocation_request_form">
+            <field name="name">generate.allocation.request.form</field>
+            <field name="model">generate.allocation.request</field>
+            <field name="arch" type="xml">
+                <form string="Generate Allocation Requests">
+                	<group>
+	                    <group>
+							<field name="number_days"/>
+							<field name="allocation_date"/>
+	                    </group>
+                    	<group>
+							<field name="type"/>
+	                    </group>
+                    </group>
+                    <group string='Employees'>
+						<field name="employee_ids" nolabel='1' colspan="2"/>
+                    </group>
+                    <footer>
+                        <button string="Generate" name="generate_allocation_request" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_generate_allocation_request">
+            <field name="name">Generate Allocation Requests</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">generate.allocation.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_generate_allocation_request_form"/>
+            <field name="target">new</field>
+        </record>
+	
+	<!-- THANH: Action for transfer remaining leaves -->
+		<record model="ir.ui.view" id="view_transfer_leave_form">
+            <field name="name">view_transfer_leave_form</field>
+            <field name="model">generate.allocation.request</field>
+            <field name="arch" type="xml">
+                <form string="Transfer Leaves">
+                    <group col="4">
+						<field name="transfer_old_leave" invisible="1"/>
+						<field name="allocation_date"/>
+                    </group>
+                    <group string='Employees'>
+						<field name="employee_ids" nolabel='1' colspan="2"/>
+                    </group>
+                    <footer>
+                        <button string="Transfer" name="generate_allocation_request" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_transfer_leave">
+            <field name="name">Transfer Leaves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="context">{'default_transfer_old_leave':True}</field>
+            <field name="res_model">generate.allocation.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_transfer_leave_form"/>
+            <field name="target">new</field>
+        </record>
+        
+    </data>
+</openerp>

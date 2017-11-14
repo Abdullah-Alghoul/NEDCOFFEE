@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+    
+    	<record id="v_processing_batch_list_ned" model="ir.ui.view">
+            <field name="name">view.v.processing.batch.list.ned</field>
+            <field name="model">v.processing.batch.list</field>
+            <field name="arch" type="xml">
+    			<tree editable = 'False' readonly = 'True'>
+                    <field name = "mrp_id"/>
+                    <field name = 'batch_type'/>
+                    <field name = 'date_planned'/>
+                    <field name = 'date_finished'/>
+                    <field name = 'issued'/>
+                    <field name = 'receivednet'/>
+                    <field name = 'wip'/>
+                    <field name = 'notes'/>
+                </tree>
+	         </field>
+         </record>
+
+
+
+        <!-- the block of code below is the action to trigger the list open -->
+        <record id="action_v_processing_batch_list_ned" model="ir.actions.act_window">
+            <field name="name">Production List Summary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">v.processing.batch.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="priority">200</field>
+            <field name="search_view_id"/>
+            
+        </record>
+
+        <!-- The below block of code will assign the abovementioned action to menu
+        tags:
+            - id: the identification name, this should be unique
+            - action: the action defines corresponding the abovementioned action to be triggered
+            - parrent: this specify which menu the current sub-menu will be nested under, in this case, this menu will be nested under MRP area of Master Report
+            - groups: defines a list of group users who have permission to access this report
+            - sequence: the order of the menu in the parrent menu -->
+        <menuitem id="menu_v_processing_batch_list_ned" 
+            action="action_v_processing_batch_list_ned" parent="menu_report_ned_mrp_master" name="MRP Summary"
+            groups="mrp.group_mrp_user,mrp.group_mrp_manager" sequence="51" />
+    </data>
+</openerp>

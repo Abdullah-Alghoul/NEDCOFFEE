@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	
+    	<record id="view_system_sequence_form_ned_tree" model="ir.ui.view">
+	        <field name="name">system.sequence.form.ned.inherit.tree</field>
+	        <field name="model">system.sequence</field>
+	        <field name="inherit_id" ref="general_base.view_system_sequence_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='contract_code']" position="after">
+	         		<field name="picking_code"/>
+	           	</xpath>
+	        </field>
+	    </record>
+    	
+    		<!-- Ned Fumigation -->
+    	<record id="view_ned_packing_terms_tree" model="ir.ui.view">
+            <field name="name">ned.packing.terms.tree</field>
+            <field name="model">packing.terms</field>
+            <field name="arch" type="xml">
+            <tree string="Market" editable="top">
+                	<field name="name"/>
+                    <field name="vietnamese"/>
+                    <field name="english"/>
+            </tree>
+            </field>
+        </record>
+        
+        <record id="action_view_ned_packing_terms" model="ir.actions.act_window">
+            <field name="name">Packing Terms</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">packing.terms</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_view_ned_packing_terms" action="action_view_ned_packing_terms" sequence="200" 
+        	parent="bes_contract_base.menu_master_information"/>
+        
+    		<!-- Ned Fumigation -->
+    	<record id="view_ned_market_price_tree" model="ir.ui.view">
+            <field name="name">ned.market.price.tree</field>
+            <field name="model">market.price</field>
+            <field name="arch" type="xml">
+                <tree string="Market" editable="top">
+                	<field name="mdate"/>
+                    <field name="interbankrate"/>
+                    <field name="price"/>
+                    <field name="bankceiling"/>
+                    <field name="note"/>
+                    <field name="bank_floor"/>
+                    <field name="eximbank"/>
+                    <field name="techcombank"/>
+                    <field name="acb_or_vietinbank"/>
+                    <field name="commercialrate"/>
+                    <field name="exporter_faq_price"/>
+                    <field name="privateDealer_faq_price"/>
+                    <field name="liffe_month"/>
+                    <field name="liffe"/>
+                    <field name="g2difflocal"/>
+                    <field name="g2difffob"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_ned_market_price" model="ir.actions.act_window">
+            <field name="name">Market List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">market.price</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a res Market, the first step of a Market.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_ned_market_price" action="action_ned_market_price" sequence="100" 
+        	parent="bes_contract_base.menu_master_information"/>
+    	
+    	<!-- Ned Fumigation -->
+    	<record id="view_res_district_tree" model="ir.ui.view">
+            <field name="name">res.district.tree</field>
+            <field name="model">res.district</field>
+            <field name="arch" type="xml">
+                <tree string="District" editable="top">
+                	<field name="state_id"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_res_district" model="ir.actions.act_window">
+            <field name="name">District List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.district</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a res District, the first step of a District.
+              </p>
+            </field>
+        </record>
+        
+    	
+    	<menuitem action="action_res_district" id="menu_action_res_district" parent="base.menu_localisation" sequence="500"/>
+    	
+    	
+    
+    	<!-- Ned shipping.line -->
+    	<record id="view_ned_shipping_line_tree" model="ir.ui.view">
+            <field name="name">shipping.line.tree</field>
+            <field name="model">shipping.line</field>
+            <field name="arch" type="xml">
+                <tree string="Shipping Line" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_ned_shipping_line" model="ir.actions.act_window">
+            <field name="name">Shipping line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shipping.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Shipping Line, the first step of a Shipping Line.
+              </p>
+            </field>
+        </record>
+    	
+    	<menuitem id="menu_action_ned_shipping_line" action="action_ned_shipping_line" sequence="50" 
+        	parent="bes_contract_base.menu_master_information" name="Shipping Lines"
+        	groups="bes_sale_contract.group_sales_contract_user"/>
+    	
+    	<menuitem name="Master Ned's Cafe" 
+		        id="menu_master_ned_cafe" 
+		        sequence="16"
+		        parent="general_base.menu_master_data"
+		        groups="general_base.group_customer_manager,general_base.group_supplier_manager"/>
+    	
+    	
+    	<record id="product_category_list_view_general_add_ned_tem_modify" model="ir.ui.view">
+	            <field name="name">product.category.list.view.general.add.ned.tem.modify</field>
+	            <field name="model">product.category</field>
+	            <field name="inherit_id" ref="general_product.view_category_property_form_add_account_refund"/>
+	            <field name="arch" type="xml">
+	            	<field name="property_account_expense_categ_id" position="after">
+	            		<field name="property_stock_account_tem_categ"/>
+	            	</field>
+	            </field>
+	        </record>
+	        
+    	<record id="view_res_partner_add_type_ned_tree" model="ir.ui.view">
+	        <field name="name">res.partner.add.type.ned.inherit.tree</field>
+	        <field name="model">res.partner</field>
+	        <field name="inherit_id" ref="base.view_partner_tree"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='display_name']" position="after">
+	         		<field name="type_ned"/>
+	           	</xpath>
+	        </field>
+	    </record>
+    	<!-- Ned Fumigation -->
+    	<record id="view_ned_fumigation_tree" model="ir.ui.view">
+            <field name="name">ned.fumigation.tree</field>
+            <field name="model">ned.fumigation</field>
+            <field name="arch" type="xml">
+                <tree string="Fumigation" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_ned_fumigation" model="ir.actions.act_window">
+            <field name="name">Fumigation List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ned.fumigation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Fumigation, the first step of a fumigation.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_ned_fumigation" action="action_ned_fumigation" sequence="30" 
+        	parent="menu_master_ned_cafe"/>
+        
+    	<!-- Ned Packing -->
+    	<record id="view_ned_packing_tree" model="ir.ui.view">
+            <field name="name">ned.packing.tree</field>
+            <field name="model">ned.packing</field>
+            <field name="arch" type="xml">
+                <tree string="Packing List" editable="top">
+                    <field name="name"/>
+                    <field name="capacity"/>
+                    <field name="tare_weight"/>
+                    <field name="Premium"/>
+                    <field name="price"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        
+        
+        <record id="action_ned_packing" model="ir.actions.act_window">
+            <field name="name">Packing List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ned.packing</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Packing, the first step of a Packing.
+              </p>
+            </field>
+        </record>a
+        
+        <menuitem id="menu_action_ned_packing" action="action_ned_packing" sequence="20" 
+        	parent="menu_master_ned_cafe"/>
+        	
+        <menuitem id="menu_action_ned_packing_mrp" 
+        	action="action_ned_packing" 
+        	parent="mrp.menu_mrp_planning"
+        	groups="mrp.group_mrp_user,mrp.group_mrp_manager" 
+        	sequence="200"/>
+        	
+    	<!-- Ned Crop -->
+    	<record id="view_ned_crop_tree" model="ir.ui.view">
+            <field name="name">ned.crop.tree</field>
+            <field name="model">ned.crop</field>
+            <field name="arch" type="xml">
+                <tree string="Crop" decoration-info="state == 'current'">
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="to_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        
+        <record id="view_ned_crop_form" model="ir.ui.view">
+            <field name="name">ned.crop.form</field>
+            <field name="model">ned.crop</field>
+            <field name="arch" type="xml">
+                <form string="Crop">
+                	<sheet>
+                		<group col="4">
+                			<field name="name"/>
+                			<field name="state"/>
+                			<field name="start_date"/>
+                			<field name="to_date"/>
+                		</group>
+                		<label for="description"/>
+                		<field name="description"/>
+                		<div class="oe_clear"/>
+                        <group col="4">
+                        	<field name="create_uid"/>
+                			<field name="create_date"/>
+                		</group>
+                	</sheet>
+                	<div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ned_crop" model="ir.actions.act_window">
+            <field name="name">Crop</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ned.crop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Crop, the first step of a new Crop.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_ned_crop" action="action_ned_crop" sequence="2" 
+        	parent="menu_master_ned_cafe" name="Crop"/>
+        	
+        <!-- Ned Certificate -->
+        <record id="view_ned_certificate_tree" model="ir.ui.view">
+            <field name="name">ned.certificate.tree</field>
+            <field name="model">ned.certificate</field>
+            <field name="arch" type="xml">
+                <tree string="Certificate" decoration-info="active == True">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_ned_certificate_form" model="ir.ui.view">
+            <field name="name">ned.certificate.form</field>
+            <field name="model">ned.certificate</field>
+            <field name="arch" type="xml">
+                <form string="Certificate">
+                	<sheet>
+                		<group col="4">
+                			<field name="name"/>
+		                    <field name="code"/>
+		                    <label for="premium"/>
+            				<div name="premium" class="o_row">
+            					<field name="premium"/><field name="currency_id"/>	
+							</div>
+		                    <field name="active"/>
+                		</group>
+                		<label for="description"/>
+                		<field name="description" placeholder="Description..."/>
+                		<div class="oe_clear"/>
+                	</sheet>
+                	<div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_ned_certificate" model="ir.actions.act_window">
+            <field name="name">Certificate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ned.certificate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Certificate, the first step of a new Certificate.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_ned_certificate" action="action_ned_certificate" sequence="2" 
+        	parent="menu_master_ned_cafe" name="Certificate"/>
+        	
+        <record id="product_template_form_view_ned_master" model="ir.ui.view">
+	        <field name="name">product.template.form.view.ned.master</field>
+	        <field name="model">product.template</field>
+	        <field name="inherit_id" ref="product.product_template_form_view"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//notebook/page" position="after">
+	        		<page string="General Element" name="element">
+	        			<group col="4">
+	        				<field name="invietnamese"/>
+	        				<field name="moisture"/>
+	        				<field name="foreign_matter"/>
+	        				<field name="black"/>
+	        				<field name="broken"/>
+	        				<field name="brown"/>
+	        				<field name="triage"/>
+	        				<field name="cup_taste"/>
+	        				<field name="flag_standard_cost"/>
+	        				<field name="premium"/>
+	        			</group>
+	        			
+	        			<group col="4">
+	        				<field name="scr18"/>
+	        				<field name="scr16"/>
+	        				<field name="scr13"/>
+	        				<field name="scr12"/>
+	        				<field name="uscr12"/>
+	        				<field name="defects"/>
+	        			</group>
+	        			
+	        		</page>
+	        	</xpath>
+	        	
+       		</field>
+	 	</record>
+	 	
+	 	<record id="view_partner_form_inherit_ned_master" model="ir.ui.view">
+	        <field name="name">res.partner.form.inherit.ned.master</field>
+	        <field name="model">res.partner</field>
+	        <field name="inherit_id" ref="base.view_partner_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//label[@for='street']" position="before">
+	        		<field name="type_ned"/>
+	        	</xpath>
+	        	
+		        
+	        	<xpath expr="//notebook/page" position="before">
+	        		<page string="Ned Information" name="ned_information">
+	        			<field name="supplier_mgt_line">
+	        				<tree editable="top">
+	        					<field name="date"/>
+	        					<field name="goods"/>
+	        					<field name="delivery_at"/>
+	        					<field name="repperson1"/>
+	        					<field name="repperson2"/>
+	        					<field name="estimated_annual_volume"/>	
+	        					<field name="ppkg"/>
+	        					<field name="purchase_undelivered_limit"/>
+	        					<field name="negative_m2m_loss_limit"/>
+	        					<field name="property_evaluation"/>
+	        					<field name="m2mlimit"/>
+                                <field name="deposited"/>
+	        				</tree>
+	        			</field>
+	        			
+	        			
+	        			<!-- 
+	        			<group>
+	        				<group>
+	        					<field name="repperson1"/>
+	        					<field name="repperson2"/>
+	        				</group>
+	        				<group>
+	        					<field name="goods"/>
+	        					<field name="ppkg"/>
+	        				</group>
+	        				<group>
+	        					<field name="estimated_annual_volume"/>
+	        					<field name="purchase_undelivered_limit"/>
+	        				</group>
+	        				<group>
+	        					<field name="property_evaluation"/>
+	        					<field name="m2mlimit"/>
+	        				</group>
+	        			</group>
+	        			 -->
+	        		</page>
+	        	</xpath>
+	        	
+	        	<div class="o_address_format" position="replace">
+		        	 <div class="o_address_format">
+	                    <div class="oe_edit_only">
+	                        <button name="open_parent" type="object" string="(edit)" class="oe_link" attrs="{'invisible': ['|', ('parent_id', '=', False), ('type', '!=', 'contact')]}"/>
+	                    </div>
+	                    <field name="street" placeholder="Street..." class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+	                    <field name="street2" placeholder="Street 2..." class="o_address_street" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+	                    <field name="district_id" placeholder="District" class="o_address_zip" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+	                    <field name="city" placeholder="City" class="o_address_city" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+						<field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" on_change="onchange_state(state_id)" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/>	                    
+						<field name="zip" placeholder="ZIP" class="o_address_zip" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" invisible="1"/>
+	                    <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+	                </div>
+                </div>
+	        	
+       		</field>
+	 	</record>
+	 	
+        <record id="product_normal_form_view_inherit_ned_master" model="ir.ui.view">
+	        <field name="name">product.product.form.inherit.ned.master</field>
+	        <field name="model">product.product</field>
+	        <field name="inherit_id" ref="product.product_normal_form_view"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='default_code']" position="replace">
+	        		<field name="default_code" required="1"/>
+	        	</xpath>
+        	</field>
+        </record>
+	        
+	 	
+    
+    </data>
+</openerp>

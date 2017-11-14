@@ -1,0 +1,296 @@
+<openerp>
+<data>
+	
+	<!-- Asset Components -->
+		<record model="ir.ui.view" id="view_account_asset_component_tree">
+	      <field name="name">view_account_asset_component_tree</field>
+	      <field name="model">account.asset.component</field>
+	      <field name="arch" type="xml">
+	        <tree string="Components">
+				<field name="asset_id"/>
+				<field name="employee_id"/>
+  				<field name="name"/>
+				<field name="value"/>
+				<field name="currency_id" invisible="0"/>
+				<field name="description"/>
+  			</tree>
+	      </field>
+	    </record>
+	    
+    <!--
+        Asset Category
+     -->
+	
+	    <record model="ir.ui.view" id="view_account_asset_category_form_general_modify">
+	        <field name="name">view_account_asset_category_form_general_modify</field>
+	        <field name="model">account.asset.category</field>
+	        <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>
+	        <field name="arch" type="xml">
+           		<xpath expr="//field[@name='account_depreciation_id']" position="after">
+                	<field name="account_income_recognition_id" options="{'no_create': True}"/>
+                	<field name="tax_ids" widget="many2many_tags" options="{'no_create': True}" domain="[('type_tax_use','=',type),('company_id', '=', company_id)]"/>
+             	</xpath>
+             	<xpath expr="//field[@name='type']" position="replace">
+		            <field name="type" attrs="{'invisible': 0}"/>
+		        </xpath>
+		        <xpath expr="//field[@name='account_income_recognition_id']" position="before">
+		            <field name="expense_account_id" required ="1" options="{'no_create': True}"/>
+		        </xpath>
+		        <xpath expr="//field[@name='account_income_recognition_id']" position="after">
+		            <field name="recognition_expense_account_id" required ="1" options="{'no_create': True}"/>
+		        </xpath>
+	        </field>
+	    </record>
+	
+	<!--
+        Asset History
+     -->
+	    <record model="ir.ui.view" id="view_account_asset_history_form">
+	      <field name="name">account.asset.history.form</field>
+	      <field name="model">account.asset.history</field>
+	      <field name="arch" type="xml">
+	        <form string="Asset History">
+	          <group>
+	            <group>
+	              <field name="name"/>
+	              <field name="date"/>
+	              <field name="user_id"/>
+	            </group>
+	            <group>
+	              <field name="method_time"/>
+	              <field name="method_number" attrs="{'invisible':[('method_time','=','end')]}"/>
+	              <field name="method_period"/>
+	              <field name="method_end" attrs="{'invisible':[('method_time','!=','end')]}"/>
+	            </group>
+	          </group>
+	          <!-- 
+	          <separator string="Notes"/>
+	          <field name="note"/>
+	           -->
+	        </form>
+	      </field>
+	    </record>
+	
+	    <record model="ir.ui.view" id="view_account_asset_history_tree">
+	      <field name="name">account.asset.history.tree</field>
+	      <field name="model">account.asset.history</field>
+	      <field name="arch" type="xml">
+	        <tree string="Asset history">
+	         <field name="date"/>
+	         <field name="name"/>
+	         <field name="user_id"/>
+	         
+	         <field name="value"/>
+	         <field name="method_time"/>
+             <field name="method_number" attrs="{'invisible':[('method_time','=','end')]}"/>
+             <field name="method_period"/>
+             <field name="method_end" attrs="{'invisible':[('method_time','!=','end')]}"/>
+	        </tree>
+	      </field>
+	    </record>
+    
+    <!--
+        Asset
+     -->
+		<record model="ir.ui.view" id="view_account_asset_asset_form_general_modify">
+	        <field name="name">view_account_asset_asset_form_general_modify</field>
+	        <field name="model">account.asset.asset</field>
+	        <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//button[@name='set_to_draft']" position="replace">
+	        		<!-- THANH: show this button in state close -->
+           			<button name="set_to_draft" states="open,close" string="Set to Draft" type="object" />
+             	</xpath>
+             	
+             	<xpath expr="//field[@name='date']" position="after">
+           			<field name="warehouse_id" options="{'no_create': True}"/>
+           			<field name="department_id" options="{'no_create': True}"/>
+           			<field name="employee_id" options="{'no_create': True}"/>
+             	</xpath>
+             	<xpath expr="//field[@name='method_end']" position="after">
+           			<field name="account_analytic_id" options="{'no_create': True}"/>
+           			<field name="account_income_recognition_id" required='True' options="{'no_create': True}"/>
+             	</xpath>
+             	
+             	<xpath expr="//button[@name='open_entries']" position="before">
+           			<button class="oe_stat_button" name="open_dispose_entries" type="object" string="Sell or Dispose Entries" icon="fa-pencil">
+                    </button>
+             	</xpath>
+             	
+             	<xpath expr="//field[@name='partner_id']" position="attributes">
+           			<attribute name="options">{'no_create': true}</attribute>
+             	</xpath>
+             	
+	            <xpath expr="//field[@name='invoice_id']" position="replace">
+	            	<field name="invoice_id" domain="[('type', '=', 'in_invoice'), ('state','in',['open','paid']), ('asset_ids','=', False)]"
+               				context="{'default_type': 'in_invoice', 'default_currency_id': currency_id,'type': 'in_invoice', 'other_journal_type': ['general'],
+               				'asset_id': active_id, 'default_warehouse_id': warehouse_id, 
+               				'no_search_asset_upgrades_ids': asset_upgrades_ids,
+               				'no_search_maintenance_invoice_ids': maintenance_invoice_ids,
+               				'search_invoice_by_asset_journal': True,
+               				'tree_view_ref':'account.invoice_supplier_tree', 'form_view_ref':'account.invoice_supplier_form'}"
+               			options="{'no_create': True}"
+               		/>
+           			<field name="sale_invoice_id" domain="[('type', '=', 'out_invoice'), ('state','in',['open','paid']), ('asset_ids','=', False)]"
+               				context="{'default_type': 'out_invoice', 'default_currency_id': currency_id, 'type': 'out_invoice', 'other_journal_type': ['general'],
+               				'asset_id': active_id, 'default_warehouse_id': warehouse_id, 
+               				'search_invoice_by_asset_journal': True, 'sell_asset': True,
+               				'tree_view_ref':'account.invoice_tree', 'form_view_ref':'account.invoice_form'}"
+               			options="{'no_create': True}"
+           			/>
+             	</xpath>
+	            
+				
+				<!-- THANH: add field gross value on depreciation board -->             	
+             	<xpath expr="//field[@name='depreciation_line_ids']/tree/field[@name='depreciation_date']" position="after">
+           			<field name="value"/>
+             	</xpath>
+             	
+             	<!-- THANH: add button cancel on depreciation board -->  
+             	<xpath expr="//field[@name='depreciation_line_ids']/tree/button[@name='create_move']" position="after">
+           			<button name="cancel" type="object" icon="gtk-cancel" attrs="{'invisible': [('move_check','=',False)]}"/>
+             	</xpath>
+             	
+             	<xpath expr="//notebook" position="inside">
+             		<page string="Components" name="component">
+                		<field name="component_lines" nolabel="1">
+                			<tree editable='top'>
+                				<field name="name"/>
+           						<field name="employee_id"/>
+           						<field name="department_id"/>
+           						<field name="value"/>
+           						<field name="currency_id" invisible="1"/>
+           						<field name="description"/>
+                			</tree>
+                		</field>
+               		</page>
+               		<page string="History">
+               			<field name="history_ids" readonly="1"/>
+               		</page>
+               		<page string="Asset Upgrades">
+               			<field name="asset_upgrades_ids"
+               				domain="[('type', '=', 'in_invoice'), ('asset_ids','=', False)]"
+               				context="{'default_type': 'in_invoice', 'asset_id': active_id, 'default_warehouse_id': warehouse_id, 
+               				'type': 'in_invoice', 'other_journal_type': ['general'], 'default_currency_id': currency_id,
+               				'no_search_maintenance_invoice_ids': maintenance_invoice_ids, 'search_invoice_by_asset_journal': True,
+               				'tree_view_ref':'account.invoice_supplier_tree', 'form_view_ref':'account.invoice_supplier_form'}"/>
+               		</page>
+             		<page string="Maintenance Histories">
+                		<field name="maintenance_invoice_ids"
+                			domain="[('type', '=', 'in_invoice'), ('asset_ids','=', False)]"
+               				context="{'default_type': 'in_invoice', 'asset_id': active_id, 'default_warehouse_id': warehouse_id, 
+               				'type': 'in_invoice', 'other_journal_type': ['general'], 'default_currency_id': currency_id,
+               				'no_search_asset_upgrades_ids': asset_upgrades_ids, 'search_invoice_by_asset_journal': True,
+               				'tree_view_ref':'account.invoice_supplier_tree', 'form_view_ref':'account.invoice_supplier_form'}"/>
+              			
+              			<field name="invoice_lines"
+               				context="{'tree_view_ref':'general_account.view_account_payment_invoice_tree', 
+               				'form_view_ref':'general_account.view_account_payment_invoice_form'}"/>
+               		</page>
+             	</xpath>
+	        </field>
+	    </record>
+	              
+    	         
+    	<record model="ir.ui.view" id="account_asset.view_account_asset_asset_purchase_tree">
+	        <field name="name">account.asset.asset.purchase.tree</field>
+	        <field name="model">account.asset.asset</field>
+	        <field name="arch" type="xml">
+	            <tree string="Assets" decoration-info="(state == 'draft')" decoration-muted="(state == 'close')">
+	                <field name="warehouse_id"/>
+	            	<field name="code"/>
+	                <field name="name"/>
+	                <field name="category_id"/>
+	                <field name="date"/>
+	                <field name="employee_id"/>
+           			<field name="department_id"/>
+	                <field name="partner_id" string="Vendor"/>
+	                <field name="value" widget="monetary"/>
+	                <field name="value_residual" widget="monetary"/>
+	                <field name="method_number"/>
+	                <field name="currency_id" groups="base.group_multi_currency"/>
+	                <field name="company_id" groups="base.group_multi_company"/>
+	                <field name="state"/>
+	            </tree>
+	        </field>
+	    </record>
+    
+    <record id="view_account_asset_search_general_modify" model="ir.ui.view">
+        <field name="name">view_account_asset_search_general_modify</field>
+        <field name="model">account.asset.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_search"/>
+        <field name="arch" type="xml">
+           	<xpath expr="//field[@name='name']" position="replace">
+           		<field name="name" string="Asset" filter_domain="['|', ('name','ilike', self), ('code','ilike', self)]"/>
+           		<field name="warehouse_id"/>
+       			<field name="department_id"/>
+        		<field name="employee_id"/>
+               	<field name="account_income_recognition_id"/>
+           	</xpath>
+           	
+           	<xpath expr="//group" position="replace">
+           		<group expand="0" string="Group By...">
+	                <filter string="Month" domain="[]" context="{'group_by':'date'}"/>
+	                <filter string="Category" domain="[]" context="{'group_by':'category_id'}"/>
+	                <filter string="Partner" domain="[]" context="{'group_by':'partner_id'}"/>
+	                <filter string="Purchase Invoice" domain="[]" context="{'group_by':'invoice_id'}"/>
+	                <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                </group>
+           	</xpath>
+        </field>
+    </record>
+    
+    <!-- Kiet Phan loai Type Asset -->
+    <record model="ir.actions.act_window" id="account_asset.action_account_asset_asset_form">
+        <field name="name">Assets</field>
+        <field name="res_model">account.asset.asset</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="account_asset.view_account_asset_asset_purchase_tree"/>
+        <field name="domain">[('category_id.type', 'in', ('purchase','sale'))]</field>
+        <field name="context">{}</field>
+    </record>
+    	<menuitem parent="menu_finance_assets" 
+    		id="account_asset.menu_action_account_asset_asset_form" 
+    		action="account_asset.action_account_asset_asset_form" 
+    		sequence="10" groups="group_asset_accountant"/>
+  	
+  	
+  	<!-- Add related Assets into Invoice -->
+  		<record model="ir.ui.view" id="view_invoice_form_add_related_asset">
+	        <field name="name">view_invoice_form_add_related_asset</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.invoice_form"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//field[@name='move_id']" position="after">
+		            <field name="asset_ids" widget="many2many_tags"/>
+		        </xpath>
+	        </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_invoice_supplier_form_add_related_asset">
+	        <field name="name">view_invoice_supplier_form_add_related_asset</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//field[@name='move_id']" position="after">
+		            <field name="asset_ids" widget="many2many_tags"/>
+		        </xpath>
+	        </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_invoice_supplier_form_general_modify_add_assets">
+	        <field name="name">view_invoice_supplier_form_general_modify_add_assets</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="general_account.view_invoice_supplier_form_general_modify"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                      <button type="object" string="Assets"
+	                    name="action_view_assets"
+	                    class="oe_stat_button"
+	                    icon="fa-bars"/>
+		        </xpath>
+	        </field>
+        </record>
+    	
+</data>
+</openerp>

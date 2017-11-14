@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="hr_contract_view_form_inherit_hr_salary" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inherit.hr.salary</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+	            <data>
+	            	<page name="information" position="after">
+		            	<page string="Insurance">
+	            			<group>
+	            				<group>	
+	            					<field name="social_insurance"/>
+	            					<field name="taxable_salary"/>
+	            					<field name="pit"/>
+	            				</group>
+	            				<group>
+	            					<label for="structure_id"/>  
+		                    		<div name="structure_id" class="o_row">
+										<field name="structure_id"  options="{'no_write': True, 'no_create': True}" required="1"
+											domain="[('state','not in',('draft','cancel'))]"/> 
+									</div>
+									<div>
+										<button name="button_insurance" string="Compute Insurance" states="draft,open" type="object"/>
+									</div>
+	            				</group>
+	            			</group>
+            				<field name="insurance_ids" context="{'group_by': 'insurance_laborer_id'}"/>
+						</page>
+					</page>
+                </data>
+            </field>
+        </record>
+        
+        <record id="view_contract_insurance_tree" model="ir.ui.view">
+            <field name="name">view.contract.insurance.tree</field>
+            <field name="model">hr.contract.insurance</field>
+            <field name="arch" type="xml">
+                <tree string="Contract Insurance">
+                	<field name="insurance_laborer_id"/>
+   					<field name="of_laborer" sum="of_laborer"/>
+   					<field name="insurance_company_id"/>
+   					<field name="of_company" sum="of_company"/>
+                </tree>
+            </field>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	
+    <data noupdate="1">
+    
+    <!-- Decimal Precision -->
+        <record forcecreate="True" id="hr_payroll.decimal_payroll" model="decimal.precision">
+            <field name="name">Payroll</field>
+            <field name="digits">0</field>
+        </record>
+
+        <record forcecreate="True" id="hr_payroll.decimal_payroll_rate" model="decimal.precision">
+            <field name="name">Payroll Rate</field>
+            <field name="digits">2</field>
+        </record>
+    
+    <!-- Contribution -->
+    	<record id="contrib_register_nld_bh" model="hr.contribution.register">
+            <field name="name">Người Lao Động Trả Bảo Hiểm</field>
+            <field name="partner_id" eval="False"/>
+        </record>
+        
+        <record id="contrib_register_nld_tncn" model="hr.contribution.register">
+            <field name="name">Người Lao Động Trả Thuế TNCN</field>
+            <field name="partner_id" eval="False"/>
+        </record>
+        
+        <record id="contrib_register_nsdld_bh" model="hr.contribution.register">
+            <field name="name">Người Sử Dụng Lao Động Trả Bảo Hiểm</field>
+            <field name="partner_id" eval="False"/>
+        </record>
+        
+    <!-- Rule Categories -->
+    	<record id="BEFORTAX_INCOME" model="hr.salary.rule.category">
+            <field name="name">BEFORETAX INCOME</field>
+            <field name="code">BTINCOME</field>
+        </record>
+        	
+        	<record id="BTINCOME_ALW" model="hr.salary.rule.category">
+	            <field name="name">BTINCOME Allowance</field>
+	            <field name="code">BTIALW</field>
+	        </record>
+	        
+	        <record id="BTINCOME_DED" model="hr.salary.rule.category">
+	            <field name="name">BTINCOME Deduction</field>
+	            <field name="code">BTIDED</field>
+	        </record>
+        
+    	<record id="TAXABLE_INCOME" model="hr.salary.rule.category">
+            <field name="name">TAXABLE INCOME</field>
+            <field name="code">TINCOME</field>
+        </record>
+        
+	        <record id="INCOME_TAX" model="hr.salary.rule.category">
+	            <field name="name">INCOME TAX</field>
+	            <field name="code">INCOMETAX</field>
+	        </record>
+        
+        <record id="AFTERTAX_INCOME" model="hr.salary.rule.category">
+            <field name="name">AFTERTAX INCOME</field>
+            <field name="code">ATINCOME</field>
+        </record>
+        	
+        	<record id="ATINCOME_ALW" model="hr.salary.rule.category">
+	            <field name="name">ATINCOME Allowance</field>
+	            <field name="code">ATIALW</field>
+	        </record>
+	        
+	        <record id="ATINCOME_DED" model="hr.salary.rule.category">
+	            <field name="name">ATINCOME Deduction</field>
+	            <field name="code">ATIDED</field>
+	        </record>
+        
+        <record id="REAL_INCOME" model="hr.salary.rule.category">
+            <field name="name">REAL INCOME</field>
+            <field name="code">RINCOME</field>
+        </record>
+        
+        <!-- THANH: New -->
+        <record id="ALW_FREE_PIT" model="hr.salary.rule.category">
+            <field name="name">Allowance Free PIT</field>
+            <field name="code">ALW_FREE_PIT</field>
+        </record>
+        
+        <record id="LUONG_THUC_TE" model="hr.salary.rule.category">
+            <field name="name">LUONG THUC TE</field>
+            <field name="code">THUCTE</field>
+        </record>
+        
+        <record id="THUNHAP_MIEN_THUE" model="hr.salary.rule.category">
+            <field name="name">THU NHAP MIEN THUE</field>
+            <field name="code">THUNHAP_MIEN_THUE</field>
+        </record>
+        
+        <record id="BHBB" model="hr.salary.rule.category">
+            <field name="name">BAO HIEM BAT BUOC</field>
+            <field name="code">BHBB</field>
+        </record>
+        
+        <record id="THUNHAP_CHIU_THUE" model="hr.salary.rule.category">
+            <field name="name">THU NHAP CHIU THUE</field>
+            <field name="code">THUNHAP_CHIU_THUE</field>
+        </record>
+        
+        <record id="THUNHAP_TINH_THUE" model="hr.salary.rule.category">
+            <field name="name">THU NHAP TINH THUE</field>
+            <field name="code">THUNHAP_TINH_THUE</field>
+        </record>
+        
+        <record id="TRIAL" model="hr.salary.rule.category">
+            <field name="name">Trial</field>
+            <field name="code">TRIAL</field>
+        </record>
+        
+         <record id="LUONG_THUC_TE_THU_VIEC" model="hr.salary.rule.category">
+            <field name="name">LUONG THUC TE THU VIEC</field>
+            <field name="code">THUCTE_THUVIEC</field>
+        </record>
+        
+	<!-- Contribution Register -->
+		 <record id="hr_rule_ltv" model="hr.salary.rule">
+            <field name="name">LƯƠNG THỬ VIỆC CƠ BẢN</field>
+            <field name="sequence" eval="0"/>
+            <field name="code">LTV</field>
+             <field name="category_id" ref="TRIAL"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = bool(worked_days.WORKTRIAL and worked_days.WORKTRIAL.number_of_days > 0 or 0)</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result =contract.trial_salary</field>
+            <field name="sequence" eval="0"/>
+        </record>
+        
+        <record id="hr_rule_lcb" model="hr.salary.rule">
+            <field name="name">LƯƠNG CƠ BẢN</field>
+            <field name="sequence" eval="1"/>
+            <field name="code">LCB</field>
+            <field name="category_id" ref="hr_payroll.BASIC"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.wage</field>
+        </record>
+        
+			<!-- 
+			<record id="hr_salary_rule_lnc" model="hr.salary.rule">
+	            <field name="code">LNC</field>
+	            <field name="name">Lương Ngày Công</field>
+	            <field name="category_id" ref="hr_payroll.ALW"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(worked_days.WORK100.number_of_days)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">payslip.default_work_days and (contract.wage / payslip.default_work_days) or 0.0</field>
+				<field name="quantity">worked_days.WORK100.number_of_days</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="20"/>
+	            <field name="note"></field>
+	        </record>
+	        -->
+	         
+	        <record id="hr_salary_rule_pcau" model="hr.salary.rule">
+	            <field name="code">PCAU</field>
+	            <field name="name">Ăn uống</field>
+	            <field name="category_id" ref="ALW_FREE_PIT"/>
+	            <field name="condition_select">python</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCAU'] and [x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCAU'][0] or 0.0</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="20"/>
+	            <field name="note"></field>
+	        </record>
+	        
+	        <record id="hr_salary_rule_pcdl" model="hr.salary.rule">
+	            <field name="code">PCDL</field>
+	            <field name="name">Đi lại</field>
+	            <field name="category_id" ref="hr_payroll.ALW"/>
+	            <field name="condition_select">python</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCDL'] and [x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCDL'][0] or 0.0</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="30"/>
+	            <field name="note"></field>
+	        </record>
+        	
+        	<record id="hr_salary_rule_pcdh" model="hr.salary.rule">
+	            <field name="code">PCDH</field>
+	            <field name="name">Độc hại</field>
+	            <field name="category_id" ref="ALW_FREE_PIT"/>
+	            <field name="condition_select">python</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCDH'] and [x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCDH'][0] or 0.0</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="40"/>
+	            <field name="note"></field>
+	        </record>
+	        
+	        <record id="hr_salary_rule_lcn" model="hr.salary.rule">
+	            <field name="code">LCN</field>
+	            <field name="name">Chuyên cần</field>
+	            <field name="category_id" ref="ALW_FREE_PIT"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days >= 25 or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'LCN'] and [x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'LCN'][0] or 0.0</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="50"/>
+	            <field name="note"></field>
+	        </record>
+	        
+	        <!-- 
+	        <record id="hr_salary_rule_pctn" model="hr.salary.rule">
+	            <field name="code">PCTN</field>
+	            <field name="name">Thâm Niên</field>
+	            <field name="category_id" ref="hr_payroll.ALW"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(worked_days.WORK100.number_of_days) and [x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCTN']</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">payslip.default_work_days and ([x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCTN'][0] / payslip.default_work_days) or 0.0</field>
+	            <field name="quantity">worked_days.WORK100.number_of_days</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="60"/>
+	            <field name="note"></field>
+	        </record>
+	         -->
+	         
+			<record id="hr_payslip_rule_tangcatruocthue" model="hr.salary.rule">
+	            <field name="code">TCTT</field>
+	            <field name="name">Lương tăng ca</field>
+	            <field name="category_id" ref="hr_payroll.ALW"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(payslip.overtime_hours)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">contract.overtime_rate</field>
+	            <field name="quantity">payslip.overtime_hours</field>
+	            <field name="amount_percentage">50</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref=""/>
+	            <field name="sequence" eval="60"/>
+	        </record>
+	        
+	        <record id="hr_payslip_rule_thunhapkhac" model="hr.salary.rule">
+	            <field name="code">TNK</field>
+	            <field name="name">Thu nhập khác</field>
+	            <field name="category_id" ref="ALW_FREE_PIT"/>
+	            <field name="condition_select">python</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'TNK'] and [x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'TNK'][0] or 0.0</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="70"/>
+	            <field name="note"></field>
+	        </record>
+	        
+	        <record id="hr_payslip_rule_luongsanpham" model="hr.salary.rule">
+	            <field name="code">TSP</field>
+	            <field name="name">Lương theo sản phẩm</field>
+	            <field name="category_id" ref="hr_payroll.ALW"/>
+	            <field name="condition_select">python</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_python_compute">result = 0.0</field>
+	            <field name="sequence" eval="75"/>
+	            <field name="note"></field>
+	        </record>
+	        
+	        <record id="hr_salary_rule_pccv" model="hr.salary.rule">
+	            <field name="code">PCCV</field>
+	            <field name="name">Chức vụ</field>
+	            <field name="category_id" ref="hr_payroll.ALW"/>
+	            <field name="condition_select">python</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCCV'] and [x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCCV'][0] or 0.0</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="90"/>
+	            <field name="note"></field>
+	        </record>
+	        
+	        <record id="hr_salary_rule_pcltn" model="hr.salary.rule">
+	            <field name="code">PCLTN</field>
+	            <field name="name">Trách nhiệm</field>
+	            <field name="category_id" ref="hr_payroll.ALW"/>
+	            <field name="condition_select">python</field>
+            	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCLTN'] and [x.amount for x in contract.contract_salary_rule_ids if x.salary_rule_id.code == 'PCLTN'][0] or 0.0</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_percentage">100</field>
+	            <field name="sequence" eval="95"/>
+	            <field name="note"></field>
+	        </record>
+	        
+        <record id="hr_rule_lg" model="hr.salary.rule">
+            <field name="name">LƯƠNG GỘP</field>
+            <field name="sequence" eval="100"/>
+            <field name="code">LG</field>
+            <field name="category_id" ref="hr_payroll.GROSS"/>
+            <field name="condition_select">python</field>
+           	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.gross_salary</field>
+        </record>
+        
+        <record id="hr_rule_thucte_thuviec" model="hr.salary.rule">
+            <field name="name">LƯƠNG THỰC TẾ THỬ VIỆC</field>
+            <field name="code">LGTT_TV</field>
+            <field name="category_id" ref="LUONG_THUC_TE_THU_VIEC"/>
+            <field name="condition_select">python</field>
+           	<field name="condition_python">result = bool(worked_days.WORKTRIAL and worked_days.WORKTRIAL.number_of_days > 0 or 0)</field>
+            <field name="amount_select">percentage</field>
+            <field name="amount_percentage_base">payslip.default_work_days and (categories.TRIAL / payslip.default_work_days) or 0.0</field>
+			<field name="quantity">worked_days.WORKTRIAL.number_of_days or payslip.default_work_days</field>
+            <field name="amount_percentage">100</field>
+            <field name="sequence" eval="110"/>
+        </record>
+        
+        <record id="hr_rule_thucte" model="hr.salary.rule">
+            <field name="name">LƯƠNG THỰC TẾ</field>
+            <field name="code">LGTT</field>
+            <field name="category_id" ref="LUONG_THUC_TE"/>
+            <field name="condition_select">python</field>
+           	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+            <field name="amount_select">percentage</field>
+            <field name="amount_percentage_base">payslip.default_work_days and (categories.GROSS / payslip.default_work_days) or 0.0</field>
+			<field name="quantity">worked_days.WORK100.number_of_days or payslip.default_work_days</field>
+            <field name="amount_percentage">100</field>
+            <field name="sequence" eval="111"/>
+        </record>
+		
+		<record id="hr_rule_thunhap_mienthue" model="hr.salary.rule">
+            <field name="name">Thu nhập miễn thuế</field>
+            <field name="sequence" eval="115"/>
+            <field name="code">TNMT</field>
+            <field name="category_id" ref="THUNHAP_MIEN_THUE"/>
+            <field name="condition_select">python</field>
+           	<field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+            <field name="amount_select">code</field>
+           	<field name="amount_python_compute">result = categories.ALW_FREE_PIT * (-1)</field>
+            <field name="register_id" ref=""/>
+        </record>
+	        
+        <record id="hr_rule_tnct" model="hr.salary.rule">
+            <field name="name">THU NHẬP CHỊU THUẾ</field>
+            <field name="sequence" eval="120"/>
+            <field name="code">TNCT</field>
+            <field name="category_id" ref="THUNHAP_CHIU_THUE"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.THUCTE + categories.ALW_FREE_PIT * (-1)</field>
+            <field name="register_id" ref=""/>
+        </record>
+        
+        	<record id="hr_rule_gtbt" model="hr.salary.rule">
+	            <field name="name">Giảm trừ gia cảnh bản thân</field>
+	            <field name="sequence" eval="125"/>
+	            <field name="code">GTBT</field>
+	            <field name="category_id" ref="BTINCOME_DED"/>
+	            <field name="condition_select">none</field>
+	            <field name="amount_select">fix</field>
+	            <field name="quantity">1</field>
+	            <field name="amount_fix">-9000000</field>
+	            <field name="register_id" ref=""/>
+	        </record>
+	        
+	        <record id="hr_rule_gtnpt" model="hr.salary.rule">
+	            <field name="name">Giảm trừ gia cảnh người phụ thuộc</field>
+	            <field name="sequence" eval="130"/>
+	            <field name="code">GTNPT</field>
+	            <field name="category_id" ref="BTINCOME_DED"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(employee.dependant_of_taxpayer)</field>
+	            <field name="amount_select">fix</field>
+	            <field name="quantity">employee.dependant_of_taxpayer</field>
+	            <field name="amount_fix">-3600000</field>
+	            <field name="register_id" ref=""/>
+	        </record>
+        	
+        	<record id="hr_payslip_rule_bhxh" model="hr.salary.rule">
+	            <field name="code">BHXH</field>
+	            <field name="name">Bảo hiểm xã hội (8%)</field>
+	            <field name="category_id" ref="BHBB"/>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.of_laborer for x in contract.insurance_ids if x.insurance_laborer_id.code == 'BHXH'] and [x.of_laborer for x in contract.insurance_ids if x.insurance_laborer_id.code == 'BHXH'][0] or 0.0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref="contrib_register_nld_bh"/>
+	            <field name="sequence" eval="135"/>
+	        </record>
+	        
+        	<record id="hr_payslip_rule_bhyt" model="hr.salary.rule">
+	            <field name="code">BHYT</field>
+	            <field name="name">Bảo hiểm y tế (1.5%)</field>
+	            <field name="category_id" ref="BHBB"/>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.of_laborer for x in contract.insurance_ids if x.insurance_laborer_id.code == 'BHYT'] and [x.of_laborer for x in contract.insurance_ids if x.insurance_laborer_id.code == 'BHYT'][0] or 0.0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref="contrib_register_nld_bh"/>
+	            <field name="sequence" eval="140"/>
+	        </record>
+	        
+	        <record id="hr_payslip_rule_bhtn" model="hr.salary.rule">
+	            <field name="code">BHTN</field>
+	            <field name="name">Bảo hiểm thất nghiệp (1%)</field>
+	            <field name="category_id" ref="BHBB"/>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.of_laborer for x in contract.insurance_ids if x.insurance_laborer_id.code == 'BHTN'] and [x.of_laborer for x in contract.insurance_ids if x.insurance_laborer_id.code == 'BHTN'][0] or 0.0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref="contrib_register_nld_bh"/>
+	            <field name="sequence" eval="145"/>
+	        </record>
+	        
+	        <record id="hr_payslip_rule_kpcd" model="hr.salary.rule">
+	            <field name="code">KPCD</field>
+	            <field name="name">Kinh phí công đoàn (1%)</field>
+	            <field name="category_id" ref="BHBB"/>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.of_laborer for x in contract.insurance_ids if x.insurance_laborer_id.code == 'KPCD'] and [x.of_laborer for x in contract.insurance_ids if x.insurance_laborer_id.code == 'KPCD'][0] or 0.0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref="contrib_register_nld_bh"/>
+	            <field name="sequence" eval="150"/>
+	        </record>
+	        
+        <record id="hr_rule_tntt" model="hr.salary.rule">
+            <field name="name">THU NHẬP TÍNH THUẾ</field>
+            <field name="sequence" eval="200"/>
+            <field name="code">TNTT</field>
+            <field name="category_id" ref="THUNHAP_TINH_THUE"/>
+           	<field name="condition_select">python</field>
+            <field name="condition_python">result = bool(worked_days.WORK100 and worked_days.WORK100.number_of_days > 0 or 0)</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.taxable_salary</field>
+            <field name="register_id" ref=""/>
+        </record>
+        	
+        	<record id="hr_rule_tncn5" model="hr.salary.rule">
+	            <field name="name">Thuế TNCN (5%)</field>
+	            <field name="sequence" eval="205"/>
+	            <field name="code">TNCN5</field>
+	            <field name="category_id" ref="INCOME_TAX"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(categories.THUNHAP_TINH_THUE > 0)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_python_compute">if (categories.THUNHAP_TINH_THUE > 5000000):
+ result = 5000000 * 0.05 * (-1)
+else:
+ result = categories.THUNHAP_TINH_THUE * 0.05 * (-1)</field>
+	            <field name="register_id" ref="contrib_register_nld_tncn"/>
+	        </record>
+	        
+	        <record id="hr_rule_tncn10" model="hr.salary.rule">
+	            <field name="name">Thuế TNCN (10%)</field>
+	            <field name="sequence" eval="210"/>
+	            <field name="code">TNCN10</field>
+	            <field name="category_id" ref="INCOME_TAX"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(categories.THUNHAP_TINH_THUE > 5000000)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_python_compute">if (categories.THUNHAP_TINH_THUE > 5000000 and categories.THUNHAP_TINH_THUE &lt;= 10000000):
+ result = (categories.THUNHAP_TINH_THUE - 5000000) * 0.1 * (-1)
+else:
+ result = 5000000 * 0.1 * (-1)</field>
+	            <field name="register_id" ref="contrib_register_nld_tncn"/>
+	        </record>
+	        
+	        <record id="hr_rule_tncn15" model="hr.salary.rule">
+	            <field name="name">Thuế TNCN (15%)</field>
+	            <field name="sequence" eval="215"/>
+	            <field name="code">TNCN15</field>
+	            <field name="category_id" ref="INCOME_TAX"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(categories.THUNHAP_TINH_THUE > 10000000)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_python_compute">if (categories.THUNHAP_TINH_THUE > 10000000 and categories.THUNHAP_TINH_THUE &lt;= 18000000):
+ result = (categories.THUNHAP_TINH_THUE - 10000000) * 0.15 * (-1)
+else:
+ result = 8000000 * 0.15 * (-1)</field>
+	            <field name="register_id" ref="contrib_register_nld_tncn"/>
+	        </record>
+	        
+	        <record id="hr_rule_tncn20" model="hr.salary.rule">
+	            <field name="name">Thuế TNCN (20%)</field>
+	            <field name="sequence" eval="220"/>
+	            <field name="code">TNCN20</field>
+	            <field name="category_id" ref="INCOME_TAX"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(categories.THUNHAP_TINH_THUE > 18000000)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_python_compute">if (categories.THUNHAP_TINH_THUE > 18000000 and categories.THUNHAP_TINH_THUE &lt;= 32000000):
+ result = (categories.THUNHAP_TINH_THUE - 18000000) * 0.2 * (-1)
+else:
+ result = 14000000 * 0.2 * (-1)</field>
+	            <field name="register_id" ref="contrib_register_nld_tncn"/>
+	        </record>
+	        
+	        <record id="hr_rule_tncn25" model="hr.salary.rule">
+	            <field name="name">Thuế TNCN (25%)</field>
+	            <field name="sequence" eval="225"/>
+	            <field name="code">TNCN25</field>
+	            <field name="category_id" ref="INCOME_TAX"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(categories.THUNHAP_TINH_THUE > 32000000)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_python_compute">if (categories.THUNHAP_TINH_THUE > 32000000 and categories.THUNHAP_TINH_THUE &lt;= 52000000):
+ result = (categories.THUNHAP_TINH_THUE - 32000000) * 0.25 * (-1)
+else:
+ result = 20000000 * 0.25 * (-1)</field>
+	            <field name="register_id" ref="contrib_register_nld_tncn"/>
+	        </record>
+	        
+	        <record id="hr_rule_tncn30" model="hr.salary.rule">
+	            <field name="name">Thuế TNCN (30%)</field>
+	            <field name="sequence" eval="230"/>
+	            <field name="code">TNCN30</field>
+	            <field name="category_id" ref="INCOME_TAX"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(categories.THUNHAP_TINH_THUE > 52000000)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_python_compute">if (categories.THUNHAP_TINH_THUE > 52000000 and categories.THUNHAP_TINH_THUE &lt;= 80000000):
+ result = (categories.THUNHAP_TINH_THUE - 52000000) * 0.3 * (-1)
+else:
+ result = 28000000 * 0.3 * (-1)</field>
+	            <field name="register_id" ref="contrib_register_nld_tncn"/>
+	        </record>
+	        
+	        <record id="hr_rule_tncn35" model="hr.salary.rule">
+	            <field name="name">Thuế TNCN (35%)</field>
+	            <field name="sequence" eval="235"/>
+	            <field name="code">TNCN35</field>
+	            <field name="category_id" ref="INCOME_TAX"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(categories.THUNHAP_TINH_THUE > 80000000)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_python_compute">result = (categories.THUNHAP_TINH_THUE - 80000000) * 0.35 * (-1)</field>
+	            <field name="register_id" ref="contrib_register_nld_tncn"/>
+	        </record>
+        
+        <!-- 
+        <record id="hr_rule_lr" model="hr.salary.rule">
+            <field name="name">Lương NET</field>
+            <field name="sequence" eval="250"/>
+            <field name="code">LR</field>
+            <field name="category_id" ref="hr_payroll.NET"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.BTINCOME + categories.INCOMETAX</field>
+            <field name="register_id" ref=""/>
+        </record>
+         -->
+        	<record id="hr_payslip_rule_tangcasauthue" model="hr.salary.rule">
+	            <field name="code">TCKTT</field>
+	            <field name="name">Lương tăng ca không bị tính thuế</field>
+	            <field name="category_id" ref="ATINCOME_ALW"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(payslip.overtime_hours)</field>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">contract.overtime_rate</field>
+	            <field name="quantity">payslip.overtime_hours</field>
+	            <field name="amount_percentage">50</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref=""/>
+	            <field name="sequence" eval="255"/>
+	        </record>
+	        
+        	<record id="hr_rule_tu" model="hr.salary.rule">
+	            <field name="name">Tạm Ứng</field>
+	            <field name="sequence" eval="300"/>
+	            <field name="code">TU</field>
+	            <field name="category_id" ref="ATINCOME_DED"/>
+	            <field name="condition_select">python</field>
+	            <field name="condition_python">result = bool(payslip.advance_total)</field>
+	            <field name="amount_select">code</field>
+	            <field name="amount_python_compute">result = payslip.advance_total * (-1)</field>
+	            <field name="register_id" ref=""/>
+	        </record>
+        
+        <record id="hr_rule_tn" model="hr.salary.rule">
+            <field name="name">THỰC LĨNH</field>
+            <field name="sequence" eval="350"/>
+            <field name="code">TL</field>
+            <field name="category_id" ref="hr_payroll.NET"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = categories.THUCTE_THUVIEC + categories.THUCTE + categories.BHBB + categories.INCOMETAX + categories.ATIALW + categories.ATIDED</field>
+            <field name="register_id" ref=""/>
+        </record>
+        
+        	<record id="hr_payslip_rule_bhxh_nsdld" model="hr.salary.rule">
+	            <field name="code">BHXH_COMP</field>
+	            <field name="name">Bảo hiểm xã hội (18%)</field>
+	            <field name="category_id" ref="hr_payroll.COMP"/>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.of_company for x in contract.insurance_ids if x.insurance_company_id.code == 'BHXH_COMP'] and [x.of_company for x in contract.insurance_ids if x.insurance_company_id.code == 'BHXH_COMP'][0] or 0.0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref="contrib_register_nsdld_bh"/>
+	            <field name="sequence" eval="400"/>
+	        </record>
+	        
+	        <record id="hr_payslip_rule_bhyt_nsdld" model="hr.salary.rule">
+	            <field name="code">BHYT_COMP</field>
+	            <field name="name">Bảo hiểm y tế (3%)</field>
+	            <field name="category_id" ref="hr_payroll.COMP"/>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.of_company for x in contract.insurance_ids if x.insurance_company_id.code == 'BHYT_COMP'] and [x.of_company for x in contract.insurance_ids if x.insurance_company_id.code == 'BHYT_COMP'][0] or 0.0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref="contrib_register_nsdld_bh"/>
+	            <field name="sequence" eval="410"/>
+	        </record>
+	        
+	        <record id="hr_payslip_rule_bhtn_nsdld" model="hr.salary.rule">
+	            <field name="code">BHTN_COMP</field>
+	            <field name="name">Bảo hiểm thất nghiệp (2%)</field>
+	            <field name="category_id" ref="hr_payroll.COMP"/>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.of_company for x in contract.insurance_ids if x.insurance_company_id.code == 'BHTN_COMP'] and [x.of_company for x in contract.insurance_ids if x.insurance_company_id.code == 'BHTN_COMP'][0] or 0.0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref="contrib_register_nsdld_bh"/>
+	            <field name="sequence" eval="420"/>
+	        </record>
+	        
+	        <record id="hr_payslip_rule_kpcd_nsdld" model="hr.salary.rule">
+	            <field name="code">KPCD_COMP</field>
+	            <field name="name">Kinh phí công đoàn (1%)</field>
+	            <field name="condition_select">none</field>
+	            <field name="category_id" ref="hr_payroll.COMP"/>
+	            <field name="amount_select">percentage</field>
+	            <field name="amount_percentage_base">[x.of_company for x in contract.insurance_ids if x.insurance_company_id.code == 'KPCD_COMP'] and [x.of_company for x in contract.insurance_ids if x.insurance_company_id.code == 'KPCD_COMP'][0] or 0.0</field>
+	            <field name="amount_percentage">100</field>
+	            <field name= "note"></field>
+	            <field name="register_id" ref="contrib_register_nsdld_bh"/>
+	            <field name="sequence" eval="430"/>
+	        </record>
+		
+	<!-- VN Salary Structure -->
+         <record id="vn_structure_lcc" model="hr.payroll.structure">
+            <field name="code">VNLCC</field>
+            <field name="name">Cấu Trúc Lương Cơ Bản</field>
+            <field name="parent_id"></field>
+            <field eval="[(6, 0, [ref('hr_rule_ltv'),
+            						ref('hr_rule_lcb'),
+            						ref('hr_salary_rule_pcau'),
+            						ref('hr_salary_rule_pcdl'),
+            						ref('hr_salary_rule_pcdh'),
+            						ref('hr_salary_rule_lcn'),
+            						ref('hr_payslip_rule_tangcatruocthue'),
+            						ref('hr_payslip_rule_thunhapkhac'),
+            						ref('hr_payslip_rule_luongsanpham'),
+            						ref('hr_salary_rule_pccv'),
+            						ref('hr_salary_rule_pcltn'),
+					            ref('hr_rule_lg'),
+					            ref('hr_rule_thucte'),
+					            ref('hr_rule_thucte_thuviec'),
+					            ref('hr_rule_tnct'),
+					            	ref('hr_rule_thunhap_mienthue'),
+						        	ref('hr_rule_gtbt'),
+						        	ref('hr_rule_gtnpt'),
+						        	ref('hr_payslip_rule_bhxh'),
+						            ref('hr_payslip_rule_bhyt'),
+						            ref('hr_payslip_rule_bhtn'),
+						        ref('hr_rule_tntt'),
+						        	ref('hr_rule_tncn5'),
+						        	ref('hr_rule_tncn10'),
+						        	ref('hr_rule_tncn15'),
+						        	ref('hr_rule_tncn20'),
+						        	ref('hr_rule_tncn25'),
+						        	ref('hr_rule_tncn30'),
+						        	ref('hr_rule_tncn35'),
+					            	ref('hr_payslip_rule_tangcasauthue'),
+					            	ref('hr_rule_tu'),
+				            	ref('hr_rule_tn'),
+				            	ref('hr_payslip_rule_bhxh_nsdld'),
+					            ref('hr_payslip_rule_bhyt_nsdld'),
+					            ref('hr_payslip_rule_bhtn_nsdld'),
+					            ])]" 
+					            name="rule_ids"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        
+		<!-- Trial Contact -->
+		<record id="vn_structure_ltv" model="hr.payroll.structure">
+            <field name="code">VNLTV</field>
+            <field name="name">Cấu Trúc Lương Thử Việc</field>
+            <field name="parent_id"></field>
+            <field eval="[(6, 0, [ref('hr_rule_ltv'),
+            						ref('hr_salary_rule_pcau'),
+            						ref('hr_salary_rule_pcdl'),
+            						ref('hr_salary_rule_pcdh'),
+            						ref('hr_salary_rule_lcn'),
+            						ref('hr_payslip_rule_tangcatruocthue'),
+            						ref('hr_payslip_rule_thunhapkhac'),
+            						ref('hr_payslip_rule_luongsanpham'),
+            						ref('hr_salary_rule_pccv'),
+            						ref('hr_salary_rule_pcltn'),
+					            ref('hr_rule_lg'),
+					            ref('hr_rule_thucte'),
+					            ref('hr_rule_thucte_thuviec'),
+					            	ref('hr_payslip_rule_tangcasauthue'),
+					            	ref('hr_rule_tu'),
+				            	ref('hr_rule_tn'),
+					            ])]" 
+					            name="rule_ids"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        
+        <!-- Công Nhân -->
+         <record id="vn_structure_cn" model="hr.payroll.structure">
+            <field name="code">VNCN</field>
+            <field name="name">Cấu Trúc Lương Công Nhân</field>
+            <field name="parent_id" ref="vn_structure_lcc"/>
+            <field eval="[(6, 0, [])]" 
+					            name="rule_ids"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        
+        <!-- Nhân viên văn phòng -->
+         <record id="vn_structure_nvvp" model="hr.payroll.structure">
+            <field name="code">VNNVVP</field>
+            <field name="name">Cấu Trúc Lương Nhân Viên Văn Phòng</field>
+            <field name="parent_id" ref="vn_structure_lcc"/>
+            <field eval="[(6, 0, [])]" 
+					            name="rule_ids"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
+    </data>
+</openerp>

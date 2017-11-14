@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="product_label" model="ir.actions.report.xml">
+	        <field name="name">product_label</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">product.barcode.print</field>
+	        <field name="report_name">product_label</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">product_barcode_qweb/report/report_product_label.py</field>
+	        <field name="report_rml">product_barcode_qweb/report/report_product_label.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="product_label"
+			model="product.barcode.print"
+			name="product_label"
+	        string="Nhãn hàng hóa"
+        	rml="product_barcode_qweb/report/report_product_label.odt"/>
+        
+        <record id="product_label_smaller" model="ir.actions.report.xml">
+	        <field name="name">product_label_smaller</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">product.barcode.print</field>
+	        <field name="report_name">product_label_smaller</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-odt</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-doc'),('compatible_types','=','oo-odt')]"/>
+	        <field name="parser_loc">product_barcode_qweb/report/report_product_label.py</field>
+	        <field name="report_rml">product_barcode_qweb/report/report_product_label_smaller.odt</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="product_label_smaller"
+			model="product.barcode.print"
+			name="product_label_smaller"
+	        string="Nhãn hàng hóa"
+        	rml="product_barcode_qweb/report/report_product_label_smaller.odt"/>
+	
+	</data>
+</openerp>

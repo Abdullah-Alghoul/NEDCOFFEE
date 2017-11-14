@@ -1,0 +1,136 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * besco_coa_vn
+# 
+# Translators:
+# LE TRUONG THANH <thanh.lt@besco.vn>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-09 09:18+0000\n"
+"PO-Revision-Date: 2015-10-10 09:45+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Vietnamese (http://www.transifex.com/odoo/odoo-9/language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_receivable
+#: selection:account.account.type,type:0
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Receivable"
+msgstr "Phải thu"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_payable
+#: selection:account.account.type,type:0
+#: model:ir.ui.view,arch_db:account.view_account_payment_search
+msgid "Payable"
+msgstr "Phải trả"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_liquidity
+msgid "Bank and Cash"
+msgstr "Ngân hàng và Tiền mặt"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_current_assets
+#: model:ir.ui.view,arch_db:account.view_account_form
+msgid "Current Assets"
+msgstr "Tài sản ngắn hạn"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_non_current_assets
+msgid "Non-current Assets"
+msgstr "Tài sản dài hạn"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_prepayments
+#: model:ir.ui.view,arch_db:account.view_account_form
+msgid "Prepayments"
+msgstr "Trả trước"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_fixed_assets
+msgid "Fixed Assets"
+msgstr "Tài sản cố định"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_current_liabilities
+msgid "Current Liabilities"
+msgstr "Nợ ngắn hạn"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_non_current_liabilities
+msgid "Non-current Liabilities"
+msgstr "Nợ dài hạn"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_equity
+#: model:ir.ui.view,arch_db:account.view_account_form
+msgid "Equity"
+msgstr "Vốn chủ sở hữu"
+
+#. module: account
+#: model:account.account.type,name:account.data_unaffected_earnings
+msgid "Current Year Earnings"
+msgstr "Lợi nhuận sau thuế chưa phân phối"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_other_income
+msgid "Other Income"
+msgstr "Doanh thu khác"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_revenue
+#: model:account.financial.report,name:account.account_financial_report_income0
+#: model:ir.ui.view,arch_db:account.view_account_form
+msgid "Income"
+msgstr "Doanh thu"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_depreciation
+#: model:ir.ui.view,arch_db:account.view_account_form
+msgid "Depreciation"
+msgstr "Khấu hao"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_expenses
+#: model:ir.ui.view,arch_db:account.view_account_form
+msgid "Expenses"
+msgstr "Chi phí chung"
+
+#. module: account
+#: model:account.account.type,name:account.data_account_type_direct_costs
+#: model:ir.ui.view,arch_db:account.view_account_form
+msgid "Direct Costs"
+msgstr "Chi phí trực tiếp"
+
+#. module: account
+#: model:account.account.tag,name:account.data_account_tag_operating
+msgid "Operating Activities"
+msgstr "Lưu chuyển tiền từ hoạt động kinh doanh"
+
+#. module: account
+#: model:account.account.tag,name:account.data_account_tag_financing
+msgid "Financing Activities"
+msgstr "Lưu chuyển tiền từ hoạt động tài chính"
+
+#. module: account
+#: model:account.account.tag,name:account.data_account_tag_investing
+msgid "Investing &amp; Extraordinary Activities"
+msgstr "Lưu chuyển tiền từ hoạt động đầu tư"
+
+#. module: account
+#: selection:account.account.type,type:0
+msgid "Regular"
+msgstr "Thông thường"
+
+#. module: account
+#: model:ir.model.fields,field_description:account.field_account_account_type_include_initial_balance
+msgid "Bring Accounts Balance Forward"
+msgstr "Cho phép chuyển số dư"

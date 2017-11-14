@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	    <record id="report_mrp_incomplete_form" model="ir.ui.view">
+            <field name="name">report.mrp.incomplete.form</field>
+            <field name="model">report.mrp.incomplete</field>
+            <field name="arch" type="xml">
+            <form string="Kế Hoạch Sản Xuất Dở Dang" version="7.0">
+            	<separator string="In Kế Hoạch Sản Xuất Dở Dang"/>
+            	<newline/>
+            	<group col="4">
+            	</group>
+                <footer>
+                  <button name="print_inphieu" string="In" type="object" class="oe_highlight"/>
+                  or
+                  <button string="Cancel" class="oe_link" special="cancel" />
+              	</footer>
+       		 </form>
+    		</field>
+     	</record>
+     	
+     	<record id="action_report_mrp_incomplete_form" model="ir.actions.act_window">
+            <field name="name">Kế Hoạch Sản Xuất Dở Dang</field>
+            <field name="res_model">report.mrp.incomplete</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+     	<menuitem parent="mrp.menu_mrp_planning" id="menu_action_report_mrp_incomplete_form" action="action_report_mrp_incomplete_form" sequence="3" />
+    
+    </data>
+</openerp>
+    

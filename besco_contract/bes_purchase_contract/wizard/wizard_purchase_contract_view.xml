@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+	
+		<record id="view_wizard_purchase_contract" model="ir.ui.view">
+	        <field name="name">view.wizard.purchase.contract.form</field>
+	        <field name="model">wizard.purchase.contract</field>
+	        <field name="arch" type="xml">
+	        <form string="Convert purchase contract">
+	            <group col="4">
+	            	<field name="price_unit"/>
+                </group>
+                <group>
+                	<field name="contract_line_ids" nolabel="1">
+                		<tree editable="top">
+                			<field name="product_qty" sum="product_qty"/>
+                			<field name="purchase_contract_id" string="NPE Contract" readonly="1"/>
+                			<field name="product_id" readonly="1"/>
+                			<field name="product_uom" readonly="1"/>
+                			<field name="price_unit" sum="price_unit"/>
+                			
+                			<field name="product_remain_qty" sum="product_qty"/>
+                		</tree>
+                	</field>
+                </group>
+                <footer>
+                    <button string="Convert NVP" name="button_convert" type="object" class="oe_highlight"/>
+                    <button string="_Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+	        </field>
+	    </record>
+	    
+	    <record id="action_view_wizard_purchase_contract" model="ir.actions.act_window">
+            <field name="name">NVP</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.purchase.contract</field>
+            <field name="view_id" ref="view_wizard_purchase_contract"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <act_window name="Create NVP - Fixation"
+            res_model="wizard.purchase.contract"
+            src_model="purchase.contract"
+            key2="client_action_multi"
+            multi="True"
+            view_mode="form"
+            view_type="form"
+            target="new"
+            id="action_view_wizard_purchase_contract"/>
+    
+      </data>
+</odoo>

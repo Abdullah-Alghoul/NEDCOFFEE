@@ -1,0 +1,38 @@
+<openerp>
+<data>
+
+    <!--
+        Employee
+     -->
+	
+	    <record model="ir.ui.view" id="view_employee_form_asset_modify">
+	        <field name="name">view_employee_form_asset_modify</field>
+	        <field name="model">hr.employee</field>
+	        <field name="inherit_id" ref="hr.view_employee_form"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//notebook" position="inside">
+		        	<page name="assets" string="Assets &amp; Components" groups="base.group_hr_user">
+		        		<group string='Assets'>
+		        			<field name="asset_ids" nolabel='1'
+		        			context="{'tree_view_ref':'account_asset.view_account_asset_asset_purchase_tree', 
+		        			'form_view_ref':'account_asset.view_account_asset_asset_form'}"/>
+		        		</group>
+		        		<group string='Components'>
+		        			<field name="asset_component_ids" nolabel='1'>
+		        				<tree string="Components">
+		        					<field name="asset_id"/>
+	                				<field name="name"/>
+	           						<field name="value"/>
+	           						<field name="currency_id" invisible="0"/>
+	           						<field name="description"/>
+	                			</tree>
+	                			<form></form>
+                			</field>
+		        		</group>
+		        	</page>
+		        </xpath>
+	        </field>
+	    </record>
+	
+</data>
+</openerp>

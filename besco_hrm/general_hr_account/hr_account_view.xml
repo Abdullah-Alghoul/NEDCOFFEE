@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <menuitem 
+	      		id="menu_account_hrm" 
+	      		name="HRM Accounting" 
+	      		sequence="80"
+	      		parent="account.menu_finance" 
+	      		/>
+	      	
+
+    </data>
+</openerp>

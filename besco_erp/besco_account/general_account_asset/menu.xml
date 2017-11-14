@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<menuitem id="menu_finance_assets" name="Assets" 
+    		parent="account.menu_finance" 
+    		sequence="55"
+    		groups="group_asset_accountant"/>
+    		
+    		<menuitem parent="menu_finance_assets" 
+    			id="account_asset.menu_action_account_asset_asset_list_normal_purchase" 
+    			action="account_asset.action_account_asset_asset_list_normal_purchase" 
+    			sequence="200"/>
+    		
+    		
+    		<menuitem name="Generate Assets Entries" 
+    			action="account_asset.action_asset_depreciation_confirmation_wizard"
+		        id="account_asset.menu_asset_depreciation_confirmation_wizard"
+		        parent="menu_finance_assets" 
+		        sequence="500" 
+		        groups="group_asset_accountant"/>
+        	
+        	<menuitem 
+        		name="Asset Reports" 
+	      		id="menu_action_asset_depreciation_allocation" 
+	      		action="action_asset_depreciation_allocation" 
+	      		parent="menu_finance_assets" sequence="1000"/>
+	  
+	  <!-- 
+      <menuitem 
+      		id="menu_report_asset_reports" 
+      		name="Asset Reports" 
+      		sequence="80"
+      		parent="account.menu_finance_reports"
+      		groups="group_asset_accountant"
+      		/>
+      	
+	      
+	      <menuitem 
+	      		id="menu_action_report_list_of_asset_form" 
+	      		action="action_report_list_of_asset_form" 
+	      		parent="menu_report_asset_reports" sequence="15"/> -->
+	      
+	       
+	      
+
+    </data>
+</openerp>

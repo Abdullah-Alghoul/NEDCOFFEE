@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        
+        <!-- report general payslip manager-->
+	    <record id="report_general_payslip_manager" model="ir.actions.report.xml">
+	        <field name="name">report_general_payslip_manager</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.payslip</field>
+	        <field name="report_name">report_general_payslip_manager</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_l10n_vn_hr_payroll/report/general_payslip_report.py</field>
+	        <field name="report_rml">general_l10n_vn_hr_payroll/report/general_payslip_report_manager.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_general_payslip_manager"
+			model="hr.payslip"
+			name="report_general_payslip_manager"
+	        string="Report General Payslip for Manager"
+        	rml="general_l10n_vn_hr_payroll/report/general_payslip_report_manager.ods"/>	
+        	
+        <!-- report general payslip worker-->
+	    <record id="report_general_payslip_worker" model="ir.actions.report.xml">
+	        <field name="name">report_general_payslip_worker</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.payslip</field>
+	        <field name="report_name">report_general_payslip_worker</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_l10n_vn_hr_payroll/report/general_payslip_report.py</field>
+	        <field name="report_rml">general_l10n_vn_hr_payroll/report/general_payslip_report_worker.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_general_payslip_worker"
+			model="hr.payslip"
+			name="report_general_payslip_worker"
+	        string="Report General Payslip for Worker"
+        	rml="general_l10n_vn_hr_payroll/report/general_payslip_report_worker.ods"/>	
+        
+         <!-- report general payslip officer-->
+	    <record id="report_general_payslip_officer" model="ir.actions.report.xml">
+	        <field name="name">report_general_payslip_officer</field>
+	        <field name="type">ir.actions.report.xml</field>
+	        <field name="model">hr.payslip</field>
+	        <field name="report_name">report_general_payslip_officer</field>
+	        <field name="report_type">aeroo</field>
+	        <field name="in_format">oo-ods</field>
+	        <field name="out_format" model="report.mimetypes" search="[('code','=','oo-xls'),('compatible_types','=','oo-ods')]"/>
+	        <field name="parser_loc">general_l10n_vn_hr_payroll/report/general_payslip_report.py</field>
+	        <field name="report_rml">general_l10n_vn_hr_payroll/report/general_payslip_report_officer.ods</field>
+	        <field name="parser_state">loc</field>
+	        <field name="tml_source">file</field>
+	        <field name="attachment_use" eval="0"/>
+    	</record>
+    	
+    	<report 
+			auto="False" 
+			menu="False"
+			id="report_general_payslip_officer"
+			model="hr.payslip"
+			name="report_general_payslip_officer"
+	        string="Report General Payslip for Officer"
+        	rml="general_l10n_vn_hr_payroll/report/general_payslip_report_officer.ods"/>	
+  	</data>
+</openerp>

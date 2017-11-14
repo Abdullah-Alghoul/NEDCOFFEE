@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    <!-- THANH: Stock Lot -->
+    	<record id="view_production_lot_tree_general_modify" model="ir.ui.view">
+            <field name="name">view_production_lot_tree_general_modify</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='product_id']" position="after">
+                    <field name="uom_id"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='create_date']" position="after">
+              		<field name="in_date"/>
+              		<field name="remaining_qty"/>
+              		<field name="price_avg" sum="price_avg"/>
+                </xpath>
+            </field>
+        </record>
+        
+        
+        <record model="ir.actions.act_window" id="stock.quantsact">
+            <field name="name">Quants</field>
+            <field name="res_model">stock.quant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_internal_loc': 1,'search_by_field_date': ['in_date','in_date']}</field>
+            <field name="help">This analysis gives you a fast overview on the current stock level of your products and their current inventory value.</field>
+        </record>
+        
+        <record id="view_quant_search_general_modify" model="ir.ui.view">
+            <field name="name">view_quant_search_general_modify</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//filter[@name='locationgroup']" position="before">
+            		<filter string='picking type' name="picking_type_group" context="{'group_by': 'picking_type_id'}"/>
+            	</xpath>
+            </field>
+        </record>
+            
+        
+    	<record id="view_production_lot_form_general_modify" model="ir.ui.view">
+            <field name="name">view_production_lot_form_general_modify</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='main_group']" position="inside">
+                	<group>
+                		<field name="create_date"/>
+                		<field name="in_date"/>
+                		<field name="remaining_qty"/>
+                		<field name="price_avg"/>
+                	</group>
+                </xpath>
+                
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="uom_id"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='quant_ids']/tree" position="inside">
+                    <field name="in_date"/>
+                </xpath>
+                <xpath expr="//field[@name='quant_ids']/tree/field[@name='qty']" position="after">
+                    <field name="cost"/>
+                </xpath>
+                <xpath expr="//field[@name='quant_ids']/tree/field[@name='name']" position="replace">
+                	<field name="name" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

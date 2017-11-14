@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		
+        <record id="view_account_analytic_account_form_general_inherit" model="ir.ui.view">
+            <field name="name">view_account_analytic_account_form_general_inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//field[@name='partner_id']" position="after">
+	            	<field name="parent_id"/>
+	            </xpath>
+            </field>
+        </record>
+        
+        <record id="view_account_analytic_account_search_general_inherit" model="ir.ui.view">
+            <field name="name">view_account_analytic_account_search_general_inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_search"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//field[@name='partner_id']" position="after">
+	            	<field name="parent_id"/>
+	            </xpath>
+            </field>
+        </record>
+		
+		<!-- THANH: modify analytic tree view -->
+        	<record id="analytic.view_account_analytic_account_list" model="ir.ui.view">
+	            <field name="name">account.analytic.account.list</field>
+	            <field name="model">account.analytic.account</field>
+	            <field eval="8" name="priority"/>
+	            <field name="arch" type="xml">
+	                <tree string="Analytic Accounts">
+	                	<field name="parent_id"/>
+	                    <field name="name"/>
+		            	<field name="display_name" invisible='1'/>
+	                    <field name="code"/>
+	                    <field name="partner_id"/>
+	                    <field name="account_type" invisible="1"/>
+	                    
+	                    <field name="debit"/>
+	                    <field name="credit"/>
+	                    <field name="balance"/>
+	                    
+	                    <field name="company_id" groups="base.group_multi_company"/>
+	                </tree>
+	            </field>
+	        </record>
+        
+		<!-- THANH: add analytic tree view with parent and children accounts -->
+			<record id="view_account_analytic_account_tree" model="ir.ui.view">
+	            <field name="name">account.analytic.account.tree</field>
+	            <field name="model">account.analytic.account</field>
+	            <field name="field_parent">child_complete_ids</field>
+	            <field eval="100" name="priority"/>
+	            <field name="arch" type="xml">
+	                <tree string="Analytic Accounts" toolbar="1">
+	                    <field name="name"/>
+	                    <field name="code"/>
+	                    <field name="partner_id"/>
+	                    <field name="account_type" invisible="1"/>
+	                    <field name="debit"/>
+	                    <field name="credit"/>
+	                    <field name="balance"/>
+	                    <field name="parent_id" invisible="1"/>
+	                    <field name="company_id" groups="base.group_multi_company"/>
+	                </tree>
+	            </field>
+	        </record>
+	
+	        <record id="analytic.action_analytic_account_form" model="ir.actions.act_window">
+	            <field name="name">Chart of Analytic Accounts</field>
+	            <field name="res_model">account.analytic.account</field>
+	            <field name="view_type">tree</field>
+	            <field name="view_mode">tree</field>
+	            <field name="view_id" ref="view_account_analytic_account_tree"/>
+	            <field name="domain">[('parent_id','=',False)]</field>
+	        </record>
+	        
+	        <!-- Enable drill-down from Chart Of Accounts tree view -->
+	        <act_window
+	            id="action_account_analytic_lines"
+	            name="Analytic Lines"
+	            domain="[('account_id','child_of',active_id)]"
+	            context="{'from_date': context.get('from_date'), 'to_date': context.get('to_date')}"
+	            res_model="account.analytic.line"
+	            src_model="account.analytic.account"
+	            key2="tree_but_open"/>
+            
+	</data>
+</openerp>

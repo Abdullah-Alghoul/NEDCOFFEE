@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	    <record id="report_mrp_planning_form" model="ir.ui.view">
+            <field name="name">report.mrp.planning.form</field>
+            <field name="model">report.mrp.planning</field>
+            <field name="arch" type="xml">
+            <form string="In Kế Hoạch Sản Xuất" version="7.0">
+    			<group col='4'>
+    				<field name="congdoan_id" on_change="onchange_workcenter(congdoan_id, workcenter_id)"/>
+            		<field name="workcenter_id" on_change="onchange_condgoan(workcenter_id)"/>
+            		<field name="from_date"/>
+            		<field name="to_date"/>
+            		<field name="congdoan" invisible='1'/>
+            	</group>
+            	<newline/>
+                <footer>
+                  <button name="print_inphieu" string="In" type="object" class="oe_highlight"/>
+                  or
+                  <button string="Cancel" class="oe_link" special="cancel" />
+              	</footer>
+       		 </form>
+    		</field>
+     	</record>
+     	
+     	<record id="action_report_mrp_planning_form" model="ir.actions.act_window">
+            <field name="name">In Kế Hoạch Sản Xuất</field>
+            <field name="res_model">report.mrp.planning</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+     	<menuitem parent="mrp.menu_mrp_planning" id="menu_action_report_mrp_planning_form" action="action_report_mrp_planning_form" sequence="3" />
+    
+    </data>
+</openerp>
+    

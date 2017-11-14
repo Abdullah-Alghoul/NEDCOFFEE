@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	    <record id="act_hr_holiday_limit_import" model="ir.actions.act_window">
+            <field name="name">Import Leave Limit Existed</field>
+	        <field name="res_model">hr.holidays.limit.import</field>
+	        <field name="view_type">form</field>
+	        <field name="view_mode">tree,form</field>
+	        <field eval="False" name="view_id"/>
+        </record>
+	    
+	    <menuitem id="menu_action_hr_holidays_limit_import"
+	      	name="Import Leave Limit Existed"
+	      	parent="hr_holidays.menu_hr_holidays_root"
+			action="act_hr_holiday_limit_import"
+			groups="base.group_hr_manager,base.group_hr_user"
+			sequence="100"/> 
+	    
+	    <record id="view_tree_hr_holidays_limit_import" model="ir.ui.view">   
+	      <field name="name">Import Leave Limit Existed</field>
+	      <field name="model">hr.holidays.limit.import</field>
+	      <field name="arch" type="xml">        
+	         <tree>
+	         	<field name="start_date"/>
+       			<field name="end_date"/>
+       			<field name="hr_holidays_status_id"/>
+	          	<field name="user_import_id"/>
+	          	<field name="import_date"/>
+	          	<field name="state"/>
+	        </tree>
+	      </field>
+	    </record>
+	    
+	    <record id="view_form_hr_holidays_limit_import" model="ir.ui.view">
+	      <field name="name">Import Leave Limit Existed</field>
+	      <field name="model">hr.holidays.limit.import</field>
+	      <field name="arch" type="xml">
+	        <form>
+		        <header>
+		        	<button string="Read File" type="object" states="draft" name="add_line" attrs="{'invisible': ['|', ('file', '=', False), ('state', '!=', 'draft')]}"/>
+		        	<button string="Import" type="object" states="read" name="read_file" class="oe_highlight" attrs="{'invisible': ['|', '|', ('file', '=', False), ('state', '=', 'draft'), ('state', '=', 'done')]}" confirm="Are you sure with your data?"/>
+		        	<button string="Reset to Draft" type="object" name="reset_to_draft" class="oe_highlight" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+		        	<field name="state" widget="statusbar" statusbar_visible="draft,read,waiting,done" readonly="1" />
+	        	</header>
+	        	<sheet>
+		        	<group>
+		        		<group>
+		        			<field name="file" />
+			          		<field name="file_name" invisible="1"/>
+			          		<label for="start_date" string="Period"/>
+	                        <div>
+	                            <field name="start_date" class="oe_inline"/> - <field name="end_date" class="oe_inline"/>
+	                        </div>
+			          	</group>
+			          	<group>
+			          		<field name="hr_holidays_status_id"/>
+			          		<field name="user_import_id" />
+			          		<field name="import_date" />
+			          	</group> 
+			        </group>
+		          	<group>
+		          		<field name="hr_holidays_limit_import_line_ids" nolabel="1">
+		          			<tree>
+		          				<field name="employee_id" />
+		          				<field name="number_of_dates" />
+		          			</tree>
+		          		</field>
+		          	</group>
+		          	
+	        	</sheet>
+    		</form>
+	      </field>
+	    </record>
+	</data>
+</openerp>

@@ -1,0 +1,27 @@
+<openerp>
+	<data>
+	
+		<record id="hr_contract_view_form_inherit_vn_hr_payroll_inherited" model="ir.ui.view">
+            <field name="name">view.contract.form.inherit.vn.hr.payroll.inherited</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="general_l10n_vn_hr_payroll.hr_contract_view_form_inherit_vn_hr_payroll"/>
+            <field name="arch" type="xml">
+                <data>
+					<xpath expr="//group[@name='overtime_group']" position="before">
+                        <group name="salary_rule_group" string="Input Rules">
+                			<field name="contract_rule_input_ids" nolabel='1'>
+            					<tree string="Rules" editable='top'>
+            						<field name="name" required="1"/>
+		                            <field name="value"/>
+		                            <field name="rule_id"/>
+		                            <field name="date_check"/>
+		                            <field name="detail"/>
+            					</tree>	
+            				</field>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

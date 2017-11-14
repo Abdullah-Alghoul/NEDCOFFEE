@@ -1,0 +1,34 @@
+.account_ledger [data-id="debit"]{width: 120px;}
+.account_ledger [data-id="credit"]{width: 120px;}
+.account_ledger [data-id="debit_second"]{width: 120px;}
+.account_ledger [data-id="credit_second"]{width: 120px;}
+.account_ledger [data-id="partner_id"]{width: 120px;}
+.account_ledger [data-id="acc_code"]{width: 60px;}
+
+.account_ledger_summary [data-id="debit"]{width: 170px;}
+.account_ledger_summary [data-id="credit"]{width: 170px;}
+.account_ledger_summary [data-id="debit_second"]{width: 170px;}
+.account_ledger_summary [data-id="credit_second"]{width: 170px;}
+
+.trial_balance [data-id="begin_dr_2rd"]{width: 120px;}
+.trial_balance [data-id="begin_cr_2rd"]{width: 120px;}
+.trial_balance [data-id="period_dr_2rd"]{width: 120px;}
+.trial_balance [data-id="period_cr_2rd"]{width: 120px;}
+.trial_balance [data-id="end_dr_2rd"]{width: 120px;}
+.trial_balance [data-id="end_cr_2rd"]{width: 120px;}
+.trial_balance [data-id="ac_dr_2rd"]{width: 120px;}
+.trial_balance [data-id="ac_cr_2rd"]{width: 120px;}
+
+.trial_balance [data-id="begin_dr"]{width: 120px;}
+.trial_balance [data-id="begin_cr"]{width: 120px;}
+.trial_balance [data-id="period_dr"]{width: 120px;}
+.trial_balance [data-id="period_cr"]{width: 120px;}
+.trial_balance [data-id="end_dr"]{width: 120px;}
+.trial_balance [data-id="end_cr"]{width: 120px;}
+.trial_balance [data-id="ac_dr"]{width: 120px;}
+.trial_balance [data-id="ac_cr"]{width: 120px;}
+
+.financial_report [data-id="prior_value"]{width: 120px;}
+.financial_report [data-id="curr_value"]{width: 120px;}
+.financial_report [data-id="prior_value_2rd"]{width: 120px;}
+.financial_report [data-id="curr_value_2rd"]{width: 120px;}

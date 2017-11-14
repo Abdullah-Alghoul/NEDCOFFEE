@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	<record model="ir.ui.view" id="view_account_financial_report_tree_general_modify">
+	        <field name="name">view_account_financial_report_tree_general_modify</field>
+	        <field name="model">account.financial.report</field>
+	        <field name="inherit_id" ref="account.view_account_financial_report_tree"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//field[@name='parent_id']" position="replace">
+		        </xpath>
+		        <xpath expr="//field[@name='name']" position="before">
+	            	<field name="parent_id"/>
+		        </xpath>
+	        </field>
+       	</record>
+       
+    </data>
+</openerp>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+	    <record id="view_sequence_view_form_general_modify" model="ir.ui.view">
+            <field name="name">view.sequence.view.form.general.modify</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view"/>
+            <field name="arch" type="xml">
+            	<data>
+            	
+	            	<xpath expr="//field[@name='code']" position="after">
+	            		<field name="date_get" required='1'/>
+	            		<field name="rollback_rule" required='1'/>
+	            		<field name="barcode_seq"/>
+	            	</xpath>
+	            	
+	            	<xpath expr="//notebook/page" position="inside">
+	            		<group col="3" string="Extended Format">
+	                        <group>
+	                            <label colspan="2" string="Sales Shop: %%(shop)s"/>
+	                            <label colspan="2" string="Warehouse: %%(warehouse)s"/>
+	                            <label colspan="2" string="Company: %%(com)s"/>
+	                            <label colspan="2" string="Product Category: %%(cat)s"/>
+	                         </group>
+	                         <group>
+	                            <label colspan="2" string="Pos Category: %%(pcat)s"/>
+	                            <label colspan="2" string="Pos Category: %%(pscat)s"/>
+	                            <label colspan="2" string="Account Analytic Account: %%(analis)s"/>
+	                            <label colspan="2" string="Stock Warehouse: %%(whtype)s"/>
+	                         </group>
+	                         <group>
+	                            <label colspan="2" string="Res Partner Category: %%(vcat)s"/>
+	                            <label colspan="2" string="Crm Voucher Info: %%(vamount)s"/>
+	                            <label colspan="2" string="Pos Registration: %%(pos)s"/>
+	                        </group>
+	                    </group>
+	            	</xpath>
+	            	
+	                <xpath expr="//notebook" position="inside">
+	                	<page string="Sequence Histories" name="seq_his">
+	                    	<field name="sequence_his" nolabel="1" colspan="4">
+	                    		<tree>
+	                    			<field name="generate_code"/>
+			                        <field name="number_current"/>
+			                        <field name="day"/>
+			                        <field name="month"/>
+			                        <field name="year"/>
+			                        <field name="company_id"/>
+	                    		</tree>
+	                    	</field>
+	                    </page>
+	                </xpath>
+                </data>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,1031 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	
+    	<record id="view_post_shipment_form_inherit_ned_add_lot_kcs" model="ir.ui.view">
+	        <field name="name">view.post.shipment.form.inherit.ned.add.kcs</field>
+	        <field name="model">post.shipment</field>
+	        <field name="inherit_id" ref="bes_sale_contract.view_post_shipment_form"/>
+	        <field name="arch" type="xml">
+                <xpath expr="//field[@name='post_line']/tree/field[@name='bl_date']" position="after">
+	                <field name="lot_manager"/>
+                </xpath>
+	        </field>
+	    </record>
+	    <record id="view_post_shipment_line_tree" model="ir.ui.view">
+            <field name="name">post.shipment.line.tree</field>
+            <field name="model">post.shipment.line</field>
+            <field name="arch" type="xml">
+                <tree string="Post Shipment Line">
+                	<field name="post_id"/>
+                	<field name="do_id"/>
+                	<field name="nvs_nls_id"/>
+    				<field name="cont_no"/>
+         			<field name="loading_date"/>
+         			<field name="bags" sum="bags"/>
+         			<field name="shipped_weight" sum="shipped_weight" string="Weight"/>
+					<field name="lot_manager"/>         			
+         			<field name="bl_no"/>
+	   				<field name="bl_date"/>
+	   				<field name="supervisor_id"/>
+    			</tree>
+            </field>
+        </record>
+	    
+    	 <record id="view_report_ned_stock_stack_search" model="ir.ui.view">
+            <field name="name">report.ned.stock.stack.search</field>
+            <field name="model">stock.stack</field>
+            <field name="arch" type="xml">
+                <search string="stack search">
+                	<field name="name" string="Stack"/>
+                    <field name="product_id"/>
+                    <field name="zone_id"/>
+                    <field name="production_id"/>
+                    <group expand="1" string="Group By">
+                    	<filter string="Year" domain="[]" context="{'group_by':'year_tz'}"/>
+                    	<filter string="Month" domain="[]" context="{'group_by':'date'}"/>
+                    	<filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                    	<filter string="Zone"  domain="[]" context="{'group_by':'zone_id'}"/>
+                    	<filter string="warehouse" domain="[]" context="{'group_by':'warehouse_id'}"/>
+                   	    <filter name="Onhand" string="Onhand" domain="[('remaining_qty','!=',0)]" />
+                   	    <filter name="production_id" string="Production" context="{'group_by':'production_id'}"/>
+                	</group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_report_ned_stock_stack_pivot" model="ir.ui.view">
+         <field name="name">view.report.ned.stock.stack.pivot</field>
+         <field name="model">stock.stack</field>
+            <field name="arch" type="xml">
+               <pivot string="Stack">
+               	   <field name="product_id" group="True"/>
+                   <field name="net_qty" operator="*"/>
+                   <field name="basis_qty" operator="*"/>
+                   <field name="gdn_net" operator="*"/>
+                   <field name="gdn_basis" operator="*"/>
+                   <field name="gip_net" operator="*" />
+                   <field name="gip_basis" operator="*"/>
+                  
+               </pivot>
+            </field>
+        </record>
+        <!-- 
+        <record model="ir.ui.view" id="view_report_ned_stock_stack_graph">
+            <field name="name">view.report.ned.stock.stack..graph</field>
+            <field name="model">stock.stack</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <graph  type="bar" string="Purchase ">
+                   <field name="date" type="row"/>
+                   <field name="net_qty" type="col"/>
+                   <field name="basis_qty" type="col"/>
+                   <field name="gdn_net" type="col"/>
+                   <field name="gdn_basis" type="col"/>
+                   <field name="gip_net" type="col" />
+                   <field name="gip_basis" type="col"/>
+                </graph>
+            </field>
+         </record>
+    
+     -->
+    	<!-- Ned stock stack -->
+    	<record id="view_report_ned_stock_stack_tree" model="ir.ui.view">
+            <field name="name">report.ned.stock.stack.tree</field>
+            <field name="model">stock.stack</field>
+            <field eval="100" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Stack" editable="bottom">
+                    <field name="zone_id" invisible="0" readonly="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="date" readonly="1"/>
+                    <field name="production_id"/>
+                    <field name="categ_id" invisible="1"/>
+                    <field name="product_id" readonly="1"/>
+                    <field name="packing_id" readonly="1"/>
+					<field name="net_qty" string="Net Weight" sum="net_qty"/>
+                    <field name="basis_qty" sum="basis_qty" string="Basis Weight"/>
+                    <field name="gdn_net" sum="gdn_net"/>
+                    <field name="gdn_basis" sum="gdn_basis"/>
+                    <field name="gip_net" sum="gip_net"/>
+                    <field name="gip_basis" sum="gip_basis"/>
+                    <field name="init_qty" sum="init_qty" string="Balance Net"/>
+                    <field name="remaining_qty" sum="remaining_qty" string="Balance Basis"/>
+                    <field name="bag_qty" sum="bag_qty"/>
+                    <field name="mc" avg="mc"/>
+                    <field name="fm" avg="fm"/>
+                    <field name="black" avg="black"/>
+                    <field name="broken" avg="broken"/>
+                    <field name="brown" avg="brown"/>
+                    <field name="mold" avg="mold"/>
+                    <field name="cherry" avg="cherry"/>
+                    <field name="excelsa" avg="excelsa"/>
+                    <field name="screen18" avg="screen18"/>
+                    <field name="screen16" avg="screen16"/>
+                    <field name="screen13" avg="screen13"/>
+                    <field name="screen12" avg="screen12"/>
+                    <field name="immature" avg="immature"/> 
+                    <field name="burn" avg="burn"/>
+                    <field name="eaten" avg="eaten"/>
+                    <!-- <field name="maize"/> -->
+                    <field name="stone_count"/>
+                    <field name="stick_count"/>
+                    <field name="remarks"/>
+                    <field name="remarks_note"/>
+                    <field name="remaining_qty"  invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_report_ned_stock_stack_graph" model="ir.ui.view">
+            <field name="name">report.ned.stock.stack.graph</field>
+            <field name="model">stock.stack</field>
+            <field name="arch" type="xml">
+                <graph string="Stack">
+                    <field name="product_id"/>
+                    <field name="net_qty" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+        
+        <record id="action_report_ned_stock_stack_tree" model="ir.actions.act_window">
+            <field name="name">Stock Movement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.stack</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,pivot,graph</field>
+            <field name="search_view_id" ref="view_report_ned_stock_stack_search"/>
+            <field name="context" eval="{'search_by_field_date': ['date']}"/>
+            <field name="context">{'default_search_Onhand':1, 'search_by_field_date': ['date']}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Stack, the first step of a new Stack.
+              </p>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_grp_good_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_report_ned_stock_stack_tree"/>
+            <field name="act_window_id" ref="action_report_ned_stock_stack_tree"/>
+        </record>
+        
+        <menuitem id="menu_action_report_ned_stock_stack_tree" action="action_report_ned_stock_stack_tree" sequence="100" 
+        	parent="stock.menu_warehouse_report" name="Stock Movement"
+        	groups="stock.group_stock_user"/>
+        
+       
+       
+       <menuitem id="action_report_ned_stock_stack_tree_kcs" action="action_report_ned_stock_stack_tree" 
+        	parent="general_kcs.menu_report_kcs"
+        	groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="800"/>
+        
+        <menuitem id="action_report_ned_stock_stack_tree_mrp" action="action_report_ned_stock_stack_tree" 
+        	parent="mrp_operations.menu_report_mrp_workorders_tree"
+        	sequence="200"/>
+        
+    	
+    	
+    	
+    	<record id="ned_stock.view_picking_tree_grp_good_tree" model="ir.ui.view">
+            <field name="name">view.picking.tree.grp.good.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" decoration-danger="state not in ('cancel', 'done') and min_date &lt; current_date" string="Picking list">
+                    <field name="name"/>
+                    <field name="production_id"/>
+                    <field name="origin"/>
+                    <field name="min_date" invisible="1"/>
+                    <field name="zone_id"/>
+                    <field name="stack_id"/>
+                    <field name="date" invisible="1"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="product_id"/>
+                    <field name="packing_id"/>
+                    <field name="total_bag" sum="total_bag"/>
+                    <field name="total_init_qty" invisible="0" string="Net Weight" sum="total_init_qty"/> 
+                    <field name="total_qty" sum="total_qty" string="Basis Qty"/>
+                    <field name="note"/>
+                    <field name="state"/>
+                    <field name="state_kcs" invisible="0"/>
+                    <field name="picking_type_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        
+        
+        <record model="ir.ui.view" id="view_ned_stock_stack_add_contract_tree">
+	        <field name="name">"view.ned.stock.stack.add.contract.tree.ned</field>
+	        <field name="model">stock.stack</field>
+	        <field name="inherit_id" ref="ned_stock.view_ned_stock_stack_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='product_id']" position="before">
+                	<field name="contract_no"/>
+          		</xpath>
+          	</field>
+          </record>
+        
+    	<record model="ir.ui.view" id="view_picking_tree_grp_good_tree_inherit">
+	        <field name="name">view.picking.tree.grp.good.tree.inherit.ned</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="ned_stock.view_picking_tree_grp_good_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='min_date']" position="after">
+                	<field name="contract_no"/>
+          		</xpath>
+          	</field>
+          </record>
+          	
+    	<record id="ned_stock.action_finished_good_receipt" model="ir.actions.act_window">
+            <field name="name">GRP</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('picking_type_id.code','=','production_in')]</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+        </record>
+        
+        <record id="view_lot_kcs_search" model="ir.ui.view">
+            <field name="name">view.lot.kcs.search</field>
+            <field name="model">lot.kcs</field>
+            <field name="arch" type="xml">
+                <search string="Lot stack search">
+                	<field name="name" string="Lot"/>
+                	<field name="contract_id"/>
+                    <field name="product_id"/>
+                    <field name="partner_id"/>
+                    <group expand="1" string="Group By">
+                    	<filter string="Contract" domain="[]" context="{'group_by':'contract_id'}"/>
+                    	<filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                    	<filter string="partner_id" domain="[]" context="{'group_by':'partner_id'}"/>
+                	</group>
+                </search>
+            </field>
+        </record>
+        
+        
+    	<record id="view_lot_kcs_tree" model="ir.ui.view">
+            <field name="name">view.lot.kcs.tree</field>
+            <field name="model">lot.kcs</field>
+            <field name="arch" type="xml">
+                <tree string="Lot Management" editable="top">
+                	<field name="name" readonly="0"/>
+                    <field name="lot_date"/>
+                    <field name="contract_id" required="0"/>
+                    <field name="nvs_id"/>
+                    <field name="partner_id"/>
+                    <field name="product_id" readonly="1"/>
+                    <field name="qty_scontract" sum="qty_scontract"/>
+		            <field name="lot_quantity"/>
+                    
+                    <field name="mc"/>
+                    <field name="mc_on_despatch"/>
+                    <field name="fm"/>
+                    <field name="black"/>
+                    <field name="broken"/>
+                    <field name="brown"/>
+                    <field name="mold"/>
+                    <field name="cherry"/>
+                     <field name="screen18"/>
+                    <field name="screen16"/>
+                    <field name="screen13"/>
+                    <field name="screen12" string="Below screen12"/>
+                    <field name="burn"/>
+                    <field name="eaten"/>
+                    <field name="excelsa"/>
+                    <field name="defects"/>
+                    <field name="immature"/>
+                    <!-- <field name="maize"/> -->
+                    <field name="stone"/>
+                    <field name="stick"/>
+                    
+                    <field name="cuptaste"/>
+                    <field name="supervisor"/>
+                    <field name="lot_ned"/>
+                </tree>
+            </field>
+        </record>
+    	
+    	<record id="action_lot_kcs" model="ir.actions.act_window">
+            <field name="name">Lot Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lot.kcs</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a DO, the first step of a new DO.
+              </p>
+            </field>
+        </record>
+        <menuitem id="menu_action_lot_kcs" action="action_lot_kcs" 
+        	parent="general_kcs.menu_request_kcs"
+        	groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="200"/>
+        	
+        <menuitem id="menu_action_post_shipment_kcs" action="bes_sale_contract.action_post_shipment" sequence="190" 
+        	parent="general_kcs.menu_request_kcs"/>
+        
+        <menuitem id="menu_action_post_shipment_line" action="ned_contract.action_post_shipment_line" sequence="195" 
+        	parent="general_kcs.menu_request_kcs"
+        	/>
+       	
+       	
+       	<record id="view_lot_stack_allocation_search" model="ir.ui.view">
+            <field name="name">view.lot.stack.allocation.tree</field>
+            <field name="model">lot.stack.allocation</field>
+            <field name="arch" type="xml">
+                <search string="Lot stack search">
+                	<field name="lot_id"/>
+                	<field name="contract_id"/>
+                	<field name="delivery_id"/>
+                	<field name="grp_id"/>
+                    <field name="stack_id"/>
+                    <group expand="1" string="Group By">
+                    	<filter string="Lot" domain="[]" context="{'group_by':'lot_id'}"/>
+                    	<filter string="SContract" domain="[]" context="{'group_by':'contract_id'}"/>
+                    	<filter string="Stack" domain="[]" context="{'group_by':'stack_id'}"/>
+                    	<filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    	<filter domain="[('state','=','draft')]" string="Draft"/>
+                    	<filter domain="[('state','=','approve')]" string="Approve"/>
+                	</group>
+                </search>
+            </field>
+        </record>
+        
+       	<record id="view_lot_stack_allocation_tree" model="ir.ui.view">
+            <field name="name">view.lot.stack.allocation.tree</field>
+            <field name="model">lot.stack.allocation</field>
+            <field name="arch" type="xml">
+                <tree string="Lot stack allocation" editable="top" decoration-info="state == 'draft'" decoration-muted="state in ('approve')">
+                	<field name="lot_id" required="1" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+                	<field name="product_id" readonly="1"/>
+                	<field name="contract_id" readonly="1" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+                	<field name="nvs_id"/>
+                	<field name="delivery_id" required="0" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+                	<field name="grp_id" invisible="1" required="0" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+                	<field name="zone_id" readonly="1" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+                    <field name="stack_id" required="1" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+                    <field name="quantity" required="1" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+                    <field name="mc_on_despatch"/>
+                    <field name="defects"/>
+                    <field name="defects_tcvn"/>
+                    <field name="cuptaste" />
+                    <field name="gdn_id"/>
+                    <button name="btt_confirm" string="Confirm" type="object" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+                    <button name="btt_settodraft" string="Set to Draft" type="object" attrs="{'readonly': [('state', '!=', 'approve')]}"/>
+                    <field name="state" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+    	
+    	<record id="action_lot_stack_allocation" model="ir.actions.act_window">
+            <field name="name">Lot Allocation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lot.stack.allocation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a DO, the first step of a new DO.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_lot_stack_allocation" action="action_lot_stack_allocation" 
+        	parent="general_kcs.menu_request_kcs"
+        	groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="300"/>
+        	
+        	
+        <record id="view_stock_kcs_tree_inherit_ned_search" model="ir.ui.view">
+	        <field name="name">kcs.stock.tree.inherit.ned.kcs</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="general_kcs.view_stock_kcs_ned_search"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='partner_id']" position="before">
+	        		<field name="districts_id" string="Nguồn Hàng"/>
+	        		<field name="contract_no"/>
+            	</xpath>
+            	
+            	<xpath expr="//filter[@name='State']" position="before">
+	        		<filter string="Nguồn hàng" name ="districts" domain="[]" context="{'group_by':'districts_id'}"/>
+            	</xpath>
+	        </field>
+	        
+        </record>
+    	
+    	
+    	<record id="view_stock_kcs_tree_inherit_ned_kcs" model="ir.ui.view">
+	        <field name="name">kcs.stock.tree.inherit.ned.kcs</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="general_kcs.view_stock_kcs_tree"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='name']" position="after">
+	        		<field name="production_id"/>
+            	</xpath>
+            	<xpath expr="//field[@name='product_id']" position="after">
+	        		<field name="packing_id"/>
+	        		<field name="total_bag"/>
+            	</xpath>
+            	<xpath expr="//field[@name='state']" position="before">
+	        		<field name="note"/>
+            	</xpath>
+            	<xpath expr="//field[@name='origin']" position="replace">
+	        		<field name="districts_id"/>
+	        		<field name="contract_no"/>
+            	</xpath>
+            	<xpath expr="//field[@name='date_done']" position="replace">
+	        		<field name="date_sent" invisible='1'/>
+            	</xpath>
+	        </field>
+        </record>
+        
+		<!-- KCS Criterions -->
+		<record id="view_stock_kcs_form_inherit_ned_kcs" model="ir.ui.view">
+	        <field name="name">kcs.stock.form.inherit.ned.kcs</field>
+	        <field name="model">stock.picking</field>
+	        <field name="inherit_id" ref="general_kcs.view_stock_kcs_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//button[@name='btt_loads']" position="before">
+	        		<field name="state" invisible="1"/>
+            	</xpath>
+            	<xpath expr="//field[@name='special']" position="after">
+         		 	<label for="change_product_id"/>
+					<div name="change_product_id" class="o_row">
+						<field name="change_product_id" readonly="0"/>
+						<button name="btt_change_product" type="object" string="Change Product"/>
+					</div>
+            	</xpath>
+            	<xpath expr="//field[@name='picking_type_id']" position="after">
+            		<field name="production_id"/>
+            		<field name="contract_no"/>
+            	</xpath>
+	        </field>
+        </record>
+        
+        <!--  KCS Delivey Order -->
+        <!-- Delivery Orders -->
+        <record id="view_delivery_order_kcs_search" model="ir.ui.view">
+            <field name="name">delivery.order.kcs.search</field>
+            <field name="model">delivery.order</field>
+            <field name="arch" type="xml">
+                <search string="KCS">
+                    <field name="name"/>
+                    <field name="contract_id" string="NVS-NLS"/>
+                    <field name="shipping_id"/>
+                    <field name="picking_id"/>
+                    <field name="trucking_no"/>
+                    <field name="product_id"/>
+                    <separator/>
+                    
+                    <group expand="1" string="filter">
+                    	<filter domain="[('type','=','Sale')]" string="Do-Export"/>
+                    	<filter domain="[('type','!=','Sale')]" string="Do-Transfer"/>
+                	</group>
+                	<group expand="1" string="Group By">
+                    	<filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+                    	<filter string="NVS-NLS" domain="[]" context="{'group_by':'contract_id'}"/>
+                    	<filter string="Shipping" domain="[]" context="{'group_by':'shipping_id'}"/>
+                	</group>
+               </search>
+            </field>
+        </record>
+        
+        <record id="view_delivery_order_kcs_tree" model="ir.ui.view">
+            <field name="name">delivery.order.kcs.tree</field>
+            <field name="model">delivery.order</field>
+            <field name="arch" type="xml">
+                <tree string="Delivery Orders" editable="top">
+                	<field name="lot_no"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="contract_id" string="NVS-NLS"/>
+                    <field name="product_id" readonly="1"/>
+                    <field name="total_qty" sum="total_qty"/>
+                    <field name="mc"/>
+                    <field name="fm"/>
+                    <field name="black"/>
+                    <field name="broken"/>
+                    <field name="brown"/>
+                    <field name="mold"/>
+                    <field name="immature"/>
+                    <field name="defects"/>
+                    <field name="burn"/>
+                    <field name="eaten"/>
+                    <field name="cherry"/>
+                    <field name="maize"/>
+                    <field name="stone"/>
+                    <field name="stick"/>
+                    <field name="screen18"/>
+                    <field name="screen16"/>
+                    <field name="screen13"/>
+                    <field name="screen12"/>
+                    <field name="cuptaste"/>
+                    <field name="supervisor"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_delivery_order_kcs" model="ir.actions.act_window">
+            <field name="name">QC OUT</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a DO, the first step of a new DO.
+              </p>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_delivery_order_kcs_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_delivery_order_kcs_tree"/>
+            <field name="act_window_id" ref="action_delivery_order_kcs"/>
+        </record>
+        <!-- 
+        <menuitem id="menu_action_delivery_order_kcs" action="action_delivery_order_kcs" 
+        	parent="general_kcs.menu_request_kcs"
+        	groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="180"/>
+        
+         -->
+        
+        	
+		<!-- Shipping Instruction-->
+        <record id="view_shipping_instruction_kcs_tree" model="ir.ui.view">
+            <field name="name">shipping.instruction.kcs.tree</field>
+            <field name="model">shipping.instruction</field>
+            <field name="arch" type="xml">
+                <tree string="Shipping Instruction" decoration-info="state == 'draft'" decoration-muted="state in ('cancel','done')" 
+                											decoration-danger="state in ('waiting','approved')">
+    				<field name="name" string="Shipping"/>
+    				<field name="date"/>
+    				<field name="contract_id" string="Scontract"/>
+                    <field name="status" string="Ship by"/>
+    				<field name="prodcompleted"/>
+    				<field name="partner_id"/>
+    				<field name="product_id"/>
+                    <field name="shipment_date"/>
+                    <field name="factory_etd"/>
+    				<field name="total_line_qty" sum="total_line_qty" string="Qty"/>
+    				<field name="packing_id"/>
+    	 			<field name="origin" invisible="1"/>
+    	 			<field name="materialstatus"/>
+                    <field name="production_status" string="Production status"/>
+    	 			<field name="pss_condition"/>
+                    <field name="pss_send_schedule"/>
+    	 			<field name="pss_sent" string="PSS Sent" invisible='1'/>
+    	 			<field name="date_sent" invisible='1'/>
+    	 			<field name="pss_approved" string="PSS Approved" invisible='1'/>
+    	 			<field name="fumigation_id"/>
+	            	<field name="push_off_etd"/>
+	            	<field name="booking_date"/>
+	            	<field name="certificate_id" invisible="1"/>
+                    <field name="remarks" readonly="1"/>
+    				<field name="state" invisible="1"/>
+    			</tree>
+            </field>
+        </record>
+        
+        <record id="view_shipping_instruction_kcs_form" model="ir.ui.view">
+            <field name="name">shipping.instruction.kcs.form</field>
+            <field name="model">shipping.instruction</field>
+            <field name="arch" type="xml">
+                <form string="Shipping Instruction">
+	                <header>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting,approved" invisible="1"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_button_box" name="button_box" attrs="{'invisible': [('state','in',('draft','waiting'))]}">
+							<field name="contract_ids" invisible="1"/>
+							<button type="object" name="action_view_contract_nvs" class="oe_stat_button" icon="fa-truck" 
+									attrs="{'invisible': [('contract_count','=',0)]}">
+								<field name="contract_count" widget="statinfo" string="NVS"/>
+							</button>
+						</div>
+	                    <div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="1"/>
+	                        </h1>
+	                    </div>
+	                	<group>
+	                		<group>
+	                			<field name="partner_id" domain="[('customer','=',True),('company_type','=','company')]" readonly="1"/>
+	                			<label for="contract_id"/>
+								<div name="contract_id" class="o_row">
+									<field name="contract_id"
+										options="{'no_write': True, 'no_create': True}" readonly="1"/>
+								</div>
+								<field name="pss_condition" readonly="1"/>
+                                <field name="pss_send_schedule" readonly="1"/>
+								<field name="pss_sent" string="PSS Sent" invisible='1'/>
+								<field name="date_sent" invisible='1'/>
+	            				<field name="pss_approved" string="PSS Approved" invisible='1'/>
+	                		</group>
+	                		<group>
+	                			<field name="date" readonly="1"/>
+	                    		<field name="deadline" readonly="1"/>
+                    			<field name="origin" readonly="1"/>
+                    			<field name="materialstatus" readonly="1"/>
+                    			<field name="prodcompleted" readonly="1"/>
+                    			<field name="company_id" options="{'no_write': True, 'no_create': True}" invisible="1" readonly="1"/>
+                    			
+	                		</group>
+	                	</group>
+	                	<notebook>
+	                		<page string="Products" name="product">
+	                    		<field name="shipping_ids" context="{'default_shipping_id': active_id}" readonly="1">
+	                    			<tree editable="top">
+	                    				<field name="sequence" widget="handle"/>
+					    				<field name="shipping_id" invisible="1"/>
+					    				<field name="product_id"/>
+					    				<field name="name"/>
+					    				<field name="product_qty" sum="product_qty"/>
+					    				<field name="product_uom"/>
+					    				<field name="price_unit" invisible="1"/>
+    									<field name="tax_id" invisible="1" widget="many2many_tags" domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id)]"/>
+	                    			</tree>
+	                    		</field>
+	                            <field name="note" class="oe_inline" placeholder="Setup default terms and conditions in your company settings."/>
+	                            <div class="oe_clear"/>
+	                            <group col="4" name="users_validate">
+	                            	<field name="create_uid"/>
+	                    			<field name="create_date"/>
+	                    			<field name="date_confirm"/>
+	                    			<field name="user_confirm"/>
+	                    			<field name="user_approve" attrs="{'invisible': [('state','in',('draft','waiting'))]}"/>
+	                    			<field name="date_approve" attrs="{'invisible': [('state','in',('draft','waiting'))]}"/>
+	                    		</group>
+	                    	</page>
+	                	</notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+         <record id="action_shipping_instruction_kcs" model="ir.actions.act_window">
+            <field name="name">Shipping Instruction</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shipping.instruction</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="priority">200</field>
+            <field name="search_view_id"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Shipping Instruction, the first step of a new SI.
+              </p>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="action_shipping_instruction_kcs_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_shipping_instruction_kcs_tree"/>
+            <field name="act_window_id" ref="action_shipping_instruction_kcs"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_shipping_instruction_kcs_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_shipping_instruction_kcs_form"/>
+            <field name="act_window_id" ref="action_shipping_instruction_kcs"/>
+        </record>
+        
+       
+		
+		 <menuitem id="menu_action_shipping_instruction_kcs" 
+        	action="action_shipping_instruction_kcs" parent="general_kcs.menu_request_kcs" name="Shipping Instruction"
+        	groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" sequence="150" />
+		
+		
+		
+		
+        
+        
+        <!-- KCS Criterions -->
+		<record id="view_kcs_criterions_form_inherit_ned_kcs" model="ir.ui.view">
+	        <field name="name">kcs.criterions.form.inherit.ned.kcs</field>
+	        <field name="model">kcs.criterions</field>
+	        <field name="inherit_id" ref="general_kcs.view_kcs_criterions_form"/>
+	        <field name="arch" type="xml">
+	        	<notebook position="replace">
+	        		<notebook>
+	            		<page string="Standard KCS" name="standard_kcs">
+	            			<group col="4">
+	            				<label for="standard_screen18_16"/>
+	            				<div name="standard_screen18_16" class="o_row">
+	            					<field name="standard_screen18_16" class="oe_inline"/>
+	            					<label string=" - "/>
+	            					<field name="percent_screen18_16" class="oe_inline"/>%
+	            				</div>
+	            				<label for="standard_screen13"/>
+	            				<div name="standard_screen13" class="o_row">
+	            					<field name="standard_screen13" class="oe_inline"/>
+	            					<label string=" - "/>
+	            					<field name="percent_screen13" class="oe_inline"/>%
+	            				</div>
+	            				<label for="standard_excelsa"/>
+	            				<div name="standard_excelsa" class="o_row">
+	            					<field name="standard_excelsa" class="oe_inline"/>
+	            					<label string=" - "/>
+	            					<field name="percent_excelsa" class="oe_inline"/>%
+	            				</div>
+	            				<label for="standard_burned"/>
+	            				<div name="standard_burned" class="o_row">
+	            					<field name="standard_burned" class="oe_inline"/>
+	            					<label string=" - "/>
+	            					<field name="percent_burned" class="oe_inline"/>%
+	            				</div>
+	            				<field name="percent_fm" class="oe_inline"/>
+		                	</group>
+		                	<group  col="4">
+		                	<group string="BB Deduct">
+		                		<field name="broken_standard_ids" nolabel="1">
+            						<tree editable="top">
+            							<field name="range_start"/>
+            							<field name="range_end"/>
+            							<field name="percent"/>
+            						</tree>
+            					</field>
+            				</group>
+            				<group string ="Mold Deduct">
+            					<field name="mold_standard_ids" nolabel="1">
+            						<tree editable="top">
+            							<field name="range_start"/>
+	            							<field name="range_end"/>
+	            							<field name="percent"/>
+            						</tree>
+            					</field>
+		                	</group>
+		                	<group string="Brown Deduct">
+		                		<field name="brown_standard_ids" nolabel="1">
+            						<tree editable="top">
+            							<field name="range_start"/>
+            							<field name="range_end"/>
+            							<field name="percent"/>
+            						</tree>
+            					</field>
+	            			</group>
+		                	</group>
+	                		<field name="note" nolabel="0" class="oe_inline" placeholder="Notes..."/>
+		                	<div class="oe_clear"/>
+	                        <group col="4">
+                        		<field name="create_uid"/>
+                        		<field name="create_date"/>
+                        		<field name="user_approve"/>
+                				<field name="date_approve"/>
+	                		</group>
+	            		</page>
+	            		
+            		</notebook>
+	        	</notebook>
+	        </field>
+	    </record>  
+		
+		
+		<!-- KCS Line -->
+		<record id="view_request_kcs_line_history_filter" model="ir.ui.view">
+            <field name="name">request.kcs.line.filter</field>
+            <field name="model">request.kcs.line</field>
+            <field name="arch" type="xml">
+                <search string="Search history Kcs">
+                	<field name="picking_id" string="GRN-GRP"/>
+                	<field name="districts_id" string="Nguồn Hàng"/>
+                	<field name="product_id"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="production_id" string="Production"/>
+                    <field name="zone_id"/>
+                    <field name="stack_id"/>
+                    
+                    <group expand="0" string="Group By...">
+                    	<filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                    	<filter string="Production" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'production_id'}"/>
+                    	<filter string="Picking type" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'picking_type_id'}"/>
+                        <filter string="Zone" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'zone_id'}"/>
+                        <filter string="Stack" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'stack_id'}"/>
+                        <filter string="Supplier" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Day" context="{'group_by':'day_tz'}"/>
+                        <filter string="Month" context="{'group_by':'date_tz'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+		<record id="view_request_kcs_line_history_tree_ned" model="ir.ui.view">
+            <field name="name">request.kcs.line.history.tree.ned</field>
+            <field name="model">request.kcs.line</field>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <tree string="Request KCS Line">
+                	<field name="date" invisible="0"/>
+                	<field name="date_tz" invisible="1"/>
+                	<field name="day_tz" invisible="1"/>
+                	<field name="production_id" invisible="1"/>
+                	
+                    <field name="picking_id"/>
+                    <field name="partner_id"/>
+                    <field name="reference"/>
+                    <field name="districts_id" string="Nguồn Hàng"/>
+                    <field name="stack_id"/>
+                    <field name="zone_id"/>
+                    <field name="product_id"/>
+                    <field name="product_uom" invisible="1"/>
+                    <field name="product_qty"/>
+                    <field name="basis_weight"/>
+                    <field name="mc" avg="True"/>
+                    <field name="fm" avg="True"/>
+                    <field name="black" avg="True"/>
+                    <field name="broken" avg="True"/>
+                    <field name="brown" avg="True"/>
+                    <field name="mold" avg="True"/>
+                    <field name="cherry" avg="True"/>
+                    
+                    <field name="screen18" avg="True"/>
+                    <field name="screen16" avg="True"/>
+                    <field name="screen13" avg="True"/>
+                    <field name="belowsc12" invisible="0" avg="True"/>
+                    
+                    <field name="burned" avg="True"/>
+                    <field name="eaten" avg="True"/>
+                    <field name="immature" avg="True"/>
+                    <field name="stick_count"/>
+                    <field name="stone_count"/>
+                    <field name="contract_no"/>
+                    <field name="state" invisible="1"/>
+                    <field name="picking_type_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        view_request_kcs_line_history_tree_ned
+        <record id="view_request_kcs_line_history_tree_ned_pivot" model="ir.ui.view">
+            <field name="name">request.kcs.line.pivot</field>
+            <field name="model">request.kcs.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Qc Orders">
+                    <field name="product_id" type="row"/>
+                    <field name="product_qty" type="measure"/>
+                    <field name="basis_weight" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record id="view_request_kcs_line_history_tree_ned_graph" model="ir.ui.view">
+            <field name="name">request.kcs.line.graph</field>
+            <field name="model">request.kcs.line</field>
+            <field name="arch" type="xml">
+                <graph string="Qc Orders">
+                    <field name="product_id"/>
+                    <field name="product_qty" type="measure"/>
+                    <field name="basis_weight" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        
+        
+        <record id="action_request_kcs_line_history" model="ir.actions.act_window">
+            <field name="name">QC IN</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">request.kcs.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="context" eval="{'search_by_field_date': ['date']}"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_request_kcs_line_out">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_request_kcs_line_history_tree_ned"/>
+            <field name="act_window_id" ref="action_request_kcs_line_history"/>
+        </record>
+        
+        <menuitem id="menu_action_request_kcs_line_history" action="action_request_kcs_line_history" 
+        	parent="general_kcs.menu_request_kcs"
+        	groups="general_kcs.group_kcs_user,general_kcs.group_kcs_manager" 
+        	sequence="100" />
+        
+        
+		<record id="view_request_kcs_line_tree_inherit_ned" model="ir.ui.view">
+            <field name="name">request.kcs.line.tree.inherit.ned</field>
+            <field name="model">request.kcs.line</field>
+            <field name="inherit_id" ref="general_kcs.view_request_kcs_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='qty_reached']" position="before">
+           			<field name="deduction"/>
+            	</xpath>
+            	<xpath expr="//field[@name='qty_reached']" position="after">
+            		<field name="basis_weight"/>
+            	</xpath>
+            	
+            </field>
+        </record>
+		
+		<record id="view_request_kcs_line_form_inherit_ned_kcs" model="ir.ui.view">
+	        <field name="name">request.kcs.line.form.inherit.ned.kcs</field>
+	        <field name="model">request.kcs.line</field>
+	        <field name="inherit_id" ref="general_kcs.view_request_kcs_line_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='qty_reached']" position="before">
+            		<field name="deduction"/>
+            	</xpath>
+            	<xpath expr="//field[@name='qty_reached']" position="after">
+            		<field name="basis_weight"/>
+            	</xpath>
+            	<xpath expr="//field[@name='categ_id']" position="after">
+            		<field name="deduction_manual"/>
+            		<field name="zone_id" readonly="1"/>
+            		<field name="stack_id" readonly="1"/>
+            		<field name="cuptest"/>
+            		<field name="reference"/>
+            	</xpath>
+	            <notebook position="replace">
+	            	<notebook>
+	            		<page string="Quality Test" name="quality_test">
+	            			<group col="6">
+	            				<field name="sample_weight" required="1"/>
+	            				<field name="bb_sample_weight" required="1"/>
+	            				<!--  attrs="{'readonly': [('picking_type_code','in',('incoming')),('state','!=','draft')]}" -->
+            					<newline/>
+	            				<field name="mc_degree"  />
+	            				<field name="mc"/>
+	            				<field name="mc_deduct"  />
+	            				<newline/>
+	            				<field name="fm_gram"  />
+	            				<field name="fm"/>
+	            				<field name="fm_deduct"/>
+	            				<newline/>
+	            				<field name="black_gram"  />
+	            				<field name="black"/>
+	            				<newline/>
+	            				<field name="broken_gram"  />
+	            				<field name="broken"/>
+	            				<field name="broken_deduct"/>
+	            				<newline/>
+	            				<field name="brown_gram"  />
+	            				<field name="brown"/>
+	            				<field name="brown_deduct"/>
+	            				<newline/>
+	            				<field name="mold_gram"  />
+	            				<field name="mold"/>
+	            				<field name="mold_deduct"/>
+	            				<newline/>
+	            				<field name="cherry_gram"  />
+	            				<field name="cherry"/>
+	            				<newline/>
+	            				<field name="excelsa_gram"  />
+	            				<field name="excelsa"/>
+	            				<field name="excelsa_deduct" />
+	            				<newline/>
+	            				<field name="screen18_gram"  />
+	            				<field name="screen18"/>
+	            				<newline/>
+	            				<field name="screen16_gram"  />
+	            				<field name="screen16"/>
+	            				<field name="oversc16"/>
+	            				<newline/>
+	            				<field name="screen13_gram"  />
+	            				<field name="screen13"/>
+	            				<field name="oversc13"/>
+	            				<newline/>
+	            				<field name="belowsc12_gram"  />
+	            				<field name="belowsc12"/>
+	            				<newline/>
+	            				<field name="burned_gram"  />
+	            				<field name="burned"/>
+	            				<field name="burned_deduct"/>
+	            				<newline/>
+	            				<field name="eaten_gram"  />
+	            				<field name="eaten"/>
+	            				<newline/>
+	            				<field name="immature_gram"  />
+	            				<field name="immature"/>
+	            				<newline/>
+	            				<field name="maize_yn"/>
+	            				<newline/>
+	            				<field name="stone_count"/>
+	            				<newline/>
+	            				<field name="stick_count"/>
+	            				<newline/>
+	            				<field name="bb12_gram" invisible="1"/>
+	            				<field name="bb12" invisible="1"/>
+	            				<field name="picking_type_code" invisible="1"/>
+	            				<field name="state" invisible="1"/>
+	            			</group>
+		                	<div class="oe_clear"/>
+	            		</page>
+	            		
+	            	</notebook>
+	            </notebook>
+	        </field>
+	    </record>  
+	    
+	    
+	          	
+    </data>
+</openerp>

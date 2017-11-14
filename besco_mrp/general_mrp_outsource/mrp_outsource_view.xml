@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<!-- Outsource Request Line -->
+    	<record id="view_mrp_outsource_request_line_tree" model="ir.ui.view">
+            <field name="name">mrp.outsource.request.line.tree</field>
+            <field name="model">mrp.outsource.request.line</field>
+            <field name="arch" type="xml">
+                <tree string="Outsource Request Line">
+                    <field name="product_id" options="{'no_write': True, 'no_create': True}"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom" options="{'no_write': True, 'no_create': True}"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_mrp_outsource_request_line_form" model="ir.ui.view">
+            <field name="name">mrp.outsource.request.line.form</field>
+            <field name="model">mrp.outsource.request.line</field>
+            <field name="arch" type="xml">
+                <form string="MRP Outsource Request Line">
+	                <sheet>
+	                	<group col="4">
+	                		<field name="product_id" options="{'no_write': True, 'no_create': True}"/>
+							<label for="product_qty"/>
+                            <div>
+	                            <field name="product_qty" class="oe_inline"/>
+                                <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button" options="{'no_write': True, 'no_create': True}"/>
+                            </div>
+	                	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Produced Products -->
+        <record id="view_produced_product_tree" model="ir.ui.view">
+            <field name="name">produced.product.tree</field>
+            <field name="model">produced.product</field>
+            <field name="arch" type="xml">
+                <tree string="Produced Products">
+                	<field name="production_id" invisible="1"/>
+    		 		<field name="operation_id" domain="[('production_id','=',production_id),('state','=','startworking')]"/>
+                    <field name="product_id"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_produced_product_form" model="ir.ui.view">
+            <field name="name">produced.product.form</field>
+            <field name="model">produced.product</field>
+            <field name="arch" type="xml">
+                <form string="Produced Products">
+	                <sheet>
+	                	<group>
+	                		<group>
+		                		<field name="production_id" invisible="1"/>
+                		 		<field name="operation_id" domain="[('production_id','=',production_id),('state','=','startworking')]" options="{'no_write': True, 'no_create': True}"/>
+	                		</group>
+	                		<group>
+	                			<field name="product_id" options="{'no_write': True, 'no_create': True}"/>
+								<label for="product_qty"/>
+	                            <div>
+		                            <field name="product_qty" class="oe_inline"/>
+	                                <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button" options="{'no_write': True, 'no_create': True}"/>
+	                            </div>
+	                		</group>
+	                	</group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Outsource Request -->
+        <record id="view_mrp_outsource_request_tree" model="ir.ui.view">
+            <field name="name">mrp.outsource.request.tree</field>
+            <field name="model">mrp.outsource.request</field>
+            <field name="arch" type="xml">
+                <tree string="MRP Outsource Request">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="production_id"/>
+                    <field name="date"/>
+                    <field name="deadline"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_mrp_outsource_request_form" model="ir.ui.view">
+            <field name="name">mrp.outsource.request.form</field>
+            <field name="model">mrp.outsource.request</field>
+            <field name="arch" type="xml">
+                <form string="MRP Outsource Request">
+                	<header>
+                	    <button name="button_approve" type="object" states='draft' string="Approve" class="oe_highlight"/>
+	                  	<button name="button_cancel" states="approved" string="Cancel" type="object" 
+	                    	confirm="Are you sure want to cancel?" class="oe_highlight"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_title">
+	                        <h1>
+	                            <field name="name"/>
+	                        </h1>
+	                    </div>
+	                	<group>
+	                		<group>
+	                			<field name="partner_id" domain="[('customer','=',True)]" 
+	                				context="{'search_default_customer':1, 'show_address': 1}" 
+	                				 options="{'no_write': True, 'no_create': True}"/>
+	                			<field name="type" invisible="1"/>
+	                			<label for="request_out_id" attrs="{'invisible': [('type','=','out')]}" domain="[('state','=','approved')]"/>
+								<div name="request_out_id" class="o_row" attrs="{'invisible': [('type','=','out')]}">
+									<field name="request_out_id" attrs="{'required': [('type','=','in')]}" options="{'no_write': True, 'no_create': True}"/>
+									<button name="button_load" string="Load" type="object" icon="terp-gtk-jump-to-ltr" states="draft" class="btn-default"/> 
+								</div>
+	                		</group>
+	                		<group>
+	                			<field name="date"/>
+	                			<field name="deadline"/>
+	                            <label for="production_id"/>
+								<div name="production_id" class="o_row">
+									<field name="production_id" domain="[('state','=','in_production')]" options="{'no_write': True, 'no_create': True}"/>
+									<button name="button_load_produced" string="Load" type="object" icon="terp-gtk-jump-to-ltr" 
+										attrs="{'invisible': ['|','|',('state','!=','draft'),('type','=','in')]}" class="btn-default"/> 
+								</div>
+								<field name="origin" placeholder="Source Document."/>
+	                		</group>
+	                	</group>
+	                	<notebook>
+	                		<page string="Materials" name="material">
+	                			<field name="request_ids">
+			                		 <tree string="MRP Outsource Request Line" editable="top">
+			                		 	<field name="sequence" widget="handle"/>
+					                    <field name="product_id" options="{'no_write': True, 'no_create': True}"/>
+					                    <field name="product_qty" />
+					                    <field name="product_uom" options="{'no_write': True, 'no_create': True}"/>
+					                </tree>
+			                	</field>
+			                	<field name="note" class="oe_inline" placeholder="Notes..."/>
+		                        <div class="oe_clear"/>
+		                        <group col="4">
+		                        	<field name="create_uid"/>
+		                			<field name="create_date"/>
+		                			<field name="user_approve"/>
+		                			<field name="date_approve"/>
+		                		</group>
+	                		</page>
+	                		<page string="Products to Produce" name="Products_to_produce" attrs="{'invisible': [('type','=','in')]}">
+	                			<field name="produced_ids" context="{'default_production_id': production_id}" domain="[('picking_type_code','in',('outsource_issue','outsource_receipt'))]">
+			                		 <tree string="MRP Outsource Request Line" editable="top">
+			                		 	<field name="sequence" widget="handle"/>
+			                		 	<field name="production_id" invisible="1"/>
+			                		 	<field name="operation_id" domain="[('production_id','=',production_id),('state','not in',('cancel','done'))]" options="{'no_write': True, 'no_create': True}"/>
+					                    <field name="product_id" options="{'no_write': True, 'no_create': True}"/>
+					                    <field name="product_qty"/>
+					                    <field name="product_uom" options="{'no_write': True, 'no_create': True}"/>
+					                </tree>
+			                	</field>
+	                		</page>
+	                		<page string="Other Information" name="other_information">
+	                			<group>
+		                			<group>
+		                				<field name="priority"/>
+		                				<field name="picking_no"/>
+		                			</group>
+		                			<group>
+		                				<field name="warehouse_id" options="{'no_write': True, 'no_create': True}"/>
+		                				<field name="location_src_id" options="{'no_write': True, 'no_create': True}"/>
+		                				<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+		                			</group>
+		                		</group>
+	                		</page>
+	                	</notebook>
+	                </sheet>
+	                <div class="oe_chatter">
+	                    <field name="message_follower_ids" widget="mail_followers"/>
+	                    <field name="message_ids" widget="mail_thread"/>
+	                </div>
+                </form>
+            </field>
+        </record>
+        
+       <record id="action_mrp_outsource_request_out" model="ir.actions.act_window">
+            <field name="name">MRP Outsource Request - Out</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.outsource.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','out')]</field>
+            <field name="context">{'default_type':'out'}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Request, the first step of a new Request.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_mrp_outsource_request_out" name="Outsource Request - Out" 
+        	parent="general_mrp_operations.menu_production_picking" sequence="4" action="action_mrp_outsource_request_out"/>
+        
+        <record id="action_mrp_outsource_request_in" model="ir.actions.act_window">
+            <field name="name">MRP Outsource Request - In</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.outsource.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','in')]</field>
+            <field name="context">{'default_type':'in'}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+              		Create a Request, the first step of a new Request.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem id="menu_action_mrp_outsource_request_in" name="Outsource Request - In" 
+        	parent="general_mrp_operations.menu_production_picking" sequence="4" action="action_mrp_outsource_request_in"/>
+        	
+        <!-- Production Orders -->
+        <record id="mrp_production_form_inherit_view2_mrp_outsource" model="ir.ui.view">
+	        <field name="name">mrp.production.form.inherit.view2.mrp.outsource</field>
+	        <field name="model">mrp.production</field>
+	        <field name="inherit_id" ref="general_mrp_operations.mrp_production_form_inherit_view2_besco_mrp"/>
+	        <field name="arch" type="xml">
+	        	<field name="request_ids" position="before">
+	        		<field name="picking_ids" invisible="1"/>
+					<button type="object" name="action_view_outsource_issue" class="oe_stat_button" icon="fa-truck" 
+							attrs="{'invisible': [('outsource_issue_count','=',0)]}">
+						<field name="outsource_issue_count" widget="statinfo" string="Request"/>
+					</button>
+					<button type="object" name="action_view_outsource_receipt" class="oe_stat_button" icon="fa-truck" 
+							attrs="{'invisible': [('outsource_receipt_count','=',0)]}">
+						<field name="outsource_receipt_count" widget="statinfo" string="Request"/>
+					</button>
+	        	</field>
+	        </field>
+	    </record>
+        	
+    </data>
+</openerp>

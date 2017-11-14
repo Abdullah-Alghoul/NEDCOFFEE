@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_hr_job_form_inherited_ned" model="ir.ui.view">
+			 <field name="name">view.hr.job.form.inherited.ned</field>
+			 <field name="model">hr.job</field>
+			 <field name="inherit_id" ref="hr.view_hr_job_form"/>
+			 <field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<label for="name_vn" class="oe_edit_only"/>
+					<h1><field name="name_vn" placeholder="Job Position Name Viet Nam"/></h1>
+				</xpath>
+			 </field>
+		</record>
+		
+		<record id="view_hr_applicant_form_inherited_ned" model="ir.ui.view">
+			 <field name="name">view.hr.applicant.form.inherited.ned</field>
+			 <field name="model">hr.applicant</field>
+			 <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+			 <field name="arch" type="xml">
+				<xpath expr="//field[@name='type_id']" position="after">
+					<field name="identification_id"/>
+					<field name="insurance_number"/>
+					<field name="tin"/>
+				</xpath>
+				<!-- <xpath expr="//group[2]" position="after">
+					<group string="Duplication">	
+						<field name="dup_employee_id" readonly="1"/>
+						<field name="notes" readonly="1"/>
+					</group>
+				</xpath> -->
+				<!-- <xpath expr="//button[@name='create_employee_from_applicant']" position="replace">
+					<button string="Create Employee" name="create_employee_from_applicant" type="object"
+                        class="oe_highlight" attrs="{'invisible': ['|', ('emp_id', '!=', False), ('dup_employee_id', '!=', False)]}"/>
+					<button string="Check Duplicate" name="check_duplicate_employee" type="object"
+                        class="oe_highlight" attrs="{'invisible': [('identification_id', '=', False), ('insurance_number', '=', False), ('tin', '=', False)]}"/>				
+				</xpath> -->
+			 </field>
+		</record>
+		
+		<menuitem id="hr_recruitment.menu_hr_recruitment_configuration" name="Configuration" parent="hr_recruitment.menu_hr_recruitment_root"
+        sequence="100" groups="base.group_configuration,base.group_hr_manager"/>
+        <menuitem
+        name="Applications"
+        parent="hr_recruitment.menu_hr_recruitment_root"
+        id="hr_recruitment.menu_crm_case_categ0_act_job" action="hr_recruitment.crm_case_categ0_act_job" sequence="2" groups="base.group_hr_manager"/>
+	</data>
+</openerp>

@@ -1,0 +1,120 @@
+<?xml version="1.0" ?>
+<openerp>
+<data>
+	<!-- Workflow definition -->
+		<!-- TOAN: Third Approval -->
+		<record model="workflow.activity" id="act_validate2"> <!-- second_accepted -->
+	        <field name="wkf_id" ref="hr_holidays.wkf_holidays" />
+	        <field name="name">second_validate</field>
+	        <field name="kind">function</field>
+	        <field name="action">holidays_second_validate()</field>
+	        <field name="split_mode">OR</field>
+	    </record>
+	
+	<!-- workflow transition -->
+		<!-- TOAN: Add triple transaction to work-flow -->
+	    
+	    <record model="workflow.transition" id="holiday_validate1_validate2"> <!-- 2. first_accepted -> second_accepted (validate signal) if triple_validation-->
+	        <field name="act_from" ref="hr_holidays.act_validate1" />
+	        <field name="act_to" ref="act_validate2" />
+	        <field name="signal">third_validate</field>
+	        <field name="condition">True</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	    
+	    <record model="workflow.transition" id="holiday_validate2_validate"> <!-- 4. second_accepted -> accepted (third_validate  signal) -->
+	        <field name="act_from" ref="act_validate2" />
+	        <field name="act_to" ref="hr_holidays.act_validate" />
+	        <field name="condition">True</field>
+	        <field name="signal">third_validate</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	    
+	    <record model="workflow.transition" id="holiday_validate2_refuse"> <!-- 4. second_accepted->refused (refuse signal) -->
+	        <field name="act_from" ref="act_validate2" />
+	        <field name="act_to" ref="hr_holidays.act_refuse" />
+	        <field name="signal">refuse</field>
+	        <field name="condition">True</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	    
+    <!--
+        workflow transition
+        THANH: Remove group Officer from each transaction
+    -->
+
+	    <record model="workflow.transition" id="hr_holidays.holiday_confirm2validate"> <!-- 2. submitted->accepted (validate signal) if not double_validation-->
+	        <field name="act_from" ref="hr_holidays.act_confirm" />
+	        <field name="act_to" ref="hr_holidays.act_validate" />
+	        <field name="signal">validate</field>
+	        <field name="condition">not double_validation and not triple_validation</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	
+	    <record model="workflow.transition" id="hr_holidays.holiday_confirm2validate1"> <!-- 2. submitted -> first_accepted (validate signal) if double_validation-->
+	        <field name="act_from" ref="hr_holidays.act_confirm" />
+	        <field name="act_to" ref="hr_holidays.act_validate1" />
+	        <field name="signal">validate</field>
+	        <field name="condition">double_validation or triple_validation</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	
+	    <record model="workflow.transition" id="hr_holidays.holiday_confirm2refuse"> <!-- 2. submitted->refused (refuse signal) -->
+	        <field name="act_from" ref="hr_holidays.act_confirm" />
+	        <field name="act_to" ref="hr_holidays.act_refuse" />
+	        <field name="signal">refuse</field>
+	        <field name="condition">True</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	
+	    <record model="workflow.transition" id="hr_holidays.holiday_validate2refuse"> <!-- 3. accepted->refused (refuse signal) -->
+	        <field name="act_from" ref="hr_holidays.act_validate" />
+	        <field name="act_to" ref="hr_holidays.act_refuse" />
+	        <field name="signal">refuse</field>
+	        <field name="condition">True</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	
+	    <record model="workflow.transition" id="hr_holidays.holiday_validate2refuse"> <!-- 3. accepted->refused (refuse signal) -->
+	        <field name="act_from" ref="hr_holidays.act_validate" />
+	        <field name="act_to" ref="hr_holidays.act_refuse" />
+	        <field name="signal">refuse</field>
+	        <field name="condition">True</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	
+	    <record model="workflow.transition" id="hr_holidays.holiday_validate1_validate"> <!-- 4. first_accepted -> accepted (second_validate  signal) -->
+	        <field name="act_from" ref="hr_holidays.act_validate1" />
+	        <field name="act_to" ref="hr_holidays.act_validate" />
+	        <field name="condition">True</field>
+	        <field name="signal">second_validate</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	
+	    <record model="workflow.transition" id="hr_holidays.holiday_validate1_refuse"> <!-- 4. first_accepted->refused (refuse signal) -->
+	        <field name="act_from" ref="hr_holidays.act_validate1" />
+	        <field name="act_to" ref="hr_holidays.act_refuse" />
+	        <field name="signal">refuse</field>
+	        <field name="condition">True</field>
+	        <field name="group_id" ref=""/>
+	    </record>
+	
+	<!-- Holidays-related subtypes for messaging / Chatter -->
+	    <record id="mt_holidays_second_validated" model="mail.message.subtype">
+            <field name="name">Waiting Third Validation</field>
+            <field name="res_model">hr.holidays</field>
+            <field name="default" eval="False"/>
+            <field name="description">Request validated, waiting third validation</field>
+        </record>
+        <!-- Department related subtypes for messaging / Chatter -->
+	    <record id="mt_department_holidays_second_validated" model="mail.message.subtype">
+            <field name="name">Leaves/Allocations Second Approval</field>
+            <field name="res_model">hr.department</field>
+            <field name="default" eval="False"/>
+            <field name="parent_id" eval="ref('mt_holidays_second_validated')"/>
+            <field name="relation_field">department_id</field>
+            <field name="sequence" eval="7"/>
+        </record>
+        
+</data>
+</openerp>

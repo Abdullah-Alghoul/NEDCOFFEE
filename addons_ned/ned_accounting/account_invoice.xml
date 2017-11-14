@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    	
+    	<record model="ir.ui.view" id="view_account_period_form_add_close_warehouse_modify">
+	        <field name="name">view.account.period.form.add.close.warehouse.modify</field>
+	        <field name="model">account.period</field>
+	        <field name="inherit_id" ref="general_account.view_account_period_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='special']" position="after">
+		            <field name="close_warehouse"/>
+		        </xpath>
+	        </field>
+        </record>
+    	
+    	<!-- Modify Account Journal -->
+		<record model="ir.ui.view" id="view_account_journal_form_add_unallow_generate_modify">
+	        <field name="name">view_account_journal_form_unallow_generate_modify</field>
+	        <field name="model">account.journal</field>
+	        <field name="inherit_id" ref="account.view_account_journal_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='update_posted']" position="after">
+		            <field name="unallow_generate_entry"/>
+		            <field name="pre_finance_id"/>
+		        </xpath>
+		        
+	        </field>
+        </record>
+    
+    	<record id="view_general_account_tree_inherit" model="ir.ui.view">
+            <field name="name">general.account.account.tree</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>
+            <field name="arch" type="xml">
+	            <xpath expr="//field[@name='name']" position="after">
+	            	<field name="name_eng"/>
+	            </xpath>
+            
+            </field>
+        </record>
+    	
+    	
+    	<record model="ir.ui.view" id="view_account_payment_general_modify_form_add_ned">
+	        <field name="name">view.account.payment.general.modify.form.add.ned</field>
+	        <field name="model">account.payment</field>
+	        <field name="inherit_id" ref="general_account.view_account_payment_general_modify_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='source_document']" position="after">
+		        	<field name="nvs_nls_id"/>
+		        </xpath>
+	        </field>
+       </record>
+       
+       
+    	<record model="ir.ui.view" id="view_account_customer_payment_tree_add_ned_modify">
+	        <field name="name">view.account.customer.payment.tree.add.ned.modify</field>
+	        <field name="model">account.payment</field>
+	        <field name="inherit_id" ref="general_account.view_account_customer_payment_tree_general_modify"/>
+	        <field name="arch" type="xml">
+		        <xpath expr="//field[@name='invoice_journal_id']" position="replace">
+	            	<field name="nvs_nls_id"/>
+		        </xpath>
+	        </field>
+        </record>
+        
+            	<!-- Kim: Search Account Invoiced -->
+    	<record model="ir.ui.view" id="view_account_invoice_filter_inherit_add_product_invoice_contract">
+	        <field name="name">view.account.invoice.filter.inherit.product.invoice.contract</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='journal_id']" position="after">
+                	<field name="purchase_contract_id"/>
+                	<field name="product_id"/>
+                	<filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	
+    	 <record model="ir.ui.view" id="invoice_tree_inherit_ned_sale_contract">
+	        <field name="name">invoice.tree.inherit.sale.ned.contract</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.invoice_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='amount_total_signed']" position="before">
+          			<field name="product_id"/>
+                	<field name="total_qty" sum="total_qty"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	
+    	<record id="invoice_form_inherit_add_stock_move" model="ir.ui.view">
+            <field name="name">invoice.form.inherit.add.stock.move</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">	
+	            <xpath expr="//field[@name='fiscal_position_id']" position="after">
+	            	<field name="stock_move_id" readonly="1"/>
+	            </xpath>
+	            <xpath expr="//field[@name='partner_id']" position="after">
+	            	<field name="res_partner_id" readonly="1"/>
+	            </xpath>
+	            <xpath expr="//field[@name='date_due']" position="after">
+	            	<field name="date_pre_finance"/>
+		            <field name="pre_finance_id" attrs="{'invisible': [('pre_finance_id','=', False)]}"/>
+		        </xpath>
+		        <xpath expr="//button[@name='invoice_cancel']" position="after">]
+		        	<button name="btt_clearing_debt" type="object" string="Clearing Debt"/>
+		        </xpath>
+		    </field>
+        </record>
+    	
+    	
+    	<!-- Kiet: Tree Account Invoiced -->
+    	<record model="ir.ui.view" id="invoice_supplier_tree_inherit_invoice_contract">
+	        <field name="name">invoice.supplier.tree.inherit.invoice.contract</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='residual_signed']" position="after">
+                	<field name="value_allocation"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	
+    	<record id="view_account_payment_search_add_contract_modify" model="ir.ui.view">
+            <field name="name">view.account.payment.search.add.contract.modify</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                	<field name="purchase_contract_id" string="Contract"/>
+                </xpath>
+            </field>
+        </record>
+    	
+    	<!-- Kiet: Tree Account Invoiced -->
+    	<record model="ir.ui.view" id="account_supplier_payment_tree_inherit_payment_contract">
+	        <field name="name">account.supplier.payment.tree.inherit.payment.contract.contract</field>
+	        <field name="model">account.payment</field>
+	        <field name="inherit_id" ref="account.view_account_supplier_payment_tree"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//field[@name='partner_id']" position="before">
+                	<field name="purchase_contract_id"/>
+                	<field name="payment_reference"/>
+          		</xpath>
+          	</field>
+    	</record>
+    	
+    	<!-- Account Invoice 
+		<record model="ir.ui.view" id="view_invoice_supplier_form_general_modify_inherit_invoice_contract">
+	        <field name="name">view.invoice.supplier.form.general.modify.inherit.invoice.contract</field>
+	        <field name="model">account.invoice</field>
+	        <field name="inherit_id" ref="general_account.view_invoice_supplier_form_general_modify"/>
+	        <field name="arch" type="xml">
+          		<xpath expr="//page[@name='Pickings']" position="replace">
+                	 <page string="Contract" name="Pickings">
+                	 	<field name="allocation_ids">
+                	 		<tree>
+                	 			<field name="contract_id"/>
+                	 			<field name="date_contract"/>
+                	 			<field name="value_allocation" sum="value_allocation"/>
+                	 		</tree>
+                	 	</field>
+                    </page>
+          		</xpath>
+          	</field>
+    	</record>
+    	-->
+    	<record id="purchase_contract_search_add_day_ned_modify" model="ir.ui.view">
+            <field name="name">purchase.contract.add.day.ned.modify.search</field>
+            <field name="model">purchase.contract</field>
+            <field name="inherit_id" ref="bes_purchase_contract.purchase_contract_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                	<filter string="Years" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'years_tz'}"/>
+                	<filter string="Month" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date_tz'}"/>
+                   	<filter string="Day" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'day_tz'}"/>
+                   	<filter string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                </xpath>
+            </field>
+        </record>
+        
+    	<record id="view_nvp_contract_allocation_invoiced_tree" model="ir.ui.view">
+            <field name="name">view.nvp.contract.allocation.invoiced.tree</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Allocation List"  decoration-info="state == 'draft'" decoration-muted="state in ('cancel','done')" decoration-danger="state in ('approved','validate')">
+                    <field name="name" string="NVP"/>
+                    <field name="origin" invisible="1"/>
+                    <field name="date_order"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="total_qty"/>
+                    <field name="qty_received" sum="qty_received" string="Qty Received"/>
+                    <field name="qty_unreceived" sum="qty_received"/>
+                    <field name="amount_sub_total" string="Sub total"/>
+                    <field name="values_invoiced" sum="values_invoiced"/>
+                    <field name="amount_deposit" sum="amount_deposit"/>
+                    <field name="amount_total" string="Total Payable"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="state" string="State" invisible="1"/>
+                    <field name="date_tz" invisible="1"/>
+                    <field name="day_tz" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+    	
+    	<record id="view_nvp_contract_allocation_invoiced_form" model="ir.ui.view">
+            <field name="name">view.nvp.contract.allocation.invoiced.form</field>
+            <field name="model">purchase.contract</field>
+            <field name="arch" type="xml">
+            	<form string="NVP Allocation List">
+	            	<header>
+	            		<button name="btt_allocation" string="Load GRN" type="object" invisible="1"/>
+						<button name="btt_load_invoice" string="Load Invoiced" type="object" states="approved" invisible="1"/>
+						<button name="printf_liquidation" string="Print Liquidation" type="object"/>
+						<button name="%(ned_contract.action_request_account_contract_payment)d" type ="action" class="oe_inline" string="Final Payment" states="approved"/>
+	            		<button name="button_done" type="object" string="Done" class="oe_highlight" states="approved"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,open,paid" statusbar_colors="{'proforma':'blue','proforma2':'blue'}" on_change="1" modifiers="{'readonly': true}"/>
+						
+					</header>
+					<sheet string="NVP">
+						<div class="oe_button_box" name="button_box" >
+	                        <button type="object"  name="action_view_invoice"
+	                            class="oe_stat_button"
+	                            icon="fa-pencil-square-o">
+	                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+	                        </button> 
+	                    </div>
+						
+						<div class="oe_title">
+	                        <h1>
+	                            <field name="name" readonly="1"/>
+	                        </h1>
+	                    </div>
+	                    
+	                    <group>
+	                    	<group>
+	                    		<field name="partner_id" domain="[('supplier','=',True),('company_type','=','company')]" readonly="1"/>
+	                    		<field name="origin" readonly="1"/>
+	                    		<field name="total_qty" readonly="1"/>
+	                    		<field name="product_id" readonly="1"/>
+	                    	</group>
+	                    	<group>
+	                    		<field name="date_order" readonly="1"/>
+	                    		<field name="warehouse_id" required="1" readonly="1"/>
+	                    		<field name="price_unit" readonly="1"/>
+	                    		<field name="qty_received" readonly="1"/>
+	                    	</group>
+	                    </group>
+	                    
+	                    <notebook>
+	                    	<page string="GRN Allocation">
+	                    		<field name="stock_allocation_ids">
+	                    			<tree editable="bottom">
+	                    				<field name="picking_id" string="GRN" readonly="0" domain="[('partner_id','=',parent.partner_id)
+	                    																		   ,('picking_type_code','=','incoming')]"/>
+	                    				<field name="date_picking" readonly="1"/>
+	                    				<field name="product_id" readonly="1"/>
+	                    				<field name="qty_allocation" sum="qty_allocation"/>
+	                    				<field name="qty_received" sum="qty_received" string="Allocated"/>
+					                 	<field name="qty_unreceived" sum="qty_unreceived" string="UnAllocated"/>
+					                 	<field name="compare_qty" invisible="1"/>
+					                 	<field name="state" invisible="1"/>
+					                 	<button name="approve_allocation" string="Approve" type ="object" states='draft' />
+					                 	<button name="cancel_allocation" string="Cancel" type = "object" states='approved'/>
+	                    			</tree>
+	                    		</field>
+	                    	</page>
+	                    	<page string="Invoice Allocation">
+	                    		<field name="currency_id" invisible="1"/>
+	                    		<field name="invoice_allocation_ids">
+	                    			<tree editable ="top">
+	                    				<field name="qty_allocation" sum="qty_allocation"/>
+	                    				<field name="value_allocation" sum="value_allocation"/>
+	                    				
+	                    				<field name="account_id" domain="[('partner_id','=',parent.partner_id)]"/>
+			               				<!-- <field name="qty_invoiced" sum="qty_invoiced"/>
+			               				<field name="amount_allocation" sum="amount_allocation"/>
+			               				<field name="price_unit" readonly="1"/> 
+			               				<field name="amount_total" sum="amount_total"/>
+			               				
+			               				<field name="currency_id" invisible="1"/>
+			               				<field name="amount_avaliable" sum="amount_avaliable"/>
+			               				 -->
+	                    			</tree>
+	                    		</field>
+	                    		<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+	                                <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                                <field name="amount_sub_total" class="oe_subtotal_footer_separator"/>
+	                                <field name="amount_sub_rel_total"/>
+	            					<field name="amount_deposit"  class="oe_subtotal_footer_separator"/>
+	            					<field name="total_interest_pay"/>
+	            
+	                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+	                                    <label for="amount_total" />
+	                                </div>
+	                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+	                            </group>
+	                            <field name="note" class="oe_inline" placeholder="Description"/>
+	                            <div class="oe_clear"/>
+	                    	</page>
+	                    	<page string="Payment" groups="account.group_account_user">
+		            			<group string="Payment Allocation">
+			            			<field name="pay_allocation_ids" nolabel="1">
+				             			<tree>
+				             				<field name="allocation_amount" sum="allocation_amount"/>
+				             				<field name="pay_id" invisible="1"/>
+				             				<field name="relation_contract_id"/>
+				             				<field name="payment_date"/>
+				             				<field name="payment_amount" sum="payment_amount"/>
+				             				<field name="payment_received" sum="payment_received"/>
+				             				<field name="payment_remain" sum="payment_remain"/>
+				             				<field name="total_interest_pay" sum="total_interest_pay"/>
+				             				<field name="currency_id" invisible="1"/>
+				             			</tree>
+				             			<form>
+				             				<header>
+				             					<button name="btt_load_interest" string="Load Interest" type="object"/>
+				             				</header>
+				             				<group col="4" string="Payment">
+					             				<field name="pay_id" readonly="1"/>
+					             				<field name="relation_contract_id"/>
+					             				<field name="payment_date"/>
+					             				<field name="payment_amount"/>
+					             				<field name="payment_received" sum="payment_received"/>
+					             				<field name="allocation_amount" sum="allocation_amount"/>
+					             				<field name="payment_remain" sum="payment_remain"/>
+					             				<field name="total_interest_pay" sum="total_interest_pay"/>
+				             				</group>
+				             				<newline/>
+				             				<page string="Interest Rate">
+				             					<field name="allocation_line_ids">	
+				             						<tree editable="top">
+				             							<field name="month"/>
+				             							<field name="from_date"/>
+				             							<field name="to_date"/>
+				             							<field name="total_date"/>
+				             							<field name="rate"/>
+				             							<field name="interest_pay" sum="interest_pay"/>
+				             							<field name="actual_interest_pay" sum="actual_interest_pay"/>
+				             						</tree>
+				             					</field>
+				             				</page>
+			             			</form>
+		             			</field>
+		             			<newline/>
+	             			</group>
+	             			<group>
+	             				<field name="payment_ids" string="History Payment"/>
+	             			</group>
+	             			
+                    	</page>
+                    	<page string="Journal Entries" groups="account.group_account_user">
+                    		<field name="move_ids">
+                    			<tree>
+                    				<field name="name"/>
+                    				<field name="date"/>
+                    				<field name="partner_id"/>
+                    				<field name="narration"/>
+                    				<field name="journal_id"/>
+                   				    <field name="amount" sum="Total Amount"/>
+                    				<field name="state" invisible="1"/>
+                    				<field name="currency_id" invisible="1"/>
+                    			</tree>
+                    		</field>
+                    	</page>
+                    	
+	                    </notebook>
+					</sheet>
+				</form>
+            </field>
+        </record>
+        
+        <record id="action_nvp_contract_allocation_invoiced" model="ir.actions.act_window">
+            <field name="name">Allocation</field>
+            <field name="res_model">purchase.contract</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="priority">200</field>
+            <field name="domain">[('state','!=','draft')]</field>
+            <field name="context" eval="{'search_by_field_date': ['date_order']}"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create an internal move request. 
+              </p><p>
+                Most operations are prepared automatically by OpenERP according
+                to your preconfigured logistics rules, but you can also record
+                manual stock movements.
+              </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_stock_grn_contract_allocation_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_nvp_contract_allocation_invoiced_tree"/>
+            <field name="act_window_id" ref="action_nvp_contract_allocation_invoiced"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="stock_grn_contract_allocation_form">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_nvp_contract_allocation_invoiced_form"/>
+            <field name="act_window_id" ref="action_nvp_contract_allocation_invoiced"/>
+        </record>
+        
+        
+        <menuitem id="menu_action_nvp_contract_allocation_invoiced" 
+        	action="action_nvp_contract_allocation_invoiced" sequence="20" 
+        	parent="bes_purchase_contract.menu_purchase_contract"
+        	groups="account.group_account_user"/>
+    	
+    
+    </data>
+</openerp>

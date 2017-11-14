@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+invoiced_allocation_purchase_user,invoiced_allocation_purchase_user,model_invoiced_allocation,bes_purchase_contract.group_purchase_contract_user,1,1,1,1
+invoiced_allocation_account_user,invoiced_allocation_account_user,model_invoiced_allocation,account.group_account_invoice,1,1,1,1
+
+account_invoice_purchase_user,account_invoice_purchase_user,model_account_invoice,bes_purchase_contract.group_purchase_contract_user,1,1,1,1

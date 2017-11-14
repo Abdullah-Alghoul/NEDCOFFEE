@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+    	<record id="view_account_invoice_reconciliation_tree" model="ir.ui.view">
+            <field name="name">view_account_invoice_reconciliation_tree</field>
+            <field name="model">account.invoice.reconciliation</field>
+            <field name="arch" type="xml">
+            	<tree>
+            		<field name="partner_id"/>
+            		<field name="reconcile_date"/>
+            		<field name="fixed_amount"/>
+            		<field name="currency_id"/>
+            		<field name="company_id" groups="base.group_multi_company" readonly="1"/>
+            		<field name="state"/>
+            	</tree>
+            </field>
+        </record>
+        
+		<!-- Thanh: Modify Invoice Form -->
+		<record model="ir.ui.view" id="view_account_invoice_reconciliation_form">
+	        <field name="name">view_account_invoice_reconciliation_form</field>
+	        <field name="model">account.invoice.reconciliation</field>
+	        <field name="arch" type="xml">
+	        	<form>
+	        		<header>
+	        			<button name="action_reconcile" type="object" string="Reconcile" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+	        			<button name="action_cancel" type="object" string="Cancel"/>
+	        			<button name="set_to_draft" type="object" string="Set to Draft" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+	        			<field name="state" widget="statusbar" statusbar_visible="draft,posted" statusbar_colors='{"draft":"blue"}'/>
+	                </header>
+	                <sheet>
+	                	<div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="button_journal_entries"
+                                    string="Journal Entry" type="object"
+                                    attrs="{'invisible':[('move_id','=',False)]}" icon="fa-bars"/>
+                            <field name="move_id" invisible="1"/>
+                        </div>
+	                	<group>
+	                        <group>
+	                            <field name="partner_id"/>
+	                            <label for="fixed_amount"/>
+			           			<div>
+				                    <div class="o_row">
+										<field name="fixed_amount"/>
+										<button name="load_invoice" string="Load Invoices" type="object" icon="terp-gtk-jump-to-ltr"/>
+										<button name="allocate_invoice" string="Allocate" type="object"/>
+									</div>
+								</div>
+	                        </group>
+	                        <group>
+	                        	<field name="journal_id"/>
+	                        	<field name="reconcile_date"/>
+	                            <field name="currency_id"/>
+	                            <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+	                        </group>
+	                    </group>
+	                    <group>
+		                    <group string="Customer Invoices">
+		                    	<field name="customer_invoice_lines" nolabel='1'>
+		                    		<tree editable="top">
+		                    			<field name="invoice_id" domain="[('type','=','out_invoice'),
+		                    				('currency_id','=',parent.currency_id),('partner_id','=',parent.partner_id),('state','=','open')]"/>
+		                    			<field name="date_invoice"/>
+		                            	<field name="currency_id" invisible="1"/>
+		                            	<field name="amount_total_signed" sum="Total"/>
+		                            	<field name="residual_signed" sum="Total"/>
+		                            	<field name="allocated_amount" sum="Total"/>
+		                    		</tree>
+		                    	</field>
+		                    </group>
+		                    <group  string="Vendor Invoices">
+		                    	<field name="vendor_invoice_lines" nolabel='1'>
+		                    		<tree editable="top">
+		                    			<field name="invoice_id" domain="[('type','=','in_invoice'),
+		                    				('currency_id','=',parent.currency_id),('partner_id','=',parent.partner_id),('state','=','open')]"/>
+		                            	<field name="date_invoice"/>
+		                            	<field name="currency_id" invisible="1"/>
+		                            	<field name="amount_total_signed" sum="Total"/>
+		                            	<field name="residual_signed" sum="Total"/>
+		                            	<field name="allocated_amount" sum="Total"/>
+		                    		</tree>
+		                    	</field>
+		                    </group>
+	                    </group>
+	                </sheet>
+	        	</form>
+	        </field>
+        </record>
+        
+        <!-- Thanh: Add search date range -->
+		<record id="action_account_invoice_reconciliation" model="ir.actions.act_window">
+            <field name="name">Partner Reconciliations</field>
+            <field name="res_model">account.invoice.reconciliation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem
+        	name="Partner Reconciliations"
+            action="action_account_invoice_reconciliation"
+            id="menu_action_account_invoice_reconciliation"
+            parent="account.menu_finance_entries"
+            groups="account.group_account_user"
+            sequence="3"/>
+            
+    </data>
+</openerp>
